@@ -6,6 +6,12 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
+} from '@/components/ui/dialog'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select'
@@ -335,54 +341,53 @@ export function ChecklistsView() {
 
       {/* Modal de registro rápido de entrega */}
       {showEntrega && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => setShowEntrega(null)}>
-          <div className="bg-background rounded-lg shadow-lg max-w-md w-full p-6 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            <h3 className="font-semibold text-lg flex items-center gap-2 mb-2">
-              <Truck className="h-5 w-5" />
-              Registrar entrega
-            </h3>
-            <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-              {showEntrega.descricao}
-            </p>
+        <Dialog open onOpenChange={(o) => !o && setShowEntrega(null)}>
+          <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Truck className="h-5 w-5" />
+                Registrar entrega
+              </DialogTitle>
+              <DialogDescription className="line-clamp-2">
+                {showEntrega.descricao}
+              </DialogDescription>
+            </DialogHeader>
             {showEntrega.categoriaNome === 'Documento' && (
-              <p className="text-xs text-sky-700 bg-sky-50 border border-sky-200 rounded p-2 mb-4">
+              <p className="text-xs text-sky-700 bg-sky-50 border border-sky-200 rounded p-2">
                 <Paperclip className="h-3.5 w-3.5 inline mr-1" />
                 Item da categoria <b>Documento</b> — anexar o arquivo é <b>obrigatório</b>.
               </p>
             )}
-            <div className="space-y-3">
-              <div>
-                <label className="text-sm font-medium block mb-1">Data</label>
-                <input
+            <div className="space-y-3 py-2">
+              <div className="space-y-1.5">
+                <Label>Data</Label>
+                <Input
                   type="date"
-                  className="w-full px-3 py-2 border rounded-md bg-background"
                   value={entregaForm.dataEntrega}
                   onChange={e => setEntregaForm(f => ({ ...f, dataEntrega: e.target.value }))}
                 />
               </div>
-              <div>
-                <label className="text-sm font-medium block mb-1">Quantidade</label>
-                <input
+              <div className="space-y-1.5">
+                <Label>Quantidade</Label>
+                <Input
                   type="number"
                   min="1"
-                  className="w-full px-3 py-2 border rounded-md bg-background"
                   value={entregaForm.quantidade}
                   onChange={e => setEntregaForm(f => ({ ...f, quantidade: parseInt(e.target.value) || 1 }))}
                 />
               </div>
-              <div>
-                <label className="text-sm font-medium block mb-1">Observação</label>
-                <textarea
+              <div className="space-y-1.5">
+                <Label>Observação</Label>
+                <Textarea
                   rows={2}
-                  className="w-full px-3 py-2 border rounded-md bg-background resize-none"
                   placeholder="Opcional"
                   value={entregaForm.observacao}
                   onChange={e => setEntregaForm(f => ({ ...f, observacao: e.target.value }))}
                 />
               </div>
-              <div>
-                <label className="text-sm font-medium block mb-1">Foto do item recebido (opcional)</label>
-                <p className="text-xs text-muted-foreground mb-2">
+              <div className="space-y-1.5">
+                <Label>Foto do item recebido (opcional)</Label>
+                <p className="text-xs text-muted-foreground">
                   Registre uma foto do item no momento do recebimento da CAROLDO, antes de repassar ao terceirizado.
                 </p>
                 {!foto ? (
@@ -415,11 +420,9 @@ export function ChecklistsView() {
                 )}
               </div>
               {showEntrega.categoriaNome === 'Documento' && (
-                <div>
-                  <label className="text-sm font-medium block mb-1">
-                    Anexo do documento (opcional)
-                  </label>
-                  <p className="text-xs text-sky-700 bg-sky-50 border border-sky-200 rounded p-2 mb-2">
+                <div className="space-y-1.5">
+                  <Label>Anexo do documento (opcional)</Label>
+                  <p className="text-xs text-sky-700 bg-sky-50 border border-sky-200 rounded p-2">
                     <Paperclip className="h-3.5 w-3.5 inline mr-1" />
                     Para itens da categoria <b>Documento</b>, você pode anexar o arquivo digitalizado.
                   </p>
@@ -465,14 +468,14 @@ export function ChecklistsView() {
                 </div>
               )}
             </div>
-            <div className="flex justify-end gap-2 mt-5">
+            <DialogFooter>
               <Button variant="outline" onClick={() => setShowEntrega(null)}>Cancelar</Button>
               <Button onClick={registrarEntrega} disabled={savingEntrega}>
                 {savingEntrega ? 'Salvando...' : 'Confirmar entrega'}
               </Button>
-            </div>
-          </div>
-        </div>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       )}
 
       <ItemVisualizacaoModal

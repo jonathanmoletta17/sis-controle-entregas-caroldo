@@ -354,24 +354,18 @@ export function ColaboradorDetalheView() {
               </p>
             </div>
           ) : (
-            <Table className="table-fixed">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[9%]">Data</TableHead>
-                  <TableHead className="w-[9%]">Categoria</TableHead>
-                  <TableHead className="w-[38%]">Item</TableHead>
-                  <TableHead className="w-[5%] text-center">Qtd</TableHead>
-                  <TableHead className="w-[15%]">Observação</TableHead>
-                  <TableHead className="w-[12%]">Foto</TableHead>
-                  <TableHead className="w-[8%]">Anexo</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+            <>
+              {/* Mobile: cards empilhados */}
+              <div className="md:hidden divide-y">
                 {colab.entregas.map(e => (
-                  <TableRow key={e.id}>
-                    <TableCell className="tabular-nums whitespace-nowrap align-top text-sm">{formatDate(e.dataEntrega)}</TableCell>
-                    <TableCell className="align-top">
-                      <span className={`text-xs px-2 py-0.5 rounded inline-block ${
+                  <div key={e.id} className="p-3 space-y-2">
+                    <div className="text-xs text-muted-foreground">{formatDate(e.dataEntrega)}</div>
+                    <button
+                      onClick={() => setVisualizandoItem(e.item)}
+                      className="w-full text-left hover:underline"
+                      title="Clique para ver a imagem do item"
+                    >
+                      <span className={`text-xs px-1.5 py-0.5 rounded inline-block mb-1 ${
                         e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800' :
                         e.item.categoria.nome === 'EPI' ? 'bg-rose-100 text-rose-800' :
                         e.item.categoria.nome === 'Uniforme' ? 'bg-violet-100 text-violet-800' :
@@ -379,51 +373,111 @@ export function ColaboradorDetalheView() {
                       }`}>
                         {e.item.categoria.nome}
                       </span>
-                    </TableCell>
-                    <TableCell className="align-top">
-                      <button
-                        onClick={() => setVisualizandoItem(e.item)}
-                        className="hover:underline text-left block w-full"
-                        title="Clique para ver a imagem do item"
-                      >
-                        <div className="line-clamp-3 text-sm leading-snug">{e.item.descricao}</div>
-                      </button>
-                    </TableCell>
-                    <TableCell className="text-center tabular-nums align-top">{e.quantidade}</TableCell>
-                    <TableCell className="text-xs text-muted-foreground align-top">
-                      <div className="line-clamp-2 leading-snug" title={e.observacao || ''}>
-                        {e.observacao || '—'}
+                      <div className="text-sm leading-snug">{e.item.descricao}</div>
+                    </button>
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
+                      <span>Qtd: <b className="text-foreground">{e.quantidade}</b></span>
+                      {e.observacao && <span className="italic">"{e.observacao}"</span>}
+                    </div>
+                    {(e.fotoUrl || e.anexoUrl) && (
+                      <div className="flex items-center gap-3">
+                        {e.fotoUrl && (
+                          <a href={e.fotoUrl} target="_blank" rel="noopener noreferrer" title="Ver foto do recebimento">
+                            <img src={e.fotoUrl} alt="Foto do recebimento" className="h-10 w-10 object-cover rounded border" />
+                          </a>
+                        )}
+                        {e.anexoUrl && (
+                          <a
+                            href={e.anexoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs text-sky-700 hover:underline"
+                            title={e.anexoNome || 'Abrir anexo'}
+                          >
+                            <Paperclip className="h-3.5 w-3.5" />
+                            <span className="truncate max-w-[160px]">{e.anexoNome || 'anexo'}</span>
+                          </a>
+                        )}
                       </div>
-                    </TableCell>
-                    <TableCell className="align-top">
-                      {e.fotoUrl ? (
-                        <a href={e.fotoUrl} target="_blank" rel="noopener noreferrer" title="Ver foto do recebimento">
-                          <img src={e.fotoUrl} alt="Foto do recebimento" className="h-10 w-10 object-cover rounded border" />
-                        </a>
-                      ) : (
-                        <span className="text-xs text-muted-foreground">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="align-top">
-                      {e.anexoUrl ? (
-                        <a
-                          href={e.anexoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-sky-700 hover:underline"
-                          title={e.anexoNome || 'Abrir anexo'}
-                        >
-                          <Paperclip className="h-3.5 w-3.5" />
-                          <span className="truncate max-w-[60px]">{e.anexoNome || 'anexo'}</span>
-                        </a>
-                      ) : (
-                        <span className="text-xs text-muted-foreground">—</span>
-                      )}
-                    </TableCell>
-                  </TableRow>
+                    )}
+                  </div>
                 ))}
-              </TableBody>
-            </Table>
+              </div>
+
+              {/* Desktop/tablet: tabela */}
+              <div className="hidden md:block">
+                <Table className="table-fixed">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[9%]">Data</TableHead>
+                      <TableHead className="w-[9%]">Categoria</TableHead>
+                      <TableHead className="w-[38%]">Item</TableHead>
+                      <TableHead className="w-[5%] text-center">Qtd</TableHead>
+                      <TableHead className="w-[15%]">Observação</TableHead>
+                      <TableHead className="w-[12%]">Foto</TableHead>
+                      <TableHead className="w-[8%]">Anexo</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {colab.entregas.map(e => (
+                      <TableRow key={e.id}>
+                        <TableCell className="tabular-nums whitespace-nowrap align-top text-sm">{formatDate(e.dataEntrega)}</TableCell>
+                        <TableCell className="align-top">
+                          <span className={`text-xs px-2 py-0.5 rounded inline-block ${
+                            e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800' :
+                            e.item.categoria.nome === 'EPI' ? 'bg-rose-100 text-rose-800' :
+                            e.item.categoria.nome === 'Uniforme' ? 'bg-violet-100 text-violet-800' :
+                            'bg-sky-100 text-sky-800'
+                          }`}>
+                            {e.item.categoria.nome}
+                          </span>
+                        </TableCell>
+                        <TableCell className="align-top">
+                          <button
+                            onClick={() => setVisualizandoItem(e.item)}
+                            className="hover:underline text-left block w-full"
+                            title="Clique para ver a imagem do item"
+                          >
+                            <div className="line-clamp-3 text-sm leading-snug">{e.item.descricao}</div>
+                          </button>
+                        </TableCell>
+                        <TableCell className="text-center tabular-nums align-top">{e.quantidade}</TableCell>
+                        <TableCell className="text-xs text-muted-foreground align-top">
+                          <div className="line-clamp-2 leading-snug" title={e.observacao || ''}>
+                            {e.observacao || '—'}
+                          </div>
+                        </TableCell>
+                        <TableCell className="align-top">
+                          {e.fotoUrl ? (
+                            <a href={e.fotoUrl} target="_blank" rel="noopener noreferrer" title="Ver foto do recebimento">
+                              <img src={e.fotoUrl} alt="Foto do recebimento" className="h-10 w-10 object-cover rounded border" />
+                            </a>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          )}
+                        </TableCell>
+                        <TableCell className="align-top">
+                          {e.anexoUrl ? (
+                            <a
+                              href={e.anexoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs text-sky-700 hover:underline"
+                              title={e.anexoNome || 'Abrir anexo'}
+                            >
+                              <Paperclip className="h-3.5 w-3.5" />
+                              <span className="truncate max-w-[60px]">{e.anexoNome || 'anexo'}</span>
+                            </a>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>

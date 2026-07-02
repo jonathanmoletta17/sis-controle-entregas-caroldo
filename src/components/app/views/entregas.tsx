@@ -145,100 +145,174 @@ export function EntregasView() {
               </p>
             </div>
           ) : (
-            <Table className="table-fixed">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[8%]">Data</TableHead>
-                  <TableHead className="w-[15%]">Terceirizado</TableHead>
-                  <TableHead className="w-[9%]">Posto</TableHead>
-                  <TableHead className="w-[8%]">Categoria</TableHead>
-                  <TableHead className="w-[22%]">Item</TableHead>
-                  <TableHead className="w-[4%] text-center">Qtd</TableHead>
-                  <TableHead className="w-[12%]">Observação</TableHead>
-                  <TableHead className="w-[10%]">Foto</TableHead>
-                  <TableHead className="w-[7%]">Anexo</TableHead>
-                  <TableHead className="w-[3%]"></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+            <>
+              {/* Mobile: cards empilhados */}
+              <div className="md:hidden divide-y">
                 {entregas.map(e => (
-                  <TableRow key={e.id}>
-                    <TableCell className="tabular-nums whitespace-nowrap align-top text-sm">{formatDate(e.dataEntrega)}</TableCell>
-                    <TableCell className="align-top">
-                      <button onClick={() => openColaborador(e.colaborador.id)} className="font-medium hover:underline text-left block w-full">
-                        <div className="line-clamp-2 text-sm leading-snug">{e.colaborador.nomeCompleto}</div>
+                  <div key={e.id} className="p-3 space-y-2">
+                    <div className="flex items-start justify-between gap-2">
+                      <button onClick={() => openColaborador(e.colaborador.id)} className="text-left min-w-0">
+                        <div className="font-medium text-sm hover:underline truncate">{e.colaborador.nomeCompleto}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {e.colaborador.posto?.nome || 'sem posto'} · {formatDate(e.dataEntrega)}
+                        </div>
                       </button>
-                    </TableCell>
-                    <TableCell className="align-top">
-                      <div className="line-clamp-2 text-sm leading-snug">{e.colaborador.posto?.nome || '—'}</div>
-                    </TableCell>
-                    <TableCell className="align-top">
-                      <span className={`text-xs px-2 py-0.5 rounded inline-block ${
-                        e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800' :
-                        e.item.categoria.nome === 'EPI' ? 'bg-rose-100 text-rose-800' :
-                        e.item.categoria.nome === 'Uniforme' ? 'bg-violet-100 text-violet-800' :
-                        'bg-sky-100 text-sky-800'
-                      }`}>
-                        {e.item.categoria.nome}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-sm align-top">
-                      <button
-                        onClick={() => setVisualizandoItem(e.item)}
-                        className="hover:underline text-left flex gap-2 items-start w-full"
-                        title="Clique para ver a imagem do item"
-                      >
-                        {e.item.imagemUrl && (
-                          <img
-                            src={e.item.imagemUrl}
-                            alt=""
-                            className="h-8 w-8 object-cover rounded border shrink-0"
-                            onError={(ev) => { (ev.target as HTMLImageElement).style.display = 'none' }}
-                          />
-                        )}
-                        <div className="line-clamp-3 leading-snug flex-1 min-w-0">{e.item.descricao}</div>
-                      </button>
-                    </TableCell>
-                    <TableCell className="text-center tabular-nums align-top">{e.quantidade}</TableCell>
-                    <TableCell className="text-xs text-muted-foreground align-top">
-                      <div className="line-clamp-2 leading-snug" title={e.observacao || ''}>
-                        {e.observacao || '—'}
-                      </div>
-                    </TableCell>
-                    <TableCell className="align-top">
-                      {e.fotoUrl ? (
-                        <a href={e.fotoUrl} target="_blank" rel="noopener noreferrer" title="Ver foto do recebimento">
-                          <img src={e.fotoUrl} alt="Foto do recebimento" className="h-10 w-10 object-cover rounded border" />
-                        </a>
-                      ) : (
-                        <span className="text-xs text-muted-foreground">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="align-top">
-                      {e.anexoUrl ? (
-                        <a
-                          href={e.anexoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-sky-700 hover:underline"
-                          title={e.anexoNome || 'Abrir anexo'}
-                        >
-                          <Paperclip className="h-3.5 w-3.5" />
-                          <span className="truncate max-w-[80px]">{e.anexoNome || 'anexo'}</span>
-                        </a>
-                      ) : (
-                        <span className="text-xs text-muted-foreground">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="align-top">
-                      <Button variant="ghost" size="icon" onClick={() => excluir(e.id)} className="h-8 w-8 text-muted-foreground hover:text-destructive">
+                      <Button variant="ghost" size="icon" onClick={() => excluir(e.id)} className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive">
                         <Trash2 className="h-3.5 w-3.5" />
                       </Button>
-                    </TableCell>
-                  </TableRow>
+                    </div>
+                    <button
+                      onClick={() => setVisualizandoItem(e.item)}
+                      className="flex gap-2 items-start w-full text-left hover:underline"
+                      title="Clique para ver a imagem do item"
+                    >
+                      {e.item.imagemUrl && (
+                        <img
+                          src={e.item.imagemUrl}
+                          alt=""
+                          className="h-10 w-10 object-cover rounded border shrink-0"
+                          onError={(ev) => { (ev.target as HTMLImageElement).style.display = 'none' }}
+                        />
+                      )}
+                      <div className="min-w-0 flex-1">
+                        <span className={`text-xs px-1.5 py-0.5 rounded inline-block mb-1 ${
+                          e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800' :
+                          e.item.categoria.nome === 'EPI' ? 'bg-rose-100 text-rose-800' :
+                          e.item.categoria.nome === 'Uniforme' ? 'bg-violet-100 text-violet-800' :
+                          'bg-sky-100 text-sky-800'
+                        }`}>
+                          {e.item.categoria.nome}
+                        </span>
+                        <div className="text-sm leading-snug">{e.item.descricao}</div>
+                      </div>
+                    </button>
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
+                      <span>Qtd: <b className="text-foreground">{e.quantidade}</b></span>
+                      {e.observacao && <span className="italic">"{e.observacao}"</span>}
+                    </div>
+                    {(e.fotoUrl || e.anexoUrl) && (
+                      <div className="flex items-center gap-3">
+                        {e.fotoUrl && (
+                          <a href={e.fotoUrl} target="_blank" rel="noopener noreferrer" title="Ver foto do recebimento">
+                            <img src={e.fotoUrl} alt="Foto do recebimento" className="h-10 w-10 object-cover rounded border" />
+                          </a>
+                        )}
+                        {e.anexoUrl && (
+                          <a
+                            href={e.anexoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs text-sky-700 hover:underline"
+                            title={e.anexoNome || 'Abrir anexo'}
+                          >
+                            <Paperclip className="h-3.5 w-3.5" />
+                            <span className="truncate max-w-[160px]">{e.anexoNome || 'anexo'}</span>
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 ))}
-              </TableBody>
-            </Table>
+              </div>
+
+              {/* Desktop/tablet: tabela */}
+              <div className="hidden md:block">
+                <Table className="table-fixed">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[8%]">Data</TableHead>
+                      <TableHead className="w-[15%]">Terceirizado</TableHead>
+                      <TableHead className="w-[9%]">Posto</TableHead>
+                      <TableHead className="w-[8%]">Categoria</TableHead>
+                      <TableHead className="w-[22%]">Item</TableHead>
+                      <TableHead className="w-[4%] text-center">Qtd</TableHead>
+                      <TableHead className="w-[12%]">Observação</TableHead>
+                      <TableHead className="w-[10%]">Foto</TableHead>
+                      <TableHead className="w-[7%]">Anexo</TableHead>
+                      <TableHead className="w-[3%]"></TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {entregas.map(e => (
+                      <TableRow key={e.id}>
+                        <TableCell className="tabular-nums whitespace-nowrap align-top text-sm">{formatDate(e.dataEntrega)}</TableCell>
+                        <TableCell className="align-top">
+                          <button onClick={() => openColaborador(e.colaborador.id)} className="font-medium hover:underline text-left block w-full">
+                            <div className="line-clamp-2 text-sm leading-snug">{e.colaborador.nomeCompleto}</div>
+                          </button>
+                        </TableCell>
+                        <TableCell className="align-top">
+                          <div className="line-clamp-2 text-sm leading-snug">{e.colaborador.posto?.nome || '—'}</div>
+                        </TableCell>
+                        <TableCell className="align-top">
+                          <span className={`text-xs px-2 py-0.5 rounded inline-block ${
+                            e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800' :
+                            e.item.categoria.nome === 'EPI' ? 'bg-rose-100 text-rose-800' :
+                            e.item.categoria.nome === 'Uniforme' ? 'bg-violet-100 text-violet-800' :
+                            'bg-sky-100 text-sky-800'
+                          }`}>
+                            {e.item.categoria.nome}
+                          </span>
+                        </TableCell>
+                        <TableCell className="text-sm align-top">
+                          <button
+                            onClick={() => setVisualizandoItem(e.item)}
+                            className="hover:underline text-left flex gap-2 items-start w-full"
+                            title="Clique para ver a imagem do item"
+                          >
+                            {e.item.imagemUrl && (
+                              <img
+                                src={e.item.imagemUrl}
+                                alt=""
+                                className="h-8 w-8 object-cover rounded border shrink-0"
+                                onError={(ev) => { (ev.target as HTMLImageElement).style.display = 'none' }}
+                              />
+                            )}
+                            <div className="line-clamp-3 leading-snug flex-1 min-w-0">{e.item.descricao}</div>
+                          </button>
+                        </TableCell>
+                        <TableCell className="text-center tabular-nums align-top">{e.quantidade}</TableCell>
+                        <TableCell className="text-xs text-muted-foreground align-top">
+                          <div className="line-clamp-2 leading-snug" title={e.observacao || ''}>
+                            {e.observacao || '—'}
+                          </div>
+                        </TableCell>
+                        <TableCell className="align-top">
+                          {e.fotoUrl ? (
+                            <a href={e.fotoUrl} target="_blank" rel="noopener noreferrer" title="Ver foto do recebimento">
+                              <img src={e.fotoUrl} alt="Foto do recebimento" className="h-10 w-10 object-cover rounded border" />
+                            </a>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          )}
+                        </TableCell>
+                        <TableCell className="align-top">
+                          {e.anexoUrl ? (
+                            <a
+                              href={e.anexoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs text-sky-700 hover:underline"
+                              title={e.anexoNome || 'Abrir anexo'}
+                            >
+                              <Paperclip className="h-3.5 w-3.5" />
+                              <span className="truncate max-w-[80px]">{e.anexoNome || 'anexo'}</span>
+                            </a>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          )}
+                        </TableCell>
+                        <TableCell className="align-top">
+                          <Button variant="ghost" size="icon" onClick={() => excluir(e.id)} className="h-8 w-8 text-muted-foreground hover:text-destructive">
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>

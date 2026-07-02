@@ -127,77 +127,125 @@ export function ItensView() {
               <p className="text-sm text-muted-foreground">Nenhum item encontrado com este filtro.</p>
             </div>
           ) : (
-            <Table className="table-fixed">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[5%]"></TableHead>
-                  <TableHead className="w-[40%]">Descrição</TableHead>
-                  <TableHead className="w-[10%]">Categoria</TableHead>
-                  <TableHead className="w-[24%]">Postos vinculados</TableHead>
-                  <TableHead className="w-[7%] text-center">Entregas</TableHead>
-                  <TableHead className="w-[9%]">Status</TableHead>
-                  <TableHead className="w-[5%]"></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+            <>
+              {/* Mobile: cards empilhados */}
+              <div className="md:hidden divide-y">
                 {filtrados.slice(0, 200).map(i => (
-                  <TableRow
-                    key={i.id}
-                    className="cursor-pointer hover:bg-accent/50"
-                    onClick={() => setVisualizando(i)}
-                  >
-                    <TableCell className="align-top">
-                      {i.imagemUrl ? (
-                        <img
-                          src={i.imagemUrl}
-                          alt=""
-                          className="h-10 w-10 object-cover rounded border bg-muted"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none'
-                          }}
-                        />
-                      ) : (
-                        <div className="h-10 w-10 rounded border bg-muted flex items-center justify-center">
-                          <ImageOff className="h-3.5 w-3.5 text-muted-foreground opacity-50" />
-                        </div>
-                      )}
-                    </TableCell>
-                    <TableCell className="align-top">
-                      <div className="line-clamp-3 text-sm leading-snug whitespace-normal break-words" title={i.descricao}>
-                        {i.descricao}
+                  <div key={i.id} className="p-3 flex gap-3 items-start cursor-pointer hover:bg-accent/50" onClick={() => setVisualizando(i)}>
+                    {i.imagemUrl ? (
+                      <img
+                        src={i.imagemUrl}
+                        alt=""
+                        className="h-12 w-12 object-cover rounded border bg-muted shrink-0"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                      />
+                    ) : (
+                      <div className="h-12 w-12 rounded border bg-muted flex items-center justify-center shrink-0">
+                        <ImageOff className="h-3.5 w-3.5 text-muted-foreground opacity-50" />
                       </div>
-                    </TableCell>
-                    <TableCell className="align-top"><CategoriaBadge categoria={i.categoria.nome} /></TableCell>
-                    <TableCell className="align-top">
-                      <div className="flex flex-wrap gap-1">
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <CategoriaBadge categoria={i.categoria.nome} />
+                        {i.ativo ? (
+                          <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Ativo</Badge>
+                        ) : (
+                          <Badge variant="secondary">Inativo</Badge>
+                        )}
+                      </div>
+                      <div className="text-sm leading-snug line-clamp-2">{i.descricao}</div>
+                      <div className="flex flex-wrap gap-1 mt-1.5">
                         {(i.postos || []).slice(0, 3).map(p => (
-                          <Badge key={p.posto.id} variant="outline" className="text-xs">
-                            {p.posto.nome}
-                          </Badge>
+                          <Badge key={p.posto.id} variant="outline" className="text-xs">{p.posto.nome}</Badge>
                         ))}
                         {(i.postos || []).length > 3 && (
                           <Badge variant="outline" className="text-xs">+{(i.postos || []).length - 3}</Badge>
                         )}
-                        {(i.postos || []).length === 0 && <span className="text-xs text-muted-foreground">—</span>}
                       </div>
-                    </TableCell>
-                    <TableCell className="text-center tabular-nums align-top">{i._count?.entregas || 0}</TableCell>
-                    <TableCell className="align-top">
-                      {i.ativo ? (
-                        <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Ativo</Badge>
-                      ) : (
-                        <Badge variant="secondary">Inativo</Badge>
-                      )}
-                    </TableCell>
-                    <TableCell className="align-top" onClick={(e) => e.stopPropagation()}>
-                      <Button variant="ghost" size="icon" onClick={() => setEditItem(i)}>
-                        <Pencil className="h-3.5 w-3.5" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
+                      <div className="text-xs text-muted-foreground mt-1">{i._count?.entregas || 0} entregas</div>
+                    </div>
+                    <Button variant="ghost" size="icon" className="shrink-0" onClick={(e) => { e.stopPropagation(); setEditItem(i) }}>
+                      <Pencil className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
                 ))}
-              </TableBody>
-            </Table>
+              </div>
+
+              {/* Desktop/tablet: tabela */}
+              <div className="hidden md:block">
+                <Table className="table-fixed">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[5%]"></TableHead>
+                      <TableHead className="w-[40%]">Descrição</TableHead>
+                      <TableHead className="w-[10%]">Categoria</TableHead>
+                      <TableHead className="w-[24%]">Postos vinculados</TableHead>
+                      <TableHead className="w-[7%] text-center">Entregas</TableHead>
+                      <TableHead className="w-[9%]">Status</TableHead>
+                      <TableHead className="w-[5%]"></TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {filtrados.slice(0, 200).map(i => (
+                      <TableRow
+                        key={i.id}
+                        className="cursor-pointer hover:bg-accent/50"
+                        onClick={() => setVisualizando(i)}
+                      >
+                        <TableCell className="align-top">
+                          {i.imagemUrl ? (
+                            <img
+                              src={i.imagemUrl}
+                              alt=""
+                              className="h-10 w-10 object-cover rounded border bg-muted"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = 'none'
+                              }}
+                            />
+                          ) : (
+                            <div className="h-10 w-10 rounded border bg-muted flex items-center justify-center">
+                              <ImageOff className="h-3.5 w-3.5 text-muted-foreground opacity-50" />
+                            </div>
+                          )}
+                        </TableCell>
+                        <TableCell className="align-top">
+                          <div className="line-clamp-3 text-sm leading-snug whitespace-normal break-words" title={i.descricao}>
+                            {i.descricao}
+                          </div>
+                        </TableCell>
+                        <TableCell className="align-top"><CategoriaBadge categoria={i.categoria.nome} /></TableCell>
+                        <TableCell className="align-top">
+                          <div className="flex flex-wrap gap-1">
+                            {(i.postos || []).slice(0, 3).map(p => (
+                              <Badge key={p.posto.id} variant="outline" className="text-xs">
+                                {p.posto.nome}
+                              </Badge>
+                            ))}
+                            {(i.postos || []).length > 3 && (
+                              <Badge variant="outline" className="text-xs">+{(i.postos || []).length - 3}</Badge>
+                            )}
+                            {(i.postos || []).length === 0 && <span className="text-xs text-muted-foreground">—</span>}
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-center tabular-nums align-top">{i._count?.entregas || 0}</TableCell>
+                        <TableCell className="align-top">
+                          {i.ativo ? (
+                            <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Ativo</Badge>
+                          ) : (
+                            <Badge variant="secondary">Inativo</Badge>
+                          )}
+                        </TableCell>
+                        <TableCell className="align-top" onClick={(e) => e.stopPropagation()}>
+                          <Button variant="ghost" size="icon" onClick={() => setEditItem(i)}>
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>
