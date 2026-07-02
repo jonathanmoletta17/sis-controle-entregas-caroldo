@@ -165,7 +165,7 @@ export function EntregasView() {
                   <TableRow key={e.id}>
                     <TableCell className="tabular-nums whitespace-nowrap align-top text-sm">{formatDate(e.dataEntrega)}</TableCell>
                     <TableCell className="align-top">
-                      <button onClick={() => openColaborador(e.colaborador.id)} className="font-medium hover:underline text-left">
+                      <button onClick={() => openColaborador(e.colaborador.id)} className="font-medium hover:underline text-left block w-full">
                         <div className="line-clamp-2 text-sm leading-snug">{e.colaborador.nomeCompleto}</div>
                       </button>
                     </TableCell>
@@ -185,7 +185,7 @@ export function EntregasView() {
                     <TableCell className="text-sm align-top">
                       <button
                         onClick={() => setVisualizandoItem(e.item)}
-                        className="hover:underline text-left flex gap-2 items-start"
+                        className="hover:underline text-left flex gap-2 items-start w-full"
                         title="Clique para ver a imagem do item"
                       >
                         {e.item.imagemUrl && (
@@ -196,7 +196,7 @@ export function EntregasView() {
                             onError={(ev) => { (ev.target as HTMLImageElement).style.display = 'none' }}
                           />
                         )}
-                        <div className="line-clamp-3 leading-snug flex-1">{e.item.descricao}</div>
+                        <div className="line-clamp-3 leading-snug flex-1 min-w-0">{e.item.descricao}</div>
                       </button>
                     </TableCell>
                     <TableCell className="text-center tabular-nums align-top">{e.quantidade}</TableCell>

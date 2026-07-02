@@ -14,7 +14,7 @@ function MainContent() {
   return (
     <main className="flex-1 min-w-0 bg-background">
       <div className="md:hidden"><MobileNav /></div>
-      <div className="p-4 md:p-8 max-w-7xl mx-auto">
+      <div className="p-4 md:p-8">
         {view === 'dashboard' && <DashboardView />}
         {view === 'colaboradores' && <ColaboradoresView />}
         {view === 'colaborador-detalhe' && <ColaboradorDetalheView />}

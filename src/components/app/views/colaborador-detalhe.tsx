@@ -383,7 +383,7 @@ export function ColaboradorDetalheView() {
                     <TableCell className="align-top">
                       <button
                         onClick={() => setVisualizandoItem(e.item)}
-                        className="hover:underline text-left"
+                        className="hover:underline text-left block w-full"
                         title="Clique para ver a imagem do item"
                       >
                         <div className="line-clamp-3 text-sm leading-snug">{e.item.descricao}</div>
