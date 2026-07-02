@@ -155,7 +155,7 @@ export function EntregasView() {
                   <TableHead className="w-[22%]">Item</TableHead>
                   <TableHead className="w-[4%] text-center">Qtd</TableHead>
                   <TableHead className="w-[12%]">Observação</TableHead>
-                  <TableHead className="w-[10%]">Foto recebida</TableHead>
+                  <TableHead className="w-[10%]">Foto</TableHead>
                   <TableHead className="w-[7%]">Anexo</TableHead>
                   <TableHead className="w-[3%]"></TableHead>
                 </TableRow>
@@ -169,7 +169,9 @@ export function EntregasView() {
                         <div className="line-clamp-2 text-sm leading-snug">{e.colaborador.nomeCompleto}</div>
                       </button>
                     </TableCell>
-                    <TableCell className="text-sm align-top">{e.colaborador.posto?.nome || '—'}</TableCell>
+                    <TableCell className="align-top">
+                      <div className="line-clamp-2 text-sm leading-snug">{e.colaborador.posto?.nome || '—'}</div>
+                    </TableCell>
                     <TableCell className="align-top">
                       <span className={`text-xs px-2 py-0.5 rounded inline-block ${
                         e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800' :

@@ -362,7 +362,7 @@ export function ColaboradorDetalheView() {
                   <TableHead className="w-[38%]">Item</TableHead>
                   <TableHead className="w-[5%] text-center">Qtd</TableHead>
                   <TableHead className="w-[15%]">Observação</TableHead>
-                  <TableHead className="w-[12%]">Foto recebida</TableHead>
+                  <TableHead className="w-[12%]">Foto</TableHead>
                   <TableHead className="w-[8%]">Anexo</TableHead>
                 </TableRow>
               </TableHeader>
