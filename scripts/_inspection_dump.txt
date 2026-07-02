@@ -1,0 +1,1383 @@
+====================================================================================================
+WORKBOOK: /home/z/my-project/upload/CHECKLISTS CAROLDO.xlsx
+SHEETS (20): ['MATERIAIS MARCENEIROS', 'MATERIAIS PEDREIROS', 'MATERIAIS ELETRICISTAS', 'MATERIAIS PINTORES', 'MATERIAIS INST. HIDRÁULICOS', 'MATERIAIS TÉC. REFRIGERAÇÃO', 'MATERIAIS TÉC. INFRA. DE REDES', 'EPI SUPERVISOR', 'EPI MARCENEIRO', 'EPI ELETRICISTA', 'EPI SERVENTE', 'EPI INST. HIDRÁULICO', 'EPI PEDREIRO', 'EPI PINTOR', 'EPI TÉC. REFRIGERAÇÃO', 'EPI TÉC. INFRA. DE REDES', 'UNIFORME', 'UNIFORME FABIANO', 'UNIFORME ELETRICISTA', 'DOCUMENTOS']
+====================================================================================================
+
+
+####################################################################################################
+SHEET: MATERIAIS MARCENEIROS
+  dims=A1:AE639  max_row=639  max_col=31
+####################################################################################################
+
+Merged cells: 1642 ranges
+  A1:K12
+  Q1:AA12
+  A13:K14
+  Q13:AA14
+  A15:D16
+  E15:E16
+  F15:H16
+  I15:K16
+  L15:N16
+  Q15:T16
+  U15:U16
+  V15:X16
+  Y15:AA16
+  AB15:AD16
+  A17:D24
+  E17:E18
+  F17:H24
+  I17:K18
+  L17:N18
+  Q17:T24
+  U17:U18
+  V17:X24
+  Y17:AA18
+  AB17:AD18
+  E19:E20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | Ivo Leandro
+  R 14: (empty)
+  R 15: Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  |  | Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 16: (empty)
+  R 17: Caixa de ferramentas metálica co... |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  | Caixa de ferramentas metálica co... |  |  |  | 1 |  |  |  | 2025-12-03 00:00:00
+  R 18: (empty)
+  R 19:  |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1 |  |  |  | 12/03/2025
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Plaina elétrica profissional 82m... |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  | Plaina profissional n° 4 global ... |  |  |  | 1 |  |  |  | 21/03/2025
+  R 30: (empty)
+  R 35:  |  |  |  | 1 |  |  |  | - |  |  |  |  |  |  |  |  |  |  |  | 1 |  |  |  | 07/04/2025
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R635: (empty)
+  R636: FISCALIZAÇÃO TÉCNICA: ............. |  |  |  |  |  | REPRESENTANTE CAROLDO:.............
+  R637: (empty)
+  R638: *As assinaturas acima serão requ...
+  R639: (empty)
+
+
+####################################################################################################
+SHEET: MATERIAIS PEDREIROS
+  dims=A1:AG318  max_row=318  max_col=33
+####################################################################################################
+
+Merged cells: 648 ranges
+  P1:AC12
+  P13:AC14
+  P15:S16
+  T15:T16
+  U15:W16
+  X15:Z16
+  AA15:AC16
+  P17:S18
+  T17:T18
+  U17:W18
+  X17:Z18
+  AA17:AC18
+  P19:S22
+  T19:T22
+  U19:W22
+  X19:Z20
+  AA19:AC20
+  X21:Z22
+  AA21:AC22
+  P23:S26
+  T23:T24
+  U23:W26
+  X23:Z24
+  AA23:AC24
+  T25:T26
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: Descrição Materiais
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12:  |  |  |  |  |  |  |  |  |  |  |  |  |  | zz
+  R 13: (empty)
+  R 14: (empty)
+  R 15:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | Descrição Materiais |  |  |  | Uni. | IMAGEM ILUSTRATIVA |  |  | Data de entrega |  |  | Observação
+  R 16: (empty)
+  R 17:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | Colher de Pedreiro n°6 com Haste... |  |  |  | 1
+  R 18: (empty)
+  R 19:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | Colher de Pedreiro n°8 com Haste... |  |  |  | 1
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 30: (empty)
+  R 35:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | Chave de fenda 5/16 x 06. Cabo e... |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R314: REPRESENTANTE CAROLDO: ............
+  R315: (empty)
+  R316: (empty)
+  R317: *As assinaturas acima serão requ...
+  R318: (empty)
+
+
+####################################################################################################
+SHEET: MATERIAIS ELETRICISTAS
+  dims=A1:AD437  max_row=437  max_col=30
+####################################################################################################
+
+Merged cells: 1081 ranges
+  A1:K12
+  Q1:AA12
+  A13:K14
+  Q13:AA14
+  A15:D16
+  E15:E16
+  F15:H16
+  I15:K16
+  L15:N16
+  Q15:T16
+  U15:U16
+  V15:X16
+  Y15:AA16
+  AB15:AD16
+  A17:D22
+  E17:E18
+  F17:H22
+  I17:K18
+  L17:N18
+  Q17:T22
+  U17:U18
+  V17:X22
+  Y17:AA18
+  AB17:AD18
+  E19:E20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  |  | Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 16: (empty)
+  R 17: Caixa de ferramentas metálica co... |  |  |  | 1 |  |  |  | 2025-12-03 00:00:00 |  |  |  |  |  |  |  | Caixa de ferramentas metálica co... |  |  |  | 1
+  R 18: (empty)
+  R 19:  |  |  |  | 1 |  |  |  | 2025-12-03 00:00:00 |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25:  |  |  |  | 1 |  |  |  | 21/03/2025 |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 30: (empty)
+  R 35: Caneta detector de tensão alerta... |  |  |  | 1 |  |  |  | 2025-12-03 00:00:00 |  |  |  |  |  |  |  | Caneta detector de tensão alerta... |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R433:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | FISCALIZAÇÃO TÉCNICA: ............. |  |  |  |  |  | REPRESENTANTE JIREH: ..............
+  R434: (empty)
+  R435: (empty)
+  R436:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | *As assinaturas acima serão requ...
+  R437: (empty)
+
+
+####################################################################################################
+SHEET: MATERIAIS PINTORES
+  dims=A1:AD381  max_row=381  max_col=30
+####################################################################################################
+
+Merged cells: 1005 ranges
+  A1:K12
+  Q1:AA12
+  A13:N14
+  Q13:AD14
+  A15:D16
+  E15:E16
+  F15:H16
+  I15:K16
+  L15:N16
+  Q15:T16
+  U15:U16
+  V15:X16
+  Y15:AA16
+  AB15:AD16
+  A17:D28
+  E17:E18
+  F17:H28
+  I17:K18
+  L17:N18
+  Q17:T28
+  U17:U18
+  V17:X28
+  Y17:AA18
+  AB17:AD18
+  E19:E20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  |  | Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 16: (empty)
+  R 17: Caixa de ferramentas metálica co... |  |  |  | 1 |  |  |  | 2025-05-05 00:00:00 |  |  |  |  |  |  |  | Caixa de ferramentas metálica co... |  |  |  | 1
+  R 18: (empty)
+  R 19:  |  |  |  | 1 |  |  |  | 5/5/25 |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25:  |  |  |  | 1 |  |  |  | 02/07/2025 |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 30: (empty)
+  R 35:  |  |  |  | 1 |  |  |  | 23/5/25 |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R377:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | FISCALIZAÇÃO TÉCNICA: ............. |  |  |  |  |  | REPRESENTANTE JIREH: ..............
+  R378: (empty)
+  R379: (empty)
+  R380:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | *As assinaturas acima serão requ...
+  R381: (empty)
+
+
+####################################################################################################
+SHEET: MATERIAIS INST. HIDRÁULICOS
+  dims=A1:AT368  max_row=368  max_col=46
+####################################################################################################
+
+Merged cells: 1292 ranges
+  A1:K12
+  P1:Z12
+  AG1:AQ12
+  A13:K14
+  P13:Z14
+  AG13:AQ14
+  A15:D16
+  E15:E16
+  F15:H16
+  I15:K16
+  L15:N16
+  P15:S16
+  T15:T16
+  U15:W16
+  X15:Z16
+  AA15:AC16
+  AG15:AJ16
+  AK15:AK16
+  AL15:AN16
+  AO15:AQ16
+  AR15:AT16
+  A17:D20
+  E17:E18
+  F17:H20
+  I17:K18
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  |  |  | Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 16: (empty)
+  R 17: Caixa de ferramentas metálica co... |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  | Caixa de ferramentas metálica co... |  |  |  | 1 |  |  |  | 2025-05-05 00:00:00 |  |  |  |  |  |  |  |  | Caixa de ferramentas metálica co... |  |  |  | 1
+  R 18: (empty)
+  R 19:  |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1 |  |  |  | 2025-05-05 00:00:00 |  |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: (empty)
+  R 30: (empty)
+  R 35:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 2025-05-05 00:00:00
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R364: (empty)
+  R365: (empty)
+  R366: (empty)
+  R367: FISCALIZAÇÃO TÉCNICA: ............. |  |  |  |  |  | REPRESENTANTE CAROLDO:.............
+  R368: (empty)
+
+
+####################################################################################################
+SHEET: MATERIAIS TÉC. REFRIGERAÇÃO
+  dims=A1:AE453  max_row=453  max_col=31
+####################################################################################################
+
+Merged cells: 1104 ranges
+  A1:K12
+  R1:AB12
+  A13:K14
+  R13:AB14
+  A15:D16
+  E15:E16
+  F15:H16
+  I15:K16
+  L15:N16
+  R15:U16
+  V15:V16
+  W15:Y16
+  Z15:AB16
+  AC15:AE16
+  A17:D20
+  E17:E18
+  F17:H20
+  I17:K18
+  L17:N18
+  R17:U20
+  V17:V18
+  W17:Y20
+  Z17:AB18
+  AC17:AE18
+  E19:E20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  |  |  | Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 16: (empty)
+  R 17: Caixa de ferramentas metálica co... |  |  |  | 1 |  |  |  | 21/03/2025 |  |  |  |  |  |  |  |  | Caixa de ferramentas metálica co... |  |  |  | 1
+  R 18: (empty)
+  R 19:  |  |  |  | 1 |  |  |  | 21/03/2025 |  |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Jogo de 8 chaves Fenda com isola... |  |  |  | 1 |  |  |  | 21/03/2025 |  |  |  |  |  |  |  |  | Jogo de 8 chaves Fenda com isola... |  |  |  | 1
+  R 30: (empty)
+  R 35:  |  |  |  | 1 |  |  |  | 21/03/2025 |  |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R449: (empty)
+  R450: (empty)
+  R451: (empty)
+  R452: FISCALIZAÇÃO TÉCNICA: .............
+  R453:  |  |  |  |  |  | REPRESENTANTE CAROLDO: ............
+
+
+####################################################################################################
+SHEET: MATERIAIS TÉC. INFRA. DE REDES
+  dims=A1:AD254  max_row=254  max_col=30
+####################################################################################################
+
+Merged cells: 506 ranges
+  A1:K12
+  Q1:AA12
+  A13:K14
+  Q13:AA14
+  A15:D16
+  E15:E16
+  F15:H16
+  I15:K16
+  L15:N16
+  Q15:T16
+  U15:U16
+  V15:X16
+  Y15:AA16
+  AB15:AD16
+  A17:D20
+  E17:E20
+  F17:H20
+  I17:K20
+  L17:N18
+  Q17:T20
+  U17:U20
+  V17:X20
+  Y17:AA20
+  AB17:AD18
+  L19:N20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: Joel
+  R 14: (empty)
+  R 15: Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  |  | Descrição Materiais |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 16: (empty)
+  R 17: Caixa de ferramentas metálica co... |  |  |  | 1 |  |  |  | 2025-07-04 00:00:00 |  |  |  |  |  |  |  | Caixa de ferramentas metálica co... |  |  |  | 1
+  R 18: (empty)
+  R 19: (empty)
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: (empty)
+  R 30: (empty)
+  R 35: Arco de serra regulável. Lâmina ... |  |  |  | 1 |  |  |  | 07/04/25 |  |  |  |  |  |  |  | Arco de serra regulável. Lâmina ... |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R250: (empty)
+  R251: (empty)
+  R252: (empty)
+  R253: *As assinaturas acima serão requ...
+  R254: (empty)
+
+
+####################################################################################################
+SHEET: EPI SUPERVISOR
+  dims=A1:W48  max_row=48  max_col=23
+####################################################################################################
+
+Merged cells: 44 ranges
+  A1:K12
+  A13:K14
+  A15:K16
+  A17:K18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  L19:N20
+  A21:D24
+  E21:E24
+  F21:H24
+  I21:K22
+  L21:N22
+  I23:K24
+  L23:N24
+  A25:D28
+  E25:E26
+  I25:K26
+  L25:N26
+  E27:E28
+  I27:K28
+  L27:N28
+  A29:D34
+  E29:E31
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR:
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Botina NR 10 |  |  |  | 1
+  R 30: (empty)
+  R 35: Cinto de segurança |  |  |  | 1
+  R 40: (empty)
+
+--- LAST 5 ROWS ---
+  R 44: (empty)
+  R 45: (empty)
+  R 46: (empty)
+  R 47: *As assinaturas acima serão requ...
+  R 48: (empty)
+
+
+####################################################################################################
+SHEET: EPI MARCENEIRO
+  dims=A1:BZ110  max_row=110  max_col=78
+####################################################################################################
+
+Merged cells: 306 ranges
+  A1:K12
+  Q1:AA12
+  AI1:AS12
+  AX1:BH12
+  BM1:BW12
+  A13:K14
+  Q13:AA14
+  AI13:AS14
+  AX13:BH14
+  BM13:BW14
+  A15:K16
+  Q15:AA16
+  AI15:AS16
+  AX15:BH16
+  BM15:BW16
+  A17:K18
+  Q17:AA18
+  AI17:AS18
+  AX17:BH18
+  BM17:BW18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  L19:N20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR:
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Botina NR 10 |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  | Botina NR 10 |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  | Botina NR 10 |  |  |  | 2 |  |  |  |  |  |  |  |  |  |  | Botina NR 10 |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  | Botina NR 10 |  |  |  | 2
+  R 30: (empty)
+  R 35:  |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R106: (empty)
+  R107: (empty)
+  R108: (empty)
+  R109: *As assinaturas acima serão requ...
+  R110: (empty)
+
+
+####################################################################################################
+SHEET: EPI ELETRICISTA
+  dims=A1:AQ168  max_row=168  max_col=43
+####################################################################################################
+
+Merged cells: 403 ranges
+  A1:K12
+  P1:Z12
+  AD1:AN12
+  A13:K14
+  P13:Z14
+  AD13:AN14
+  A15:K16
+  P15:Z16
+  AD15:AN16
+  A17:K18
+  P17:Z18
+  AD17:AN18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  L19:N20
+  P19:S20
+  T19:T20
+  U19:W20
+  X19:Z20
+  AA19:AC20
+  AD19:AG20
+  AH19:AH20
+  AI19:AK20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR:  ANDERSON C... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR:
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Botina NR 10 |  |  |  | 1 |  |  |  | 2025-03-11 00:00:00 |  |  |  |  |  |  | Botina NR 10 |  |  |  | 1 |  |  |  |  |  |  |  |  |  | Botina NR 10 |  |  |  | 1
+  R 30: (empty)
+  R 35:  |  |  |  | 1 |  |  |  | 2025-03-11 00:00:00 |  |  |  |  |  |  |  |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R164: (empty)
+  R165: (empty)
+  R166: (empty)
+  R167: *As assinaturas acima serão requ...
+  R168: (empty)
+
+
+####################################################################################################
+SHEET: EPI SERVENTE
+  dims=A1:AC119  max_row=119  max_col=29
+####################################################################################################
+
+Merged cells: 280 ranges
+  A1:K12
+  P1:Z12
+  A13:K14
+  P13:Z14
+  A15:K16
+  P15:Z16
+  A17:D18
+  E17:E18
+  F17:H18
+  I17:K18
+  L17:N18
+  P17:S18
+  T17:T18
+  U17:W18
+  X17:Z18
+  AA17:AC18
+  A19:D22
+  E19:E22
+  F19:H22
+  I19:K22
+  L19:N22
+  P19:S22
+  T19:T22
+  U19:W22
+  X19:Z22
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR:
+  R 14: (empty)
+  R 15: (empty)
+  R 16: (empty)
+  R 17: Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 18: (empty)
+  R 19: Capacete de Segurança, com jugul... |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  | Capacete de Segurança, com jugul... |  |  |  | 1
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25:  |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 30: (empty)
+  R 35: Luva modelo vaqueta (couro) |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  | Luva modelo vaqueta (couro) |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R115: (empty)
+  R116: (empty)
+  R117: (empty)
+  R118: *As assinaturas acima serão requ... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | *As assinaturas acima serão requ...
+  R119: (empty)
+
+
+####################################################################################################
+SHEET: EPI INST. HIDRÁULICO
+  dims=A1:BG122  max_row=122  max_col=59
+####################################################################################################
+
+Merged cells: 431 ranges
+  A1:K12
+  P1:Z12
+  AE1:AO12
+  AT1:BD12
+  A13:K14
+  P13:Z14
+  AE13:AO14
+  AT13:BD14
+  A15:K16
+  P15:Z16
+  AE15:AO16
+  AT15:BD16
+  A17:K18
+  P17:Z18
+  AE17:AO18
+  AT17:BD18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  L19:N20
+  P19:S20
+  T19:T20
+  U19:W20
+  X19:Z20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR:
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Botina NR 10 |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  | Botina NR 10 |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  | Botina NR 10 |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  | Botina NR 10 |  |  |  | 1
+  R 30: (empty)
+  R 35:  |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R118: (empty)
+  R119: (empty)
+  R120:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | *As assinaturas acima serão requ...
+  R121: *As assinaturas acima serão requ...
+  R122: (empty)
+
+
+####################################################################################################
+SHEET: EPI PEDREIRO
+  dims=A1:AC216  max_row=216  max_col=29
+####################################################################################################
+
+Merged cells: 484 ranges
+  A1:K12
+  P1:AC14
+  A13:K14
+  A15:K16
+  P15:Z16
+  A17:K18
+  P17:Z18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  L19:N20
+  P19:S20
+  T19:T20
+  U19:W20
+  X19:Z20
+  AA19:AC20
+  A21:D24
+  E21:E24
+  F21:H24
+  I21:K24
+  L21:N24
+  P21:S24
+  T21:T24
+  U21:W24
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR: ANDREA DOS ... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR:
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Óculos de segurança incolor |  |  |  | 1 |  |  |  | 2025-12-03 00:00:00 |  |  |  |  |  |  | Óculos de segurança incolor |  |  |  | 1
+  R 30: (empty)
+  R 35:  |  |  |  | 1 |  |  |  | 2025-12-03 00:00:00 |  |  |  |  |  |  |  |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R212: (empty)
+  R213: (empty)
+  R214: (empty)
+  R215: *As assinaturas acima serão requ...
+  R216: (empty)
+
+
+####################################################################################################
+SHEET: EPI PINTOR
+  dims=A1:AC896  max_row=896  max_col=29
+####################################################################################################
+
+Merged cells: 789 ranges
+  A1:K12
+  P1:Z12
+  A13:K14
+  P13:Z14
+  A15:K16
+  P15:Z16
+  A17:K18
+  P17:Z18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  L19:N20
+  P19:S20
+  T19:T20
+  U19:W20
+  X19:Z20
+  AA19:AC20
+  A21:D24
+  E21:E24
+  F21:H24
+  I21:K24
+  L21:N24
+  P21:S24
+  T21:T24
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR: .............. |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: Gilberto Te...
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Macacão para proteção química |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  | Macacão para proteção química |  |  |  | 1 |  |  |  | 13/10/25
+  R 30: (empty)
+  R 35:  |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R892: (empty)
+  R893: (empty)
+  R894: (empty)
+  R895: (empty)
+  R896: (empty)
+
+
+####################################################################################################
+SHEET: EPI TÉC. REFRIGERAÇÃO
+  dims=A1:AR106  max_row=106  max_col=44
+####################################################################################################
+
+Merged cells: 215 ranges
+  A1:K12
+  P1:Z12
+  AE1:AO12
+  A13:K14
+  P13:Z14
+  AE13:AO14
+  A15:K16
+  P15:Z16
+  AE15:AO16
+  A17:K18
+  P17:Z18
+  AE17:AO18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  L19:N20
+  P19:S20
+  T19:T20
+  U19:W20
+  X19:Z20
+  AA19:AC20
+  AE19:AH20
+  AI19:AI20
+  AJ19:AL20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: MARCOS VINI... |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR:
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Botina NR 10 |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  | Botina NR 10 |  |  |  | 1 |  |  |  | 12/03/2025 |  |  |  |  |  |  | Botina NR 10 |  |  |  | 1
+  R 30: (empty)
+  R 35:  |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1 |  |  |  | 21/03/2025 |  |  |  |  |  |  |  |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R102: (empty)
+  R103: (empty)
+  R104: (empty)
+  R105:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | *As assinaturas acima serão requ...
+  R106: (empty)
+
+
+####################################################################################################
+SHEET: EPI TÉC. INFRA. DE REDES
+  dims=A1:AD105  max_row=105  max_col=30
+####################################################################################################
+
+Merged cells: 152 ranges
+  A1:K12
+  Q1:AA12
+  A13:K14
+  Q13:AA14
+  A15:K16
+  Q15:AA16
+  A17:K18
+  Q17:AA18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  L19:N20
+  Q19:T20
+  U19:U20
+  V19:X20
+  Y19:AA20
+  AB19:AD20
+  A21:D24
+  E21:E24
+  F21:H24
+  I21:K24
+  L21:N24
+  Q21:T24
+  U21:U24
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR: |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR:
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação |  |  |  |  | Descrição EPI |  |  |  | Uni. | Imagem Ilustrativa |  |  | Data de entrega |  |  | Observação
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Botina NR 10 |  |  |  | 1 |  |  |  |  |  |  |  |  |  |  |  | Botina NR 10 |  |  |  | 1
+  R 30: (empty)
+  R 35:  |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R101: (empty)
+  R102: (empty)
+  R103: (empty)
+  R104: *As assinaturas acima serão requ...
+  R105: (empty)
+
+
+####################################################################################################
+SHEET: UNIFORME
+  dims=A1:AU868  max_row=868  max_col=47
+####################################################################################################
+
+Merged cells: 3237 ranges
+  A1:K12
+  M1:W12
+  Y1:AI12
+  AK1:AU12
+  A13:K14
+  M13:W14
+  Y13:AI14
+  AK13:AU14
+  A15:K16
+  M15:W16
+  Y15:AI16
+  AK15:AU16
+  A17:K18
+  M17:W18
+  Y17:AI18
+  AK17:AU18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  M19:P20
+  Q19:Q20
+  R19:T20
+  U19:W20
+  Y19:AB20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR: Ivo Leandro... |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: Gilberto Te... |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: Joel Turela... |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: Andrea sant...
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição Uniforme |  |  |  | Uni. | Data de entrega |  |  | Assinatura |  |  |  | Descrição Uniforme |  |  |  | Uni. | Data de entrega |  |  | Assinatura |  |  |  | Descrição Uniforme |  |  |  | Uni. | Data de entrega |  |  | Assinatura |  |  |  | Descrição Uniforme |  |  |  | Uni. | Data de entrega |  |  | Assinatura
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Camiseta, manga longa,contendo p... |  |  |  | 1 | 30/09/25 |  |  |  |  |  |  | Camiseta, manga longa,contendo p... |  |  |  | 1 | 13/10/25 |  |  |  |  |  |  | Camiseta, manga longa,contendo p... |  |  |  | 1 |  |  |  |  |  |  |  | Camiseta, manga longa,contendo p... |  |  |  | 1
+  R 30: (empty)
+  R 35:  |  |  |  |  | 2025-07-04 00:00:00 |  |  |  |  |  |  |  |  |  |  |  | 13/10/25 |  |  |  |  |  |  |  |  |  |  |  | 2025-07-04 00:00:00 |  |  |  |  |  |  |  |  |  |  |  | 19/03/25
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R864: (empty)
+  R865: (empty)
+  R866: (empty)
+  R867: *As assinaturas acima serão requ... |  |  |  |  |  |  |  |  |  |  |  | *As assinaturas acima serão requ...
+  R868: (empty)
+
+
+####################################################################################################
+SHEET: UNIFORME FABIANO
+  dims=A2:K81  max_row=81  max_col=11
+####################################################################################################
+
+Merged cells: 102 ranges
+  A2:K13
+  A14:K15
+  A16:K17
+  A18:K19
+  A20:D21
+  E20:E21
+  F20:H21
+  I20:K21
+  A22:D25
+  E22:E23
+  F22:H23
+  I22:K23
+  E24:E25
+  F24:H25
+  I24:K25
+  A26:D33
+  E26:E27
+  F26:H27
+  I26:K27
+  E28:E29
+  F28:H29
+  I28:K29
+  E30:E31
+  F30:H31
+  I30:K31
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: (empty)
+  R  2: ESTADO DO RIO GRANDE DO SUL  | S...
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: (empty)
+  R 16: NOME DO COLABORADOR: Fabiano L. ...
+  R 17: (empty)
+  R 18: (empty)
+  R 19: (empty)
+  R 20: Descrição Uniforme |  |  |  | Uni. | Data de entrega |  |  | Assinatura
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: (empty)
+  R 30:  |  |  |  | 1
+  R 35: (empty)
+  R 40:  |  |  |  | 1
+  R 50: Meia preta em algodão |  |  |  | 1
+
+--- LAST 5 ROWS ---
+  R 77: (empty)
+  R 78: (empty)
+  R 79: (empty)
+  R 80: FISCALIZAÇÃO TÉCNICA: ............. |  |  |  |  |  | REPRESENTANTE CAROLDO: ............
+  R 81: (empty)
+
+
+####################################################################################################
+SHEET: UNIFORME ELETRICISTA
+  dims=A1:X250  max_row=250  max_col=24
+####################################################################################################
+
+Merged cells: 504 ranges
+  A1:K12
+  N1:X12
+  A13:K14
+  N13:X14
+  A15:K16
+  N15:X16
+  A17:K18
+  N17:X18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  N19:Q20
+  R19:R20
+  S19:U20
+  V19:X20
+  A21:D24
+  E21:E22
+  F21:H22
+  I21:K22
+  N21:Q24
+  R21:R22
+  S21:U22
+  V21:X22
+  E23:E24
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13:  |  |  |  |  |  |  |  |  |  |  |  |  | ELÉTRICA
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR: Dilmar Mend... |  |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR:
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição Uniforme |  |  |  | Uni. | Data de entrega |  |  | Assinatura |  |  |  |  | Descrição Uniforme |  |  |  | Uni. | Data de entrega |  |  | Assinatura
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Camiseta, manga longa,contendo p... |  |  |  | 1 |  |  |  |  |  |  |  |  | Camiseta, manga longa,contendo p... |  |  |  | 1
+  R 30: (empty)
+  R 35:  |  |  |  | 1 | 2025-10-06 00:00:00 |  |  |  |  |  |  |  |  |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R246: (empty)
+  R247: (empty)
+  R248: (empty)
+  R249: (empty)
+  R250: (empty)
+
+
+####################################################################################################
+SHEET: DOCUMENTOS
+  dims=A1:AU698  max_row=698  max_col=47
+####################################################################################################
+
+Merged cells: 2048 ranges
+  A1:K12
+  M1:W12
+  Y1:AI12
+  AK1:AU12
+  A13:K14
+  M13:W14
+  Y13:AI14
+  AK13:AU14
+  A15:K16
+  M15:W16
+  Y15:AI16
+  AK15:AU16
+  A17:K18
+  M17:W18
+  Y17:AI18
+  AK17:AU18
+  A19:D20
+  E19:E20
+  F19:H20
+  I19:K20
+  M19:P20
+  Q19:Q20
+  R19:T20
+  U19:W20
+  Y19:AB20
+
+--- FIRST 20 ROWS (header block + first data rows) ---
+  R  1: ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S... |  |  |  |  |  |  |  |  |  |  |  | ESTADO DO RIO GRANDE DO SUL  | S...
+  R  2: (empty)
+  R  3: (empty)
+  R  4: (empty)
+  R  5: (empty)
+  R  6: (empty)
+  R  7: (empty)
+  R  8: (empty)
+  R  9: (empty)
+  R 10: (empty)
+  R 11: (empty)
+  R 12: (empty)
+  R 13: (empty)
+  R 14: (empty)
+  R 15: NOME DO COLABORADOR: .............. |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: Rogerio Alves |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: JOSÉ FERNAN... |  |  |  |  |  |  |  |  |  |  |  | NOME DO COLABORADOR: ANDERSON CL...
+  R 16: (empty)
+  R 17: (empty)
+  R 18: (empty)
+  R 19: Descrição |  |  |  | Uni. | Data de entrega |  |  | Assinatura |  |  |  | Descrição |  |  |  | Uni. | Data de entrega |  |  | Assinatura |  |  |  | Descrição |  |  |  | Uni. | Data de entrega |  |  | Assinatura |  |  |  | Descrição |  |  |  | Uni. | Data de entrega |  |  | Assinatura
+  R 20: (empty)
+
+--- SAMPLE MIDDLE DATA ROWS ---
+  R 25: Cópia do contrato |  |  |  | 1 |  |  |  |  |  |  |  | Cópia do contrato |  |  |  | 1 | 2025-12-03 00:00:00 |  |  |  |  |  |  | Cópia do contrato |  |  |  | 1 | 2025-10-06 00:00:00 |  |  |  |  |  |  | Cópia do contrato |  |  |  | 1 | 2025-03-11 00:00:00
+  R 30: (empty)
+  R 35: Cópia das Normas 05, 07, 10, 12,... |  |  |  | 1 |  |  |  |  |  |  |  | Cópia das Normas 05, 07, 10, 12,... |  |  |  | 1 |  |  |  |  |  |  |  | Cópia das Normas 05, 07, 10, 12,... |  |  |  | 1 |  |  |  |  |  |  |  | Cópia das Normas 05, 07, 10, 12,... |  |  |  | 1
+  R 40: (empty)
+  R 50: (empty)
+
+--- LAST 5 ROWS ---
+  R694: (empty)
+  R695: (empty)
+  R696: (empty)
+  R697:  |  |  |  |  |  |  |  |  |  |  |  | *Os documentos listados acima sã...
+  R698: (empty)

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagnóstico Técnico — Controle de Entregas CAROLDO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @page { size: 794px 1123px; margin: 0; }
+    :root {
+      --c-bg: #ffffff;
+      --c-text: #17191a;
+      --c-accent: #296988;
+      --c-accent-dark: #40525b;
+      --c-muted: #767d80;
+      --c-line: #40525b;
+      --c-border: #296988;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      width: 794px; height: 1123px;
+      background: var(--c-bg); color: var(--c-text);
+      font-family: 'Inter', sans-serif;
+    }
+    @media screen {
+      html { height: auto; display: flex; justify-content: center; min-height: 100vh; background: #e8e8e8; }
+      body { transform-origin: top center; scale: min(1, calc(100vw / 794), calc(100vh / 1123)); margin: 0 auto; box-shadow: 0 0 60px rgba(0,0,0,0.15); }
+    }
+    .cover {
+      width: 794px; height: 1123px;
+      position: relative; box-sizing: border-box;
+    }
+    .border-frame {
+      position: absolute;
+      top: 56px; left: 40px; right: 40px; bottom: 56px;
+      border: 2.5px solid var(--c-border);
+      outline: 1px solid var(--c-border);
+      outline-offset: 6px;
+      pointer-events: none;
+    }
+    .content {
+      position: absolute;
+      top: 56px; left: 40px; right: 40px; bottom: 56px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 70px 50px 50px;
+      box-sizing: border-box;
+    }
+    .institution {
+      font-size: 16pt; font-weight: 500;
+      letter-spacing: 3px;
+      text-align: center;
+      color: var(--c-accent-dark);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .institution-sub {
+      font-size: 11pt; font-weight: 400;
+      letter-spacing: 2px;
+      color: var(--c-muted);
+      text-align: center;
+      margin-bottom: 44px;
+    }
+    .thick-divider {
+      width: 70%; height: 2px; background: var(--c-accent);
+      margin-bottom: 48px;
+    }
+    .doc-type {
+      font-size: 13pt; font-weight: 500; letter-spacing: 5px;
+      text-align: center; margin-bottom: 40px;
+      color: var(--c-accent);
+      text-transform: uppercase;
+    }
+    .title {
+      font-size: 24pt; font-weight: 700; line-height: 1.35;
+      font-family: 'Noto Serif', serif;
+      text-align: center; margin-bottom: 22px;
+      max-width: 560px;
+      color: var(--c-text);
+    }
+    .subtitle {
+      font-size: 12pt; font-weight: 400; line-height: 1.5;
+      font-family: 'Inter', sans-serif;
+      text-align: center; margin-bottom: 50px;
+      max-width: 540px;
+      color: var(--c-muted);
+      font-style: italic;
+    }
+    .fields-block {
+      width: 460px; margin: 0 auto 0;
+    }
+    .field-row {
+      margin-bottom: 22px;
+    }
+    .field-label {
+      display: block;
+      color: var(--c-muted); font-weight: 400;
+      letter-spacing: 1px;
+      font-size: 9pt;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .field-value {
+      display: block;
+      text-align: left;
+      border-bottom: 1px solid var(--c-line);
+      padding-bottom: 4px;
+      font-family: 'Inter', sans-serif;
+      color: var(--c-text);
+      font-weight: 500;
+      font-size: 11pt;
+    }
+    .tags {
+      display: flex; justify-content: center; gap: 14px;
+      margin-top: 38px; margin-bottom: auto;
+    }
+    .tag {
+      padding: 6px 14px;
+      border: 1px solid var(--c-accent);
+      color: var(--c-accent);
+      font-size: 9pt;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .date-block {
+      font-size: 11pt; color: var(--c-text);
+      text-align: center; letter-spacing: 3px;
+      margin-top: 40px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .footer-brand {
+      font-size: 9pt;
+      color: var(--c-muted);
+      text-align: center;
+      margin-top: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <div class="border-frame"></div>
+    <div class="content">
+      <div class="institution">Estado do Rio Grande do Sul</div>
+      <div class="institution-sub">Secretaria da Casa Civil &nbsp;&middot;&nbsp; Unidade de Manutenção</div>
+      <div class="thick-divider"></div>
+      <div class="doc-type">Diagnóstico Técnico</div>
+      <div class="title">Controle de Entregas de Materiais, EPI, Uniformes e Documentos</div>
+      <div class="subtitle">Análise ponta a ponta das 20 abas do arquivo CHECKLISTS CAROLDO.xlsx e base para a futura aplicação de acompanhamento</div>
+      <div class="fields-block">
+        <div class="field-row">
+          <span class="field-label">Contrato</span>
+          <span class="field-value">Manutenção Predial 003/2025</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Empresa</span>
+          <span class="field-value">CAROLDO (e JIREH em subcontratos)</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Arquivo analisado</span>
+          <span class="field-value">CHECKLISTS CAROLDO.xlsx (5,7 MB)</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Escopo</span>
+          <span class="field-value">20 abas &middot; 4 grupos &middot; ~280 itens catalogados</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Objetivo</span>
+          <span class="field-value">Diagnóstico + Modelo de dados para app</span>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag">Mapeamento</span>
+        <span class="tag">Inconsistências</span>
+        <span class="tag">Modelo ER</span>
+        <span class="tag">Roadmap</span>
+      </div>
+      <div class="date-block">Julho de 2026 &nbsp;&middot;&nbsp; Porto Alegre / RS</div>
+      <div class="footer-brand">Documento técnico preparado por Z.ai</div>
+    </div>
+  </div>
+</body>
+</html>

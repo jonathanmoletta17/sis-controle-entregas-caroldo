@@ -1,0 +1,2279 @@
+====================================================================================================
+WORKBOOK CONTENT EXTRACTION: /home/z/my-project/upload/CHECKLISTS CAROLDO.xlsx
+====================================================================================================
+
+
+####################################################################################################
+SHEET: MATERIAIS MARCENEIROS
+  dimensions=A1:AE639  max_row=639  max_col=31
+####################################################################################################
+
+Detected 2 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols Q-AA (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col A: 'Descrição Materiais'
+    col B: 'Descrição Materiais'
+    col C: 'Descrição Materiais'
+    col D: 'Descrição Materiais'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 170
+      1. R 17 | unid=1   | data=             | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=             | obs=                               | 
+      3. R 21 | unid=1   | data=-            | obs=                               | 
+      4. R 23 | unid=1   | data=-            | obs=                               | 
+      5. R 25 | unid=1   | data=             | obs=                               | Plaina elétrica profissional 82mm, 700W, 220v, com lâmina e saco coletor  
+      6. R 28 | unid=1   | data=             | obs=                               | 
+      7. R 31 | unid=1   | data=             | obs=                               | Esquadro com cabo de alumínio e lâmina de aço inox. Com cabo projetado para uso ...
+      8. R 33 | unid=1   | data=             | obs=                               | 
+      9. R 35 | unid=1   | data=-            | obs=                               | 
+     10. R 37 | unid=1   | data=-            | obs=                               | 
+     11. R 39 | unid=1   | data=             | obs=                               | Nível com estrutura de madeira de alta resistência, escala métrica, tamanho: 12"...
+     12. R 41 | unid=1   | data=             | obs=                               | 
+     13. R 43 | unid=1   | data=-            | obs=                               | 
+     14. R 45 | unid=1   | data=-            | obs=                               | 
+     15. R 47 | unid=1   | data=             | obs=                               | Prumo 500gr com corpo em aço revestido por plástico. Calço guia de madeira e cor...
+     16. R 49 | unid=1   | data=             | obs=                               | 
+     17. R 51 | unid=1   | data=-            | obs=                               | 
+     18. R 53 | unid=1   | data=-            | obs=                               | 
+     19. R 55 | unid=1   | data=             | obs=                               | Escala métrica de madeira com graduação em mm/pol. Medida da escala: 2 metros
+     20. R 57 | unid=1   | data=             | obs=                               | 
+     21. R 59 | unid=1   | data=-            | obs=                               | 
+     22. R 61 | unid=1   | data=-            | obs=                               | 
+     23. R 63 | unid=1   | data=             | obs=                               | Chave de fenda 1/8 x 05. Cabo em PVC injetado diretamente sob a lâmina e haste e...
+     24. R 65 | unid=1   | data=-            | obs=                               | 
+     25. R 67 | unid=1   | data=-            | obs=                               | 
+     26. R 69 | unid=1   | data=-            | obs=                               | 
+     27. R 71 | unid=1   | data=             | obs=                               | Chave de fenda 3/16 x 06. Cabo em PVC injetado diretamente sob a lâmina e haste ...
+     28. R 73 | unid=1   | data=             | obs=                               | 
+     29. R 75 | unid=1   | data=-            | obs=                               | 
+     30. R 77 | unid=1   | data=-            | obs=                               | 
+     31. R 79 | unid=1   | data=             | obs=                               | Chave de fenda 5/16 x 08. Cabo em PVC injetado diretamente sob a lâmina e haste ...
+     32. R 81 | unid=1   | data=             | obs=                               | 
+     33. R 83 | unid=1   | data=-            | obs=                               | 
+     34. R 85 | unid=1   | data=-            | obs=                               | 
+     35. R 87 | unid=1   | data=             | obs=                               | Chave Philips 1/8 x 05. Cabo em PVC injetado diretamente sob a lâmina e haste em...
+     36. R 89 | unid=1   | data=             | obs=                               | 
+     37. R 91 | unid=1   | data=-            | obs=                               | 
+     38. R 93 | unid=1   | data=-            | obs=                               | 
+     39. R 95 | unid=1   | data=             | obs=                               | Chave Philips 3/16 x 06. Cabo em PVC injetado diretamente sob a lâmina e haste e...
+     40. R 97 | unid=1   | data=             | obs=                               | 
+     41. R 99 | unid=1   | data=-            | obs=                               | 
+     42. R101 | unid=1   | data=-            | obs=                               | 
+     43. R103 | unid=1   | data=             | obs=                               | Chave Philips 5/16 x 08. Cabo em PVC injetado diretamente sob a lâmina e haste e...
+     44. R105 | unid=1   | data=             | obs=                               | 
+     45. R107 | unid=1   | data=-            | obs=                               | 
+     46. R109 | unid=1   | data=-            | obs=                               | 
+     47. R111 | unid=1   | data=             | obs=                               | Jogo de Chaves Allen Torkx Longa de T10 a T50, 9 Peças, forjados em aço cromo-va...
+     48. R113 | unid=1   | data=             | obs=                               | 
+     49. R115 | unid=1   | data=-            | obs=                               | 
+     50. R117 | unid=1   | data=-            | obs=                               | 
+    ... and 120 more items
+  Footer (R636 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R636 CG): REPRESENTANTE CAROLDO:...........................................
+  Footer (R638 CA): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 2 (cols Q-AA) ---
+  Name (row 13, col Q): 'Ivo Leandro'
+  Header row: 15
+  Column structure:
+    col Q: 'Descrição Materiais'
+    col R: 'Descrição Materiais'
+    col S: 'Descrição Materiais'
+    col T: 'Descrição Materiais'
+    col U: 'Uni.'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Imagem Ilustrativa'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+    col AA: 'Data de entrega'
+
+  Items found: 173
+      1. R 17 | unid=1   | data=03/12/2025   | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=12/03/2025   | obs=                               | 
+      3. R 21 | unid=1   | data=07/04/2025   | obs=                               | 
+      4. R 23 | unid=1   | data=5/5/25       | obs=                               | 
+      5. R 25 | unid=1   | data=21/03/2025   | obs=                               | Plaina profissional n° 4 global acabamento liso
+      6. R 28 | unid=1   | data=21/03/2025   | obs=                               | 
+      7. R 31 | unid=1   | data=12/03/2025   | obs=                               | Esquadro com cabo de alumínio e lâmina de aço inox. Com cabo projetado para uso ...
+      8. R 33 | unid=1   | data=12/03/2025   | obs=                               | 
+      9. R 35 | unid=1   | data=07/04/2025   | obs=                               | 
+     10. R 37 | unid=1   | data=5/5/25       | obs=                               | 
+     11. R 39 | unid=1   | data=12/03/2025   | obs=                               | Nível com estrutura de madeira de alta resistência, escala métrica, tamanho: 12"...
+     12. R 41 | unid=1   | data=12/03/2025   | obs=                               | 
+     13. R 43 | unid=1   | data=07/04/2025   | obs=                               | 
+     14. R 45 | unid=1   | data=5/5/25       | obs=                               | 
+     15. R 47 | unid=1   | data=12/03/2025   | obs=                               | Prumo 500gr com corpo em aço revestido por plástico. Calço guia de madeira e cor...
+     16. R 49 | unid=1   | data=12/03/2025   | obs=                               | 
+     17. R 51 | unid=1   | data=07/04/2025   | obs=                               | 
+     18. R 53 | unid=1   | data=5/5/25       | obs=                               | 
+     19. R 55 | unid=1   | data=12/03/2025   | obs=                               | Escala métrica de madeira com graduação em mm/pol. Medida da escala: 2 metros
+     20. R 57 | unid=1   | data=12/03/2025   | obs=                               | 
+     21. R 59 | unid=1   | data=07/04/2025   | obs=                               | 
+     22. R 61 | unid=1   | data=5/5/25       | obs=                               | 
+     23. R 63 | unid=1   | data=21/03/2025   | obs=                               | Chave de fenda 1/8 x 05. Cabo em PVC injetado diretamente sob a lâmina e haste e...
+     24. R 65 | unid=1   | data=07/04/2025   | obs=                               | 
+     25. R 67 | unid=1   | data=07/04/2025   | obs=                               | 
+     26. R 69 | unid=1   | data=5/5/25       | obs=                               | 
+     27. R 71 | unid=1   | data=12/03/2025   | obs=                               | Chave de fenda 3/16 x 06. Cabo em PVC injetado diretamente sob a lâmina e haste ...
+     28. R 73 | unid=1   | data=21/03/2025   | obs=                               | 
+     29. R 75 | unid=1   | data=07/04/2025   | obs=                               | 
+     30. R 77 | unid=1   | data=5/5/25       | obs=                               | 
+     31. R 79 | unid=1   | data=12/03/2025   | obs=                               | Chave de fenda 5/16 x 08. Cabo em PVC injetado diretamente sob a lâmina e haste ...
+     32. R 81 | unid=1   | data=21/03/2025   | obs=                               | 
+     33. R 83 | unid=1   | data=07/04/2025   | obs=                               | 
+     34. R 85 | unid=1   | data=5/5/25       | obs=                               | 
+     35. R 87 | unid=1   | data=12/03/2025   | obs=                               | Chave Philips 1/8 x 05. Cabo em PVC injetado diretamente sob a lâmina e haste em...
+     36. R 89 | unid=1   | data=12/03/2025   | obs=                               | 
+     37. R 91 | unid=1   | data=07/04/2025   | obs=                               | 
+     38. R 93 | unid=1   | data=5/5/25       | obs=                               | 
+     39. R 95 | unid=1   | data=21/03/2025   | obs=                               | Chave Philips 3/16 x 06. Cabo em PVC injetado diretamente sob a lâmina e haste e...
+     40. R 97 | unid=1   | data=21/03/2025   | obs=                               | 
+     41. R 99 | unid=1   | data=07/04/2025   | obs=                               | 
+     42. R101 | unid=1   | data=5/5/25       | obs=                               | 
+     43. R103 | unid=1   | data=12/03/2025   | obs=                               | Chave Philips 5/16 x 08. Cabo em PVC injetado diretamente sob a lâmina e haste e...
+     44. R105 | unid=1   | data=12/03/2025   | obs=                               | 
+     45. R107 | unid=1   | data=07/04/2025   | obs=                               | 
+     46. R109 | unid=1   | data=5/5/25       | obs=                               | 
+     47. R111 | unid=1   | data=21/03/2025   | obs=                               | Jogo de Chaves Allen Torkx Longa de T10 a T50, 9 Peças, forjados em aço cromo-va...
+     48. R113 | unid=1   | data=21/03/2025   | obs=                               | 
+     49. R115 | unid=1   | data=07/04/2025   | obs=                               | 
+     50. R117 | unid=1   | data=5/5/25       | obs=                               | 
+    ... and 123 more items
+
+
+####################################################################################################
+SHEET: MATERIAIS PEDREIROS
+  dimensions=A1:AG318  max_row=318  max_col=33
+####################################################################################################
+
+Detected 1 collaborator block(s):
+  Block 1: cols P-AC (rows 1-12)
+
+--- BLOCK 1 (cols P-AC) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col P: 'Descrição Materiais'
+    col Q: 'Descrição Materiais'
+    col R: 'Descrição Materiais'
+    col S: 'Descrição Materiais'
+    col T: 'Uni.'
+    col U: 'IMAGEM ILUSTRATIVA'
+    col V: 'IMAGEM ILUSTRATIVA'
+    col W: 'IMAGEM ILUSTRATIVA'
+    col X: 'Data de entrega'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+    col AA: 'Observação'
+    col AB: 'Observação'
+    col AC: 'Observação'
+
+  Items found: 65
+      1. R 17 | unid=1   | data=             | obs=                               | Colher de Pedreiro n°6 com Haste Curva e Cabo de Madeira envernizada
+      2. R 19 | unid=1   | data=             | obs=                               | Colher de Pedreiro n°8 com Haste Curva e Cabo de Madeira envernizada
+      3. R 23 | unid=1   | data=             | obs=                               | Martelo Unha/Carpinteiro 29 mm. Cabeça forjada em aço e cabo forjado em madeira ...
+      4. R 25 | unid=1   | data=             | obs=                               | 
+      5. R 27 | unid=1   | data=             | obs=                               | Prumo de aço carbono com calço guia em madeira e cordão nylon de 2 metros
+      6. R 29 | unid=1   | data=             | obs=                               | 
+      7. R 31 | unid=1   | data=             | obs=                               | Nível com estrutura de madeira de alta resistência, escala métrica, tamanho: 12"...
+      8. R 33 | unid=1   | data=             | obs=                               | 
+      9. R 35 | unid=1   | data=             | obs=                               | Chave de fenda 5/16 x 06. Cabo em PVC injetado diretamente sob a lâmina e haste ...
+     10. R 37 | unid=1   | data=             | obs=                               | 
+     11. R 39 | unid=1   | data=             | obs=                               | Serrote 24 com lâmina larga em aço, dentes temperados e travados com 02 arestas ...
+     12. R 41 | unid=1   | data=             | obs=                               | 
+     13. R 43 | unid=1   | data=             | obs=                               | Alicate universal, acabamento polido, cabo ergonômico emborrachado com abas prot...
+     14. R 45 | unid=1   | data=             | obs=                               | 
+     15. R 47 | unid=1   | data=             | obs=                               | Mangueira para nível 10 metros fabricada em PVC cristal
+     16. R 49 | unid=1   | data=             | obs=                               | Marreta de 01 kg com cabo de madeira envernizado e ponteiro redondo
+     17. R 51 | unid=1   | data=             | obs=                               | 
+     18. R 53 | unid=1   | data=             | obs=                               | Capa de Chuva em Nylon (parte externa poliamida e parte interna revestida em PVC...
+     19. R 55 | unid=1   | data=             | obs=                               | 
+     20. R 57 | unid=1   | data=             | obs=                               | Desempenadeira de aço lisa com cabo de madeira envernizada e com uma haste de fi...
+     21. R 59 | unid=1   | data=             | obs=                               | 
+     22. R 61 | unid=1   | data=             | obs=                               | Torquês de carpinteiro com corpo forjado em aço especial. Acabamento com pintura...
+     23. R 63 | unid=1   | data=             | obs=                               | 
+     24. R 65 | unid=1   | data=             | obs=                               | Desempenadeira de aço dentada 24cm x 12cm
+     25. R 67 | unid=1   | data=             | obs=                               | 
+     26. R 69 | unid=1   | data=             | obs=                               | Desempenadeira com esponja
+     27. R 71 | unid=1   | data=             | obs=                               | 
+     28. R 73 | unid=1   | data=             | obs=                               | Desempenadeira PVC frisada
+     29. R 75 | unid=1   | data=             | obs=                               | 
+     30. R 77 | unid=1   | data=             | obs=                               | Martelo de borracha 80 mm com cabo de madeira 
+     31. R 79 | unid=1   | data=             | obs=                               | 
+     32. R 81 | unid=1   | data=             | obs=                               | Caixa para argamassa 20 litros 
+     33. R 83 | unid=1   | data=             | obs=                               | 
+     34. R 85 | unid=1   | data=             | obs=                               | Pá de concha quadrada com cabo de madeira; Tamanho do cabo: 71 cm
+     35. R 87 | unid=1   | data=             | obs=                               | Picareta lamina numero 4 com olho oval 70x45 cm, com cabo de madeira 90 cm
+     36. R 89 | unid=1   | data=             | obs=                               | Pá de corte com cabo de madeira Pá de corte com cabo de madeira 
+Tamanho da pá (...
+     37. R 91 | unid=1   | data=             | obs=                               | Enxada larga com cabo de 130 cm
+     38. R 93 | unid=1   | data=             | obs=                               | Carrinho de mão tipo caçamba 
+     39. R 95 | unid=    | data=-            | obs=-                              | 
+     40. R 97 | unid=1   | data=             | obs=                               | Régua de alumino para pedreiro 2,00 metros
+     41. R 99 | unid=1   | data=             | obs=                               | 
+     42. R101 | unid=1   | data=             | obs=                               | Talhadeira com corpo em aço especial, ponta em carboneto de tungstênio (metal du...
+     43. R103 | unid=    | data=-            | obs=-                              | 
+     44. R105 | unid=1   | data=             | obs=                               | Talhadeira 10 polegadas, forçada em aço carbono com empunhadura
+     45. R107 | unid=1   | data=             | obs=                               | 
+     46. R109 | unid=1   | data=             | obs=                               | Trena métrica metálica de 5 metros
+     47. R111 | unid=1   | data=             | obs=                               | 
+     48. R113 | unid=1   | data=             | obs=                               | Esquadro com cabo de alumínio. Com cabo projetado para uso a 45º, escala com 1,2...
+     49. R115 | unid=1   | data=             | obs=                               | 
+     50. R117 | unid=1   | data=             | obs=                               | Balde de pedreiro em aço 10 litros 
+    ... and 15 more items
+
+
+####################################################################################################
+SHEET: MATERIAIS ELETRICISTAS
+  dimensions=A1:AD437  max_row=437  max_col=30
+####################################################################################################
+
+Detected 2 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols Q-AA (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col A: 'Descrição Materiais'
+    col B: 'Descrição Materiais'
+    col C: 'Descrição Materiais'
+    col D: 'Descrição Materiais'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 96
+      1. R 17 | unid=1   | data=03/12/2025   | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=03/12/2025   | obs=                               | 
+      3. R 21 | unid=1   | data=03/12/2025   | obs=                               | 
+      4. R 23 | unid=1   | data=19/03/2025   | obs=                               | Alicate universal, acabamento polido, cabo ergonômico emborrachado com abas prot...
+      5. R 25 | unid=1   | data=21/03/2025   | obs=                               | 
+      6. R 27 | unid=1   | data=21/03/2025   | obs=                               | 
+      7. R 29 | unid=1   | data=03/12/2025   | obs=                               | Alicate cortador e descascador de fios com crimpador
+      8. R 31 | unid=1   | data=03/12/2025   | obs=                               | 
+      9. R 33 | unid=1   | data=21/03/2025   | obs=                               | 
+     10. R 35 | unid=1   | data=03/12/2025   | obs=                               | Caneta detector de tensão alerta sonoro e luminoso, 12 v a 1000 V AC
+     11. R 37 | unid=1   | data=21/03/2025   | obs=                               | 
+     12. R 39 | unid=1   | data=21/03/2025   | obs=                               | 
+     13. R 41 | unid=1   | data=03/12/2025   | obs=                               | Identificador de circuitos elétricos com faixa mínima de operação 110v a 127 v
+     14. R 43 | unid=1   | data=03/12/2025   | obs=                               | 
+     15. R 45 | unid=1   | data=03/12/2025   | obs=                               | 
+     16. R 47 | unid=1   | data=03/12/2025   | obs=                               | Estilete profissional retrátil trapezoidal
+     17. R 49 | unid=1   | data=03/12/2025   | obs=                               | 
+     18. R 51 | unid=1   | data=21/03/2025   | obs=                               | 
+     19. R 53 | unid=1   | data=03/12/2025   | obs=                               | Alicate de corte diagonal 6", indicado para cortar e desencapar fios e cabos elé...
+     20. R 55 | unid=1   | data=21/03/2025   | obs=                               | 
+     21. R 57 | unid=1   | data=21/03/2025   | obs=                               | 
+     22. R 59 | unid=1   | data=21/03/2025   | obs=                               | Jogo de 8 chaves Fenda com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/8x...
+     23. R 61 | unid=1   | data=21/03/2025   | obs=                               | 
+     24. R 63 | unid=1   | data=21/03/2025   | obs=                               | 
+     25. R 65 | unid=1   | data=21/03/2025   | obs=                               | Jogo de 8 chaves Philips com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/...
+     26. R 67 | unid=1   | data=21/03/2025   | obs=                               | 
+     27. R 69 | unid=1   | data=21/03/2025   | obs=                               | 
+     28. R 71 | unid=1   | data=03/12/2025   | obs=                               | Chave Phillips Cotoco PHO 1/4 x 1.1/2 Polegadas 
+     29. R 73 | unid=1   | data=03/12/2025   | obs=                               | 
+     30. R 75 | unid=1   | data=03/12/2025   | obs=                               | 
+     31. R 79 | unid=1   | data=21/03/2025   | obs=                               | Trena métrica metálica de 5 metros
+     32. R 81 | unid=1   | data=21/03/2025   | obs=                               | 
+     33. R 83 | unid=1   | data=21/03/2025   | obs=                               | 
+     34. R 85 | unid=1   | data=03/12/2025   | obs=                               | Alicate de bico reto 6", indicado para o manuseio de terminais em instalações el...
+     35. R 87 | unid=1   | data=03/12/2025   | obs=                               | 
+     36. R 89 | unid=1   | data=21/03/2025   | obs=                               | 
+     37. R 91 | unid=1   | data=03/12/2025   | obs=                               | Arco de serra regulável. Lâmina de 12". Acabamento cromado, cabo ergonômico inje...
+     38. R 93 | unid=1   | data=03/12/2025   | obs=                               | 
+     39. R 95 | unid=1   | data=03/12/2025   | obs=                               | 
+     40. R 97 | unid=1   | data=03/12/2025   | obs=                               | Martelo de borracha com cabo em madeira envernizada. Medidas: cabeça 80 mm e com...
+     41. R 99 | unid=1   | data=03/12/2025   | obs=                               | 
+     42. R101 | unid=1   | data=03/12/2025   | obs=                               | 
+     43. R103 | unid=1   | data=26/06/25     | obs=                               | Capa de Chuva em Nylon (parte externa poliamida e parte interna revestida em PVC...
+     44. R105 | unid=1   | data=26/6/25      | obs=                               | 
+     45. R107 | unid=1   | data=26/6/25      | obs=                               | 
+     46. R109 | unid=1   | data=03/12/2025   | obs=                               | Jogo de Chaves Allen Longa de 3 a 10 mm com 08 Peças, forjados em aço cromo-vaná...
+     47. R111 | unid=1   | data=03/12/2025   | obs=                               | 
+     48. R113 | unid=1   | data=03/12/2025   | obs=                               | 
+     49. R115 | unid=1   | data=12/03/2025   | obs=                               | Conjunto jogo de chaves L cachimbo 5/16” a 9/16”
+     50. R121 | unid=1   | data=12/03/2025   | obs=                               | Jogo completo de cachimbo 12 a 32 mm, em cromo vanádio
+    ... and 46 more items
+
+--- BLOCK 2 (cols Q-AA) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col Q: 'Descrição Materiais'
+    col R: 'Descrição Materiais'
+    col S: 'Descrição Materiais'
+    col T: 'Descrição Materiais'
+    col U: 'Uni.'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Imagem Ilustrativa'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+    col AA: 'Data de entrega'
+
+  Items found: 96
+      1. R 17 | unid=1   | data=             | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=             | obs=                               | 
+      3. R 21 | unid=1   | data=             | obs=                               | 
+      4. R 23 | unid=1   | data=             | obs=                               | Alicate universal, acabamento polido, cabo ergonômico emborrachado com abas prot...
+      5. R 25 | unid=1   | data=             | obs=                               | 
+      6. R 27 | unid=1   | data=             | obs=                               | 
+      7. R 29 | unid=1   | data=             | obs=                               | Alicate cortador e descascador de fios com crimpador
+      8. R 31 | unid=1   | data=             | obs=                               | 
+      9. R 33 | unid=1   | data=             | obs=                               | 
+     10. R 35 | unid=1   | data=             | obs=                               | Caneta detector de tensão alerta sonoro e luminoso, 12 v a 1000 V AC
+     11. R 37 | unid=1   | data=             | obs=                               | 
+     12. R 39 | unid=1   | data=             | obs=                               | 
+     13. R 41 | unid=1   | data=             | obs=                               | Identificador de circuitos elétricos com faixa mínima de operação 110v a 127 v
+     14. R 43 | unid=1   | data=             | obs=                               | 
+     15. R 45 | unid=1   | data=             | obs=                               | 
+     16. R 47 | unid=1   | data=             | obs=                               | Estilete profissional retrátil trapezoidal
+     17. R 49 | unid=1   | data=             | obs=                               | 
+     18. R 51 | unid=1   | data=             | obs=                               | 
+     19. R 53 | unid=1   | data=             | obs=                               | Alicate de corte diagonal 6", indicado para cortar e desencapar fios e cabos elé...
+     20. R 55 | unid=1   | data=             | obs=                               | 
+     21. R 57 | unid=1   | data=             | obs=                               | 
+     22. R 59 | unid=1   | data=             | obs=                               | Jogo de 8 chaves Fenda com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/8x...
+     23. R 61 | unid=1   | data=             | obs=                               | 
+     24. R 63 | unid=1   | data=             | obs=                               | 
+     25. R 65 | unid=1   | data=             | obs=                               | Jogo de 8 chaves Philips com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/...
+     26. R 67 | unid=1   | data=             | obs=                               | 
+     27. R 69 | unid=1   | data=             | obs=                               | 
+     28. R 71 | unid=1   | data=             | obs=                               | Chave Phillips Cotoco PHO 1/4 x 1.1/2 Polegadas 
+     29. R 73 | unid=1   | data=             | obs=                               | 
+     30. R 75 | unid=1   | data=             | obs=                               | 
+     31. R 79 | unid=1   | data=             | obs=                               | Trena métrica metálica de 5 metros
+     32. R 81 | unid=1   | data=             | obs=                               | 
+     33. R 83 | unid=1   | data=             | obs=                               | 
+     34. R 85 | unid=1   | data=             | obs=                               | Alicate de bico reto 6", indicado para o manuseio de terminais em instalações el...
+     35. R 87 | unid=1   | data=             | obs=                               | 
+     36. R 89 | unid=1   | data=             | obs=                               | 
+     37. R 91 | unid=1   | data=             | obs=                               | Arco de serra regulável. Lâmina de 12". Acabamento cromado, cabo ergonômico inje...
+     38. R 93 | unid=1   | data=             | obs=                               | 
+     39. R 95 | unid=1   | data=             | obs=                               | 
+     40. R 97 | unid=1   | data=             | obs=                               | Martelo de borracha com cabo em madeira envernizada. Medidas: cabeça 80 mm e com...
+     41. R 99 | unid=1   | data=             | obs=                               | 
+     42. R101 | unid=1   | data=             | obs=                               | 
+     43. R103 | unid=1   | data=             | obs=                               | Capa de Chuva em Nylon (parte externa poliamida e parte interna revestida em PVC...
+     44. R105 | unid=1   | data=             | obs=                               | 
+     45. R107 | unid=1   | data=             | obs=                               | 
+     46. R109 | unid=1   | data=             | obs=                               | Jogo de Chaves Allen Longa de 3 a 10 mm com 08 Peças, forjados em aço cromo-vaná...
+     47. R111 | unid=1   | data=             | obs=                               | 
+     48. R113 | unid=1   | data=             | obs=                               | 
+     49. R115 | unid=1   | data=             | obs=                               | Conjunto jogo de chaves L cachimbo 5/16” a 9/16”
+     50. R121 | unid=1   | data=             | obs=                               | Jogo completo de cachimbo 12 a 32 mm, em cromo vanádio
+    ... and 46 more items
+  Footer (R433 CQ): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R433 CW): REPRESENTANTE JIREH: ...............................................
+  Footer (R436 CQ): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+
+####################################################################################################
+SHEET: MATERIAIS PINTORES
+  dimensions=A1:AD381  max_row=381  max_col=30
+####################################################################################################
+
+Detected 2 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols Q-AA (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col A: 'Descrição Materiais'
+    col B: 'Descrição Materiais'
+    col C: 'Descrição Materiais'
+    col D: 'Descrição Materiais'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 122
+      1. R 17 | unid=1   | data=05/05/2025   | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=5/5/25       | obs=                               | 
+      3. R 21 | unid=1   | data=5/5/25       | obs=                               | 
+      4. R 23 | unid=1   | data=23/5/25      | obs=                               | 
+      5. R 25 | unid=1   | data=02/07/2025   | obs=                               | 
+      6. R 27 | unid=1   | data=4/8/25       | obs=                               | 
+      7. R 29 | unid=1   | data=7/4/25       | obs=                               | Espátula profissional de aço forjado n°08, com cabo de madeira 
+      8. R 31 | unid=1   | data=5/5/25       | obs=                               | 
+      9. R 33 | unid=1   | data=5/5/25       | obs=                               | 
+     10. R 35 | unid=1   | data=23/5/25      | obs=                               | 
+     11. R 37 | unid=1   | data=10/6/25      | obs=                               | 
+     12. R 39 | unid=1   | data=4/8/25       | obs=                               | 
+     13. R 41 | unid=1   | data=5/5/25       | obs=                               | Espátula rígida n°12, com cabo de madeira
+     14. R 43 | unid=1   | data=5/5/25       | obs=                               | 
+     15. R 45 | unid=1   | data=5/5/25       | obs=                               | 
+     16. R 47 | unid=1   | data=23/5/25      | obs=                               | 
+     17. R 49 | unid=1   | data=10/6/25      | obs=                               | 
+     18. R 51 | unid=1   | data=4/8/25       | obs=                               | 
+     19. R 53 | unid=1   | data=5/5/25       | obs=                               | Rolo de espuma, poliéster, n°09
+     20. R 55 | unid=1   | data=5/5/25       | obs=                               | 
+     21. R 57 | unid=1   | data=5/5/25       | obs=                               | 
+     22. R 59 | unid=1   | data=23/5/25      | obs=                               | 
+     23. R 61 | unid=1   | data=10/6/25      | obs=                               | 
+     24. R 63 | unid=1   | data=4/8/25       | obs=                               | 
+     25. R 65 | unid=1   | data=5/5/25       | obs=                               | Rolo de espuma, poliéster, n°15
+     26. R 67 | unid=1   | data=5/5/25       | obs=                               | 
+     27. R 69 | unid=1   | data=5/5/25       | obs=                               | 
+     28. R 71 | unid=1   | data=23/5/25      | obs=                               | 
+     29. R 73 | unid=1   | data=10/6/25      | obs=                               | 
+     30. R 75 | unid=1   | data=4/8/25       | obs=                               | 
+     31. R 77 | unid=1   | data=5/5/25       | obs=                               | Rolo de lã de carneiro, 25 cm
+     32. R 79 | unid=1   | data=5/5/25       | obs=                               | 
+     33. R 81 | unid=1   | data=5/5/25       | obs=                               | 
+     34. R 83 | unid=1   | data=23/5/25      | obs=                               | 
+     35. R 85 | unid=1   | data=10/6/25      | obs=                               | 
+     36. R 87 | unid=1   | data=4/8/25       | obs=                               | 
+     37. R 89 | unid=1   | data=5/5/25       | obs=                               | Pincel 2 ½”
+     38. R 91 | unid=1   | data=05/05/2025   | obs=                               | 
+     39. R 93 | unid=1   | data=5/5/25       | obs=                               | 
+     40. R 95 | unid=1   | data=23/5/25      | obs=                               | 
+     41. R 97 | unid=1   | data=06/10/2025   | obs=                               | 
+     42. R 99 | unid=1   | data=4/8/25       | obs=                               | 
+     43. R101 | unid=1   | data=5/5/25       | obs=                               | Pincel 4”
+     44. R103 | unid=1   | data=5/5/25       | obs=                               | 
+     45. R105 | unid=1   | data=5/5/25       | obs=                               | 
+     46. R107 | unid=1   | data=23/5/25      | obs=                               | 
+     47. R109 | unid=1   | data=10/6/25      | obs=                               | 
+     48. R111 | unid=1   | data=4/8/25       | obs=                               | 
+     49. R113 | unid=1   | data=5/5/25       | obs=                               | Chave de fenda 5/16 x 06. Cabo em PVC e haste em aço 6150 (cromo vanádio) trefil...
+     50. R115 | unid=1   | data=5/5/25       | obs=                               | 
+    ... and 72 more items
+
+--- BLOCK 2 (cols Q-AA) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col Q: 'Descrição Materiais'
+    col R: 'Descrição Materiais'
+    col S: 'Descrição Materiais'
+    col T: 'Descrição Materiais'
+    col U: 'Uni.'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Imagem Ilustrativa'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+    col AA: 'Data de entrega'
+
+  Items found: 122
+      1. R 17 | unid=1   | data=             | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=             | obs=                               | 
+      3. R 21 | unid=1   | data=             | obs=                               | 
+      4. R 23 | unid=1   | data=             | obs=                               | 
+      5. R 25 | unid=1   | data=             | obs=                               | 
+      6. R 27 | unid=1   | data=             | obs=                               | 
+      7. R 29 | unid=1   | data=             | obs=                               | Espátula profissional de aço forjado n°08, com cabo de madeira 
+      8. R 31 | unid=1   | data=             | obs=                               | 
+      9. R 33 | unid=1   | data=             | obs=                               | 
+     10. R 35 | unid=1   | data=             | obs=                               | 
+     11. R 37 | unid=1   | data=             | obs=                               | 
+     12. R 39 | unid=1   | data=             | obs=                               | 
+     13. R 41 | unid=1   | data=             | obs=                               | Espátula rígida n°12, com cabo de madeira
+     14. R 43 | unid=1   | data=             | obs=                               | 
+     15. R 45 | unid=1   | data=             | obs=                               | 
+     16. R 47 | unid=1   | data=             | obs=                               | 
+     17. R 49 | unid=1   | data=             | obs=                               | 
+     18. R 51 | unid=1   | data=             | obs=                               | 
+     19. R 53 | unid=1   | data=             | obs=                               | Rolo de espuma, poliéster, n°09
+     20. R 55 | unid=1   | data=             | obs=                               | 
+     21. R 57 | unid=1   | data=             | obs=                               | 
+     22. R 59 | unid=1   | data=             | obs=                               | 
+     23. R 61 | unid=1   | data=             | obs=                               | 
+     24. R 63 | unid=1   | data=             | obs=                               | 
+     25. R 65 | unid=1   | data=             | obs=                               | Rolo de espuma, poliéster, n°15
+     26. R 67 | unid=1   | data=             | obs=                               | 
+     27. R 69 | unid=1   | data=             | obs=                               | 
+     28. R 71 | unid=1   | data=             | obs=                               | 
+     29. R 73 | unid=1   | data=             | obs=                               | 
+     30. R 75 | unid=1   | data=             | obs=                               | 
+     31. R 77 | unid=1   | data=             | obs=                               | Rolo de lã de carneiro, 25 cm
+     32. R 79 | unid=1   | data=             | obs=                               | 
+     33. R 81 | unid=1   | data=             | obs=                               | 
+     34. R 83 | unid=1   | data=             | obs=                               | 
+     35. R 85 | unid=1   | data=             | obs=                               | 
+     36. R 87 | unid=1   | data=             | obs=                               | 
+     37. R 89 | unid=1   | data=             | obs=                               | Pincel 2 ½”
+     38. R 91 | unid=1   | data=             | obs=                               | 
+     39. R 93 | unid=1   | data=             | obs=                               | 
+     40. R 95 | unid=1   | data=             | obs=                               | 
+     41. R 97 | unid=1   | data=             | obs=                               | 
+     42. R 99 | unid=1   | data=             | obs=                               | 
+     43. R101 | unid=1   | data=             | obs=                               | Pincel 4”
+     44. R103 | unid=1   | data=             | obs=                               | 
+     45. R105 | unid=1   | data=             | obs=                               | 
+     46. R107 | unid=1   | data=             | obs=                               | 
+     47. R109 | unid=1   | data=             | obs=                               | 
+     48. R111 | unid=1   | data=             | obs=                               | 
+     49. R113 | unid=1   | data=             | obs=                               | Chave de fenda 5/16 x 06. Cabo em PVC e haste em aço 6150 (cromo vanádio) trefil...
+     50. R115 | unid=1   | data=             | obs=                               | 
+    ... and 72 more items
+  Footer (R377 CQ): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R377 CW): REPRESENTANTE JIREH: ...............................................
+  Footer (R380 CQ): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+
+####################################################################################################
+SHEET: MATERIAIS INST. HIDRÁULICOS
+  dimensions=A1:AT368  max_row=368  max_col=46
+####################################################################################################
+
+Detected 3 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols P-Z (rows 1-12)
+  Block 3: cols AG-AQ (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col A: 'Descrição Materiais'
+    col B: 'Descrição Materiais'
+    col C: 'Descrição Materiais'
+    col D: 'Descrição Materiais'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 75
+      1. R 17 | unid=1   | data=             | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=             | obs=                               | 
+      3. R 21 | unid=1   | data=             | obs=                               | Chave Grifo de 14” – 350mm, produzida em aço carbono
+      4. R 27 | unid=1   | data=             | obs=                               | Chave Grifo de 18” – 450mm, produzida em aço carbono
+      5. R 33 | unid=1   | data=             | obs=                               | Chave Grifo de 24” – 600mm, produzida em aço carbono
+      6. R 39 | unid=1   | data=             | obs=                               | Chave Grifo de 36” – produzida em aço carbono
+      7. R 45 | unid=1   | data=             | obs=                               | Chave de Corrente para Tubos 5”. Em aço especial, empunhadura plastificada
+      8. R 51 | unid=1   | data=             | obs=                               | Engraxateria manual com acionamento por alavanca
+      9. R 57 | unid=1   | data=             | obs=                               | Jogo de Chave Combinadas de 06 a 36 mm; Dois lados distintos (boca e estrela), b...
+     10. R 59 | unid=1   | data=             | obs=                               | 
+     11. R 61 | unid=1   | data=             | obs=                               | Pá de corte com cabo de madeira. Tamanho da pá (AxL): 28,5 x 20 cm ; Tamanho do ...
+     12. R 63 | unid=1   | data=             | obs=                               | 
+     13. R 65 | unid=1   | data=             | obs=                               | Pá de concha quadrada com cabo de madeira tamanho: 71 cm
+     14. R 67 | unid=1   | data=             | obs=                               | 
+     15. R 69 | unid=1   | data=             | obs=                               | Picareta lamina numero 4 com olho oval 70x45 cm, com cabo de madeira 90 cm
+     16. R 71 | unid=1   | data=             | obs=                               | 
+     17. R 73 | unid=1   | data=             | obs=                               | Torno/ Morsa de Bancada Grande
+     18. R 79 | unid=1   | data=             | obs=                               | Enxada larga com cabo de 130 cm
+     19. R 81 | unid=1   | data=             | obs=                               | 
+     20. R 83 | unid=1   | data=             | obs=                               | Desentupidora elétrica para tubulação; Desobstrução mínima 1 ½, máxima 4"
+     21. R 91 | unid=1   | data=             | obs=                               | Marreta oitavada 1 kg, com cabo de madeira
+     22. R 93 | unid=1   | data=             | obs=                               | 
+     23. R 95 | unid=1   | data=             | obs=                               | Marreta oitavada 2 kg, com cabo de madeira
+     24. R 97 | unid=1   | data=             | obs=                               | 
+     25. R 99 | unid=1   | data=             | obs=                               | Alicate de bico reto 6", indicado para o manuseio de terminais em instalações el...
+     26. R101 | unid=1   | data=             | obs=                               | 
+     27. R103 | unid=1   | data=             | obs=                               | Alicate de pressão profissional 10 polegadas, fabricado em aço carbono
+     28. R105 | unid=1   | data=             | obs=                               | 
+     29. R107 | unid=1   | data=             | obs=                               | Maçarico a gás butano de pressão, temp. máxima 1200°C, com botão de ignição
+     30. R113 | unid=1   | data=             | obs=                               | Talha manual de corrente, freio de haste dupla, apoio reforçado, 5m e 1 ton.
+     31. R121 | unid=1   | data=             | obs=                               | Furadeira de impacto 440W/220V com brocas 4, 6, 8 e 10
+     32. R127 | unid=1   | data=             | obs=                               | Lima grosa para madeira meia cana 200 mm com cabo ergonômico e emborrachado
+     33. R129 | unid=1   | data=             | obs=                               | 
+     34. R131 | unid=1   | data=             | obs=                               | Alicate universal, acabamento polido, cabo ergonômico emborrachado com abas prot...
+     35. R133 | unid=1   | data=             | obs=                               | 
+     36. R135 | unid=1   | data=             | obs=                               | Chave grifo para lavatório (formiga), possui mordentes em liga de aço forjado
+     37. R137 | unid=1   | data=             | obs=                               | 
+     38. R139 | unid=1   | data=             | obs=                               | Chave ajustável inglesa 12”
+     39. R141 | unid=1   | data=             | obs=                               | 
+     40. R143 | unid=1   | data=             | obs=                               | Chave de fenda 1/4 x 10. Cabo em PVC injetado diretamente sob a lâmina e haste e...
+     41. R145 | unid=1   | data=             | obs=                               | 
+     42. R147 | unid=1   | data=             | obs=                               | Chave de fenda 3/16 x 7. Cabo em PVC injetado diretamente sob a lâmina e haste e...
+     43. R149 | unid=1   | data=             | obs=                               | 
+     44. R151 | unid=1   | data=             | obs=                               | Chave de fenda 1/8 x 5. Cabo em PVC injetado diretamente sob a lâmina e haste em...
+     45. R153 | unid=1   | data=             | obs=                               | 
+     46. R155 | unid=1   | data=             | obs=                               | Chave Philips 1/4 x 10. Cabo em PVC injetado diretamente sob a lâmina e haste em...
+     47. R157 | unid=1   | data=             | obs=                               | 
+     48. R159 | unid=1   | data=             | obs=                               | Chave Philips 3/16 x 7. Cabo em PVC injetado diretamente sob a lâmina e haste em...
+     49. R161 | unid=1   | data=             | obs=                               | 
+     50. R163 | unid=1   | data=             | obs=                               | Chave Philips 1/8 x 5. Cabo em PVC injetado diretamente sob a lâmina e haste em ...
+    ... and 25 more items
+  Footer (R367 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R367 CG): REPRESENTANTE CAROLDO:........................................................
+
+--- BLOCK 2 (cols P-Z) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col P: 'Descrição Materiais'
+    col Q: 'Descrição Materiais'
+    col R: 'Descrição Materiais'
+    col S: 'Descrição Materiais'
+    col T: 'Uni.'
+    col U: 'Imagem Ilustrativa'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Data de entrega'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+
+  Items found: 92
+      1. R 17 | unid=1   | data=05/05/2025   | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=05/05/2025   | obs=                               | 
+      3. R 21 | unid=1   | data=             | obs=                               | Chave Grifo de 14” – 350mm, produzida em aço carbono
+      4. R 23 | unid=    | data=05/05/2025   | obs=                               | 
+      5. R 27 | unid=1   | data=             | obs=                               | Chave Grifo de 18” – 450mm, produzida em aço carbono
+      6. R 29 | unid=    | data=05/05/2025   | obs=                               | 
+      7. R 33 | unid=1   | data=             | obs=                               | Chave Grifo de 24” – 600mm, produzida em aço carbono
+      8. R 35 | unid=    | data=05/05/2025   | obs=                               | 
+      9. R 39 | unid=1   | data=             | obs=                               | Chave Grifo de 36” – produzida em aço carbono
+     10. R 41 | unid=    | data=05/05/2025   | obs=                               | 
+     11. R 45 | unid=1   | data=             | obs=                               | Chave de Corrente para Tubos 5”. Em aço especial, empunhadura plastificada
+     12. R 47 | unid=    | data=05/05/2025   | obs=                               | 
+     13. R 51 | unid=1   | data=05/05/2025   | obs=                               | Engraxateria manual com acionamento por alavanca
+     14. R 53 | unid=    | data=05/05/2025   | obs=                               | 
+     15. R 55 | unid=    | data=05/05/2025   | obs=                               | 
+     16. R 57 | unid=1   | data=05/05/2025   | obs=                               | Jogo de Chave Combinadas de 06 a 36 mm; Dois lados distintos (boca e estrela), b...
+     17. R 59 | unid=1   | data=05/05/2025   | obs=                               | 
+     18. R 61 | unid=1   | data=05/05/2025   | obs=                               | Pá de corte com cabo de madeira. Tamanho da pá (AxL): 28,5 x 20 cm ; Tamanho do ...
+     19. R 63 | unid=1   | data=05/05/2025   | obs=                               | 
+     20. R 65 | unid=1   | data=05/05/2025   | obs=                               | Pá de concha quadrada com cabo de madeira tamanho: 71 cm
+     21. R 67 | unid=1   | data=05/05/2025   | obs=                               | 
+     22. R 69 | unid=1   | data=05/05/2025   | obs=                               | Picareta lamina numero 4 com olho oval 70x45 cm, com cabo de madeira 90 cm
+     23. R 71 | unid=1   | data=05/05/2025   | obs=                               | 
+     24. R 73 | unid=1   | data=             | obs=                               | Torno/ Morsa de Bancada Grande
+     25. R 75 | unid=    | data=05/05/2025   | obs=                               | 
+     26. R 79 | unid=1   | data=05/05/2025   | obs=                               | Enxada larga com cabo de 130 cm
+     27. R 81 | unid=1   | data=05/05/2025   | obs=                               | 
+     28. R 83 | unid=1   | data=05/05/2025   | obs=                               | Desentupidora elétrica para tubulação; Desobstrução mínima 1 ½, máxima 4"
+     29. R 85 | unid=    | data=05/05/2025   | obs=                               | 
+     30. R 87 | unid=    | data=05/05/2025   | obs=                               | 
+     31. R 91 | unid=1   | data=05/05/2025   | obs=                               | Marreta oitavada 1 kg, com cabo de madeira
+     32. R 93 | unid=1   | data=05/05/2025   | obs=                               | 
+     33. R 95 | unid=1   | data=05/05/2025   | obs=                               | Marreta oitavada 2 kg, com cabo de madeira
+     34. R 97 | unid=1   | data=05/05/2025   | obs=                               | 
+     35. R 99 | unid=1   | data=05/05/2025   | obs=                               | Alicate de bico reto 6", indicado para o manuseio de terminais em instalações el...
+     36. R101 | unid=1   | data=05/05/2025   | obs=                               | 
+     37. R103 | unid=1   | data=05/05/2025   | obs=                               | Alicate de pressão profissional 10 polegadas, fabricado em aço carbono
+     38. R105 | unid=1   | data=05/05/2025   | obs=                               | 
+     39. R107 | unid=1   | data=05/05/2025   | obs=                               | Maçarico a gás butano de pressão, temp. máxima 1200°C, com botão de ignição
+     40. R109 | unid=    | data=Substituido por  | obs=                               | 
+     41. R111 | unid=    | data=maçarico de mão  | obs=                               | 
+     42. R113 | unid=1   | data=05/05/2025   | obs=                               | Talha manual de corrente, freio de haste dupla, apoio reforçado, 5m e 1 ton.
+     43. R115 | unid=    | data=05/05/2025   | obs=                               | 
+     44. R117 | unid=    | data=05/05/2025   | obs=                               | 
+     45. R119 | unid=    | data=05/05/2025   | obs=                               | 
+     46. R121 | unid=1   | data=05/05/2025   | obs=                               | Furadeira de impacto 440W/220V com brocas 4, 6, 8 e 10
+     47. R127 | unid=1   | data=05/05/2025   | obs=                               | Lima grosa para madeira meia cana 200 mm com cabo ergonômico e emborrachado
+     48. R129 | unid=1   | data=05/05/2025   | obs=                               | 
+     49. R131 | unid=1   | data=05/05/2025   | obs=                               | Alicate universal, acabamento polido, cabo ergonômico emborrachado com abas prot...
+     50. R133 | unid=1   | data=05/05/2025   | obs=                               | 
+    ... and 42 more items
+
+--- BLOCK 3 (cols AG-AQ) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col AG: 'Descrição Materiais'
+    col AH: 'Descrição Materiais'
+    col AI: 'Descrição Materiais'
+    col AJ: 'Descrição Materiais'
+    col AK: 'Uni.'
+    col AL: 'Imagem Ilustrativa'
+    col AM: 'Imagem Ilustrativa'
+    col AN: 'Imagem Ilustrativa'
+    col AO: 'Data de entrega'
+    col AP: 'Data de entrega'
+    col AQ: 'Data de entrega'
+
+  Items found: 75
+      1. R 17 | unid=1   | data=             | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=             | obs=                               | 
+      3. R 21 | unid=1   | data=             | obs=                               | Chave Grifo de 14” – 350mm, produzida em aço carbono
+      4. R 27 | unid=1   | data=             | obs=                               | Chave Grifo de 18” – 450mm, produzida em aço carbono
+      5. R 33 | unid=1   | data=             | obs=                               | Chave Grifo de 24” – 600mm, produzida em aço carbono
+      6. R 39 | unid=1   | data=             | obs=                               | Chave Grifo de 36” – produzida em aço carbono
+      7. R 45 | unid=1   | data=             | obs=                               | Chave de Corrente para Tubos 5”. Em aço especial, empunhadura plastificada
+      8. R 51 | unid=1   | data=             | obs=                               | Engraxateria manual com acionamento por alavanca
+      9. R 57 | unid=1   | data=             | obs=                               | Jogo de Chave Combinadas de 06 a 36 mm; Dois lados distintos (boca e estrela), b...
+     10. R 59 | unid=1   | data=             | obs=                               | 
+     11. R 61 | unid=1   | data=             | obs=                               | Pá de corte com cabo de madeira. Tamanho da pá (AxL): 28,5 x 20 cm ; Tamanho do ...
+     12. R 63 | unid=1   | data=             | obs=                               | 
+     13. R 65 | unid=1   | data=             | obs=                               | Pá de concha quadrada com cabo de madeira tamanho: 71 cm
+     14. R 67 | unid=1   | data=             | obs=                               | 
+     15. R 69 | unid=1   | data=             | obs=                               | Picareta lamina numero 4 com olho oval 70x45 cm, com cabo de madeira 90 cm
+     16. R 71 | unid=1   | data=             | obs=                               | 
+     17. R 73 | unid=1   | data=             | obs=                               | Torno/ Morsa de Bancada Grande
+     18. R 79 | unid=1   | data=             | obs=                               | Enxada larga com cabo de 130 cm
+     19. R 81 | unid=1   | data=             | obs=                               | 
+     20. R 83 | unid=1   | data=             | obs=                               | Desentupidora elétrica para tubulação; Desobstrução mínima 1 ½, máxima 4"
+     21. R 91 | unid=1   | data=             | obs=                               | Marreta oitavada 1 kg, com cabo de madeira
+     22. R 93 | unid=1   | data=             | obs=                               | 
+     23. R 95 | unid=1   | data=             | obs=                               | Marreta oitavada 2 kg, com cabo de madeira
+     24. R 97 | unid=1   | data=             | obs=                               | 
+     25. R 99 | unid=1   | data=             | obs=                               | Alicate de bico reto 6", indicado para o manuseio de terminais em instalações el...
+     26. R101 | unid=1   | data=             | obs=                               | 
+     27. R103 | unid=1   | data=             | obs=                               | Alicate de pressão profissional 10 polegadas, fabricado em aço carbono
+     28. R105 | unid=1   | data=             | obs=                               | 
+     29. R107 | unid=1   | data=             | obs=                               | Maçarico a gás butano de pressão, temp. máxima 1200°C, com botão de ignição
+     30. R113 | unid=1   | data=             | obs=                               | Talha manual de corrente, freio de haste dupla, apoio reforçado, 5m e 1 ton.
+     31. R121 | unid=1   | data=             | obs=                               | Furadeira de impacto 440W/220V com brocas 4, 6, 8 e 10
+     32. R127 | unid=1   | data=             | obs=                               | Lima grosa para madeira meia cana 200 mm com cabo ergonômico e emborrachado
+     33. R129 | unid=1   | data=             | obs=                               | 
+     34. R131 | unid=1   | data=             | obs=                               | Alicate universal, acabamento polido, cabo ergonômico emborrachado com abas prot...
+     35. R133 | unid=1   | data=             | obs=                               | 
+     36. R135 | unid=1   | data=             | obs=                               | Chave grifo para lavatório (formiga), possui mordentes em liga de aço forjado
+     37. R137 | unid=1   | data=             | obs=                               | 
+     38. R139 | unid=1   | data=             | obs=                               | Chave ajustável inglesa 12”
+     39. R141 | unid=1   | data=             | obs=                               | 
+     40. R143 | unid=1   | data=             | obs=                               | Chave de fenda 1/4 x 10. Cabo em PVC injetado diretamente sob a lâmina e haste e...
+     41. R145 | unid=1   | data=             | obs=                               | 
+     42. R147 | unid=1   | data=             | obs=                               | Chave de fenda 3/16 x 7. Cabo em PVC injetado diretamente sob a lâmina e haste e...
+     43. R149 | unid=1   | data=             | obs=                               | 
+     44. R151 | unid=1   | data=             | obs=                               | Chave de fenda 1/8 x 5. Cabo em PVC injetado diretamente sob a lâmina e haste em...
+     45. R153 | unid=1   | data=             | obs=                               | 
+     46. R155 | unid=1   | data=             | obs=                               | Chave Philips 1/4 x 10. Cabo em PVC injetado diretamente sob a lâmina e haste em...
+     47. R157 | unid=1   | data=             | obs=                               | 
+     48. R159 | unid=1   | data=             | obs=                               | Chave Philips 3/16 x 7. Cabo em PVC injetado diretamente sob a lâmina e haste em...
+     49. R161 | unid=1   | data=             | obs=                               | 
+     50. R163 | unid=1   | data=             | obs=                               | Chave Philips 1/8 x 5. Cabo em PVC injetado diretamente sob a lâmina e haste em ...
+    ... and 25 more items
+
+
+####################################################################################################
+SHEET: MATERIAIS TÉC. REFRIGERAÇÃO
+  dimensions=A1:AE453  max_row=453  max_col=31
+####################################################################################################
+
+Detected 2 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols R-AB (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col A: 'Descrição Materiais'
+    col B: 'Descrição Materiais'
+    col C: 'Descrição Materiais'
+    col D: 'Descrição Materiais'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 85
+      1. R 17 | unid=1   | data=21/03/2025   | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=21/03/2025   | obs=                               | 
+      3. R 21 | unid=1   | data=12/03/2025   | obs=                               | Bolsa tipo mala em lona para ferramentas, tamanho mínimo 16 polegadas
+      4. R 23 | unid=1   | data=21/03/2025   | obs=                               | 
+      5. R 25 | unid=1   | data=21/03/2025   | obs=                               | Jogo de 8 chaves Fenda com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/8x...
+      6. R 27 | unid=1   | data=21/03/2025   | obs=                               | 
+      7. R 29 | unid=1   | data=21/03/2025   | obs=                               | Jogo de 8 chaves Philips com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/...
+      8. R 31 | unid=1   | data=21/03/2025   | obs=                               | 
+      9. R 33 | unid=1   | data=21/03/2025   | obs=                               | Chave Phillips e Fenda Cotoco PHO 1/4 x 1.1/2 Polegadas 
+     10. R 35 | unid=1   | data=21/03/2025   | obs=                               | 
+     11. R 37 | unid=1   | data=21/03/2025   | obs=                               | 
+     12. R 39 | unid=1   | data=21/03/2025   | obs=                               | 
+     13. R 41 | unid=1   | data=21/03/2025   | obs=                               | Martelo tipo bola 500g cabo em madeira
+     14. R 43 | unid=1   | data=21/03/2025   | obs=                               | 
+     15. R 45 | unid=1   | data=12/03/2025   | obs=                               | Lima grosa  meia cana 200 mm com cabo ergonômico e emborrachado
+     16. R 47 | unid=1   | data=21/03/2025   | obs=                               | 
+     17. R 49 | unid=1   | data=21/03/2025   | obs=                               | Maçarico portátil profissional com acendimento automático
+     18. R 55 | unid=1   | data=21/03/2025   | obs=                               | Gás refil MAP profissional para maçarico portátil 400 g
+     19. R 58 | unid=1   | data=21/03/2025   | obs=                               | 
+     20. R 61 | unid=1   | data=21/03/2025   | obs=                               | Chave de fenda Sindal
+     21. R 63 | unid=1   | data=21/03/2025   | obs=                               | 
+     22. R 65 | unid=1   | data=21/03/2025   | obs=                               | Alicate universal, acabamento polido, cabo ergonômico emborrachado com abas prot...
+     23. R 67 | unid=1   | data=02/07/2025   | obs=                               | 
+     24. R 69 | unid=1   | data=12/03/2025   | obs=                               | Alicate de bico reto 6", indicado para o manuseio de terminais em instalações el...
+     25. R 71 | unid=1   | data=21/03/2025   | obs=                               | 
+     26. R 73 | unid=1   | data=21/03/2025   | obs=                               | Alicate de corte diagonal 6", indicado para cortar e desencapar fios e cabos elé...
+     27. R 75 | unid=1   | data=21/03/2025   | obs=                               | 
+     28. R 77 | unid=1   | data=12/03/2025   | obs=                               | Chave biela tipo LL n°11. Fabricada em aço e acabamento niquelado e cromado
+     29. R 79 | unid=1   | data=12/03/2025   | obs=                               | 
+     30. R 81 | unid=1   | data=21/03/2025   | obs=                               | Estilete profissional retrátil trapezoidal
+     31. R 83 | unid=1   | data=21/03/2025   | obs=                               | 
+     32. R 85 | unid=1   | data=03/12/2025   | obs=                               | Kit flangeador exc.1/8 a 3/4 com cortador tubos, chave catraca e escariador
+     33. R 91 | unid=1   | data=03/12/2025   | obs=                               | Alargador de tubos cobre e alumínio de 1/8 a 3/4 
+     34. R 93 | unid=1   | data=21/03/2025   | obs=                               | 
+     35. R 95 | unid=1   | data=21/03/2025   | obs=                               | Cortador De Tubo de 3-16mm Para Tubo Cobre Latão
+     36. R 97 | unid=1   | data=21/03/2025   | obs=                               | 
+     37. R 99 | unid=1   | data=21/03/2025   | obs=                               | Manômetro para ar-condicionado. Para Gases R22 e R410 
+     38. R101 | unid=    | data=21/03/2025   | obs=                               | 
+     39. R103 | unid=1   | data=21/03/2025   | obs=                               | Jogo de chave Allen de 3 a 10 mm, modelo longo, forjado em aço cromo-vanádio e a...
+     40. R105 | unid=1   | data=21/03/2025   | obs=                               | 
+     41. R107 | unid=1   | data=-            | obs=                               | Jogo de Chave Allen Curta de 3/32 a 3/8 Pol
+     42. R111 | unid=1   | data=03/12/2025   | obs=                               | Nível com estrutura de alumínio de alta resistência, escala métrica, tamanho: 12...
+     43. R113 | unid=1   | data=03/12/2025   | obs=                               | 
+     44. R115 | unid=1   | data=21/03/2025   | obs=                               | Trena métrica metálica de 5 metros
+     45. R117 | unid=1   | data=21/03/2025   | obs=                               | 
+     46. R119 | unid=1   | data=21/03/2025   | obs=                               | Termômetro Digital Lcd com sensor
+     47. R123 | unid=1   | data=03/12/2025   | obs=                               | Pulverizador manual de pressão profissional com capacidade mínima de 2 litros 
+     48. R126 | unid=1   | data=21/03/2025   | obs=                               | 
+     49. R129 | unid=1   | data=21/03/2025   | obs=                               | Bolsa/saco coletor de limpeza de ar condicionado ate 30.000 Btus
+     50. R131 | unid=    | data=21/03/2025   | obs=                               | 
+    ... and 35 more items
+  Footer (R452 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R453 CG): REPRESENTANTE CAROLDO: ...............................................
+
+--- BLOCK 2 (cols R-AB) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col R: 'Descrição Materiais'
+    col S: 'Descrição Materiais'
+    col T: 'Descrição Materiais'
+    col U: 'Descrição Materiais'
+    col V: 'Uni.'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Imagem Ilustrativa'
+    col Y: 'Imagem Ilustrativa'
+    col Z: 'Data de entrega'
+    col AA: 'Data de entrega'
+    col AB: 'Data de entrega'
+
+  Items found: 82
+      1. R 17 | unid=1   | data=             | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pi...
+      2. R 19 | unid=1   | data=             | obs=                               | 
+      3. R 21 | unid=1   | data=             | obs=                               | Bolsa tipo mala em lona para ferramentas, tamanho mínimo 16 polegadas
+      4. R 23 | unid=1   | data=             | obs=                               | 
+      5. R 25 | unid=1   | data=             | obs=                               | Jogo de 8 chaves Fenda com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/8x...
+      6. R 27 | unid=1   | data=             | obs=                               | 
+      7. R 29 | unid=1   | data=             | obs=                               | Jogo de 8 chaves Philips com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/...
+      8. R 31 | unid=1   | data=             | obs=                               | 
+      9. R 33 | unid=1   | data=             | obs=                               | Chave Phillips e Fenda Cotoco PHO 1/4 x 1.1/2 Polegadas 
+     10. R 35 | unid=1   | data=             | obs=                               | 
+     11. R 37 | unid=1   | data=             | obs=                               | 
+     12. R 39 | unid=1   | data=             | obs=                               | 
+     13. R 41 | unid=1   | data=             | obs=                               | Martelo tipo bola 500g cabo em madeira
+     14. R 43 | unid=1   | data=             | obs=                               | 
+     15. R 45 | unid=1   | data=             | obs=                               | Lima grosa  meia cana 200 mm com cabo ergonômico e emborrachado
+     16. R 47 | unid=1   | data=             | obs=                               | 
+     17. R 49 | unid=1   | data=             | obs=                               | Maçarico portátil profissional com acendimento automático
+     18. R 55 | unid=1   | data=             | obs=                               | Gás refil MAP profissional para maçarico portátil 400 g
+     19. R 58 | unid=1   | data=             | obs=                               | 
+     20. R 61 | unid=1   | data=             | obs=                               | Chave de fenda Sindal
+     21. R 63 | unid=1   | data=             | obs=                               | 
+     22. R 65 | unid=1   | data=             | obs=                               | Alicate universal, acabamento polido, cabo ergonômico emborrachado com abas prot...
+     23. R 67 | unid=1   | data=             | obs=                               | 
+     24. R 69 | unid=1   | data=             | obs=                               | Alicate de bico reto 6", indicado para o manuseio de terminais em instalações el...
+     25. R 71 | unid=1   | data=             | obs=                               | 
+     26. R 73 | unid=1   | data=             | obs=                               | Alicate de corte diagonal 6", indicado para cortar e desencapar fios e cabos elé...
+     27. R 75 | unid=1   | data=             | obs=                               | 
+     28. R 77 | unid=1   | data=             | obs=                               | Chave biela tipo LL n°11. Fabricada em aço e acabamento niquelado e cromado
+     29. R 79 | unid=1   | data=             | obs=                               | 
+     30. R 81 | unid=1   | data=             | obs=                               | Estilete profissional retrátil trapezoidal
+     31. R 83 | unid=1   | data=             | obs=                               | 
+     32. R 85 | unid=1   | data=             | obs=                               | Kit flangeador exc.1/8 a 3/4 com cortador tubos, chave catraca e escariador
+     33. R 91 | unid=1   | data=             | obs=                               | Alargador de tubos cobre e alumínio de 1/8 a 3/4 
+     34. R 93 | unid=1   | data=             | obs=                               | 
+     35. R 95 | unid=1   | data=             | obs=                               | Cortador De Tubo de 3-16mm Para Tubo Cobre Latão
+     36. R 97 | unid=1   | data=             | obs=                               | 
+     37. R 99 | unid=1   | data=             | obs=                               | Manômetro para ar-condicionado. Para Gases R22 e R410 
+     38. R103 | unid=1   | data=             | obs=                               | Jogo de chave Allen de 3 a 10 mm, modelo longo, forjado em aço cromo-vanádio e a...
+     39. R105 | unid=1   | data=             | obs=                               | 
+     40. R107 | unid=1   | data=             | obs=                               | Jogo de Chave Allen Curta de 3/32 a 3/8 Pol
+     41. R111 | unid=1   | data=             | obs=                               | Nível com estrutura de alumínio de alta resistência, escala métrica, tamanho: 12...
+     42. R113 | unid=1   | data=             | obs=                               | 
+     43. R115 | unid=1   | data=             | obs=                               | Trena métrica metálica de 5 metros
+     44. R117 | unid=1   | data=             | obs=                               | 
+     45. R119 | unid=1   | data=             | obs=                               | Termômetro Digital Lcd com sensor
+     46. R123 | unid=1   | data=             | obs=                               | Pulverizador manual de pressão profissional com capacidade mínima de 2 litros 
+     47. R126 | unid=1   | data=             | obs=                               | 
+     48. R129 | unid=1   | data=             | obs=                               | Bolsa/saco coletor de limpeza de ar condicionado ate 30.000 Btus
+     49. R133 | unid=1   | data=             | obs=                               | Pente Para Aletas De Aluminio Ar Condicionado e Evaporadores 
+     50. R136 | unid=1   | data=             | obs=                               | 
+    ... and 32 more items
+
+
+####################################################################################################
+SHEET: MATERIAIS TÉC. INFRA. DE REDES
+  dimensions=A1:AD254  max_row=254  max_col=30
+####################################################################################################
+
+Detected 2 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols Q-AA (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 13, col A): 'Joel'
+  Header row: 15
+  Column structure:
+    col A: 'Descrição Materiais'
+    col B: 'Descrição Materiais'
+    col C: 'Descrição Materiais'
+    col D: 'Descrição Materiais'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 29
+      1. R 17 | unid=1   | data=04/07/2025   | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, 50x20x21 cm
+      2. R 21 | unid=1   | data=07/04/25     | obs=                               | Bolsa tipo mala em lona para ferramentas, tamanho mínimo 16 polegadas. 
+      3. R 24 | unid=1   | data=-            | obs=                               | 
+      4. R 27 | unid=1   | data=07/04/25     | obs=                               | 8 chaves Fenda: 1/8x3, 1/8x4, 3/16x3, 3/16x4, 3/16x6, 1/4x4, 1/4x6, 5/16x6
+      5. R 31 | unid=1   | data=07/04/25     | obs=                               | 8 chaves Philips: 1/8x3, 1/8x4, 3/16x3, 3/16x4, 3/16x6, 1/4x4, 1/4x6, 5/16x6
+      6. R 35 | unid=1   | data=07/04/25     | obs=                               | Arco de serra regulável. Lâmina de 12". Cabo ergonômico
+      7. R 39 | unid=1   | data=07/04/25     | obs=                               | Furadeira e Parafusadeira a bateria 18V
+      8. R 43 | unid=1   | data=07/04/25     | obs=                               | Jogo de Bits longo para parafusadeira com 2 Bits fenda e 2 Bits philips
+      9. R 47 | unid=1   | data=07/04/25     | obs=                               | Furadeira de impacto 440W/220V com brocas 4, 6, 8 e 10
+     10. R 51 | unid=1   | data=07/04/25     | obs=                               | Chave Teste Neon 135mm
+     11. R 55 | unid=1   | data=07/04/25     | obs=                               | Alicate de corte diagonal 6", com isolamento elétrico
+     12. R 59 | unid=1   | data=07/04/25     | obs=                               | Trena métrica metálica de 5 metros
+     13. R 63 | unid=1   | data=07/04/25     | obs=                               | Alicate universal, cabo ergonômico emborrachado. Em aço carbono, 12”
+     14. R 65 | unid=1   | data=             | obs=                               | 
+     15. R 67 | unid=1   | data=07/04/25     | obs=                               | Alicate cortador e descascador de fios com crimpador
+     16. R 69 | unid=1   | data=             | obs=                               | 
+     17. R 71 | unid=1   | data=07/04/25     | obs=                               | Caneta detector de tensão alerta sonoro e luminoso, 12 v a 1000 V AC
+     18. R 73 | unid=1   | data=             | obs=                               | 
+     19. R 75 | unid=1   | data=07/04/25     | obs=                               | Alicate crimpador RJ11 e RJ45
+     20. R 79 | unid=1   | data=07/04/25     | obs=                               | Alicate crimpador RG59 e RG6 EBNC 
+     21. R 83 | unid=1   | data=07/04/25     | obs=                               | Alicate decapador giratório  
+     22. R 87 | unid=1   | data=07/04/25     | obs=                               | Alicate decapador HT501A 
+     23. R 91 | unid=1   | data=07/04/25     | obs=                               | Alicate inserção punch down HT314
+     24. R 95 | unid=1   | data=07/04/25     | obs=                               | Testador de cabos NS468
+     25. R 99 | unid=1   | data=07/04/25     | obs=                               | Kit Localizador De Cabos Zumbidor C/ Estojo + Testador 
+     26. R103 | unid=1   | data=07/04/25     | obs=                               | Passa fio com alma 30 metros
+     27. R107 | unid=1   | data=07/04/25     | obs=                               | Badisco Digital Lcd Com Identificador Chamadas Teste Linha 
+     28. R111 | unid=1   | data=02/06/2025   | obs=                               | Estação de solda estanho Ferro Display lcd Desoldering bivolt
+     29. R115 | unid=1   | data=07/04/25     | obs=                               | Chave Enroladeira/ Desenroladeira para Bloco Bli dupla para telefonia 
+  Footer (R249 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R249 CG): REPRESENTANTE CAROLDO: ...............................................
+  Footer (R253 CA): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 2 (cols Q-AA) ---
+  Name: NOT FOUND
+  Header row: 15
+  Column structure:
+    col Q: 'Descrição Materiais'
+    col R: 'Descrição Materiais'
+    col S: 'Descrição Materiais'
+    col T: 'Descrição Materiais'
+    col U: 'Uni.'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Imagem Ilustrativa'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+    col AA: 'Data de entrega'
+
+  Items found: 29
+      1. R 17 | unid=1   | data=             | obs=                               | Caixa de ferramentas metálica com 05 compartimentos, 50x20x21 cm
+      2. R 21 | unid=1   | data=             | obs=                               | Bolsa tipo mala em lona para ferramentas, tamanho mínimo 16 polegadas. 
+      3. R 24 | unid=1   | data=             | obs=                               | 
+      4. R 27 | unid=1   | data=             | obs=                               | 8 chaves Fenda: 1/8x3, 1/8x4, 3/16x3, 3/16x4, 3/16x6, 1/4x4, 1/4x6, 5/16x6
+      5. R 31 | unid=1   | data=             | obs=                               | 8 chaves Philips: 1/8x3, 1/8x4, 3/16x3, 3/16x4, 3/16x6, 1/4x4, 1/4x6, 5/16x6
+      6. R 35 | unid=1   | data=             | obs=                               | Arco de serra regulável. Lâmina de 12". Cabo ergonômico
+      7. R 39 | unid=1   | data=             | obs=                               | Furadeira e Parafusadeira a bateria 18V
+      8. R 43 | unid=1   | data=             | obs=                               | Jogo de Bits longo para parafusadeira com 2 Bits fenda e 2 Bits philips
+      9. R 47 | unid=1   | data=             | obs=                               | Furadeira de impacto 440W/220V com brocas 4, 6, 8 e 10
+     10. R 51 | unid=1   | data=             | obs=                               | Chave Teste Neon 135mm
+     11. R 55 | unid=1   | data=             | obs=                               | Alicate de corte diagonal 6", com isolamento elétrico
+     12. R 59 | unid=1   | data=             | obs=                               | Trena métrica metálica de 5 metros
+     13. R 63 | unid=1   | data=             | obs=                               | Alicate universal, cabo ergonômico emborrachado. Em aço carbono, 12”
+     14. R 65 | unid=1   | data=             | obs=                               | 
+     15. R 67 | unid=1   | data=             | obs=                               | Alicate cortador e descascador de fios com crimpador
+     16. R 69 | unid=1   | data=             | obs=                               | 
+     17. R 71 | unid=1   | data=             | obs=                               | Caneta detector de tensão alerta sonoro e luminoso, 12 v a 1000 V AC
+     18. R 73 | unid=1   | data=             | obs=                               | 
+     19. R 75 | unid=1   | data=             | obs=                               | Alicate crimpador RJ11 e RJ45
+     20. R 79 | unid=1   | data=             | obs=                               | Alicate crimpador RG59 e RG6 EBNC 
+     21. R 83 | unid=1   | data=             | obs=                               | Alicate decapador giratório  
+     22. R 87 | unid=1   | data=             | obs=                               | Alicate decapador HT501A 
+     23. R 91 | unid=1   | data=             | obs=                               | Alicate inserção punch down HT314
+     24. R 95 | unid=1   | data=             | obs=                               | Testador de cabos NS468
+     25. R 99 | unid=1   | data=             | obs=                               | Kit Localizador De Cabos Zumbidor C/ Estojo + Testador 
+     26. R103 | unid=1   | data=             | obs=                               | Passa fio com alma 30 metros
+     27. R107 | unid=1   | data=             | obs=                               | Badisco Digital Lcd Com Identificador Chamadas Teste Linha 
+     28. R111 | unid=1   | data=             | obs=                               | Estação de solda estanho Ferro Display lcd Desoldering bivolt
+     29. R115 | unid=1   | data=             | obs=                               | Chave Enroladeira/ Desenroladeira para Bloco Bli dupla para telefonia 
+
+
+####################################################################################################
+SHEET: EPI SUPERVISOR
+  dimensions=A1:W48  max_row=48  max_col=23
+####################################################################################################
+
+Detected 1 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): ''
+  Header row: 19
+  Column structure:
+    col A: 'Descrição EPI'
+    col B: 'Descrição EPI'
+    col C: 'Descrição EPI'
+    col D: 'Descrição EPI'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 6
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      5. R 32 | unid=1   | data=             | obs=                               | 
+      6. R 35 | unid=1   | data=             | obs=                               | Cinto de segurança
+  Footer (R43 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R43 CG): REPRESENTANTE CAROLDO ...............................................
+  Footer (R47 CA): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+
+####################################################################################################
+SHEET: EPI MARCENEIRO
+  dimensions=A1:BZ110  max_row=110  max_col=78
+####################################################################################################
+
+Detected 5 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols Q-AA (rows 1-12)
+  Block 3: cols AI-AS (rows 1-12)
+  Block 4: cols AX-BH (rows 1-12)
+  Block 5: cols BM-BW (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): ''
+  Header row: 19
+  Column structure:
+    col A: 'Descrição EPI'
+    col B: 'Descrição EPI'
+    col C: 'Descrição EPI'
+    col D: 'Descrição EPI'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 11
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor amarelo
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva de vaqueta 
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Óculos de segurança incolor
+      9. R 39 | unid=1   | data=             | obs=                               | 
+     10. R 41 | unid=1   | data=             | obs=                               | Respirador semifacial PFF2, N95
+     11. R 43 | unid=1   | data=             | obs=                               | 
+  Footer (R105 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R105 CG): REPRESENTANTE CAROLDO: ...............................................
+  Footer (R109 CA): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 2 (cols Q-AA) ---
+  Name (row 15, col Q): ''
+  Header row: 19
+  Column structure:
+    col Q: 'Descrição EPI'
+    col R: 'Descrição EPI'
+    col S: 'Descrição EPI'
+    col T: 'Descrição EPI'
+    col U: 'Uni.'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Imagem Ilustrativa'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+    col AA: 'Data de entrega'
+
+  Items found: 6
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor amarelo
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 29 | unid=1   | data=             | obs=                               | Luva de vaqueta 
+      4. R 33 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      5. R 37 | unid=1   | data=             | obs=                               | Óculos de segurança incolor
+      6. R 41 | unid=1   | data=             | obs=                               | Respirador semifacial PFF2, N95
+
+--- BLOCK 3 (cols AI-AS) ---
+  Name (row 15, col AI): ''
+  Header row: 19
+  Column structure:
+    col AI: 'Descrição EPI'
+    col AJ: 'Descrição EPI'
+    col AK: 'Descrição EPI'
+    col AL: 'Descrição EPI'
+    col AM: 'Uni.'
+    col AN: 'Imagem Ilustrativa'
+    col AO: 'Imagem Ilustrativa'
+    col AP: 'Imagem Ilustrativa'
+    col AQ: 'Data de entrega'
+    col AR: 'Data de entrega'
+    col AS: 'Data de entrega'
+
+  Items found: 6
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor amarelo
+      2. R 25 | unid=2   | data=             | obs=                               | Botina NR 10
+      3. R 29 | unid=2   | data=             | obs=                               | Luva de vaqueta 
+      4. R 33 | unid=2   | data=             | obs=                               | Luva tátil EN 1149
+      5. R 37 | unid=2   | data=             | obs=                               | Óculos de segurança incolor
+      6. R 41 | unid=2   | data=             | obs=                               | Respirador semifacial PFF2, N95
+
+--- BLOCK 4 (cols AX-BH) ---
+  Name (row 15, col AX): ''
+  Header row: 19
+  Column structure:
+    col AX: 'Descrição EPI'
+    col AY: 'Descrição EPI'
+    col AZ: 'Descrição EPI'
+    col BA: 'Descrição EPI'
+    col BB: 'Uni.'
+    col BC: 'Imagem Ilustrativa'
+    col BD: 'Imagem Ilustrativa'
+    col BE: 'Imagem Ilustrativa'
+    col BF: 'Data de entrega'
+    col BG: 'Data de entrega'
+    col BH: 'Data de entrega'
+
+  Items found: 6
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor amarelo
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 29 | unid=1   | data=             | obs=                               | Luva de vaqueta 
+      4. R 33 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      5. R 37 | unid=1   | data=             | obs=                               | Óculos de segurança incolor
+      6. R 41 | unid=1   | data=             | obs=                               | Respirador semifacial PFF2, N95
+
+--- BLOCK 5 (cols BM-BW) ---
+  Name (row 15, col BM): ''
+  Header row: 19
+  Column structure:
+    col BM: 'Descrição EPI'
+    col BN: 'Descrição EPI'
+    col BO: 'Descrição EPI'
+    col BP: 'Descrição EPI'
+    col BQ: 'Uni.'
+    col BR: 'Imagem Ilustrativa'
+    col BS: 'Imagem Ilustrativa'
+    col BT: 'Imagem Ilustrativa'
+    col BU: 'Data de entrega'
+    col BV: 'Data de entrega'
+    col BW: 'Data de entrega'
+
+  Items found: 6
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor amarelo
+      2. R 25 | unid=2   | data=             | obs=                               | Botina NR 10
+      3. R 29 | unid=2   | data=             | obs=                               | Luva de vaqueta 
+      4. R 33 | unid=2   | data=             | obs=                               | Luva tátil EN 1149
+      5. R 37 | unid=2   | data=             | obs=                               | Óculos de segurança incolor
+      6. R 41 | unid=2   | data=             | obs=                               | Respirador semifacial PFF2, N95
+
+
+####################################################################################################
+SHEET: EPI ELETRICISTA
+  dimensions=A1:AQ168  max_row=168  max_col=43
+####################################################################################################
+
+Detected 3 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols P-Z (rows 1-12)
+  Block 3: cols AD-AN (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): 'ANDERSON CLAITON LOPES DA CRUZ'
+  Header row: 19
+  Column structure:
+    col A: 'Descrição EPI'
+    col B: 'Descrição EPI'
+    col C: 'Descrição EPI'
+    col D: 'Descrição EPI'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 11
+      1. R 21 | unid=1   | data=11/03/2025   | obs=                               | Capacete de Segurança, com jugular, na cor laranja
+      2. R 25 | unid=1   | data=11/03/2025   | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=3/11/25      | obs=                               | 
+      4. R 29 | unid=1   | data=11/03/2025   | obs=                               | Luva tátil EN 1149
+      5. R 31 | unid=1   | data=11/03/2025   | obs=                               | 
+      6. R 33 | unid=1   | data=11/03/2025   | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=11/03/2025   | obs=                               | 
+      8. R 37 | unid=1   | data=11/03/2025   | obs=                               | Luva isolante até o antebraço NBR 16295
+      9. R 41 | unid=1   | data=11/03/2025   | obs=                               | Óculos de segurança incolor
+     10. R 43 | unid=1   | data=11/03/2025   | obs=                               | 
+     11. R 45 | unid=1   | data=11/03/2025   | obs=                               | Cinto de Segurança
+  Footer (R163 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R163 CG): REPRESENTANTE CAROLDO ...............................................
+  Footer (R167 CA): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 2 (cols P-Z) ---
+  Name (row 15, col P): ''
+  Header row: 19
+  Column structure:
+    col P: 'Descrição EPI'
+    col Q: 'Descrição EPI'
+    col R: 'Descrição EPI'
+    col S: 'Descrição EPI'
+    col T: 'Uni.'
+    col U: 'Imagem Ilustrativa'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Data de entrega'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+
+  Items found: 11
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor laranja
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Luva isolante até o antebraço NBR 16295
+      9. R 41 | unid=1   | data=             | obs=                               | Óculos de segurança incolor
+     10. R 43 | unid=1   | data=             | obs=                               | 
+     11. R 45 | unid=1   | data=             | obs=                               | Cinto de Segurança
+
+--- BLOCK 3 (cols AD-AN) ---
+  Name (row 15, col AD): ''
+  Header row: 19
+  Column structure:
+    col AD: 'Descrição EPI'
+    col AE: 'Descrição EPI'
+    col AF: 'Descrição EPI'
+    col AG: 'Descrição EPI'
+    col AH: 'Uni.'
+    col AI: 'Imagem Ilustrativa'
+    col AJ: 'Imagem Ilustrativa'
+    col AK: 'Imagem Ilustrativa'
+    col AL: 'Data de entrega'
+    col AM: 'Data de entrega'
+    col AN: 'Data de entrega'
+
+  Items found: 11
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor laranja
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Luva isolante até o antebraço NBR 16295
+      9. R 41 | unid=1   | data=             | obs=                               | Óculos de segurança incolor
+     10. R 43 | unid=1   | data=             | obs=                               | 
+     11. R 45 | unid=1   | data=             | obs=                               | Cinto de Segurança
+
+
+####################################################################################################
+SHEET: EPI SERVENTE
+  dimensions=A1:AC119  max_row=119  max_col=29
+####################################################################################################
+
+Detected 2 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols P-Z (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 13, col A): ''
+  Header row: 17
+  Column structure:
+    col A: 'Descrição EPI'
+    col B: 'Descrição EPI'
+    col C: 'Descrição EPI'
+    col D: 'Descrição EPI'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 14
+      1. R 19 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor verde
+      2. R 23 | unid=1   | data=             | obs=                               | Óculos contra impacto incolor
+      3. R 25 | unid=1   | data=             | obs=                               | 
+      4. R 27 | unid=1   | data=             | obs=                               | Óculos contra impacto preto fumê
+      5. R 29 | unid=1   | data=             | obs=                               | 
+      6. R 31 | unid=1   | data=             | obs=                               | Botina NR 10
+      7. R 33 | unid=1   | data=             | obs=                               | 
+      8. R 35 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      9. R 37 | unid=1   | data=             | obs=                               | 
+     10. R 39 | unid=1   | data=             | obs=                               | Luva nitrílica e algodão
+     11. R 41 | unid=1   | data=             | obs=                               | 
+     12. R 43 | unid=1   | data=             | obs=                               | Luva de segurança tátil 
+     13. R 45 | unid=1   | data=             | obs=                               | 
+     14. R 47 | unid=1   | data=             | obs=                               | Cinto de Segurança
+  Footer (R114 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R114 CG): REPRESENTANTE CAROLDO: ...............................................
+  Footer (R118 CA): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 2 (cols P-Z) ---
+  Name (row 13, col P): ''
+  Header row: 17
+  Column structure:
+    col P: 'Descrição EPI'
+    col Q: 'Descrição EPI'
+    col R: 'Descrição EPI'
+    col S: 'Descrição EPI'
+    col T: 'Uni.'
+    col U: 'Imagem Ilustrativa'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Data de entrega'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+
+  Items found: 14
+      1. R 19 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor verde
+      2. R 23 | unid=1   | data=             | obs=                               | Óculos contra impacto incolor
+      3. R 25 | unid=1   | data=             | obs=                               | 
+      4. R 27 | unid=1   | data=             | obs=                               | Óculos contra impacto preto fumê
+      5. R 29 | unid=1   | data=             | obs=                               | 
+      6. R 31 | unid=1   | data=             | obs=                               | Botina NR 10
+      7. R 33 | unid=1   | data=             | obs=                               | 
+      8. R 35 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      9. R 37 | unid=1   | data=             | obs=                               | 
+     10. R 39 | unid=1   | data=             | obs=                               | Luva nitrílica e algodão
+     11. R 41 | unid=1   | data=             | obs=                               | 
+     12. R 43 | unid=1   | data=             | obs=                               | Luva de segurança tátil 
+     13. R 45 | unid=1   | data=             | obs=                               | 
+     14. R 47 | unid=1   | data=             | obs=                               | Cinto de Segurança
+  Footer (R114 CP): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R114 CV): REPRESENTANTE CAROLDO: ...............................................
+  Footer (R118 CP): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+
+####################################################################################################
+SHEET: EPI INST. HIDRÁULICO
+  dimensions=A1:BG122  max_row=122  max_col=59
+####################################################################################################
+
+Detected 4 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols P-Z (rows 1-12)
+  Block 3: cols AE-AO (rows 1-12)
+  Block 4: cols AT-BD (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): ''
+  Header row: 19
+  Column structure:
+    col A: 'Descrição EPI'
+    col B: 'Descrição EPI'
+    col C: 'Descrição EPI'
+    col D: 'Descrição EPI'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 15
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor azul
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva de borracha nitrílica
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      9. R 39 | unid=1   | data=             | obs=                               | 
+     10. R 41 | unid=1   | data=             | obs=                               | Luva de latéx
+     11. R 43 | unid=1   | data=             | obs=                               | 
+     12. R 45 | unid=1   | data=             | obs=                               | 
+     13. R 47 | unid=1   | data=             | obs=                               | Luva modelo de raspa (couro)
+     14. R 49 | unid=1   | data=             | obs=                               | 
+     15. R 51 | unid=1   | data=             | obs=                               | 
+  Footer (R117 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R117 CG): REPRESENTANTE CAROLDO:  ...............................................
+  Footer (R121 CA): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 2 (cols P-Z) ---
+  Name (row 15, col P): ''
+  Header row: 19
+  Column structure:
+    col P: 'Descrição EPI'
+    col Q: 'Descrição EPI'
+    col R: 'Descrição EPI'
+    col S: 'Descrição EPI'
+    col T: 'Uni.'
+    col U: 'Imagem Ilustrativa'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Data de entrega'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+
+  Items found: 15
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor azul
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva de borracha nitrílica
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      9. R 39 | unid=1   | data=             | obs=                               | 
+     10. R 41 | unid=1   | data=             | obs=                               | Luva de latéx
+     11. R 43 | unid=1   | data=             | obs=                               | 
+     12. R 45 | unid=1   | data=             | obs=                               | 
+     13. R 47 | unid=1   | data=             | obs=                               | Luva modelo de raspa (couro)
+     14. R 49 | unid=1   | data=             | obs=                               | 
+     15. R 51 | unid=1   | data=             | obs=                               | 
+
+--- BLOCK 3 (cols AE-AO) ---
+  Name (row 15, col AE): ''
+  Header row: 19
+  Column structure:
+    col AE: 'Descrição EPI'
+    col AF: 'Descrição EPI'
+    col AG: 'Descrição EPI'
+    col AH: 'Descrição EPI'
+    col AI: 'Uni.'
+    col AJ: 'Imagem Ilustrativa'
+    col AK: 'Imagem Ilustrativa'
+    col AL: 'Imagem Ilustrativa'
+    col AM: 'Data de entrega'
+    col AN: 'Data de entrega'
+    col AO: 'Data de entrega'
+
+  Items found: 15
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor azul
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva de borracha nitrílica
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      9. R 39 | unid=1   | data=             | obs=                               | 
+     10. R 41 | unid=1   | data=             | obs=                               | Luva de latéx
+     11. R 43 | unid=1   | data=             | obs=                               | 
+     12. R 45 | unid=1   | data=             | obs=                               | 
+     13. R 47 | unid=1   | data=             | obs=                               | Luva modelo de raspa (couro)
+     14. R 49 | unid=1   | data=             | obs=                               | 
+     15. R 51 | unid=1   | data=             | obs=                               | 
+  Footer (R116 CAE): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R116 CAK): REPRESENTANTE CAROLDO:  ...............................................
+  Footer (R120 CAE): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 4 (cols AT-BD) ---
+  Name (row 15, col AT): ''
+  Header row: 19
+  Column structure:
+    col AT: 'Descrição EPI'
+    col AU: 'Descrição EPI'
+    col AV: 'Descrição EPI'
+    col AW: 'Descrição EPI'
+    col AX: 'Uni.'
+    col AY: 'Imagem Ilustrativa'
+    col AZ: 'Imagem Ilustrativa'
+    col BA: 'Imagem Ilustrativa'
+    col BB: 'Data de entrega'
+    col BC: 'Data de entrega'
+    col BD: 'Data de entrega'
+
+  Items found: 15
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor azul
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva de borracha nitrílica
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      9. R 39 | unid=1   | data=             | obs=                               | 
+     10. R 41 | unid=1   | data=             | obs=                               | Luva de latéx
+     11. R 43 | unid=1   | data=             | obs=                               | 
+     12. R 45 | unid=1   | data=             | obs=                               | 
+     13. R 47 | unid=1   | data=             | obs=                               | Luva modelo de raspa (couro)
+     14. R 49 | unid=1   | data=             | obs=                               | 
+     15. R 51 | unid=1   | data=             | obs=                               | 
+
+
+####################################################################################################
+SHEET: EPI PEDREIRO
+  dimensions=A1:AC216  max_row=216  max_col=29
+####################################################################################################
+
+Detected 2 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols P-AC (rows 1-14)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): 'ANDREA DOS SANTOS PAVÃO'
+  Header row: 19
+  Column structure:
+    col A: 'Descrição EPI'
+    col B: 'Descrição EPI'
+    col C: 'Descrição EPI'
+    col D: 'Descrição EPI'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 15
+      1. R 21 | unid=1   | data=03/12/2025   | obs=                               | Capacete de Segurança, com jugular, na cor azul
+      2. R 25 | unid=1   | data=03/12/2025   | obs=                               | Óculos de segurança incolor
+      3. R 27 | unid=1   | data=21/03/2025   | obs=                               | 
+      4. R 29 | unid=1   | data=03/12/2025   | obs=                               | Óculos de segurança preto fumê
+      5. R 31 | unid=1   | data=21/03/2025   | obs=                               | 
+      6. R 33 | unid=1   | data=03/12/2025   | obs=                               | Botina NR 10
+      7. R 35 | unid=1   | data=03/12/2025   | obs=                               | 
+      8. R 37 | unid=1   | data=03/12/2025   | obs=                               | Luva modelo vaqueta (couro)
+      9. R 39 | unid=1   | data=21/03/2025   | obs=                               | 
+     10. R 41 | unid=1   | data=03/12/2025   | obs=                               | Luva de borracha nitrílica e algodão
+     11. R 43 | unid=1   | data=21/03/2025   | obs=                               | 
+     12. R 45 | unid=1   | data=03/12/2025   | obs=                               | Luva tátil EN 1149
+     13. R 47 | unid=1   | data=21/03/2025   | obs=                               | 
+     14. R 49 | unid=1   | data=21/03/2025   | obs=                               | Máscara semifacial com filtro
+para vapores orgânicos e ácidos.
+     15. R 53 | unid=1   | data=21/03/2025   | obs=                               | Cinto de segurança
+  Footer (R211 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R211 CG): REPRESENTANTE CAROLDO:  ...............................................
+  Footer (R215 CA): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 2 (cols P-AC) ---
+  Name (row 15, col P): ''
+  Header row: 19
+  Column structure:
+    col P: 'Descrição EPI'
+    col Q: 'Descrição EPI'
+    col R: 'Descrição EPI'
+    col S: 'Descrição EPI'
+    col T: 'Uni.'
+    col U: 'Imagem Ilustrativa'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Data de entrega'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+    col AA: 'Observação'
+    col AB: 'Observação'
+    col AC: 'Observação'
+
+  Items found: 15
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor azul
+      2. R 25 | unid=1   | data=             | obs=                               | Óculos de segurança incolor
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Óculos de segurança preto fumê
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Botina NR 10
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      9. R 39 | unid=1   | data=             | obs=                               | 
+     10. R 41 | unid=1   | data=             | obs=                               | Luva de borracha nitrílica e algodão
+     11. R 43 | unid=1   | data=             | obs=                               | 
+     12. R 45 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+     13. R 47 | unid=1   | data=             | obs=                               | 
+     14. R 49 | unid=1   | data=             | obs=                               | Máscara semifacial com filtro
+para vapores orgânicos e ácidos.
+     15. R 53 | unid=1   | data=             | obs=                               | Cinto de segurança
+  Footer (R206 CP): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+
+####################################################################################################
+SHEET: EPI PINTOR
+  dimensions=A1:AC896  max_row=896  max_col=29
+####################################################################################################
+
+Detected 2 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols P-Z (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): ''
+  Header row: 19
+  Column structure:
+    col A: 'Descrição EPI'
+    col B: 'Descrição EPI'
+    col C: 'Descrição EPI'
+    col D: 'Descrição EPI'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 16
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor amarelo
+      2. R 25 | unid=1   | data=             | obs=                               | Macacão para proteção química
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva de borracha e algodão
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Botina NR 10
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Óculos de segurança incolor
+      9. R 39 | unid=1   | data=             | obs=                               | 
+     10. R 41 | unid=1   | data=             | obs=                               | Respirador semifacial PFF2, N95
+     11. R 43 | unid=1   | data=             | obs=                               | 
+     12. R 45 | unid=1   | data=             | obs=                               | Luva de latéx
+     13. R 47 | unid=1   | data=             | obs=                               | 
+     14. R 49 | unid=1   | data=             | obs=                               | 
+     15. R 51 | unid=1   | data=             | obs=                               | Máscara semifacial com filtro
+para vapores orgânicos e ácidos.
+     16. R 55 | unid=1   | data=             | obs=                               | Cinto de segurança
+
+--- BLOCK 2 (cols P-Z) ---
+  Name (row 15, col P): 'Gilberto Texeira d Rosa'
+  Header row: 19
+  Column structure:
+    col P: 'Descrição EPI'
+    col Q: 'Descrição EPI'
+    col R: 'Descrição EPI'
+    col S: 'Descrição EPI'
+    col T: 'Uni.'
+    col U: 'Imagem Ilustrativa'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Data de entrega'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+
+  Items found: 16
+      1. R 21 | unid=1   | data=13/10/25     | obs=                               | Capacete de Segurança, com jugular, na cor amarelo
+      2. R 25 | unid=1   | data=13/10/25     | obs=                               | Macacão para proteção química
+      3. R 27 | unid=1   | data=13/10/25     | obs=                               | 
+      4. R 29 | unid=1   | data=13/10/25     | obs=                               | Luva de borracha e algodão
+      5. R 31 | unid=1   | data=13/10/25     | obs=                               | 
+      6. R 33 | unid=1   | data=13/10/25     | obs=                               | Botina NR 10
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=13/10/25     | obs=                               | Óculos de segurança incolor
+      9. R 39 | unid=1   | data=13/10/25     | obs=                               | 
+     10. R 41 | unid=1   | data=13/10/25     | obs=                               | Respirador semifacial PFF2, N95
+     11. R 43 | unid=1   | data=13/10/25     | obs=                               | 
+     12. R 45 | unid=1   | data=13/10/25     | obs=                               | Luva de latéx
+     13. R 47 | unid=1   | data=13/10/25     | obs=                               | 
+     14. R 49 | unid=1   | data=13/10/25     | obs=                               | 
+     15. R 51 | unid=1   | data=13/10/25     | obs=                               | Máscara semifacial com filtro
+para vapores orgânicos e ácidos.
+     16. R 55 | unid=1   | data=13/10/25     | obs=                               | Cinto de segurança
+
+
+####################################################################################################
+SHEET: EPI TÉC. REFRIGERAÇÃO
+  dimensions=A1:AR106  max_row=106  max_col=44
+####################################################################################################
+
+Detected 3 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols P-Z (rows 1-12)
+  Block 3: cols AE-AO (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): ''
+  Header row: 19
+  Column structure:
+    col A: 'Descrição EPI'
+    col B: 'Descrição EPI'
+    col C: 'Descrição EPI'
+    col D: 'Descrição EPI'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 10
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor amarelo
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Óculos contra impacto incolor
+      9. R 39 | unid=1   | data=             | obs=                               | 
+     10. R 41 | unid=1   | data=             | obs=                               | Cinto de segurança
+
+--- BLOCK 2 (cols P-Z) ---
+  Name (row 15, col P): 'MARCOS VINICIUS MACHADO DA SILVA'
+  Header row: 19
+  Column structure:
+    col P: 'Descrição EPI'
+    col Q: 'Descrição EPI'
+    col R: 'Descrição EPI'
+    col S: 'Descrição EPI'
+    col T: 'Uni.'
+    col U: 'Imagem Ilustrativa'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Data de entrega'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+
+  Items found: 10
+      1. R 21 | unid=1   | data=03/12/2025   | obs=                               | Capacete de Segurança, com jugular, na cor amarelo
+      2. R 25 | unid=1   | data=12/03/2025   | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=19/03/2025   | obs=                               | 
+      4. R 29 | unid=1   | data=12/03/2025   | obs=                               | Luva tátil EN 1149
+      5. R 31 | unid=1   | data=21/03/2025   | obs=                               | 
+      6. R 33 | unid=1   | data=12/03/2025   | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=21/03/2025   | obs=                               | 
+      8. R 37 | unid=1   | data=12/03/2025   | obs=                               | Óculos contra impacto incolor
+      9. R 39 | unid=1   | data=21/03/2025   | obs=                               | 
+     10. R 41 | unid=1   | data=12/03/2025   | obs=                               | Cinto de segurança
+
+--- BLOCK 3 (cols AE-AO) ---
+  Name (row 15, col AE): ''
+  Header row: 19
+  Column structure:
+    col AE: 'Descrição EPI'
+    col AF: 'Descrição EPI'
+    col AG: 'Descrição EPI'
+    col AH: 'Descrição EPI'
+    col AI: 'Uni.'
+    col AJ: 'Imagem Ilustrativa'
+    col AK: 'Imagem Ilustrativa'
+    col AL: 'Imagem Ilustrativa'
+    col AM: 'Data de entrega'
+    col AN: 'Data de entrega'
+    col AO: 'Data de entrega'
+
+  Items found: 10
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor amarelo
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Óculos contra impacto incolor
+      9. R 39 | unid=1   | data=             | obs=                               | 
+     10. R 41 | unid=1   | data=             | obs=                               | Cinto de segurança
+  Footer (R101 CAE): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R101 CAK): REPRESENTANTE CAROLDO:  ...............................................
+  Footer (R105 CAE): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+
+####################################################################################################
+SHEET: EPI TÉC. INFRA. DE REDES
+  dimensions=A1:AD105  max_row=105  max_col=30
+####################################################################################################
+
+Detected 2 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols Q-AA (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): ''
+  Header row: 19
+  Column structure:
+    col A: 'Descrição EPI'
+    col B: 'Descrição EPI'
+    col C: 'Descrição EPI'
+    col D: 'Descrição EPI'
+    col E: 'Uni.'
+    col F: 'Imagem Ilustrativa'
+    col G: 'Imagem Ilustrativa'
+    col H: 'Imagem Ilustrativa'
+    col I: 'Data de entrega'
+    col J: 'Data de entrega'
+    col K: 'Data de entrega'
+
+  Items found: 10
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor laranja
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 27 | unid=1   | data=             | obs=                               | 
+      4. R 29 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      5. R 31 | unid=1   | data=             | obs=                               | 
+      6. R 33 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      7. R 35 | unid=1   | data=             | obs=                               | 
+      8. R 37 | unid=1   | data=             | obs=                               | Óculos contra impacto incolor
+      9. R 39 | unid=1   | data=             | obs=                               | 
+     10. R 41 | unid=1   | data=             | obs=                               | Cinto de segurança
+  Footer (R100 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R100 CG): REPRESENTANTE CAROLDO:  ...............................................
+  Footer (R104 CA): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 2 (cols Q-AA) ---
+  Name (row 15, col Q): ''
+  Header row: 19
+  Column structure:
+    col Q: 'Descrição EPI'
+    col R: 'Descrição EPI'
+    col S: 'Descrição EPI'
+    col T: 'Descrição EPI'
+    col U: 'Uni.'
+    col V: 'Imagem Ilustrativa'
+    col W: 'Imagem Ilustrativa'
+    col X: 'Imagem Ilustrativa'
+    col Y: 'Data de entrega'
+    col Z: 'Data de entrega'
+    col AA: 'Data de entrega'
+
+  Items found: 6
+      1. R 21 | unid=1   | data=             | obs=                               | Capacete de Segurança, com jugular, na cor laranja
+      2. R 25 | unid=1   | data=             | obs=                               | Botina NR 10
+      3. R 29 | unid=1   | data=             | obs=                               | Luva tátil EN 1149
+      4. R 33 | unid=1   | data=             | obs=                               | Luva modelo vaqueta (couro)
+      5. R 37 | unid=1   | data=             | obs=                               | Óculos contra impacto incolor
+      6. R 41 | unid=1   | data=             | obs=                               | Cinto de segurança
+
+
+####################################################################################################
+SHEET: UNIFORME
+  dimensions=A1:AU868  max_row=868  max_col=47
+####################################################################################################
+
+Detected 4 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols M-W (rows 1-12)
+  Block 3: cols Y-AI (rows 1-12)
+  Block 4: cols AK-AU (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): 'Ivo Leandro da Silva Vieira'
+  Header row: 19
+  Column structure:
+    col A: 'Descrição Uniforme'
+    col B: 'Descrição Uniforme'
+    col C: 'Descrição Uniforme'
+    col D: 'Descrição Uniforme'
+    col E: 'Uni.'
+    col F: 'Data de entrega'
+    col G: 'Data de entrega'
+    col H: 'Data de entrega'
+    col I: 'Assinatura'
+    col J: 'Assinatura'
+    col K: 'Assinatura'
+
+  Items found: 22
+      1. R 21 | unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa | data=04/07/2025   | obs=                               | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. R 23 | unid=    | data=04/07/2025   | obs=                               | 
+      3. R 25 | unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa | data=30/09/25     | obs=                               | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      4. R 27 | unid=    | data=30/09/25     | obs=                               | 
+      5. R 29 | unid=    | data=30/09/25     | obs=                               | 
+      6. R 31 | unid=    | data=30/09/25     | obs=                               | 
+      7. R 33 | unid=Camiseta, manga curta, em algodão contendo emblema da empresa | data=04/07/2025   | obs=                               | Camiseta, manga curta, em algodão contendo emblema da empresa
+      8. R 35 | unid=    | data=04/07/2025   | obs=                               | 
+      9. R 37 | unid=    | data=04/07/2025   | obs=                               | 
+     10. R 39 | unid=    | data=04/07/2025   | obs=                               | 
+     11. R 41 | unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, | data=04/07/2025   | obs=                               | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+     12. R 43 | unid=    | data=04/07/2025   | obs=                               | 
+     13. R 45 | unid=    | data=30/09/25     | obs=                               | 
+     14. R 47 | unid=    | data=30/09/25     | obs=                               | 
+     15. R 49 | unid=Meia preta em algodão | data=             | obs=                               | Meia preta em algodão
+     16. R 57 | unid=Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Atendendo NR 10 - Sem componentes metálicos. | data=04/07/2025   | obs=                               | Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Aten...
+     17. R 58 | unid=    | data=04/07/2025   | obs=                               | 
+     18. R 59 | unid=Bota de borracha PVC cano alto | data=04/07/2025   | obs=                               | Bota de borracha PVC cano alto
+     19. R 61 | unid=Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza | data=04/07/2025   | obs=                               | Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza
+     20. R 63 | unid=    | data=30/09/25     | obs=                               | 
+     21. R 65 | unid=Moletom (pelúcido), com punho, com emblema da empresa | data=06/04/2025   | obs=                               | Moletom (pelúcido), com punho, com emblema da empresa
+     22. R 69 | unid=Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa | data=04/07/2025   | obs=                               | Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa
+  Footer (R863 CA): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R863 CG): REPRESENTANTE CAROLDO: ...............................................
+  Footer (R867 CA): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 2 (cols M-W) ---
+  Name (row 15, col M): 'Gilberto Texeira Da Rosa'
+  Header row: 19
+  Column structure:
+    col M: 'Descrição Uniforme'
+    col N: 'Descrição Uniforme'
+    col O: 'Descrição Uniforme'
+    col P: 'Descrição Uniforme'
+    col Q: 'Uni.'
+    col R: 'Data de entrega'
+    col S: 'Data de entrega'
+    col T: 'Data de entrega'
+    col U: 'Assinatura'
+    col V: 'Assinatura'
+    col W: 'Assinatura'
+
+  Items found: 20
+      1. R 21 | unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa | data=13/10/25     | obs=                               | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. R 23 | unid=    | data=13/10/25     | obs=                               | 
+      3. R 25 | unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa | data=13/10/25     | obs=                               | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      4. R 27 | unid=    | data=13/10/25     | obs=                               | 
+      5. R 29 | unid=    | data=13/10/25     | obs=                               | 
+      6. R 31 | unid=    | data=13/10/25     | obs=                               | 
+      7. R 33 | unid=Camiseta, manga curta, em algodão contendo emblema da empresa | data=13/10/25     | obs=                               | Camiseta, manga curta, em algodão contendo emblema da empresa
+      8. R 35 | unid=    | data=13/10/25     | obs=                               | 
+      9. R 37 | unid=    | data=13/10/25     | obs=                               | 
+     10. R 39 | unid=    | data=13/10/25     | obs=                               | 
+     11. R 41 | unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, | data=13/10/25     | obs=                               | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+     12. R 43 | unid=    | data=13/10/25     | obs=                               | 
+     13. R 45 | unid=    | data=13/10/25     | obs=                               | 
+     14. R 47 | unid=    | data=13/10/25     | obs=                               | 
+     15. R 49 | unid=Meia preta em algodão | data=             | obs=                               | Meia preta em algodão
+     16. R 57 | unid=Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Atendendo NR 10 - Sem componentes metálicos. | data=13/10/25     | obs=                               | Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Aten...
+     17. R 59 | unid=Bota de borracha PVC cano alto | data=13/10/25     | obs=                               | Bota de borracha PVC cano alto
+     18. R 61 | unid=Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza | data=13/10/25     | obs=                               | Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza
+     19. R 65 | unid=Moletom (pelúcido), com punho, com emblema da empresa | data=             | obs=                               | Moletom (pelúcido), com punho, com emblema da empresa
+     20. R 69 | unid=Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa | data=13/10/25     | obs=                               | Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa
+  Footer (R863 CM): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R863 CS): REPRESENTANTE CAROLDO: ...............................................
+  Footer (R867 CM): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 3 (cols Y-AI) ---
+  Name (row 15, col Y): 'Joel Turela Tompsen'
+  Header row: 19
+  Column structure:
+    col Y: 'Descrição Uniforme'
+    col Z: 'Descrição Uniforme'
+    col AA: 'Descrição Uniforme'
+    col AB: 'Descrição Uniforme'
+    col AC: 'Uni.'
+    col AD: 'Data de entrega'
+    col AE: 'Data de entrega'
+    col AF: 'Data de entrega'
+    col AG: 'Assinatura'
+    col AH: 'Assinatura'
+    col AI: 'Assinatura'
+
+  Items found: 16
+      1. R 21 | unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa | data=04/07/2025   | obs=                               | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. R 23 | unid=    | data=04/07/2025   | obs=                               | 
+      3. R 25 | unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa | data=             | obs=                               | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      4. R 33 | unid=Camiseta, manga curta, em algodão contendo emblema da empresa | data=04/07/2025   | obs=                               | Camiseta, manga curta, em algodão contendo emblema da empresa
+      5. R 35 | unid=    | data=04/07/2025   | obs=                               | 
+      6. R 37 | unid=    | data=04/07/2025   | obs=                               | 
+      7. R 39 | unid=    | data=04/07/2025   | obs=                               | 
+      8. R 41 | unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, | data=04/07/2025   | obs=                               | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+      9. R 43 | unid=    | data=04/07/2025   | obs=                               | 
+     10. R 49 | unid=Meia preta em algodão | data=             | obs=                               | Meia preta em algodão
+     11. R 57 | unid=Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Atendendo NR 10 - Sem componentes metálicos. | data=04/07/2025   | obs=                               | Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Aten...
+     12. R 59 | unid=Bota de borracha PVC cano alto | data=04/07/2025   | obs=                               | Bota de borracha PVC cano alto
+     13. R 61 | unid=Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza | data=04/07/2025   | obs=                               | Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza
+     14. R 63 | unid=    | data=06/04/2025   | obs=                               | 
+     15. R 65 | unid=Moletom (pelúcido), com punho, com emblema da empresa | data=06/04/2025   | obs=                               | Moletom (pelúcido), com punho, com emblema da empresa
+     16. R 69 | unid=Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa | data=04/07/2025   | obs=                               | Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa
+  Footer (R861 CY): *As assinaturas acima serão requeridas assim que TODOS os materiais listados tenham sido entregues, assim garantindo e formalizando entrega, regulariz
+
+--- BLOCK 4 (cols AK-AU) ---
+  Name (row 15, col AK): 'Andrea santos pavao'
+  Header row: 19
+  Column structure:
+    col AK: 'Descrição Uniforme'
+    col AL: 'Descrição Uniforme'
+    col AM: 'Descrição Uniforme'
+    col AN: 'Descrição Uniforme'
+    col AO: 'Uni.'
+    col AP: 'Data de entrega'
+    col AQ: 'Data de entrega'
+    col AR: 'Data de entrega'
+    col AS: 'Assinatura'
+    col AT: 'Assinatura'
+    col AU: 'Assinatura'
+
+  Items found: 18
+      1. R 21 | unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa | data=21/03/25     | obs=                               | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. R 23 | unid=    | data=21/03/25     | obs=                               | 
+      3. R 25 | unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa | data=             | obs=                               | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      4. R 33 | unid=Camiseta, manga curta, em algodão contendo emblema da empresa | data=19/03/25     | obs=                               | Camiseta, manga curta, em algodão contendo emblema da empresa
+      5. R 35 | unid=    | data=19/03/25     | obs=                               | 
+      6. R 37 | unid=    | data=19/03/25     | obs=                               | 
+      7. R 39 | unid=    | data=19/03/25     | obs=                               | 
+      8. R 41 | unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, | data=03/12/2025   | obs=                               | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+      9. R 43 | unid=    | data=03/12/2025   | obs=                               | 
+     10. R 45 | unid=    | data=19/03/25     | obs=                               | 
+     11. R 47 | unid=    | data=19/03/25     | obs=                               | 
+     12. R 49 | unid=Meia preta em algodão | data=             | obs=                               | Meia preta em algodão
+     13. R 57 | unid=Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Atendendo NR 10 - Sem componentes metálicos. | data=03/12/2025   | obs=                               | Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Aten...
+     14. R 58 | unid=    | data=19/03/25     | obs=                               | 
+     15. R 59 | unid=Bota de borracha PVC cano alto | data=03/12/2025   | obs=                               | Bota de borracha PVC cano alto
+     16. R 61 | unid=Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza | data=04/07/2025   | obs=                               | Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza
+     17. R 65 | unid=Moletom (pelúcido), com punho, com emblema da empresa | data=06/04/2025   | obs=                               | Moletom (pelúcido), com punho, com emblema da empresa
+     18. R 69 | unid=Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa | data=04/07/2025   | obs=                               | Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa
+
+
+####################################################################################################
+SHEET: UNIFORME FABIANO
+  dimensions=A2:K81  max_row=81  max_col=11
+####################################################################################################
+
+Detected 0 collaborator block(s):
+
+
+####################################################################################################
+SHEET: UNIFORME ELETRICISTA
+  dimensions=A1:X250  max_row=250  max_col=24
+####################################################################################################
+
+Detected 2 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols N-X (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): 'Dilmar Mendes De Souza'
+  Header row: 19
+  Column structure:
+    col A: 'Descrição Uniforme'
+    col B: 'Descrição Uniforme'
+    col C: 'Descrição Uniforme'
+    col D: 'Descrição Uniforme'
+    col E: 'Uni.'
+    col F: 'Data de entrega'
+    col G: 'Data de entrega'
+    col H: 'Data de entrega'
+    col I: 'Assinatura'
+    col J: 'Assinatura'
+    col K: 'Assinatura'
+
+  Items found: 28
+      1. R 21 | unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa | data=06/10/2025   | obs=                               | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. R 23 | unid=1   | data=06/10/2025   | obs=                               | 
+      3. R 25 | unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa | data=             | obs=                               | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      4. R 27 | unid=1   | data=             | obs=                               | 
+      5. R 29 | unid=1   | data=             | obs=                               | 
+      6. R 31 | unid=1   | data=             | obs=                               | 
+      7. R 33 | unid=Camiseta, manga curta, em algodão contendo emblema da empresa | data=06/10/2025   | obs=                               | Camiseta, manga curta, em algodão contendo emblema da empresa
+      8. R 35 | unid=1   | data=06/10/2025   | obs=                               | 
+      9. R 37 | unid=1   | data=06/10/2025   | obs=                               | 
+     10. R 39 | unid=1   | data=06/10/2025   | obs=                               | 
+     11. R 41 | unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, | data=06/10/2025   | obs=                               | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+     12. R 43 | unid=1   | data=06/10/2025   | obs=                               | 
+     13. R 45 | unid=1   | data=             | obs=                               | 
+     14. R 47 | unid=1   | data=             | obs=                               | 
+     15. R 49 | unid=Meia preta em algodão | data=             | obs=                               | Meia preta em algodão
+     16. R 51 | unid=1   | data=             | obs=                               | 
+     17. R 53 | unid=1   | data=             | obs=                               | 
+     18. R 55 | unid=1   | data=             | obs=                               | 
+     19. R 57 | unid=Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Atendendo NR 10 - Sem componentes metálicos. | data=06/10/2025   | obs=                               | Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Aten...
+     20. R 58 | unid=1   | data=             | obs=                               | 
+     21. R 59 | unid=Bota de borracha PVC cano alto | data=06/10/2025   | obs=                               | Bota de borracha PVC cano alto
+     22. R 61 | unid=Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza | data=             | obs=                               | Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza
+     23. R 63 | unid=1   | data=             | obs=                               | 
+     24. R 65 | unid=Moletom (pelúcido), com punho, com emblema da empresa | data=06/10/2025   | obs=                               | Moletom (pelúcido), com punho, com emblema da empresa
+     25. R 67 | unid=1   | data=             | obs=                               | 
+     26. R 69 | unid=Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa | data=             | obs=                               | Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa
+     27. R 71 | unid=1   | data=             | obs=                               | 
+     28. R 73 | unid=Conjunto de uniforme eletricista NR10
+Classe II | data=13/6/25      | obs=                               | Conjunto de uniforme eletricista NR10
+Classe II
+
+--- BLOCK 2 (cols N-X) ---
+  Name (row 13, col N): 'ELÉTRICA'
+  Header row: 19
+  Column structure:
+    col N: 'Descrição Uniforme'
+    col O: 'Descrição Uniforme'
+    col P: 'Descrição Uniforme'
+    col Q: 'Descrição Uniforme'
+    col R: 'Uni.'
+    col S: 'Data de entrega'
+    col T: 'Data de entrega'
+    col U: 'Data de entrega'
+    col V: 'Assinatura'
+    col W: 'Assinatura'
+    col X: 'Assinatura'
+
+  Items found: 28
+      1. R 21 | unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa | data=             | obs=                               | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. R 23 | unid=1   | data=             | obs=                               | 
+      3. R 25 | unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa | data=             | obs=                               | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      4. R 27 | unid=1   | data=             | obs=                               | 
+      5. R 29 | unid=1   | data=             | obs=                               | 
+      6. R 31 | unid=1   | data=             | obs=                               | 
+      7. R 33 | unid=Camiseta, manga curta, em algodão contendo emblema da empresa | data=             | obs=                               | Camiseta, manga curta, em algodão contendo emblema da empresa
+      8. R 35 | unid=1   | data=             | obs=                               | 
+      9. R 37 | unid=1   | data=             | obs=                               | 
+     10. R 39 | unid=1   | data=             | obs=                               | 
+     11. R 41 | unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, | data=             | obs=                               | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+     12. R 43 | unid=1   | data=             | obs=                               | 
+     13. R 45 | unid=1   | data=             | obs=                               | 
+     14. R 47 | unid=1   | data=             | obs=                               | 
+     15. R 49 | unid=Meia preta em algodão | data=             | obs=                               | Meia preta em algodão
+     16. R 51 | unid=1   | data=             | obs=                               | 
+     17. R 53 | unid=1   | data=             | obs=                               | 
+     18. R 55 | unid=1   | data=             | obs=                               | 
+     19. R 57 | unid=Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Atendendo NR 10 - Sem componentes metálicos. | data=             | obs=                               | Botina de segurança em microfibra, com elástico, com biqueira de composite,
+Aten...
+     20. R 58 | unid=1   | data=             | obs=                               | 
+     21. R 59 | unid=Bota de borracha PVC cano alto | data=             | obs=                               | Bota de borracha PVC cano alto
+     22. R 61 | unid=Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza | data=             | obs=                               | Jaleco operacional manga longa, com punho, em brim pesado, na cor cinza
+     23. R 63 | unid=1   | data=             | obs=                               | 
+     24. R 65 | unid=Moletom (pelúcido), com punho, com emblema da empresa | data=             | obs=                               | Moletom (pelúcido), com punho, com emblema da empresa
+     25. R 67 | unid=1   | data=             | obs=                               | 
+     26. R 69 | unid=Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa | data=             | obs=                               | Jaqueta de inverno, em poliéster e elastano, com zíper, forrada com manta
+grossa
+     27. R 71 | unid=1   | data=             | obs=                               | 
+     28. R 73 | unid=Conjunto de uniforme eletricista NR10
+Classe II | data=             | obs=                               | Conjunto de uniforme eletricista NR10
+Classe II
+
+
+####################################################################################################
+SHEET: DOCUMENTOS
+  dimensions=A1:AU698  max_row=698  max_col=47
+####################################################################################################
+
+Detected 4 collaborator block(s):
+  Block 1: cols A-K (rows 1-12)
+  Block 2: cols M-W (rows 1-12)
+  Block 3: cols Y-AI (rows 1-12)
+  Block 4: cols AK-AU (rows 1-12)
+
+--- BLOCK 1 (cols A-K) ---
+  Name (row 15, col A): ''
+  Header row: 19
+  Column structure:
+    col A: 'Descrição'
+    col B: 'Descrição'
+    col C: 'Descrição'
+    col D: 'Descrição'
+    col E: 'Uni.'
+    col F: 'Data de entrega'
+    col G: 'Data de entrega'
+    col H: 'Data de entrega'
+    col I: 'Assinatura'
+    col J: 'Assinatura'
+    col K: 'Assinatura'
+
+  Items found: 9
+      1. R 21 | unid=1   | data=             | obs=                               | Cópia da folha dos posto de trabalho
+      2. R 23 | unid=1   | data=             | obs=                               | Cópia da carteira de trabalho
+      3. R 25 | unid=1   | data=             | obs=                               | Cópia do contrato
+      4. R 27 | unid=1   | data=             | obs=                               | Cópia do ASO
+      5. R 29 | unid=1   | data=             | obs=                               | Cópia da carteira de vacinação (COVID)
+      6. R 31 | unid=1   | data=             | obs=                               | Cópia da carteira de vacinação (ANTITETÂNICA)
+      7. R 33 | unid=1   | data=             | obs=                               | Cópia PGR  ou  PPRA e PCMSO
+      8. R 35 | unid=1   | data=             | obs=                               | Cópia das Normas 05, 07, 10, 12, 23, 33 e 35
+      9. R 37 | unid=1   | data=             | obs=                               | Cópia de Cursos Técnicos / Especializações
+
+--- BLOCK 2 (cols M-W) ---
+  Name (row 15, col M): 'Rogerio Alves'
+  Header row: 19
+  Column structure:
+    col M: 'Descrição'
+    col N: 'Descrição'
+    col O: 'Descrição'
+    col P: 'Descrição'
+    col Q: 'Uni.'
+    col R: 'Data de entrega'
+    col S: 'Data de entrega'
+    col T: 'Data de entrega'
+    col U: 'Assinatura'
+    col V: 'Assinatura'
+    col W: 'Assinatura'
+
+  Items found: 9
+      1. R 21 | unid=1   | data=03/12/2025   | obs=                               | Cópia da folha dos posto de trabalho
+      2. R 23 | unid=1   | data=03/12/2025   | obs=                               | Cópia da carteira de trabalho
+      3. R 25 | unid=1   | data=03/12/2025   | obs=                               | Cópia do contrato
+      4. R 27 | unid=1   | data=03/12/2025   | obs=                               | Cópia do ASO
+      5. R 29 | unid=1   | data=03/12/2025   | obs=                               | Cópia da carteira de vacinação (COVID)
+      6. R 31 | unid=1   | data=03/12/2025   | obs=                               | Cópia da carteira de vacinação (ANTITETÂNICA)
+      7. R 33 | unid=1   | data=             | obs=                               | Cópia PGR  ou  PPRA e PCMSO
+      8. R 35 | unid=1   | data=             | obs=                               | Cópia das Normas 05, 07, 10, 12, 23, 33 e 35
+      9. R 37 | unid=1   | data=             | obs=                               | Cópia de Cursos Técnicos / Especializações
+  Footer (R693 CM): FISCALIZAÇÃO TÉCNICA: ...............................................
+  Footer (R693 CR): REPRESENTANTE CAROLDO: ...............................................
+  Footer (R697 CM): *Os documentos listados acima são reconhecido como NECESSÁRIOS de acordo com o Contrato 003/2025, portanto as pendências na entrega dos mesmos são pas
+
+--- BLOCK 3 (cols Y-AI) ---
+  Name (row 15, col Y): 'JOSÉ FERNANDO NEVES FALLER'
+  Header row: 19
+  Column structure:
+    col Y: 'Descrição'
+    col Z: 'Descrição'
+    col AA: 'Descrição'
+    col AB: 'Descrição'
+    col AC: 'Uni.'
+    col AD: 'Data de entrega'
+    col AE: 'Data de entrega'
+    col AF: 'Data de entrega'
+    col AG: 'Assinatura'
+    col AH: 'Assinatura'
+    col AI: 'Assinatura'
+
+  Items found: 9
+      1. R 21 | unid=1   | data=06/10/2025   | obs=                               | Cópia da folha dos posto de trabalho
+      2. R 23 | unid=1   | data=06/10/2025   | obs=                               | Cópia da carteira de trabalho
+      3. R 25 | unid=1   | data=06/10/2025   | obs=                               | Cópia do contrato
+      4. R 27 | unid=1   | data=06/10/2025   | obs=                               | Cópia do ASO
+      5. R 29 | unid=1   | data=06/10/2025   | obs=                               | Cópia da carteira de vacinação (COVID)
+      6. R 31 | unid=1   | data=06/10/2025   | obs=                               | Cópia da carteira de vacinação (ANTITETÂNICA)
+      7. R 33 | unid=1   | data=             | obs=                               | Cópia PGR  ou  PPRA e PCMSO
+      8. R 35 | unid=1   | data=             | obs=                               | Cópia das Normas 05, 07, 10, 12, 23, 33 e 35
+      9. R 37 | unid=1   | data=             | obs=                               | Cópia de Cursos Técnicos / Especializações
+
+--- BLOCK 4 (cols AK-AU) ---
+  Name (row 15, col AK): 'ANDERSON CLAITON LOPES DA CRUZ'
+  Header row: 19
+  Column structure:
+    col AK: 'Descrição'
+    col AL: 'Descrição'
+    col AM: 'Descrição'
+    col AN: 'Descrição'
+    col AO: 'Uni.'
+    col AP: 'Data de entrega'
+    col AQ: 'Data de entrega'
+    col AR: 'Data de entrega'
+    col AS: 'Assinatura'
+    col AT: 'Assinatura'
+    col AU: 'Assinatura'
+
+  Items found: 9
+      1. R 21 | unid=1   | data=11/03/2025   | obs=                               | Cópia da folha dos posto de trabalho
+      2. R 23 | unid=1   | data=11/03/2025   | obs=                               | Cópia da carteira de trabalho
+      3. R 25 | unid=1   | data=11/03/2025   | obs=                               | Cópia do contrato
+      4. R 27 | unid=1   | data=11/03/2025   | obs=                               | Cópia do ASO
+      5. R 29 | unid=1   | data=11/03/2025   | obs=                               | Cópia da carteira de vacinação (COVID)
+      6. R 31 | unid=1   | data=11/03/2025   | obs=                               | Cópia da carteira de vacinação (ANTITETÂNICA)
+      7. R 33 | unid=1   | data=             | obs=                               | Cópia PGR  ou  PPRA e PCMSO
+      8. R 35 | unid=1   | data=             | obs=                               | Cópia das Normas 05, 07, 10, 12, 23, 33 e 35
+      9. R 37 | unid=1   | data=             | obs=                               | Cópia de Cursos Técnicos / Especializações

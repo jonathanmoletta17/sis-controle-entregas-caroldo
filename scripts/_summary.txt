@@ -1,0 +1,954 @@
+====================================================================================================
+SUMMARY: UNIQUE ITEMS + COLLABORATORS PER SHEET
+====================================================================================================
+
+##########################################################################################
+SHEET: MATERIAIS MARCENEIROS
+  dim=A1:AE639  rows=639  cols=31
+##########################################################################################
+Blocks: 2
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 46
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO:...........................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=             | Plaina elétrica profissional 82mm, 700W, 220v, com lâmina e saco coletor  
+      3. unid=1 data=             | Esquadro com cabo de alumínio e lâmina de aço inox. Com cabo projetado para uso a 45º, esp...
+      4. unid=1 data=             | Nível com estrutura de madeira de alta resistência, escala métrica, tamanho: 12" (304mm) e...
+      5. unid=1 data=             | Prumo 500gr com corpo em aço revestido por plástico. Calço guia de madeira e cordão de nái...
+      ... (+41 itens)
+
+  Block 2 (Q-AA):
+    Colaborador: 'Ivo Leandro'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 46
+    Itens com data preenchida: 44
+    Primeiros 5 itens:
+      1. unid=1 data=03/12/2025   | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=21/03/2025   | Plaina profissional n° 4 global acabamento liso
+      3. unid=1 data=12/03/2025   | Esquadro com cabo de alumínio e lâmina de aço inox. Com cabo projetado para uso a 45º, esp...
+      4. unid=1 data=12/03/2025   | Nível com estrutura de madeira de alta resistência, escala métrica, tamanho: 12" (304mm) e...
+      5. unid=1 data=12/03/2025   | Prumo 500gr com corpo em aço revestido por plástico. Calço guia de madeira e cordão de nái...
+      ... (+41 itens)
+
+##########################################################################################
+SHEET: MATERIAIS PEDREIROS
+  dim=A1:AG318  rows=318  cols=33
+##########################################################################################
+Blocks: 1
+
+  Block 1 (P-AC):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 35
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Colher de Pedreiro n°6 com Haste Curva e Cabo de Madeira envernizada
+      2. unid=1 data=             | Colher de Pedreiro n°8 com Haste Curva e Cabo de Madeira envernizada
+      3. unid=1 data=             | Martelo Unha/Carpinteiro 29 mm. Cabeça forjada em aço e cabo forjado em madeira envernizad...
+      4. unid=1 data=             | Prumo de aço carbono com calço guia em madeira e cordão nylon de 2 metros
+      5. unid=1 data=             | Nível com estrutura de madeira de alta resistência, escala métrica, tamanho: 12" (304mm) e...
+      ... (+30 itens)
+
+##########################################################################################
+SHEET: MATERIAIS ELETRICISTAS
+  dim=A1:AD437  rows=437  cols=30
+##########################################################################################
+Blocks: 2
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 39
+    Itens com data preenchida: 39
+    Primeiros 5 itens:
+      1. unid=1 data=03/12/2025   | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=19/03/2025   | Alicate universal, acabamento polido, cabo ergonômico emborrachado com abas protetoras. Fa...
+      3. unid=1 data=03/12/2025   | Alicate cortador e descascador de fios com crimpador
+      4. unid=1 data=03/12/2025   | Caneta detector de tensão alerta sonoro e luminoso, 12 v a 1000 V AC
+      5. unid=1 data=03/12/2025   | Identificador de circuitos elétricos com faixa mínima de operação 110v a 127 v
+      ... (+34 itens)
+
+  Block 2 (Q-AA):
+    Colaborador: '(vazio)'
+    Contrato: 003/2026
+    Header row: 15
+    Itens únicos: 39
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE JIREH: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=             | Alicate universal, acabamento polido, cabo ergonômico emborrachado com abas protetoras. Fa...
+      3. unid=1 data=             | Alicate cortador e descascador de fios com crimpador
+      4. unid=1 data=             | Caneta detector de tensão alerta sonoro e luminoso, 12 v a 1000 V AC
+      5. unid=1 data=             | Identificador de circuitos elétricos com faixa mínima de operação 110v a 127 v
+      ... (+34 itens)
+
+##########################################################################################
+SHEET: MATERIAIS PINTORES
+  dim=A1:AD381  rows=381  cols=30
+##########################################################################################
+Blocks: 2
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 25
+    Itens com data preenchida: 25
+    Primeiros 5 itens:
+      1. unid=1 data=05/05/2025   | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=7/4/25       | Espátula profissional de aço forjado n°08, com cabo de madeira 
+      3. unid=1 data=5/5/25       | Espátula rígida n°12, com cabo de madeira
+      4. unid=1 data=5/5/25       | Rolo de espuma, poliéster, n°09
+      5. unid=1 data=5/5/25       | Rolo de espuma, poliéster, n°15
+      ... (+20 itens)
+
+  Block 2 (Q-AA):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 25
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE JIREH: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=             | Espátula profissional de aço forjado n°08, com cabo de madeira 
+      3. unid=1 data=             | Espátula rígida n°12, com cabo de madeira
+      4. unid=1 data=             | Rolo de espuma, poliéster, n°09
+      5. unid=1 data=             | Rolo de espuma, poliéster, n°15
+      ... (+20 itens)
+
+##########################################################################################
+SHEET: MATERIAIS INST. HIDRÁULICOS
+  dim=A1:AT368  rows=368  cols=46
+##########################################################################################
+Blocks: 3
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 43
+    Itens com data preenchida: 1
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO:........................................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=             | Chave Grifo de 14” – 350mm, produzida em aço carbono
+      3. unid=1 data=             | Chave Grifo de 18” – 450mm, produzida em aço carbono
+      4. unid=1 data=             | Chave Grifo de 24” – 600mm, produzida em aço carbono
+      5. unid=1 data=             | Chave Grifo de 36” – produzida em aço carbono
+      ... (+38 itens)
+
+  Block 2 (P-Z):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 43
+    Itens com data preenchida: 37
+    Primeiros 5 itens:
+      1. unid=1 data=05/05/2025   | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=             | Chave Grifo de 14” – 350mm, produzida em aço carbono
+      3. unid=1 data=             | Chave Grifo de 18” – 450mm, produzida em aço carbono
+      4. unid=1 data=             | Chave Grifo de 24” – 600mm, produzida em aço carbono
+      5. unid=1 data=             | Chave Grifo de 36” – produzida em aço carbono
+      ... (+38 itens)
+
+  Block 3 (AG-AQ):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 43
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=             | Chave Grifo de 14” – 350mm, produzida em aço carbono
+      3. unid=1 data=             | Chave Grifo de 18” – 450mm, produzida em aço carbono
+      4. unid=1 data=             | Chave Grifo de 24” – 600mm, produzida em aço carbono
+      5. unid=1 data=             | Chave Grifo de 36” – produzida em aço carbono
+      ... (+38 itens)
+
+##########################################################################################
+SHEET: MATERIAIS TÉC. REFRIGERAÇÃO
+  dim=A1:AE453  rows=453  cols=31
+##########################################################################################
+Blocks: 2
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 48
+    Itens com data preenchida: 46
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=21/03/2025   | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=12/03/2025   | Bolsa tipo mala em lona para ferramentas, tamanho mínimo 16 polegadas
+      3. unid=1 data=21/03/2025   | Jogo de 8 chaves Fenda com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/8x4, 3/16x3,...
+      4. unid=1 data=21/03/2025   | Jogo de 8 chaves Philips com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/8x4, 3/16x...
+      5. unid=1 data=21/03/2025   | Chave Phillips e Fenda Cotoco PHO 1/4 x 1.1/2 Polegadas 
+      ... (+43 itens)
+
+  Block 2 (R-AB):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 48
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Caixa de ferramentas metálica com 05 compartimentos, tratamento antiferrugem, pintura de a...
+      2. unid=1 data=             | Bolsa tipo mala em lona para ferramentas, tamanho mínimo 16 polegadas
+      3. unid=1 data=             | Jogo de 8 chaves Fenda com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/8x4, 3/16x3,...
+      4. unid=1 data=             | Jogo de 8 chaves Philips com isolamento elétrico 1000 V. Nos tamanhos: 1/8x3, 1/8x4, 3/16x...
+      5. unid=1 data=             | Chave Phillips e Fenda Cotoco PHO 1/4 x 1.1/2 Polegadas 
+      ... (+43 itens)
+
+##########################################################################################
+SHEET: MATERIAIS TÉC. INFRA. DE REDES
+  dim=A1:AD254  rows=254  cols=30
+##########################################################################################
+Blocks: 2
+
+  Block 1 (A-K):
+    Colaborador: 'Joel'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 25
+    Itens com data preenchida: 25
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=04/07/2025   | Caixa de ferramentas metálica com 05 compartimentos, 50x20x21 cm
+      2. unid=1 data=07/04/25     | Bolsa tipo mala em lona para ferramentas, tamanho mínimo 16 polegadas. 
+      3. unid=1 data=07/04/25     | 8 chaves Fenda: 1/8x3, 1/8x4, 3/16x3, 3/16x4, 3/16x6, 1/4x4, 1/4x6, 5/16x6
+      4. unid=1 data=07/04/25     | 8 chaves Philips: 1/8x3, 1/8x4, 3/16x3, 3/16x4, 3/16x6, 1/4x4, 1/4x6, 5/16x6
+      5. unid=1 data=07/04/25     | Arco de serra regulável. Lâmina de 12". Cabo ergonômico
+      ... (+20 itens)
+
+  Block 2 (Q-AA):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 15
+    Itens únicos: 25
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Caixa de ferramentas metálica com 05 compartimentos, 50x20x21 cm
+      2. unid=1 data=             | Bolsa tipo mala em lona para ferramentas, tamanho mínimo 16 polegadas. 
+      3. unid=1 data=             | 8 chaves Fenda: 1/8x3, 1/8x4, 3/16x3, 3/16x4, 3/16x6, 1/4x4, 1/4x6, 5/16x6
+      4. unid=1 data=             | 8 chaves Philips: 1/8x3, 1/8x4, 3/16x3, 3/16x4, 3/16x6, 1/4x4, 1/4x6, 5/16x6
+      5. unid=1 data=             | Arco de serra regulável. Lâmina de 12". Cabo ergonômico
+      ... (+20 itens)
+
+##########################################################################################
+SHEET: EPI SUPERVISOR
+  dim=A1:W48  rows=48  cols=23
+##########################################################################################
+Blocks: 1
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 4
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva tátil EN 1149
+      4. unid=1 data=             | Cinto de segurança
+
+##########################################################################################
+SHEET: EPI MARCENEIRO
+  dim=A1:BZ110  rows=110  cols=78
+##########################################################################################
+Blocks: 5
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 6
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor amarelo
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva de vaqueta 
+      4. unid=1 data=             | Luva tátil EN 1149
+      5. unid=1 data=             | Óculos de segurança incolor
+      ... (+1 itens)
+
+  Block 2 (Q-AA):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 6
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor amarelo
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva de vaqueta 
+      4. unid=1 data=             | Luva tátil EN 1149
+      5. unid=1 data=             | Óculos de segurança incolor
+      ... (+1 itens)
+
+  Block 3 (AI-AS):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 6
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor amarelo
+      2. unid=2 data=             | Botina NR 10
+      3. unid=2 data=             | Luva de vaqueta 
+      4. unid=2 data=             | Luva tátil EN 1149
+      5. unid=2 data=             | Óculos de segurança incolor
+      ... (+1 itens)
+
+  Block 4 (AX-BH):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 6
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor amarelo
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva de vaqueta 
+      4. unid=1 data=             | Luva tátil EN 1149
+      5. unid=1 data=             | Óculos de segurança incolor
+      ... (+1 itens)
+
+  Block 5 (BM-BW):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 6
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor amarelo
+      2. unid=2 data=             | Botina NR 10
+      3. unid=2 data=             | Luva de vaqueta 
+      4. unid=2 data=             | Luva tátil EN 1149
+      5. unid=2 data=             | Óculos de segurança incolor
+      ... (+1 itens)
+
+##########################################################################################
+SHEET: EPI ELETRICISTA
+  dim=A1:AQ168  rows=168  cols=43
+##########################################################################################
+Blocks: 3
+
+  Block 1 (A-K):
+    Colaborador: 'ANDERSON CLAITON LOPES DA CRUZ'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 7
+    Itens com data preenchida: 7
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=11/03/2025   | Capacete de Segurança, com jugular, na cor laranja
+      2. unid=1 data=11/03/2025   | Botina NR 10
+      3. unid=1 data=11/03/2025   | Luva tátil EN 1149
+      4. unid=1 data=11/03/2025   | Luva modelo vaqueta (couro)
+      5. unid=1 data=11/03/2025   | Luva isolante até o antebraço NBR 16295
+      ... (+2 itens)
+
+  Block 2 (P-Z):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 7
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor laranja
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva tátil EN 1149
+      4. unid=1 data=             | Luva modelo vaqueta (couro)
+      5. unid=1 data=             | Luva isolante até o antebraço NBR 16295
+      ... (+2 itens)
+
+  Block 3 (AD-AN):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 7
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor laranja
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva tátil EN 1149
+      4. unid=1 data=             | Luva modelo vaqueta (couro)
+      5. unid=1 data=             | Luva isolante até o antebraço NBR 16295
+      ... (+2 itens)
+
+##########################################################################################
+SHEET: EPI SERVENTE
+  dim=A1:AC119  rows=119  cols=29
+##########################################################################################
+Blocks: 2
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 17
+    Itens únicos: 8
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor verde
+      2. unid=1 data=             | Óculos contra impacto incolor
+      3. unid=1 data=             | Óculos contra impacto preto fumê
+      4. unid=1 data=             | Botina NR 10
+      5. unid=1 data=             | Luva modelo vaqueta (couro)
+      ... (+3 itens)
+
+  Block 2 (P-Z):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 17
+    Itens únicos: 8
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor verde
+      2. unid=1 data=             | Óculos contra impacto incolor
+      3. unid=1 data=             | Óculos contra impacto preto fumê
+      4. unid=1 data=             | Botina NR 10
+      5. unid=1 data=             | Luva modelo vaqueta (couro)
+      ... (+3 itens)
+
+##########################################################################################
+SHEET: EPI INST. HIDRÁULICO
+  dim=A1:BG122  rows=122  cols=59
+##########################################################################################
+Blocks: 4
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 7
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO:  ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor azul
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva de borracha nitrílica
+      4. unid=1 data=             | Luva modelo vaqueta (couro)
+      5. unid=1 data=             | Luva tátil EN 1149
+      ... (+2 itens)
+
+  Block 2 (P-Z):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 7
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor azul
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva de borracha nitrílica
+      4. unid=1 data=             | Luva modelo vaqueta (couro)
+      5. unid=1 data=             | Luva tátil EN 1149
+      ... (+2 itens)
+
+  Block 3 (AE-AO):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 7
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO:  ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor azul
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva de borracha nitrílica
+      4. unid=1 data=             | Luva modelo vaqueta (couro)
+      5. unid=1 data=             | Luva tátil EN 1149
+      ... (+2 itens)
+
+  Block 4 (AT-BD):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 7
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor azul
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva de borracha nitrílica
+      4. unid=1 data=             | Luva modelo vaqueta (couro)
+      5. unid=1 data=             | Luva tátil EN 1149
+      ... (+2 itens)
+
+##########################################################################################
+SHEET: EPI PEDREIRO
+  dim=A1:AC216  rows=216  cols=29
+##########################################################################################
+Blocks: 2
+
+  Block 1 (A-K):
+    Colaborador: 'ANDREA DOS SANTOS PAVÃO'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 9
+    Itens com data preenchida: 9
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO:  ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=03/12/2025   | Capacete de Segurança, com jugular, na cor azul
+      2. unid=1 data=03/12/2025   | Óculos de segurança incolor
+      3. unid=1 data=03/12/2025   | Óculos de segurança preto fumê
+      4. unid=1 data=03/12/2025   | Botina NR 10
+      5. unid=1 data=03/12/2025   | Luva modelo vaqueta (couro)
+      ... (+4 itens)
+
+  Block 2 (P-AC):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 9
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO:  ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor azul
+      2. unid=1 data=             | Óculos de segurança incolor
+      3. unid=1 data=             | Óculos de segurança preto fumê
+      4. unid=1 data=             | Botina NR 10
+      5. unid=1 data=             | Luva modelo vaqueta (couro)
+      ... (+4 itens)
+
+##########################################################################################
+SHEET: EPI PINTOR
+  dim=A1:AC896  rows=896  cols=29
+##########################################################################################
+Blocks: 2
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 9
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor amarelo
+      2. unid=1 data=             | Macacão para proteção química
+      3. unid=1 data=             | Luva de borracha e algodão
+      4. unid=1 data=             | Botina NR 10
+      5. unid=1 data=             | Óculos de segurança incolor
+      ... (+4 itens)
+
+  Block 2 (P-Z):
+    Colaborador: 'Gilberto Texeira d Rosa'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 9
+    Itens com data preenchida: 9
+    Primeiros 5 itens:
+      1. unid=1 data=13/10/25     | Capacete de Segurança, com jugular, na cor amarelo
+      2. unid=1 data=13/10/25     | Macacão para proteção química
+      3. unid=1 data=13/10/25     | Luva de borracha e algodão
+      4. unid=1 data=13/10/25     | Botina NR 10
+      5. unid=1 data=13/10/25     | Óculos de segurança incolor
+      ... (+4 itens)
+
+##########################################################################################
+SHEET: EPI TÉC. REFRIGERAÇÃO
+  dim=A1:AR106  rows=106  cols=44
+##########################################################################################
+Blocks: 3
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 6
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor amarelo
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva tátil EN 1149
+      4. unid=1 data=             | Luva modelo vaqueta (couro)
+      5. unid=1 data=             | Óculos contra impacto incolor
+      ... (+1 itens)
+
+  Block 2 (P-Z):
+    Colaborador: 'MARCOS VINICIUS MACHADO DA SILVA'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 6
+    Itens com data preenchida: 6
+    Primeiros 5 itens:
+      1. unid=1 data=03/12/2025   | Capacete de Segurança, com jugular, na cor amarelo
+      2. unid=1 data=12/03/2025   | Botina NR 10
+      3. unid=1 data=12/03/2025   | Luva tátil EN 1149
+      4. unid=1 data=12/03/2025   | Luva modelo vaqueta (couro)
+      5. unid=1 data=12/03/2025   | Óculos contra impacto incolor
+      ... (+1 itens)
+
+  Block 3 (AE-AO):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 6
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO:  ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor amarelo
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva tátil EN 1149
+      4. unid=1 data=             | Luva modelo vaqueta (couro)
+      5. unid=1 data=             | Óculos contra impacto incolor
+      ... (+1 itens)
+
+##########################################################################################
+SHEET: EPI TÉC. INFRA. DE REDES
+  dim=A1:AD105  rows=105  cols=30
+##########################################################################################
+Blocks: 2
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 6
+    Itens com data preenchida: 0
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO:  ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor laranja
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva tátil EN 1149
+      4. unid=1 data=             | Luva modelo vaqueta (couro)
+      5. unid=1 data=             | Óculos contra impacto incolor
+      ... (+1 itens)
+
+  Block 2 (Q-AA):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 6
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Capacete de Segurança, com jugular, na cor laranja
+      2. unid=1 data=             | Botina NR 10
+      3. unid=1 data=             | Luva tátil EN 1149
+      4. unid=1 data=             | Luva modelo vaqueta (couro)
+      5. unid=1 data=             | Óculos contra impacto incolor
+      ... (+1 itens)
+
+##########################################################################################
+SHEET: UNIFORME
+  dim=A1:AU868  rows=868  cols=47
+##########################################################################################
+Blocks: 4
+
+  Block 1 (A-K):
+    Colaborador: 'Ivo Leandro da Silva Vieira'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 10
+    Itens com data preenchida: 9
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa data=04/07/2025   | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa data=30/09/25     | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      3. unid=Camiseta, manga curta, em algodão contendo emblema da empresa data=04/07/2025   | Camiseta, manga curta, em algodão contendo emblema da empresa
+      4. unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, data=04/07/2025   | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+      5. unid=Meia preta em algodão data=             | Meia preta em algodão
+      ... (+5 itens)
+
+  Block 2 (M-W):
+    Colaborador: 'Gilberto Texeira Da Rosa'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 10
+    Itens com data preenchida: 8
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa data=13/10/25     | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa data=13/10/25     | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      3. unid=Camiseta, manga curta, em algodão contendo emblema da empresa data=13/10/25     | Camiseta, manga curta, em algodão contendo emblema da empresa
+      4. unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, data=13/10/25     | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+      5. unid=Meia preta em algodão data=             | Meia preta em algodão
+      ... (+5 itens)
+
+  Block 3 (Y-AI):
+    Colaborador: 'Joel Turela Tompsen'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 10
+    Itens com data preenchida: 8
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa data=04/07/2025   | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa data=             | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      3. unid=Camiseta, manga curta, em algodão contendo emblema da empresa data=04/07/2025   | Camiseta, manga curta, em algodão contendo emblema da empresa
+      4. unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, data=04/07/2025   | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+      5. unid=Meia preta em algodão data=             | Meia preta em algodão
+      ... (+5 itens)
+
+  Block 4 (AK-AU):
+    Colaborador: 'Andrea santos pavao'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 10
+    Itens com data preenchida: 8
+    Primeiros 5 itens:
+      1. unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa data=21/03/25     | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa data=             | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      3. unid=Camiseta, manga curta, em algodão contendo emblema da empresa data=19/03/25     | Camiseta, manga curta, em algodão contendo emblema da empresa
+      4. unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, data=03/12/2025   | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+      5. unid=Meia preta em algodão data=             | Meia preta em algodão
+      ... (+5 itens)
+
+##########################################################################################
+SHEET: UNIFORME FABIANO
+  dim=A2:K81  rows=81  cols=11
+##########################################################################################
+Blocks: 0
+
+##########################################################################################
+SHEET: UNIFORME ELETRICISTA
+  dim=A1:X250  rows=250  cols=24
+##########################################################################################
+Blocks: 2
+
+  Block 1 (A-K):
+    Colaborador: 'Dilmar Mendes De Souza'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 11
+    Itens com data preenchida: 7
+    Primeiros 5 itens:
+      1. unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa data=06/10/2025   | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa data=             | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      3. unid=Camiseta, manga curta, em algodão contendo emblema da empresa data=06/10/2025   | Camiseta, manga curta, em algodão contendo emblema da empresa
+      4. unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, data=06/10/2025   | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+      5. unid=Meia preta em algodão data=             | Meia preta em algodão
+      ... (+6 itens)
+
+  Block 2 (N-X):
+    Colaborador: 'ELÉTRICA'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 11
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=Camisa polo, manga curta,em algodão, contendo emblema da empresa data=             | Camisa polo, manga curta,em algodão, contendo emblema da empresa
+      2. unid=Camiseta, manga longa,contendo punho, em algodão com emblema da empresa data=             | Camiseta, manga longa,contendo punho, em algodão com emblema da empresa
+      3. unid=Camiseta, manga curta, em algodão contendo emblema da empresa data=             | Camiseta, manga curta, em algodão contendo emblema da empresa
+      4. unid=Calça em brim pesado, com elástico e cordão na cintura, na cor cinza, data=             | Calça em brim pesado, com elástico e cordão na cintura, na cor cinza,
+      5. unid=Meia preta em algodão data=             | Meia preta em algodão
+      ... (+6 itens)
+
+##########################################################################################
+SHEET: DOCUMENTOS
+  dim=A1:AU698  rows=698  cols=47
+##########################################################################################
+Blocks: 4
+
+  Block 1 (A-K):
+    Colaborador: '(vazio)'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 9
+    Itens com data preenchida: 0
+    Primeiros 5 itens:
+      1. unid=1 data=             | Cópia da folha dos posto de trabalho
+      2. unid=1 data=             | Cópia da carteira de trabalho
+      3. unid=1 data=             | Cópia do contrato
+      4. unid=1 data=             | Cópia do ASO
+      5. unid=1 data=             | Cópia da carteira de vacinação (COVID)
+      ... (+4 itens)
+
+  Block 2 (M-W):
+    Colaborador: 'Rogerio Alves'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 9
+    Itens com data preenchida: 6
+    Assinaturas: {'fiscalizacao': 'FISCALIZAÇÃO TÉCNICA: ...............................................', 'representante': 'REPRESENTANTE CAROLDO: ...............................................'}
+    Primeiros 5 itens:
+      1. unid=1 data=03/12/2025   | Cópia da folha dos posto de trabalho
+      2. unid=1 data=03/12/2025   | Cópia da carteira de trabalho
+      3. unid=1 data=03/12/2025   | Cópia do contrato
+      4. unid=1 data=03/12/2025   | Cópia do ASO
+      5. unid=1 data=03/12/2025   | Cópia da carteira de vacinação (COVID)
+      ... (+4 itens)
+
+  Block 3 (Y-AI):
+    Colaborador: 'JOSÉ FERNANDO NEVES FALLER'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 9
+    Itens com data preenchida: 6
+    Primeiros 5 itens:
+      1. unid=1 data=06/10/2025   | Cópia da folha dos posto de trabalho
+      2. unid=1 data=06/10/2025   | Cópia da carteira de trabalho
+      3. unid=1 data=06/10/2025   | Cópia do contrato
+      4. unid=1 data=06/10/2025   | Cópia do ASO
+      5. unid=1 data=06/10/2025   | Cópia da carteira de vacinação (COVID)
+      ... (+4 itens)
+
+  Block 4 (AK-AU):
+    Colaborador: 'ANDERSON CLAITON LOPES DA CRUZ'
+    Contrato: 003/2025
+    Header row: 19
+    Itens únicos: 9
+    Itens com data preenchida: 6
+    Primeiros 5 itens:
+      1. unid=1 data=11/03/2025   | Cópia da folha dos posto de trabalho
+      2. unid=1 data=11/03/2025   | Cópia da carteira de trabalho
+      3. unid=1 data=11/03/2025   | Cópia do contrato
+      4. unid=1 data=11/03/2025   | Cópia do ASO
+      5. unid=1 data=11/03/2025   | Cópia da carteira de vacinação (COVID)
+      ... (+4 itens)
+
+
+==========================================================================================
+AGGREGATED SUMMARY
+==========================================================================================
+
+Total de abas: 20
+
+Total de nomes únicos de colaboradores encontrados: 14
+
+Nomes por aba:
+  MATERIAIS MARCENEIROS: ['Ivo Leandro']
+  MATERIAIS TÉC. INFRA. DE REDES: ['Joel']
+  EPI ELETRICISTA: ['ANDERSON CLAITON LOPES DA CRUZ']
+  EPI PEDREIRO: ['ANDREA DOS SANTOS PAVÃO']
+  EPI PINTOR: ['Gilberto Texeira d Rosa']
+  EPI TÉC. REFRIGERAÇÃO: ['MARCOS VINICIUS MACHADO DA SILVA']
+  UNIFORME: ['Ivo Leandro da Silva Vieira', 'Gilberto Texeira Da Rosa', 'Joel Turela Tompsen', 'Andrea santos pavao']
+  UNIFORME ELETRICISTA: ['Dilmar Mendes De Souza', 'ELÉTRICA']
+  DOCUMENTOS: ['Rogerio Alves', 'JOSÉ FERNANDO NEVES FALLER', 'ANDERSON CLAITON LOPES DA CRUZ']
+
+Lista consolidada de terceirizados:
+  - ANDERSON CLAITON LOPES DA CRUZ
+  - ANDREA DOS SANTOS PAVÃO
+  - Andrea santos pavao
+  - Dilmar Mendes De Souza
+  - ELÉTRICA
+  - Gilberto Texeira Da Rosa
+  - Gilberto Texeira d Rosa
+  - Ivo Leandro
+  - Ivo Leandro da Silva Vieira
+  - JOSÉ FERNANDO NEVES FALLER
+  - Joel
+  - Joel Turela Tompsen
+  - MARCOS VINICIUS MACHADO DA SILVA
+  - Rogerio Alves
+
+
+==========================================================================================
+INCONSISTÊNCIAS IDENTIFICADAS
+==========================================================================================
+
+MATERIAIS MARCENEIROS:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 1 (A-K) tem 46 itens mas NENHUMA data preenchida
+
+MATERIAIS PEDREIROS:
+  ⚠ Block 1 (P-AC) sem nome de colaborador
+  ⚠ Block 1 (P-AC) tem 35 itens mas NENHUMA data preenchida
+
+MATERIAIS ELETRICISTAS:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 2 (Q-AA) sem nome de colaborador
+  ⚠ Block 2 (Q-AA) tem 39 itens mas NENHUMA data preenchida
+  ⚠ Block 2 (Q-AA) usa contrato 003/2026 (divergente do padrão 003/2025)
+
+MATERIAIS PINTORES:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 2 (Q-AA) sem nome de colaborador
+  ⚠ Block 2 (Q-AA) tem 25 itens mas NENHUMA data preenchida
+
+MATERIAIS INST. HIDRÁULICOS:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 2 (P-Z) sem nome de colaborador
+  ⚠ Block 3 (AG-AQ) sem nome de colaborador
+  ⚠ Block 3 (AG-AQ) tem 43 itens mas NENHUMA data preenchida
+
+MATERIAIS TÉC. REFRIGERAÇÃO:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 2 (R-AB) sem nome de colaborador
+  ⚠ Block 2 (R-AB) tem 48 itens mas NENHUMA data preenchida
+
+MATERIAIS TÉC. INFRA. DE REDES:
+  ⚠ Block 2 (Q-AA) sem nome de colaborador
+  ⚠ Block 2 (Q-AA) tem 25 itens mas NENHUMA data preenchida
+
+EPI SUPERVISOR:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 1 (A-K) tem 4 itens mas NENHUMA data preenchida
+
+EPI MARCENEIRO:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 1 (A-K) tem 6 itens mas NENHUMA data preenchida
+  ⚠ Block 2 (Q-AA) sem nome de colaborador
+  ⚠ Block 2 (Q-AA) tem 6 itens mas NENHUMA data preenchida
+  ⚠ Block 3 (AI-AS) sem nome de colaborador
+  ⚠ Block 3 (AI-AS) tem 6 itens mas NENHUMA data preenchida
+  ⚠ Block 4 (AX-BH) sem nome de colaborador
+  ⚠ Block 4 (AX-BH) tem 6 itens mas NENHUMA data preenchida
+  ⚠ Block 5 (BM-BW) sem nome de colaborador
+  ⚠ Block 5 (BM-BW) tem 6 itens mas NENHUMA data preenchida
+
+EPI ELETRICISTA:
+  ⚠ Block 2 (P-Z) sem nome de colaborador
+  ⚠ Block 2 (P-Z) tem 7 itens mas NENHUMA data preenchida
+  ⚠ Block 3 (AD-AN) sem nome de colaborador
+  ⚠ Block 3 (AD-AN) tem 7 itens mas NENHUMA data preenchida
+
+EPI SERVENTE:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 1 (A-K) tem 8 itens mas NENHUMA data preenchida
+  ⚠ Block 2 (P-Z) sem nome de colaborador
+  ⚠ Block 2 (P-Z) tem 8 itens mas NENHUMA data preenchida
+
+EPI INST. HIDRÁULICO:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 1 (A-K) tem 7 itens mas NENHUMA data preenchida
+  ⚠ Block 2 (P-Z) sem nome de colaborador
+  ⚠ Block 2 (P-Z) tem 7 itens mas NENHUMA data preenchida
+  ⚠ Block 3 (AE-AO) sem nome de colaborador
+  ⚠ Block 3 (AE-AO) tem 7 itens mas NENHUMA data preenchida
+  ⚠ Block 4 (AT-BD) sem nome de colaborador
+  ⚠ Block 4 (AT-BD) tem 7 itens mas NENHUMA data preenchida
+
+EPI PEDREIRO:
+  ⚠ Block 2 (P-AC) sem nome de colaborador
+  ⚠ Block 2 (P-AC) tem 9 itens mas NENHUMA data preenchida
+
+EPI PINTOR:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 1 (A-K) tem 9 itens mas NENHUMA data preenchida
+
+EPI TÉC. REFRIGERAÇÃO:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 1 (A-K) tem 6 itens mas NENHUMA data preenchida
+  ⚠ Block 3 (AE-AO) sem nome de colaborador
+  ⚠ Block 3 (AE-AO) tem 6 itens mas NENHUMA data preenchida
+
+EPI TÉC. INFRA. DE REDES:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 1 (A-K) tem 6 itens mas NENHUMA data preenchida
+  ⚠ Block 2 (Q-AA) sem nome de colaborador
+  ⚠ Block 2 (Q-AA) tem 6 itens mas NENHUMA data preenchida
+
+UNIFORME ELETRICISTA:
+  ⚠ Block 2 (N-X) tem 11 itens mas NENHUMA data preenchida
+
+DOCUMENTOS:
+  ⚠ Block 1 (A-K) sem nome de colaborador
+  ⚠ Block 1 (A-K) tem 9 itens mas NENHUMA data preenchida

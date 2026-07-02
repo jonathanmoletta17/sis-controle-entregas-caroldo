@@ -1,0 +1,793 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Input } from '@/components/ui/input'
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
+} from '@/components/ui/dialog'
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select'
+import {
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+} from '@/components/ui/table'
+import {
+  ArrowLeft, Pencil, UserX, UserCheck, History, ClipboardList, FileText,
+  AlertTriangle, Truck, Paperclip, Trash2, X,
+} from 'lucide-react'
+import { useApp } from '@/components/app/app-context'
+import { useToast } from '@/hooks/use-toast'
+import { StatusBadge, CorCapaceteBadge } from '@/components/app/shared/badges'
+import { formatCPF, formatDate, formatDateTime, todayISO } from '@/components/app/shared/format'
+import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
+
+interface Posto { id: string; nome: string; corCapacete: string | null }
+interface ColaboradorDetalhe {
+  id: string
+  cpf: string
+  nomeCompleto: string
+  ativo: boolean
+  dataAdmissao: string
+  dataDesligamento: string | null
+  motivoDesligamento: string | null
+  observacoes: string | null
+  posto: Posto | null
+  empresa: { id: string; nome: string } | null
+  contrato: { id: string; numero: string; objeto: string } | null
+  entregas: Array<{
+    id: string
+    dataEntrega: string
+    quantidade: number
+    observacao: string | null
+    anexoUrl: string | null
+    anexoNome: string | null
+    item: { id: string; descricao: string; categoria: { nome: string } }
+  }>
+  mudancasPosto: Array<{
+    id: string
+    dataMudanca: string
+    motivo: string | null
+    postoAnterior: Posto | null
+    postoNovo: Posto | null
+  }>
+  _count: { entregas: number; mudancasPosto: number }
+}
+
+export function ColaboradorDetalheView() {
+  const { selectedColaboradorId, setView } = useApp()
+  const { toast } = useToast()
+  const [colab, setColab] = useState<ColaboradorDetalhe | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [showEdit, setShowEdit] = useState(false)
+  const [showDesligar, setShowDesligar] = useState(false)
+  const [showMudancaPosto, setShowMudancaPosto] = useState(false)
+  const [showNovaEntrega, setShowNovaEntrega] = useState(false)
+  const [visualizandoItem, setVisualizandoItem] = useState<{ id: string; descricao: string; unidade?: string; categoria: { nome: string }; imagemUrl?: string | null; imagemNome?: string | null } | null>(null)
+
+  const carregar = () => {
+    if (!selectedColaboradorId) return
+    setLoading(true)
+    fetch(`/api/colaboradores/${selectedColaboradorId}`)
+      .then(r => r.json())
+      .then(d => setColab(d))
+      .catch(() => setColab(null))
+      .finally(() => setLoading(false))
+  }
+
+  useEffect(() => { carregar() }, [selectedColaboradorId])
+
+  if (loading) {
+    return <Card><CardContent className="p-6">Carregando...</CardContent></Card>
+  }
+  if (!colab) {
+    return (
+      <Card>
+        <CardContent className="p-6">
+          <p className="text-sm text-muted-foreground">Colaborador não encontrado.</p>
+          <Button variant="outline" onClick={() => setView('colaboradores')} className="mt-3">
+            <ArrowLeft className="h-4 w-4 mr-1.5" /> Voltar à lista
+          </Button>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-start justify-between gap-3 flex-wrap">
+        <div className="flex items-start gap-3 min-w-0 flex-1">
+          <Button variant="ghost" size="icon" onClick={() => setView('colaboradores')} className="-ml-2 shrink-0">
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <div className="min-w-0">
+            <h1 className="text-2xl font-bold tracking-tight truncate">{colab.nomeCompleto}</h1>
+            <div className="flex items-center gap-2 mt-1 flex-wrap text-sm text-muted-foreground">
+              <span className="font-mono tabular-nums">{formatCPF(colab.cpf)}</span>
+              {colab.posto && <CorCapaceteBadge cor={colab.posto.corCapacete} />}
+              <span>·</span>
+              <span>Contrato {colab.contrato?.numero}</span>
+              <span>·</span>
+              <StatusBadge ativo={colab.ativo} dataDesligamento={colab.dataDesligamento} />
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.open(`/relatorio/${colab.id}`, '_blank')
+              }
+            }}
+            title="Abrir relatório deste terceirizado em nova aba para impressão"
+          >
+            <FileText className="h-4 w-4 mr-1.5" />
+            Gerar relatório
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => setShowMudancaPosto(true)} disabled={!colab.ativo}>
+            <History className="h-4 w-4 mr-1.5" />
+            Mudar posto
+          </Button>
+          {colab.ativo ? (
+            <Button variant="outline" size="sm" onClick={() => setShowDesligar(true)} className="text-rose-600 hover:text-rose-700">
+              <UserX className="h-4 w-4 mr-1.5" />
+              Desligar
+            </Button>
+          ) : (
+            <Button variant="outline" size="sm" onClick={async () => {
+              await fetch(`/api/colaboradores/${colab.id}/reativar`, { method: 'PUT' })
+              toast({ title: 'Colaborador reativado' })
+              carregar()
+            }}>
+              <UserCheck className="h-4 w-4 mr-1.5" />
+              Reativar
+            </Button>
+          )}
+          <Button variant="default" size="sm" onClick={() => setShowEdit(true)}>
+            <Pencil className="h-4 w-4 mr-1.5" />
+            Editar
+          </Button>
+        </div>
+      </div>
+
+      {/* Resumo cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-xs text-muted-foreground">Posto atual</div>
+            <div className="text-sm font-medium mt-1">{colab.posto?.nome || '—'}</div>
+            {colab.posto?.corCapacete && (
+              <div className="mt-2"><CorCapaceteBadge cor={colab.posto.corCapacete} /></div>
+            )}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-xs text-muted-foreground">Data de admissão</div>
+            <div className="text-sm font-medium mt-1">{formatDate(colab.dataAdmissao)}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-xs text-muted-foreground">Total de entregas</div>
+            <div className="text-sm font-medium mt-1 tabular-nums">{colab._count.entregas}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-xs text-muted-foreground">Mudanças de posto</div>
+            <div className="text-sm font-medium mt-1 tabular-nums">{colab._count.mudancasPosto}</div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Observações */}
+      {colab.observacoes && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-sm flex items-center gap-2">
+              <FileText className="h-4 w-4" /> Observações
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm whitespace-pre-line">{colab.observacoes}</p>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Histórico de mudanças de posto */}
+      {colab.mudancasPosto.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-sm flex items-center gap-2">
+              <History className="h-4 w-4" />
+              Histórico de mudanças de posto
+            </CardTitle>
+            <CardDescription>
+              Mudanças preservadas mesmo após desligamento. É possível excluir um registro registrado por engano — se for o mais recente, o posto atual do colaborador será revertido automaticamente.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Data</TableHead>
+                  <TableHead>Posto anterior</TableHead>
+                  <TableHead>→</TableHead>
+                  <TableHead>Novo posto</TableHead>
+                  <TableHead>Motivo</TableHead>
+                  <TableHead className="w-12"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {colab.mudancasPosto.map(m => (
+                  <TableRow key={m.id}>
+                    <TableCell className="tabular-nums">{formatDate(m.dataMudanca)}</TableCell>
+                    <TableCell>{m.postoAnterior?.nome || '—'}</TableCell>
+                    <TableCell className="text-muted-foreground">→</TableCell>
+                    <TableCell className="font-medium">{m.postoNovo?.nome || '—'}</TableCell>
+                    <TableCell className="text-muted-foreground">{m.motivo || '—'}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                        title="Excluir esta mudança de posto"
+                        onClick={async () => {
+                          if (!confirm('Excluir este registro de mudança de posto?\n\nSe for o registro mais recente, o posto atual do colaborador será revertido para o anterior.')) return
+                          try {
+                            const r = await fetch(`/api/mudancas-posto/${m.id}`, { method: 'DELETE' })
+                            if (!r.ok) {
+                              const d = await r.json().catch(() => ({}))
+                              throw new Error(d.error || 'Erro ao excluir')
+                            }
+                            toast({ title: 'Mudança de posto excluída' })
+                            carregar()
+                          } catch (e: any) {
+                            toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+                          }
+                        }}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Histórico de entregas */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between gap-2">
+            <div>
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Truck className="h-4 w-4" />
+                Histórico de entregas
+              </CardTitle>
+              <CardDescription className="mt-1">
+                Todas as entregas registradas para este terceirizado, da mais recente à mais antiga
+              </CardDescription>
+            </div>
+            <Button size="sm" onClick={() => setShowNovaEntrega(true)} disabled={!colab.ativo}>
+              <Truck className="h-4 w-4 mr-1.5" />
+              Registrar entrega
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="p-0">
+          {colab.entregas.length === 0 ? (
+            <div className="p-12 text-center">
+              <Truck className="h-10 w-10 text-muted-foreground mx-auto mb-3 opacity-50" />
+              <p className="text-sm text-muted-foreground">
+                Nenhuma entrega registrada ainda. Clique em <b>Registrar entrega</b> para começar.
+              </p>
+            </div>
+          ) : (
+            <Table className="table-fixed">
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[10%]">Data</TableHead>
+                  <TableHead className="w-[10%]">Categoria</TableHead>
+                  <TableHead className="w-[46%]">Item</TableHead>
+                  <TableHead className="w-[6%] text-center">Qtd</TableHead>
+                  <TableHead className="w-[20%]">Observação</TableHead>
+                  <TableHead className="w-[8%]">Anexo</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {colab.entregas.map(e => (
+                  <TableRow key={e.id}>
+                    <TableCell className="tabular-nums whitespace-nowrap align-top text-sm">{formatDate(e.dataEntrega)}</TableCell>
+                    <TableCell className="align-top">
+                      <span className={`text-xs px-2 py-0.5 rounded inline-block ${
+                        e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800' :
+                        e.item.categoria.nome === 'EPI' ? 'bg-rose-100 text-rose-800' :
+                        e.item.categoria.nome === 'Uniforme' ? 'bg-violet-100 text-violet-800' :
+                        'bg-sky-100 text-sky-800'
+                      }`}>
+                        {e.item.categoria.nome}
+                      </span>
+                    </TableCell>
+                    <TableCell className="align-top">
+                      <button
+                        onClick={() => setVisualizandoItem(e.item)}
+                        className="hover:underline text-left"
+                        title="Clique para ver a imagem do item"
+                      >
+                        <div className="line-clamp-3 text-sm leading-snug">{e.item.descricao}</div>
+                      </button>
+                    </TableCell>
+                    <TableCell className="text-center tabular-nums align-top">{e.quantidade}</TableCell>
+                    <TableCell className="text-xs text-muted-foreground align-top">
+                      <div className="line-clamp-2 leading-snug" title={e.observacao || ''}>
+                        {e.observacao || '—'}
+                      </div>
+                    </TableCell>
+                    <TableCell className="align-top">
+                      {e.anexoUrl ? (
+                        <a
+                          href={e.anexoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs text-sky-700 hover:underline"
+                          title={e.anexoNome || 'Abrir anexo'}
+                        >
+                          <Paperclip className="h-3.5 w-3.5" />
+                          <span className="truncate max-w-[60px]">{e.anexoNome || 'anexo'}</span>
+                        </a>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">—</span>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Modais */}
+      {showEdit && (
+        <EditarColaboradorForm colab={colab} onClose={() => setShowEdit(false)} onSaved={() => { setShowEdit(false); carregar() }} />
+      )}
+      {showDesligar && (
+        <DesligarColaboradorForm colab={colab} onClose={() => setShowDesligar(false)} onDone={() => { setShowDesligar(false); carregar() }} />
+      )}
+      {showMudancaPosto && (
+        <MudancaPostoForm colab={colab} onClose={() => setShowMudancaPosto(false)} onDone={() => { setShowMudancaPosto(false); carregar() }} />
+      )}
+      {showNovaEntrega && (
+        <NovaEntregaForm colab={colab} onClose={() => setShowNovaEntrega(false)} onDone={() => { setShowNovaEntrega(false); carregar() }} />
+      )}
+
+      <ItemVisualizacaoModal
+        item={visualizandoItem as ItemVisualizacao | null}
+        open={!!visualizandoItem}
+        onOpenChange={(o) => !o && setVisualizandoItem(null)}
+      />
+    </div>
+  )
+}
+
+function EditarColaboradorForm({ colab, onClose, onSaved }: {
+  colab: ColaboradorDetalhe; onClose: () => void; onSaved: () => void
+}) {
+  const { toast } = useToast()
+  const [form, setForm] = useState({
+    nomeCompleto: colab.nomeCompleto,
+    observacoes: colab.observacoes || '',
+    dataAdmissao: colab.dataAdmissao.slice(0, 10),
+  })
+  const [saving, setSaving] = useState(false)
+
+  const submit = async () => {
+    setSaving(true)
+    try {
+      const r = await fetch(`/api/colaboradores/${colab.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!r.ok) {
+        const d = await r.json()
+        throw new Error(d.error || 'Erro ao salvar')
+      }
+      toast({ title: 'Alterações salvas' })
+      onSaved()
+    } catch (e: any) {
+      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle>Editar terceirizado</DialogTitle>
+          <DialogDescription>CPF e empresa não podem ser alterados (empresa é sempre CAROLDO neste contrato).</DialogDescription>
+        </DialogHeader>
+        <div className="space-y-3 py-2">
+          <div className="space-y-1.5">
+            <Label>CPF</Label>
+            <Input value={formatCPF(colab.cpf)} disabled className="font-mono bg-muted" />
+          </div>
+          <div className="space-y-1.5">
+            <Label>Nome completo</Label>
+            <Input value={form.nomeCompleto} onChange={e => setForm(f => ({ ...f, nomeCompleto: e.target.value }))} />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label>Empresa</Label>
+              <Input value="CAROLDO" disabled className="bg-muted" />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Admissão</Label>
+              <Input type="date" value={form.dataAdmissao} onChange={e => setForm(f => ({ ...f, dataAdmissao: e.target.value }))} />
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            <Label>Observações</Label>
+            <Textarea rows={3} value={form.observacoes} onChange={e => setForm(f => ({ ...f, observacoes: e.target.value }))} />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>Cancelar</Button>
+          <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Salvar'}</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function DesligarColaboradorForm({ colab, onClose, onDone }: {
+  colab: ColaboradorDetalhe; onClose: () => void; onDone: () => void
+}) {
+  const { toast } = useToast()
+  const [motivo, setMotivo] = useState('')
+  const [saving, setSaving] = useState(false)
+
+  const submit = async () => {
+    setSaving(true)
+    try {
+      const r = await fetch(`/api/colaboradores/${colab.id}?motivo=${encodeURIComponent(motivo || 'Desligamento registrado')}`, {
+        method: 'DELETE',
+      })
+      if (!r.ok) throw new Error('Erro ao desligar')
+      toast({ title: 'Colaborador desligado', description: 'Histórico preservado no sistema.' })
+      onDone()
+    } catch (e: any) {
+      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 text-amber-500" />
+            Desligar terceirizado
+          </DialogTitle>
+          <DialogDescription>
+            O terceirizado será marcado como desligado, mas <b>todo o histórico de entregas e mudanças de posto será preservado</b>. Esta ação pode ser revertida depois.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-3 py-2">
+          <div className="text-sm">
+            <b>{colab.nomeCompleto}</b> ({formatCPF(colab.cpf)})
+          </div>
+          <div className="space-y-1.5">
+            <Label>Motivo do desligamento</Label>
+            <Textarea
+              rows={2}
+              placeholder="Ex.: fim do contrato, transferência para outra obra, demissão..."
+              value={motivo}
+              onChange={e => setMotivo(e.target.value)}
+            />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>Cancelar</Button>
+          <Button variant="destructive" onClick={submit} disabled={saving}>
+            {saving ? 'Desligando...' : 'Confirmar desligamento'}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function MudancaPostoForm({ colab, onClose, onDone }: {
+  colab: ColaboradorDetalhe; onClose: () => void; onDone: () => void
+}) {
+  const { toast } = useToast()
+  const [postos, setPostos] = useState<Posto[]>([])
+  const [novoPostoId, setNovoPostoId] = useState('')
+  const [motivo, setMotivo] = useState('')
+  const [saving, setSaving] = useState(false)
+
+  useEffect(() => {
+    fetch('/api/postos').then(r => r.json()).then(p => setPostos(Array.isArray(p) ? p : []))
+  }, [])
+
+  const submit = async () => {
+    if (!novoPostoId) {
+      toast({ title: 'Selecione o novo posto', variant: 'destructive' })
+      return
+    }
+    if (novoPostoId === colab.posto?.id) {
+      toast({ title: 'Selecione um posto diferente do atual', variant: 'destructive' })
+      return
+    }
+    setSaving(true)
+    try {
+      const r = await fetch(`/api/colaboradores/${colab.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          postoId: novoPostoId,
+          motivoMudancaPosto: motivo || 'Mudança de posto registrada manualmente',
+        }),
+      })
+      if (!r.ok) throw new Error('Erro ao registrar mudança')
+      toast({ title: 'Mudança de posto registrada', description: 'Histórico atualizado.' })
+      onDone()
+    } catch (e: any) {
+      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <History className="h-5 w-5" />
+            Mudança de posto
+          </DialogTitle>
+          <DialogDescription>
+            O posto anterior será registrado no histórico do colaborador.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-3 py-2">
+          <div className="text-sm">
+            <b>{colab.nomeCompleto}</b>
+            <div className="text-muted-foreground mt-1">
+              Posto atual: <b>{colab.posto?.nome || '—'}</b>
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            <Label>Novo posto</Label>
+            <Select value={novoPostoId} onValueChange={setNovoPostoId}>
+              <SelectTrigger><SelectValue placeholder="Selecione o novo posto..." /></SelectTrigger>
+              <SelectContent>
+                {postos.filter(p => p.id !== colab.posto?.id).map(p => (
+                  <SelectItem key={p.id} value={p.id}>
+                    <span className="flex items-center gap-2">
+                      {p.corCapacete && (
+                        <span className={`h-2 w-2 rounded-full inline-block ${
+                          p.corCapacete === 'Amarelo' ? 'bg-yellow-400' :
+                          p.corCapacete === 'Azul' ? 'bg-blue-500' :
+                          p.corCapacete === 'Laranja' ? 'bg-orange-500' :
+                          p.corCapacete === 'Verde' ? 'bg-green-500' : 'bg-gray-400'
+                        }`} />
+                      )}
+                      {p.nome}
+                    </span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-1.5">
+            <Label>Motivo (opcional)</Label>
+            <Textarea
+              rows={2}
+              placeholder="Ex.: transferência interna, mudança de função..."
+              value={motivo}
+              onChange={e => setMotivo(e.target.value)}
+            />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>Cancelar</Button>
+          <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Registrar mudança'}</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function NovaEntregaForm({ colab, onClose, onDone }: {
+  colab: ColaboradorDetalhe; onClose: () => void; onDone: () => void
+}) {
+  const { toast } = useToast()
+  const [itens, setItens] = useState<Array<{ id: string; descricao: string; categoria: { nome: string } }>>([])
+  const [categoriaFiltro, setCategoriaFiltro] = useState<string>('')
+  const [form, setForm] = useState({
+    itemId: '',
+    dataEntrega: todayISO(),
+    quantidade: 1,
+    observacao: '',
+  })
+  const [anexo, setAnexo] = useState<File | null>(null)
+  const [saving, setSaving] = useState(false)
+
+  useEffect(() => {
+    // Carregar itens do posto atual do colaborador
+    fetch(`/api/itens?postoId=${colab.posto?.id || ''}`)
+      .then(r => r.json())
+      .then(d => setItens(Array.isArray(d) ? d : []))
+  }, [colab.posto?.id])
+
+  const itensFiltrados = categoriaFiltro
+    ? itens.filter(i => i.categoria.nome === categoriaFiltro)
+    : itens
+
+  const itemSelecionado = itens.find(i => i.id === form.itemId)
+  const isDocumento = itemSelecionado?.categoria.nome === 'Documento'
+
+  const submit = async () => {
+    if (!form.itemId) {
+      toast({ title: 'Selecione um item', variant: 'destructive' })
+      return
+    }
+    setSaving(true)
+    try {
+      let r: Response
+      if (anexo) {
+        const fd = new FormData()
+        fd.append('colaboradorId', colab.id)
+        fd.append('itemId', form.itemId)
+        fd.append('dataEntrega', form.dataEntrega)
+        fd.append('quantidade', String(form.quantidade))
+        if (form.observacao) fd.append('observacao', form.observacao)
+        fd.append('anexo', anexo)
+        r = await fetch('/api/entregas', { method: 'POST', body: fd })
+      } else {
+        r = await fetch('/api/entregas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...form, colaboradorId: colab.id }),
+        })
+      }
+      if (!r.ok) {
+        let msg = 'Erro ao registrar'
+        try {
+          const d = await r.json()
+          msg = d.error || msg
+        } catch {
+          msg = `${r.status} ${r.statusText || '— erro de servidor'}`
+        }
+        throw new Error(msg)
+      }
+      toast({ title: 'Entrega registrada' })
+      onDone()
+    } catch (e: any) {
+      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Truck className="h-5 w-5" />
+            Registrar entrega
+          </DialogTitle>
+          <DialogDescription>
+            Para <b>{colab.nomeCompleto}</b> ({colab.posto?.nome})
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-3 py-2">
+          <div className="space-y-1.5">
+            <Label>Categoria</Label>
+            <Select value={categoriaFiltro || '_todas'} onValueChange={v => setCategoriaFiltro(v === '_todas' ? '' : v)}>
+              <SelectTrigger><SelectValue placeholder="Todas as categorias" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="_todas">Todas</SelectItem>
+                <SelectItem value="Materiais">Materiais</SelectItem>
+                <SelectItem value="EPI">EPI</SelectItem>
+                <SelectItem value="Uniforme">Uniforme</SelectItem>
+                <SelectItem value="Documento">Documento</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-1.5">
+            <Label>Item *</Label>
+            <Select value={form.itemId} onValueChange={v => setForm(f => ({ ...f, itemId: v }))}>
+              <SelectTrigger><SelectValue placeholder="Selecione o item entregue..." /></SelectTrigger>
+              <SelectContent className="max-h-80">
+                {itensFiltrados.map(i => (
+                  <SelectItem key={i.id} value={i.id}>
+                    <span className="text-xs px-1.5 py-0.5 rounded mr-1.5 bg-muted">
+                      {i.categoria.nome}
+                    </span>
+                    {i.descricao.length > 60 ? i.descricao.slice(0, 57) + '...' : i.descricao}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              Lista de itens esperados para o posto <b>{colab.posto?.nome}</b>.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label>Data *</Label>
+              <Input type="date" value={form.dataEntrega} onChange={e => setForm(f => ({ ...f, dataEntrega: e.target.value }))} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Quantidade</Label>
+              <Input type="number" min="1" value={form.quantidade} onChange={e => setForm(f => ({ ...f, quantidade: parseInt(e.target.value) || 1 }))} />
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            <Label>Observação</Label>
+            <Textarea rows={2} placeholder="Ex.: item com defeito visual, entrega parcial..." value={form.observacao} onChange={e => setForm(f => ({ ...f, observacao: e.target.value }))} />
+          </div>
+          {isDocumento && (
+            <div className="space-y-1.5">
+              <Label>Anexo do documento (opcional)</Label>
+              <p className="text-xs text-sky-700 bg-sky-50 border border-sky-200 rounded p-2">
+                <Paperclip className="h-3.5 w-3.5 inline mr-1" />
+                Para itens da categoria <b>Documento</b>, você pode anexar o arquivo digitalizado (PDF, imagem, etc).
+              </p>
+              {!anexo ? (
+                <label className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-border rounded-md p-4 cursor-pointer hover:bg-accent/50 transition-colors">
+                  <Paperclip className="h-5 w-5 text-muted-foreground" />
+                  <span className="text-xs text-muted-foreground">Clique para anexar um arquivo</span>
+                  <span className="text-xs text-muted-foreground">PDF, JPG, PNG, DOC — máx 10MB</span>
+                  <input
+                    type="file"
+                    className="hidden"
+                    accept=".pdf,.jpg,.jpeg,.png,.gif,.webp,.doc,.docx"
+                    onChange={e => {
+                      const f = e.target.files?.[0]
+                      if (f) setAnexo(f)
+                    }}
+                  />
+                </label>
+              ) : (
+                <div className="flex items-center gap-2 border rounded-md p-3 bg-accent/30">
+                  <Paperclip className="h-4 w-4 text-sky-700 shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium truncate">{anexo.name}</div>
+                    <div className="text-xs text-muted-foreground">{(anexo.size / 1024).toFixed(1)} KB</div>
+                  </div>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => setAnexo(null)} title="Remover anexo">
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>Cancelar</Button>
+          <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Registrar entrega'}</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
