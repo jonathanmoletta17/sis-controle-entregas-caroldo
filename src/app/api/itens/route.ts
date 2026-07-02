@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
-import fs from 'fs/promises'
 import path from 'path'
-import crypto from 'crypto'
+import { saveUpload } from '@/lib/storage'
 
 // GET /api/itens?categoriaId=...&postoId=...
 export async function GET(req: NextRequest) {
@@ -131,10 +130,6 @@ async function saveImage(file: File): Promise<{ url?: string; nome?: string; err
   if (!extsPermitidas.includes(ext)) {
     return { error: `Extensão ${ext} não permitida para imagem. Aceitas: ${extsPermitidas.join(', ')}` }
   }
-  const hash = crypto.randomBytes(8).toString('hex')
-  const nomeArquivo = `${Date.now()}-${hash}${ext}`
-  const caminhoAbs = path.join(process.cwd(), 'public', 'uploads', 'itens', nomeArquivo)
-  const buffer = Buffer.from(await file.arrayBuffer())
-  await fs.writeFile(caminhoAbs, buffer)
-  return { url: `/uploads/itens/${nomeArquivo}`, nome: file.name }
+  const { url, nome } = await saveUpload(file, 'itens')
+  return { url, nome }
 }

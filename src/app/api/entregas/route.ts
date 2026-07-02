@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
-import fs from 'fs/promises'
 import path from 'path'
-import crypto from 'crypto'
+import { saveUpload } from '@/lib/storage'
 
 // POST /api/entregas — registrar nova entrega com anexo (multipart/form-data)
 // Ou application/json (sem anexo)
@@ -40,17 +39,9 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ error: `Extensão ${ext} não permitida. Aceitas: ${extsPermitidas.join(', ')}` }, { status: 400 })
         }
 
-        // Gerar nome único: <timestamp>-<hash>.<ext>
-        const hash = crypto.randomBytes(8).toString('hex')
-        const nomeArquivo = `${Date.now()}-${hash}${ext}`
-        const caminhoAbs = path.join(process.cwd(), 'public', 'uploads', 'anexos', nomeArquivo)
-
-        // Salvar arquivo
-        const buffer = Buffer.from(await file.arrayBuffer())
-        await fs.writeFile(caminhoAbs, buffer)
-
-        anexoUrl = `/uploads/anexos/${nomeArquivo}`
-        anexoNome = file.name
+        const { url, nome } = await saveUpload(file, 'anexos')
+        anexoUrl = url
+        anexoNome = nome
       }
     } else {
       // JSON sem anexo

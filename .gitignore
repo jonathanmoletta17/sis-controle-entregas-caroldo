@@ -65,3 +65,6 @@ server.log
 # Uploads locais (em produção usamos storage externo)
 # NOTA: public/uploads/itens/ e public/brasao-rs.jpg são commitados porque são estáticos
 # Mas anexos novos vão para Vercel Blob
+
+# Arquivos sensíveis que não devem nunca ser versionados
+recovery-codes.txt
