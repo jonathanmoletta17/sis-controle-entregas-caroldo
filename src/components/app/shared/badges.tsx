@@ -6,10 +6,11 @@ import { cn } from '@/lib/utils'
 interface StatusBadgeProps {
   ativo: boolean
   dataDesligamento?: Date | string | null
+  motivoDesligamento?: string | null
   className?: string
 }
 
-export function StatusBadge({ ativo, dataDesligamento, className }: StatusBadgeProps) {
+export function StatusBadge({ ativo, dataDesligamento, motivoDesligamento, className }: StatusBadgeProps) {
   if (ativo) {
     return (
       <Badge variant="default" className={cn('bg-emerald-600 hover:bg-emerald-600 text-white', className)}>
@@ -23,7 +24,11 @@ export function StatusBadge({ ativo, dataDesligamento, className }: StatusBadgeP
       : dataDesligamento.toLocaleDateString('pt-BR')
     : null
   return (
-    <Badge variant="secondary" className={cn('bg-zinc-200 text-zinc-700 hover:bg-zinc-200', className)}>
+    <Badge
+      variant="secondary"
+      className={cn('bg-zinc-200 text-zinc-700 hover:bg-zinc-200', className)}
+      title={motivoDesligamento ? `Motivo: ${motivoDesligamento}` : undefined}
+    >
       Desligado{data ? ` em ${data}` : ''}
     </Badge>
   )

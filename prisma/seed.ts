@@ -7,6 +7,8 @@
  * 5. Itens por combinação categoria×posto (521 itens no total)
  * 6. 10 colaboradores identificados no Excel (com CPF placeholder)
  */
+import fs from 'fs'
+import path from 'path'
 import { db } from '../src/lib/db'
 import {
   POSTOS,
@@ -14,6 +16,57 @@ import {
   ITENS_POR_POSTO,
   COLABORADORES_INICIAIS,
 } from './seed-data'
+
+interface ImagemMap { [descricao: string]: string }
+
+function normalizeDescricao(s: string): string {
+  return (s || '')
+    .trim()
+    .replace(/\s+/g, ' ')
+    .replace(/\u00a0/g, ' ')
+}
+
+// Vincula imagemUrl aos itens por match de descrição contra o mapa gerado do Excel original
+async function popularImagensDosItens() {
+  const mapPath = path.resolve(process.cwd(), 'scripts/_imagem_map.json')
+  if (!fs.existsSync(mapPath)) {
+    console.warn('  Mapa de imagens não encontrado, pulando vínculo de imagens.')
+    return
+  }
+  const mapa: ImagemMap = JSON.parse(fs.readFileSync(mapPath, 'utf-8'))
+  const mapaNorm: Record<string, string> = {}
+  for (const [desc, url] of Object.entries(mapa)) {
+    mapaNorm[normalizeDescricao(desc)] = url
+  }
+
+  const itens = await db.item.findMany({ select: { id: true, descricao: true, imagemUrl: true } })
+  let atualizados = 0
+  for (const item of itens) {
+    if (item.imagemUrl) continue
+    const descNorm = normalizeDescricao(item.descricao)
+
+    let url = mapaNorm[descNorm]
+    if (!url) {
+      const prefix = descNorm.slice(0, 80)
+      for (const [k, v] of Object.entries(mapaNorm)) {
+        if (k.startsWith(prefix) || prefix.startsWith(k.slice(0, 80))) { url = v; break }
+      }
+    }
+    if (!url) {
+      for (const [k, v] of Object.entries(mapaNorm)) {
+        if (k.length > 20 && (descNorm.includes(k.slice(0, 40)) || k.includes(descNorm.slice(0, 40)))) { url = v; break }
+      }
+    }
+    if (url) {
+      await db.item.update({
+        where: { id: item.id },
+        data: { imagemUrl: url, imagemNome: url.split('/').pop() || null },
+      })
+      atualizados++
+    }
+  }
+  console.log(`✓ Imagens vinculadas: ${atualizados}/${itens.length}`)
+}
 
 async function main() {
   console.log('🌱 Iniciando seed do banco de dados...')
@@ -107,17 +160,22 @@ async function main() {
       const cacheKey = `${categoria}__${descricao}`
       let itemId = itemCache[cacheKey]
       if (!itemId) {
-        const item = await db.item.create({
-          data: {
-            categoriaId,
-            descricao,
-            unidade: '1',
-            ativo: true,
-          },
-        })
-        itemId = item.id
+        const existente = await db.item.findFirst({ where: { categoriaId, descricao } })
+        if (existente) {
+          itemId = existente.id
+        } else {
+          const item = await db.item.create({
+            data: {
+              categoriaId,
+              descricao,
+              unidade: '1',
+              ativo: true,
+            },
+          })
+          itemId = item.id
+          totalItens++
+        }
         itemCache[cacheKey] = itemId
-        totalItens++
       }
       // Cria relação Item ↔ Posto
       try {
@@ -165,6 +223,9 @@ async function main() {
     totalColabs++
   }
   console.log(`✓ Colaboradores: ${totalColabs}`)
+
+  // 7. Vincular imagens aos itens (idempotente — pula itens que já têm imagemUrl)
+  await popularImagensDosItens()
 
   console.log('\n✅ Seed concluído com sucesso!')
 }

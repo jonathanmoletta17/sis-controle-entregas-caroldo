@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     let observacao: string | null = null
     let anexoUrl: string | null = null
     let anexoNome: string | null = null
+    let fotoUrl: string | null = null
 
     if (contentType.includes('multipart/form-data')) {
       const formData = await req.formData()
@@ -42,6 +43,20 @@ export async function POST(req: NextRequest) {
         const { url, nome } = await saveUpload(file, 'anexos')
         anexoUrl = url
         anexoNome = nome
+      }
+
+      const foto = formData.get('foto') as File | null
+      if (foto && foto.size > 0) {
+        if (foto.size > 5 * 1024 * 1024) {
+          return NextResponse.json({ error: 'Foto muito grande. Máximo 5MB.' }, { status: 400 })
+        }
+        const ext = path.extname(foto.name).toLowerCase()
+        const extsPermitidas = ['.jpg', '.jpeg', '.png', '.webp', '.gif']
+        if (!extsPermitidas.includes(ext)) {
+          return NextResponse.json({ error: `Extensão ${ext} não permitida para foto. Aceitas: ${extsPermitidas.join(', ')}` }, { status: 400 })
+        }
+        const { url } = await saveUpload(foto, 'entregas-fotos')
+        fotoUrl = url
       }
     } else {
       // JSON sem anexo
@@ -79,6 +94,7 @@ export async function POST(req: NextRequest) {
         observacao,
         anexoUrl,
         anexoNome,
+        fotoUrl,
       },
       include: {
         colaborador: { select: { id: true, nomeCompleto: true, cpf: true, posto: true } },

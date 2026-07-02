@@ -92,6 +92,7 @@ model Colaborador {
   assinaturas     Assinatura[]
   mudancasPosto   MudancaPosto[] @relation("ColaboradorMudancas")
   mudancasPostoRegistradas MudancaPosto[] @relation("MudancaRegistradaPor")
+  desligamentos   Desligamento[]
 }
 
 // Histórico de mudanças de posto (preservar mesmo após desligamento)
@@ -109,6 +110,18 @@ model MudancaPosto {
   postoAnterior      Posto       @relation("MudancaPostoAnterior", fields: [postoAnteriorId], references: [id])
   postoNovo          Posto       @relation("MudancaPostoNovo", fields: [postoNovoId], references: [id])
   registradoPor      Colaborador? @relation("MudancaRegistradaPor", fields: [registradoPorId], references: [id])
+}
+
+// Histórico permanente de desligamentos (preservado mesmo após reativação)
+model Desligamento {
+  id               String    @id @default(cuid())
+  colaboradorId    String
+  dataDesligamento DateTime
+  dataReativacao   DateTime? // null = ainda desligado
+  motivo           String?
+  createdAt        DateTime  @default(now())
+
+  colaborador Colaborador @relation(fields: [colaboradorId], references: [id])
 }
 
 // ============ ITENS E CHECKLISTS ============

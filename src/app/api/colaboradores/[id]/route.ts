@@ -21,6 +21,7 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string
           postoNovo: true,
         },
       },
+      desligamentos: { orderBy: { dataDesligamento: 'desc' } },
       assinaturas: { orderBy: { dataHora: 'desc' }, include: { empresa: true } },
       _count: { select: { entregas: true, mudancasPosto: true } },
     },
@@ -82,16 +83,27 @@ export async function DELETE(req: NextRequest, ctx: { params: Promise<{ id: stri
   const colab = await db.colaborador.findUnique({ where: { id } })
   if (!colab) return NextResponse.json({ error: 'Não encontrado' }, { status: 404 })
 
-  // Não apagar — apenas marcar como desligado
-  const atualizado = await db.colaborador.update({
-    where: { id },
-    data: {
-      ativo: false,
-      dataDesligamento: new Date(),
-      motivoDesligamento: motivo,
-    },
-    include: { posto: true, empresa: true },
-  })
+  const agora = new Date()
+
+  // Não apagar — apenas marcar como desligado, e registrar no histórico permanente
+  const [atualizado] = await db.$transaction([
+    db.colaborador.update({
+      where: { id },
+      data: {
+        ativo: false,
+        dataDesligamento: agora,
+        motivoDesligamento: motivo,
+      },
+      include: { posto: true, empresa: true },
+    }),
+    db.desligamento.create({
+      data: {
+        colaboradorId: id,
+        dataDesligamento: agora,
+        motivo,
+      },
+    }),
+  ])
 
   return NextResponse.json({
     message: 'Colaborador desligado. Histórico preservado.',

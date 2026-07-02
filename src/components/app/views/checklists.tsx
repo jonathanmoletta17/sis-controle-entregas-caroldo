@@ -9,7 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select'
-import { ClipboardList, CheckCircle2, Circle, Truck, ChevronRight, Paperclip, X, FileText } from 'lucide-react'
+import { ClipboardList, CheckCircle2, Circle, Truck, ChevronRight, Paperclip, X, FileText, Camera } from 'lucide-react'
 import { useApp } from '@/components/app/app-context'
 import { CategoriaBadge } from '@/components/app/shared/badges'
 import { formatDate, todayISO } from '@/components/app/shared/format'
@@ -70,6 +70,7 @@ export function ChecklistsView() {
     observacao: '',
   })
   const [anexo, setAnexo] = useState<File | null>(null)
+  const [foto, setFoto] = useState<File | null>(null)
   const [savingEntrega, setSavingEntrega] = useState(false)
   const [visualizandoItem, setVisualizandoItem] = useState<ChecklistItem | null>(null)
 
@@ -104,14 +105,15 @@ export function ChecklistsView() {
     setSavingEntrega(true)
     try {
       let r: Response
-      if (anexo) {
+      if (anexo || foto) {
         const fd = new FormData()
         fd.append('colaboradorId', selectedId)
         fd.append('itemId', showEntrega.itemId)
         fd.append('dataEntrega', entregaForm.dataEntrega)
         fd.append('quantidade', String(entregaForm.quantidade))
         if (entregaForm.observacao) fd.append('observacao', entregaForm.observacao)
-        fd.append('anexo', anexo)
+        if (anexo) fd.append('anexo', anexo)
+        if (foto) fd.append('foto', foto)
         r = await fetch('/api/entregas', { method: 'POST', body: fd })
       } else {
         r = await fetch('/api/entregas', {
@@ -138,6 +140,7 @@ export function ChecklistsView() {
       setShowEntrega(null)
       setEntregaForm({ dataEntrega: todayISO(), quantidade: 1, observacao: '' })
       setAnexo(null)
+      setFoto(null)
       // recarregar checklist
       setLoadingChecklist(true)
       fetch(`/api/checklist?colaboradorId=${selectedId}`)
@@ -303,6 +306,7 @@ export function ChecklistsView() {
                             setShowEntrega({ itemId: item.itemId, descricao: item.descricao, categoriaNome: categoria })
                             setEntregaForm({ dataEntrega: todayISO(), quantidade: 1, observacao: '' })
                             setAnexo(null)
+                            setFoto(null)
                           }}
                         >
                           <Truck className="h-3.5 w-3.5 mr-1" />
@@ -375,6 +379,40 @@ export function ChecklistsView() {
                   value={entregaForm.observacao}
                   onChange={e => setEntregaForm(f => ({ ...f, observacao: e.target.value }))}
                 />
+              </div>
+              <div>
+                <label className="text-sm font-medium block mb-1">Foto do item recebido (opcional)</label>
+                <p className="text-xs text-muted-foreground mb-2">
+                  Registre uma foto do item no momento do recebimento da CAROLDO, antes de repassar ao terceirizado.
+                </p>
+                {!foto ? (
+                  <label className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-border rounded-md p-4 cursor-pointer hover:bg-accent/50 transition-colors">
+                    <Camera className="h-5 w-5 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground">Clique para tirar/anexar uma foto</span>
+                    <span className="text-xs text-muted-foreground">JPG, PNG, WEBP — máx 5MB</span>
+                    <input
+                      type="file"
+                      className="hidden"
+                      accept=".jpg,.jpeg,.png,.gif,.webp"
+                      capture="environment"
+                      onChange={e => {
+                        const f = e.target.files?.[0]
+                        if (f) setFoto(f)
+                      }}
+                    />
+                  </label>
+                ) : (
+                  <div className="flex items-center gap-2 border rounded-md p-3 bg-accent/30">
+                    <img src={URL.createObjectURL(foto)} alt="" className="h-10 w-10 object-cover rounded border shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium truncate">{foto.name}</div>
+                      <div className="text-xs text-muted-foreground">{(foto.size / 1024).toFixed(1)} KB</div>
+                    </div>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => setFoto(null)} title="Remover foto">
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                )}
               </div>
               {showEntrega.categoriaNome === 'Documento' && (
                 <div>

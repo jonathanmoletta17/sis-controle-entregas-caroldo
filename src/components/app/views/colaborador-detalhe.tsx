@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/table'
 import {
   ArrowLeft, Pencil, UserX, UserCheck, History, ClipboardList, FileText,
-  AlertTriangle, Truck, Paperclip, Trash2, X,
+  AlertTriangle, Truck, Paperclip, Trash2, X, Camera,
 } from 'lucide-react'
 import { useApp } from '@/components/app/app-context'
 import { useToast } from '@/hooks/use-toast'
@@ -45,6 +45,7 @@ interface ColaboradorDetalhe {
     observacao: string | null
     anexoUrl: string | null
     anexoNome: string | null
+    fotoUrl: string | null
     item: { id: string; descricao: string; categoria: { nome: string } }
   }>
   mudancasPosto: Array<{
@@ -53,6 +54,12 @@ interface ColaboradorDetalhe {
     motivo: string | null
     postoAnterior: Posto | null
     postoNovo: Posto | null
+  }>
+  desligamentos: Array<{
+    id: string
+    dataDesligamento: string
+    dataReativacao: string | null
+    motivo: string | null
   }>
   _count: { entregas: number; mudancasPosto: number }
 }
@@ -112,7 +119,7 @@ export function ColaboradorDetalheView() {
               <span>·</span>
               <span>Contrato {colab.contrato?.numero}</span>
               <span>·</span>
-              <StatusBadge ativo={colab.ativo} dataDesligamento={colab.dataDesligamento} />
+              <StatusBadge ativo={colab.ativo} dataDesligamento={colab.dataDesligamento} motivoDesligamento={colab.motivoDesligamento} />
             </div>
           </div>
         </div>
@@ -155,6 +162,23 @@ export function ColaboradorDetalheView() {
           </Button>
         </div>
       </div>
+
+      {/* Banner de desligamento */}
+      {!colab.ativo && (
+        <Card className="border-rose-200 bg-rose-50">
+          <CardContent className="p-4 flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 text-rose-600 shrink-0 mt-0.5" />
+            <div className="text-sm">
+              <p className="font-medium text-rose-900">
+                Desligado em {formatDate(colab.dataDesligamento)}
+              </p>
+              <p className="text-rose-800 mt-0.5">
+                Motivo: {colab.motivoDesligamento || 'não informado'}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Resumo cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -265,6 +289,43 @@ export function ColaboradorDetalheView() {
         </Card>
       )}
 
+      {/* Histórico de desligamentos */}
+      {colab.desligamentos.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-sm flex items-center gap-2">
+              <UserX className="h-4 w-4" />
+              Histórico de desligamentos
+            </CardTitle>
+            <CardDescription>
+              Preservado permanentemente, mesmo após reativações.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Desligado em</TableHead>
+                  <TableHead>Reativado em</TableHead>
+                  <TableHead>Motivo</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {colab.desligamentos.map(d => (
+                  <TableRow key={d.id}>
+                    <TableCell className="tabular-nums">{formatDate(d.dataDesligamento)}</TableCell>
+                    <TableCell className="tabular-nums">
+                      {d.dataReativacao ? formatDate(d.dataReativacao) : <span className="text-muted-foreground">ainda desligado</span>}
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">{d.motivo || '—'}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Histórico de entregas */}
       <Card>
         <CardHeader>
@@ -296,11 +357,12 @@ export function ColaboradorDetalheView() {
             <Table className="table-fixed">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[10%]">Data</TableHead>
-                  <TableHead className="w-[10%]">Categoria</TableHead>
-                  <TableHead className="w-[46%]">Item</TableHead>
-                  <TableHead className="w-[6%] text-center">Qtd</TableHead>
-                  <TableHead className="w-[20%]">Observação</TableHead>
+                  <TableHead className="w-[9%]">Data</TableHead>
+                  <TableHead className="w-[9%]">Categoria</TableHead>
+                  <TableHead className="w-[38%]">Item</TableHead>
+                  <TableHead className="w-[5%] text-center">Qtd</TableHead>
+                  <TableHead className="w-[15%]">Observação</TableHead>
+                  <TableHead className="w-[12%]">Foto recebida</TableHead>
                   <TableHead className="w-[8%]">Anexo</TableHead>
                 </TableRow>
               </TableHeader>
@@ -332,6 +394,15 @@ export function ColaboradorDetalheView() {
                       <div className="line-clamp-2 leading-snug" title={e.observacao || ''}>
                         {e.observacao || '—'}
                       </div>
+                    </TableCell>
+                    <TableCell className="align-top">
+                      {e.fotoUrl ? (
+                        <a href={e.fotoUrl} target="_blank" rel="noopener noreferrer" title="Ver foto do recebimento">
+                          <img src={e.fotoUrl} alt="Foto do recebimento" className="h-10 w-10 object-cover rounded border" />
+                        </a>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">—</span>
+                      )}
                     </TableCell>
                     <TableCell className="align-top">
                       {e.anexoUrl ? (
@@ -628,6 +699,7 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
     observacao: '',
   })
   const [anexo, setAnexo] = useState<File | null>(null)
+  const [foto, setFoto] = useState<File | null>(null)
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
@@ -652,14 +724,15 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
     setSaving(true)
     try {
       let r: Response
-      if (anexo) {
+      if (anexo || foto) {
         const fd = new FormData()
         fd.append('colaboradorId', colab.id)
         fd.append('itemId', form.itemId)
         fd.append('dataEntrega', form.dataEntrega)
         fd.append('quantidade', String(form.quantidade))
         if (form.observacao) fd.append('observacao', form.observacao)
-        fd.append('anexo', anexo)
+        if (anexo) fd.append('anexo', anexo)
+        if (foto) fd.append('foto', foto)
         r = await fetch('/api/entregas', { method: 'POST', body: fd })
       } else {
         r = await fetch('/api/entregas', {
@@ -745,6 +818,40 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
           <div className="space-y-1.5">
             <Label>Observação</Label>
             <Textarea rows={2} placeholder="Ex.: item com defeito visual, entrega parcial..." value={form.observacao} onChange={e => setForm(f => ({ ...f, observacao: e.target.value }))} />
+          </div>
+          <div className="space-y-1.5">
+            <Label>Foto do item recebido (opcional)</Label>
+            <p className="text-xs text-muted-foreground">
+              Registre uma foto do item no momento do recebimento da CAROLDO, antes de repassar ao terceirizado.
+            </p>
+            {!foto ? (
+              <label className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-border rounded-md p-4 cursor-pointer hover:bg-accent/50 transition-colors">
+                <Camera className="h-5 w-5 text-muted-foreground" />
+                <span className="text-xs text-muted-foreground">Clique para tirar/anexar uma foto</span>
+                <span className="text-xs text-muted-foreground">JPG, PNG, WEBP — máx 5MB</span>
+                <input
+                  type="file"
+                  className="hidden"
+                  accept=".jpg,.jpeg,.png,.gif,.webp"
+                  capture="environment"
+                  onChange={e => {
+                    const f = e.target.files?.[0]
+                    if (f) setFoto(f)
+                  }}
+                />
+              </label>
+            ) : (
+              <div className="flex items-center gap-2 border rounded-md p-3 bg-accent/30">
+                <img src={URL.createObjectURL(foto)} alt="" className="h-10 w-10 object-cover rounded border shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-medium truncate">{foto.name}</div>
+                  <div className="text-xs text-muted-foreground">{(foto.size / 1024).toFixed(1)} KB</div>
+                </div>
+                <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => setFoto(null)} title="Remover foto">
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
           </div>
           {isDocumento && (
             <div className="space-y-1.5">

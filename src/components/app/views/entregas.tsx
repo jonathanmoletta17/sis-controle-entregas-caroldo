@@ -17,7 +17,7 @@ import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Plus, Truck, Trash2, Paperclip, X } from 'lucide-react'
+import { Plus, Truck, Trash2, Paperclip, X, Camera } from 'lucide-react'
 import { useApp } from '@/components/app/app-context'
 import { useToast } from '@/hooks/use-toast'
 import { formatDate, todayISO } from '@/components/app/shared/format'
@@ -43,6 +43,7 @@ interface EntregaListItem {
   observacao: string | null
   anexoUrl: string | null
   anexoNome: string | null
+  fotoUrl: string | null
   colaborador: { id: string; nomeCompleto: string; cpf: string; posto: { nome: string } | null }
   item: {
     id: string
@@ -147,13 +148,14 @@ export function EntregasView() {
             <Table className="table-fixed">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[9%]">Data</TableHead>
-                  <TableHead className="w-[17%]">Terceirizado</TableHead>
-                  <TableHead className="w-[10%]">Posto</TableHead>
-                  <TableHead className="w-[9%]">Categoria</TableHead>
-                  <TableHead className="w-[26%]">Item</TableHead>
-                  <TableHead className="w-[5%] text-center">Qtd</TableHead>
-                  <TableHead className="w-[14%]">Observação</TableHead>
+                  <TableHead className="w-[8%]">Data</TableHead>
+                  <TableHead className="w-[15%]">Terceirizado</TableHead>
+                  <TableHead className="w-[9%]">Posto</TableHead>
+                  <TableHead className="w-[8%]">Categoria</TableHead>
+                  <TableHead className="w-[22%]">Item</TableHead>
+                  <TableHead className="w-[4%] text-center">Qtd</TableHead>
+                  <TableHead className="w-[12%]">Observação</TableHead>
+                  <TableHead className="w-[10%]">Foto recebida</TableHead>
                   <TableHead className="w-[7%]">Anexo</TableHead>
                   <TableHead className="w-[3%]"></TableHead>
                 </TableRow>
@@ -202,6 +204,15 @@ export function EntregasView() {
                       </div>
                     </TableCell>
                     <TableCell className="align-top">
+                      {e.fotoUrl ? (
+                        <a href={e.fotoUrl} target="_blank" rel="noopener noreferrer" title="Ver foto do recebimento">
+                          <img src={e.fotoUrl} alt="Foto do recebimento" className="h-10 w-10 object-cover rounded border" />
+                        </a>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">—</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="align-top">
                       {e.anexoUrl ? (
                         <a
                           href={e.anexoUrl}
@@ -236,6 +247,7 @@ export function EntregasView() {
 
       {showForm && (
         <NovaEntregaForm
+          colaboradorIdInicial={filtroColab}
           onClose={() => setShowForm(false)}
           onSaved={() => {
             setShowForm(false)
@@ -254,18 +266,19 @@ export function EntregasView() {
   )
 }
 
-function NovaEntregaForm({ onClose, onSaved }: { onClose: () => void; onSaved: () => void }) {
+function NovaEntregaForm({ colaboradorIdInicial, onClose, onSaved }: { colaboradorIdInicial?: string; onClose: () => void; onSaved: () => void }) {
   const { toast } = useToast()
   const [colaboradores, setColaboradores] = useState<ColaboradorListItem[]>([])
   const [itens, setItens] = useState<ItemOption[]>([])
   const [form, setForm] = useState({
-    colaboradorId: '',
+    colaboradorId: colaboradorIdInicial || '',
     itemId: '',
     dataEntrega: todayISO(),
     quantidade: 1,
     observacao: '',
   })
   const [anexo, setAnexo] = useState<File | null>(null)
+  const [foto, setFoto] = useState<File | null>(null)
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
@@ -307,14 +320,15 @@ function NovaEntregaForm({ onClose, onSaved }: { onClose: () => void; onSaved: (
     try {
       // Se tem anexo, usa multipart/form-data; senão, JSON
       let r: Response
-      if (anexo) {
+      if (anexo || foto) {
         const fd = new FormData()
         fd.append('colaboradorId', form.colaboradorId)
         fd.append('itemId', form.itemId)
         fd.append('dataEntrega', form.dataEntrega)
         fd.append('quantidade', String(form.quantidade))
         if (form.observacao) fd.append('observacao', form.observacao)
-        fd.append('anexo', anexo)
+        if (anexo) fd.append('anexo', anexo)
+        if (foto) fd.append('foto', foto)
         r = await fetch('/api/entregas', { method: 'POST', body: fd })
       } else {
         r = await fetch('/api/entregas', {
@@ -399,6 +413,40 @@ function NovaEntregaForm({ onClose, onSaved }: { onClose: () => void; onSaved: (
           <div className="space-y-1.5">
             <Label>Observação</Label>
             <Textarea rows={2} placeholder="Opcional" value={form.observacao} onChange={e => setForm(f => ({ ...f, observacao: e.target.value }))} />
+          </div>
+          <div className="space-y-1.5">
+            <Label>Foto do item recebido (opcional)</Label>
+            <p className="text-xs text-muted-foreground">
+              Registre uma foto do item no momento do recebimento da CAROLDO, antes de repassar ao terceirizado.
+            </p>
+            {!foto ? (
+              <label className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-border rounded-md p-4 cursor-pointer hover:bg-accent/50 transition-colors">
+                <Camera className="h-5 w-5 text-muted-foreground" />
+                <span className="text-xs text-muted-foreground">Clique para tirar/anexar uma foto</span>
+                <span className="text-xs text-muted-foreground">JPG, PNG, WEBP — máx 5MB</span>
+                <input
+                  type="file"
+                  className="hidden"
+                  accept=".jpg,.jpeg,.png,.gif,.webp"
+                  capture="environment"
+                  onChange={e => {
+                    const f = e.target.files?.[0]
+                    if (f) setFoto(f)
+                  }}
+                />
+              </label>
+            ) : (
+              <div className="flex items-center gap-2 border rounded-md p-3 bg-accent/30">
+                <img src={URL.createObjectURL(foto)} alt="" className="h-10 w-10 object-cover rounded border shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-medium truncate">{foto.name}</div>
+                  <div className="text-xs text-muted-foreground">{(foto.size / 1024).toFixed(1)} KB</div>
+                </div>
+                <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => setFoto(null)} title="Remover foto">
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
           </div>
           {isDocumento && (
             <div className="space-y-1.5">

@@ -32,6 +32,7 @@ interface ColaboradorListItem {
   ativo: boolean
   dataAdmissao: string
   dataDesligamento: string | null
+  motivoDesligamento: string | null
   observacoes: string | null
   posto: Posto | null
   empresa: { id: string; nome: string } | null
@@ -158,7 +159,7 @@ export function ColaboradoresView() {
                     </TableCell>
                     <TableCell className="text-sm tabular-nums">{formatDate(c.dataAdmissao)}</TableCell>
                     <TableCell className="text-center tabular-nums">{c._count.entregas}</TableCell>
-                    <TableCell><StatusBadge ativo={c.ativo} dataDesligamento={c.dataDesligamento} /></TableCell>
+                    <TableCell><StatusBadge ativo={c.ativo} dataDesligamento={c.dataDesligamento} motivoDesligamento={c.motivoDesligamento} /></TableCell>
                   </TableRow>
                 ))}
               </TableBody>

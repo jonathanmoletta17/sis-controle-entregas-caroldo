@@ -8,7 +8,7 @@ import crypto from 'crypto'
 // Em desenvolvimento local, grava em public/uploads/<pasta>/ para não depender de conta externa.
 export async function saveUpload(
   file: File,
-  pasta: 'itens' | 'anexos'
+  pasta: 'itens' | 'anexos' | 'entregas-fotos'
 ): Promise<{ url: string; nome: string }> {
   const ext = path.extname(file.name).toLowerCase()
   const hash = crypto.randomBytes(8).toString('hex')

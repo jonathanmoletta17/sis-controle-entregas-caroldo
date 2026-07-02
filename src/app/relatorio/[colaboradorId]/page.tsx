@@ -176,6 +176,12 @@ export default function RelatorioPage({ params }: { params: Promise<{ colaborado
                   {c.ativo ? 'Ativo' : `Desligado em ${formatDate(c.dataDesligamento)}`}
                 </td>
               </tr>
+              {!c.ativo && c.motivoDesligamento && (
+                <tr>
+                  <td className="py-1 font-semibold align-top">Motivo do desligamento:</td>
+                  <td className="py-1" colSpan={3}>{c.motivoDesligamento}</td>
+                </tr>
+              )}
               {c.observacoes && (
                 <tr>
                   <td className="py-1 font-semibold align-top">Observações:</td>
