@@ -61,7 +61,9 @@ export function EntregasView() {
   const [entregas, setEntregas] = useState<EntregaListItem[]>([])
   const [loading, setLoading] = useState(true)
   const [filtroColab, setFiltroColab] = useState<string>('')
+  const [filtroPosto, setFiltroPosto] = useState<string>('')
   const [colaboradores, setColaboradores] = useState<ColaboradorListItem[]>([])
+  const [postos, setPostos] = useState<Array<{ id: string; nome: string }>>([])
   const [showForm, setShowForm] = useState(false)
   const [visualizandoItem, setVisualizandoItem] = useState<EntregaListItem['item'] | null>(null)
 
@@ -69,18 +71,22 @@ export function EntregasView() {
     setLoading(true)
     const params = new URLSearchParams()
     if (filtroColab) params.set('colaboradorId', filtroColab)
+    else if (filtroPosto) params.set('postoId', filtroPosto)
     params.set('limit', '200')
     fetch(`/api/entregas?${params}`)
       .then(r => r.json())
       .then(d => setEntregas(Array.isArray(d) ? d : []))
       .catch(() => setEntregas([]))
       .finally(() => setLoading(false))
-  }, [filtroColab])
+  }, [filtroColab, filtroPosto])
 
   useEffect(() => {
     fetch('/api/colaboradores?incluirDesligados=true')
       .then(r => r.json())
       .then(d => setColaboradores(Array.isArray(d) ? d : []))
+    fetch('/api/postos')
+      .then(r => r.json())
+      .then(d => setPostos(Array.isArray(d) ? d : []))
   }, [])
 
   useEffect(() => { carregar() }, [carregar])
@@ -114,8 +120,25 @@ export function EntregasView() {
       <Card>
         <CardContent className="p-4">
           <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex-1 min-w-[200px]">
+              <Select
+                value={filtroPosto || '_todos'}
+                onValueChange={v => { setFiltroPosto(v === '_todos' ? '' : v); setFiltroColab('') }}
+              >
+                <SelectTrigger><SelectValue placeholder="Todos os postos" /></SelectTrigger>
+                <SelectContent className="max-h-80">
+                  <SelectItem value="_todos">Todos os postos</SelectItem>
+                  {postos.map(p => (
+                    <SelectItem key={p.id} value={p.id}>{p.nome}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             <div className="flex-1 min-w-[240px]">
-              <Select value={filtroColab || '_todos'} onValueChange={v => setFiltroColab(v === '_todos' ? '' : v)}>
+              <Select
+                value={filtroColab || '_todos'}
+                onValueChange={v => { setFiltroColab(v === '_todos' ? '' : v); setFiltroPosto('') }}
+              >
                 <SelectTrigger><SelectValue placeholder="Todos os terceirizados" /></SelectTrigger>
                 <SelectContent className="max-h-80">
                   <SelectItem value="_todos">Todos os terceirizados</SelectItem>
@@ -128,6 +151,9 @@ export function EntregasView() {
               </Select>
             </div>
           </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            Filtre por posto para comparar as entregas de todos os colaboradores do mesmo cargo, ou por terceirizado para ver o histórico de uma pessoa.
+          </p>
         </CardContent>
       </Card>
 

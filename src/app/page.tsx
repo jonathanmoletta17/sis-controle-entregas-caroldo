@@ -8,6 +8,7 @@ import { ColaboradorDetalheView } from '@/components/app/views/colaborador-detal
 import { ItensView } from '@/components/app/views/itens'
 import { ChecklistsView } from '@/components/app/views/checklists'
 import { EntregasView } from '@/components/app/views/entregas'
+import { PendenciasView } from '@/components/app/views/pendencias'
 
 function MainContent() {
   const { view } = useApp()
@@ -21,6 +22,7 @@ function MainContent() {
         {view === 'itens' && <ItensView />}
         {view === 'checklists' && <ChecklistsView />}
         {view === 'entregas' && <EntregasView />}
+        {view === 'pendencias' && <PendenciasView />}
       </div>
     </main>
   )

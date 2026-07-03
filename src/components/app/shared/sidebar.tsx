@@ -10,6 +10,7 @@ import {
   ClipboardList,
   Truck,
   HardHat,
+  AlertCircle,
 } from 'lucide-react'
 
 interface NavItem {
@@ -24,6 +25,7 @@ const NAV: NavItem[] = [
   { id: 'itens', label: 'Itens', icon: Package },
   { id: 'checklists', label: 'Checklists', icon: ClipboardList },
   { id: 'entregas', label: 'Entregas', icon: Truck },
+  { id: 'pendencias', label: 'Pendências', icon: AlertCircle },
 ]
 
 export function Sidebar() {

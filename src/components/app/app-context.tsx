@@ -9,6 +9,7 @@ export type View =
   | 'itens'
   | 'checklists'
   | 'entregas'
+  | 'pendencias'
 
 interface AppState {
   view: View

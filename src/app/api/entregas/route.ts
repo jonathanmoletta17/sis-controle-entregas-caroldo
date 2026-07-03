@@ -109,16 +109,18 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET /api/entregas?colaboradorId=...&itemId=...
+// GET /api/entregas?colaboradorId=...&itemId=...&postoId=...
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const colaboradorId = searchParams.get('colaboradorId')
   const itemId = searchParams.get('itemId')
+  const postoId = searchParams.get('postoId')
   const limit = parseInt(searchParams.get('limit') || '100', 10)
 
   const where: any = {}
   if (colaboradorId) where.colaboradorId = colaboradorId
   if (itemId) where.itemId = itemId
+  if (postoId) where.colaborador = { postoId }
 
   const entregas = await db.entrega.findMany({
     where,
