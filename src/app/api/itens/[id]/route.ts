@@ -23,6 +23,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
   return withAuditContext(req, async ({ userId, ip }) => {
   try {
     const { id } = await ctx.params
+    const antes = await db.item.findUnique({ where: { id }, include: { categoria: true, postos: { include: { posto: true } } } })
     const contentType = req.headers.get('content-type') || ''
 
     let descricao: string | undefined
@@ -101,7 +102,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
       where: { id },
       include: { categoria: true, postos: { include: { posto: true } } },
     })
-    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Item', registroId: id, valoresNovos: final })
+    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Item', registroId: id, valoresAntigos: antes, valoresNovos: final })
     return NextResponse.json(final)
   } catch (err: any) {
     console.error('[PUT /api/itens/[id]] error:', err)
@@ -115,8 +116,9 @@ export async function DELETE(req: NextRequest, ctx: { params: Promise<{ id: stri
   return withAuditContext(req, async ({ userId, ip }) => {
   try {
     const { id } = await ctx.params
+    const antes = await db.item.findUnique({ where: { id } })
     const item = await db.item.update({ where: { id }, data: { ativo: false, atualizadoPorId: userId } })
-    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Item', registroId: item.id, valoresNovos: item })
+    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Item', registroId: item.id, valoresAntigos: antes, valoresNovos: item })
     return NextResponse.json({ message: 'Item desativado' })
   } catch (err: any) {
     console.error('[DELETE /api/itens/[id]] error:', err)

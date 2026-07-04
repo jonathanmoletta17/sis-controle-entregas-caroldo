@@ -1,10 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import { useApp, View } from '../app-context'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { useSession, signOut } from 'next-auth/react'
+import { TrocarSenhaDialog } from './trocar-senha-dialog'
 import {
   LayoutDashboard,
   Users,
@@ -15,6 +17,7 @@ import {
   AlertCircle,
   LogOut,
   ScrollText,
+  KeyRound,
 } from 'lucide-react'
 
 interface NavItem {
@@ -108,6 +111,7 @@ function AdminLinks() {
 
 function UsuarioLogado() {
   const { data: session } = useSession()
+  const [showTrocarSenha, setShowTrocarSenha] = useState(false)
   if (!session?.user) return null
   return (
     <div className="flex items-center justify-between gap-2">
@@ -115,21 +119,34 @@ function UsuarioLogado() {
         <div className="text-sm font-medium truncate">{session.user.name}</div>
         <div className="text-xs text-muted-foreground truncate">{session.user.email}</div>
       </div>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive"
-        title="Sair"
-        onClick={() => signOut({ callbackUrl: '/login' })}
-      >
-        <LogOut className="h-4 w-4" />
-      </Button>
+      <div className="flex items-center shrink-0">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 text-muted-foreground"
+          title="Trocar senha"
+          onClick={() => setShowTrocarSenha(true)}
+        >
+          <KeyRound className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 text-muted-foreground hover:text-destructive"
+          title="Sair"
+          onClick={() => signOut({ callbackUrl: '/login' })}
+        >
+          <LogOut className="h-4 w-4" />
+        </Button>
+      </div>
+      <TrocarSenhaDialog open={showTrocarSenha} onClose={() => setShowTrocarSenha(false)} />
     </div>
   )
 }
 
 export function MobileNav() {
   const { view, setView } = useApp()
+  const [showTrocarSenha, setShowTrocarSenha] = useState(false)
   return (
     <div className="md:hidden sticky top-0 z-30 bg-card border-b border-border">
       <div className="flex items-center gap-2 px-4 py-3">
@@ -140,12 +157,22 @@ export function MobileNav() {
         <Button
           variant="ghost"
           size="icon"
+          className="h-8 w-8 text-muted-foreground"
+          title="Trocar senha"
+          onClick={() => setShowTrocarSenha(true)}
+        >
+          <KeyRound className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
           className="h-8 w-8 text-muted-foreground hover:text-destructive"
           title="Sair"
           onClick={() => signOut({ callbackUrl: '/login' })}
         >
           <LogOut className="h-4 w-4" />
         </Button>
+        <TrocarSenhaDialog open={showTrocarSenha} onClose={() => setShowTrocarSenha(false)} />
       </div>
       <div className="flex overflow-x-auto gap-1 px-2 pb-2">
         {NAV.map((item) => {

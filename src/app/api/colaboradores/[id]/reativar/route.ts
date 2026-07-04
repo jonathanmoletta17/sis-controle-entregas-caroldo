@@ -10,6 +10,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
   try {
     const { id } = await ctx.params
     const agora = new Date()
+    const antes = await db.colaborador.findUnique({ where: { id } })
 
     const desligamentoAberto = await db.desligamento.findFirst({
       where: { colaboradorId: id, dataReativacao: null },
@@ -32,7 +33,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
         : []),
     ])
 
-    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Colaborador', registroId: atualizado.id, valoresNovos: atualizado })
+    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Colaborador', registroId: atualizado.id, valoresAntigos: antes, valoresNovos: atualizado })
 
     return NextResponse.json(atualizado)
   } catch (err: any) {

@@ -24,6 +24,7 @@ import { useToast } from '@/hooks/use-toast'
 import { StatusBadge, CorCapaceteBadge } from '@/components/app/shared/badges'
 import { formatCPF, formatDate, formatDateTime, todayISO } from '@/components/app/shared/format'
 import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
+import { useCanWrite } from '@/hooks/use-can-write'
 
 interface Posto { id: string; nome: string; corCapacete: string | null }
 interface ColaboradorDetalhe {
@@ -68,6 +69,7 @@ interface ColaboradorDetalhe {
 
 export function ColaboradorDetalheView() {
   const { selectedColaboradorId, setView } = useApp()
+  const canWrite = useCanWrite()
   const { toast } = useToast()
   const [colab, setColab] = useState<ColaboradorDetalhe | null>(null)
   const [loading, setLoading] = useState(true)
@@ -139,11 +141,13 @@ export function ColaboradorDetalheView() {
             <FileText className="h-4 w-4 mr-1.5" />
             Gerar relatório
           </Button>
-          <Button variant="outline" size="sm" onClick={() => setShowMudancaPosto(true)} disabled={!colab.ativo}>
-            <History className="h-4 w-4 mr-1.5" />
-            Mudar posto
-          </Button>
-          {colab.ativo ? (
+          {canWrite && (
+            <Button variant="outline" size="sm" onClick={() => setShowMudancaPosto(true)} disabled={!colab.ativo}>
+              <History className="h-4 w-4 mr-1.5" />
+              Mudar posto
+            </Button>
+          )}
+          {canWrite && (colab.ativo ? (
             <Button variant="outline" size="sm" onClick={() => setShowDesligar(true)} className="text-rose-600 hover:text-rose-700">
               <UserX className="h-4 w-4 mr-1.5" />
               Desligar
@@ -157,11 +161,13 @@ export function ColaboradorDetalheView() {
               <UserCheck className="h-4 w-4 mr-1.5" />
               Reativar
             </Button>
+          ))}
+          {canWrite && (
+            <Button variant="default" size="sm" onClick={() => setShowEdit(true)}>
+              <Pencil className="h-4 w-4 mr-1.5" />
+              Editar
+            </Button>
           )}
-          <Button variant="default" size="sm" onClick={() => setShowEdit(true)}>
-            <Pencil className="h-4 w-4 mr-1.5" />
-            Editar
-          </Button>
         </div>
       </div>
 
@@ -268,28 +274,30 @@ export function ColaboradorDetalheView() {
                     <TableCell className="font-medium">{m.postoNovo?.nome || '—'}</TableCell>
                     <TableCell className="text-muted-foreground">{m.motivo || '—'}</TableCell>
                     <TableCell>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
-                        title="Excluir esta mudança de posto"
-                        onClick={async () => {
-                          if (!confirm('Excluir este registro de mudança de posto?\n\nSe for o registro mais recente, o posto atual do colaborador será revertido para o anterior.')) return
-                          try {
-                            const r = await fetch(`/api/mudancas-posto/${m.id}`, { method: 'DELETE' })
-                            if (!r.ok) {
-                              const d = await r.json().catch(() => ({}))
-                              throw new Error(d.error || 'Erro ao excluir')
+                      {canWrite && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                          title="Excluir esta mudança de posto"
+                          onClick={async () => {
+                            if (!confirm('Excluir este registro de mudança de posto?\n\nSe for o registro mais recente, o posto atual do colaborador será revertido para o anterior.')) return
+                            try {
+                              const r = await fetch(`/api/mudancas-posto/${m.id}`, { method: 'DELETE' })
+                              if (!r.ok) {
+                                const d = await r.json().catch(() => ({}))
+                                throw new Error(d.error || 'Erro ao excluir')
+                              }
+                              toast({ title: 'Mudança de posto excluída' })
+                              carregar()
+                            } catch (e: any) {
+                              toast({ title: 'Erro', description: e.message, variant: 'destructive' })
                             }
-                            toast({ title: 'Mudança de posto excluída' })
-                            carregar()
-                          } catch (e: any) {
-                            toast({ title: 'Erro', description: e.message, variant: 'destructive' })
-                          }
-                        }}
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </Button>
+                          }}
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </Button>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -349,10 +357,12 @@ export function ColaboradorDetalheView() {
                 Todas as entregas registradas para este terceirizado, da mais recente à mais antiga
               </CardDescription>
             </div>
-            <Button size="sm" onClick={() => setShowNovaEntrega(true)} disabled={!colab.ativo}>
-              <Truck className="h-4 w-4 mr-1.5" />
-              Registrar entrega
-            </Button>
+            {canWrite && (
+              <Button size="sm" onClick={() => setShowNovaEntrega(true)} disabled={!colab.ativo}>
+                <Truck className="h-4 w-4 mr-1.5" />
+                Registrar entrega
+              </Button>
+            )}
           </div>
         </CardHeader>
         <CardContent className="p-0">

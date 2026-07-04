@@ -23,6 +23,7 @@ import { Plus, Search, Package, Pencil, ImagePlus, X, ImageOff } from 'lucide-re
 import { useToast } from '@/hooks/use-toast'
 import { CategoriaBadge } from '@/components/app/shared/badges'
 import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
+import { useCanWrite } from '@/hooks/use-can-write'
 
 interface Categoria { id: string; nome: string; descricao: string | null }
 interface Posto { id: string; nome: string; corCapacete: string | null }
@@ -41,6 +42,7 @@ interface Item {
 
 export function ItensView() {
   const { toast } = useToast()
+  const canWrite = useCanWrite()
   const [itens, setItens] = useState<Item[]>([])
   const [categorias, setCategorias] = useState<Categoria[]>([])
   const [postos, setPostos] = useState<Posto[]>([])
@@ -91,9 +93,11 @@ export function ItensView() {
             Catálogo central de materiais, EPIs, uniformes e documentos — clique em um item para ver a imagem
           </p>
         </div>
-        <Button onClick={() => setShowForm(true)}>
-          <Plus className="h-4 w-4 mr-1.5" /> Novo item
-        </Button>
+        {canWrite && (
+          <Button onClick={() => setShowForm(true)}>
+            <Plus className="h-4 w-4 mr-1.5" /> Novo item
+          </Button>
+        )}
       </div>
 
       <Card>
@@ -164,9 +168,11 @@ export function ItensView() {
                       </div>
                       <div className="text-xs text-muted-foreground mt-1">{i._count?.entregas || 0} entregas</div>
                     </div>
-                    <Button variant="ghost" size="icon" className="shrink-0" onClick={(e) => { e.stopPropagation(); setEditItem(i) }}>
-                      <Pencil className="h-3.5 w-3.5" />
-                    </Button>
+                    {canWrite && (
+                      <Button variant="ghost" size="icon" className="shrink-0" onClick={(e) => { e.stopPropagation(); setEditItem(i) }}>
+                        <Pencil className="h-3.5 w-3.5" />
+                      </Button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -236,9 +242,11 @@ export function ItensView() {
                           )}
                         </TableCell>
                         <TableCell className="align-top" onClick={(e) => e.stopPropagation()}>
-                          <Button variant="ghost" size="icon" onClick={() => setEditItem(i)}>
-                            <Pencil className="h-3.5 w-3.5" />
-                          </Button>
+                          {canWrite && (
+                            <Button variant="ghost" size="icon" onClick={() => setEditItem(i)}>
+                              <Pencil className="h-3.5 w-3.5" />
+                            </Button>
+                          )}
                         </TableCell>
                       </TableRow>
                     ))}

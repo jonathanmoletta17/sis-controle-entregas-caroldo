@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,8 +15,9 @@ import {
 } from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
-import { ArrowLeft, Users, UserPlus, Copy, Check } from 'lucide-react'
+import { ArrowLeft, Users, UserPlus, Copy, Check, KeyRound } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
+import { ROLE_LABELS } from '@/lib/permissions'
 
 interface Usuario {
   id: string
@@ -70,6 +71,36 @@ export default function UsuariosPage() {
     }
   }
 
+  const alterarRole = async (u: Usuario, novoRole: string) => {
+    try {
+      const r = await fetch(`/api/admin/usuarios/${u.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: novoRole }),
+      })
+      if (!r.ok) {
+        const d = await r.json()
+        throw new Error(d.error || 'Erro ao atualizar')
+      }
+      toast({ title: 'Papel atualizado' })
+      carregar()
+    } catch (e: any) {
+      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+    }
+  }
+
+  const resetarSenha = async (u: Usuario) => {
+    if (!confirm(`Gerar uma nova senha temporária para ${u.nome}? A senha atual deixará de funcionar.`)) return
+    try {
+      const r = await fetch(`/api/admin/usuarios/${u.id}/resetar-senha`, { method: 'POST' })
+      const d = await r.json()
+      if (!r.ok) throw new Error(d.error || 'Erro ao redefinir senha')
+      setSenhaGerada({ email: u.email, senha: d.senhaTemporaria })
+    } catch (e: any) {
+      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+    }
+  }
+
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
@@ -84,7 +115,7 @@ export default function UsuariosPage() {
               Usuários
             </h1>
             <p className="text-muted-foreground text-sm mt-1">
-              Quem pode acessar o sistema — fiscais e administradores
+              Quem pode acessar o sistema, e o que cada um pode fazer
             </p>
           </div>
           <Button onClick={() => setShowForm(true)}>
@@ -110,9 +141,9 @@ export default function UsuariosPage() {
                   <TableRow>
                     <TableHead>Nome</TableHead>
                     <TableHead>E-mail</TableHead>
-                    <TableHead>Papel</TableHead>
+                    <TableHead className="w-44">Papel</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead className="w-32"></TableHead>
+                    <TableHead className="w-56"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -121,7 +152,14 @@ export default function UsuariosPage() {
                       <TableCell className="font-medium">{u.nome}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">{u.email}</TableCell>
                       <TableCell>
-                        <Badge variant="outline">{u.role === 'admin' ? 'Administrador' : 'Fiscal'}</Badge>
+                        <Select value={u.role} onValueChange={v => alterarRole(u, v)}>
+                          <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
+                          <SelectContent>
+                            {Object.entries(ROLE_LABELS).map(([value, label]) => (
+                              <SelectItem key={value} value={value}>{label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </TableCell>
                       <TableCell>
                         {u.ativo ? (
@@ -131,15 +169,29 @@ export default function UsuariosPage() {
                         )}
                       </TableCell>
                       <TableCell>
-                        <Button variant="outline" size="sm" onClick={() => toggleAtivo(u)}>
-                          {u.ativo ? 'Desativar' : 'Reativar'}
-                        </Button>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm" onClick={() => resetarSenha(u)} title="Gerar nova senha temporária">
+                            <KeyRound className="h-3.5 w-3.5 mr-1" />
+                            Senha
+                          </Button>
+                          <Button variant="outline" size="sm" onClick={() => toggleAtivo(u)}>
+                            {u.ativo ? 'Desativar' : 'Reativar'}
+                          </Button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4 text-xs text-muted-foreground space-y-1">
+            <p><b className="text-foreground">Administrador</b> — acesso total, inclusive gestão de usuários e audit log.</p>
+            <p><b className="text-foreground">Técnico</b> — pode cadastrar, editar e excluir dados do dia a dia (terceirizados, itens, entregas), mas não gerencia usuários.</p>
+            <p><b className="text-foreground">Leitura</b> — só visualiza, não pode alterar nada no sistema.</p>
           </CardContent>
         </Card>
       </div>
@@ -169,7 +221,7 @@ function NovoUsuarioForm({ onClose, onCreated }: {
   const { toast } = useToast()
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
-  const [role, setRole] = useState('fiscal')
+  const [role, setRole] = useState('tecnico')
   const [saving, setSaving] = useState(false)
 
   const submit = async () => {
@@ -195,7 +247,9 @@ function NovoUsuarioForm({ onClose, onCreated }: {
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>Novo usuário</DialogTitle>
-          <DialogDescription>Uma senha temporária será gerada automaticamente.</DialogDescription>
+          <DialogDescription>
+            Uma senha temporária será gerada automaticamente. O e-mail não precisa ser real — é só o identificador de login (o sistema não envia nenhuma mensagem).
+          </DialogDescription>
         </DialogHeader>
         <div className="space-y-3 py-2">
           <div className="space-y-1.5">
@@ -203,7 +257,7 @@ function NovoUsuarioForm({ onClose, onCreated }: {
             <Input value={nome} onChange={e => setNome(e.target.value)} autoFocus />
           </div>
           <div className="space-y-1.5">
-            <Label>E-mail</Label>
+            <Label>E-mail (identificador de login)</Label>
             <Input type="email" value={email} onChange={e => setEmail(e.target.value)} />
           </div>
           <div className="space-y-1.5">
@@ -211,8 +265,9 @@ function NovoUsuarioForm({ onClose, onCreated }: {
             <Select value={role} onValueChange={setRole}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="fiscal">Fiscal</SelectItem>
-                <SelectItem value="admin">Administrador</SelectItem>
+                {Object.entries(ROLE_LABELS).map(([value, label]) => (
+                  <SelectItem key={value} value={value}>{label}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -236,7 +291,7 @@ function SenhaGeradaDialog({ data, onClose }: { data: { email: string; senha: st
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Usuário criado</DialogTitle>
+          <DialogTitle>Senha gerada</DialogTitle>
           <DialogDescription>
             Anote esta senha temporária agora — ela não será mostrada de novo. Compartilhe com {data.email} por um canal seguro.
           </DialogDescription>

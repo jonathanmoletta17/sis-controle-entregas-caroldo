@@ -3,6 +3,7 @@ import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
 import { db } from '@/lib/db'
 import { auth } from '@/lib/auth'
+import type { Role } from '@/lib/permissions'
 
 async function exigirAdmin() {
   const session = await auth()
@@ -32,7 +33,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const email = String(body.email || '').trim().toLowerCase()
     const nome = String(body.nome || '').trim()
-    const role = body.role === 'admin' ? 'admin' : 'fiscal'
+    const rolesValidos: Role[] = ['admin', 'tecnico', 'leitura']
+    const role: Role = rolesValidos.includes(body.role) ? body.role : 'tecnico'
 
     if (!email || !email.includes('@')) {
       return NextResponse.json({ error: 'E-mail inválido' }, { status: 400 })

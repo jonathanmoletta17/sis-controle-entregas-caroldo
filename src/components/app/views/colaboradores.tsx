@@ -19,6 +19,7 @@ import { Switch } from '@/components/ui/switch'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Plus, Search, Users, UserPlus, AlertTriangle } from 'lucide-react'
 import { useApp } from '@/components/app/app-context'
+import { useCanWrite } from '@/hooks/use-can-write'
 import { useToast } from '@/hooks/use-toast'
 import { StatusBadge, CorCapaceteBadge } from '@/components/app/shared/badges'
 import { formatCPF, formatDate, todayISO } from '@/components/app/shared/format'
@@ -43,6 +44,7 @@ interface ColaboradorListItem {
 export function ColaboradoresView() {
   const { openColaborador } = useApp()
   const { toast } = useToast()
+  const canWrite = useCanWrite()
   const [lista, setLista] = useState<ColaboradorListItem[]>([])
   const [loading, setLoading] = useState(true)
   const [busca, setBusca] = useState('')
@@ -73,10 +75,12 @@ export function ColaboradoresView() {
             Cadastro centralizado por CPF — substitui a cópia/cola de blocos da planilha
           </p>
         </div>
-        <Button onClick={() => setShowForm(true)}>
-          <UserPlus className="h-4 w-4 mr-1.5" />
-          Cadastrar terceirizado
-        </Button>
+        {canWrite && (
+          <Button onClick={() => setShowForm(true)}>
+            <UserPlus className="h-4 w-4 mr-1.5" />
+            Cadastrar terceirizado
+          </Button>
+        )}
       </div>
 
       <Card>

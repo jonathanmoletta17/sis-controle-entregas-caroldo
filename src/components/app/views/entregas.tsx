@@ -22,6 +22,7 @@ import { useApp } from '@/components/app/app-context'
 import { useToast } from '@/hooks/use-toast'
 import { formatDate, todayISO } from '@/components/app/shared/format'
 import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
+import { useCanWrite } from '@/hooks/use-can-write'
 
 interface ColaboradorListItem {
   id: string
@@ -57,6 +58,7 @@ interface EntregaListItem {
 
 export function EntregasView() {
   const { openColaborador } = useApp()
+  const canWrite = useCanWrite()
   const { toast } = useToast()
   const [entregas, setEntregas] = useState<EntregaListItem[]>([])
   const [loading, setLoading] = useState(true)
@@ -111,10 +113,12 @@ export function EntregasView() {
             Registro histórico de todas as entregas — materiais, EPIs, uniformes e documentos
           </p>
         </div>
-        <Button onClick={() => setShowForm(true)}>
-          <Plus className="h-4 w-4 mr-1.5" />
-          Registrar entrega
-        </Button>
+        {canWrite && (
+          <Button onClick={() => setShowForm(true)}>
+            <Plus className="h-4 w-4 mr-1.5" />
+            Registrar entrega
+          </Button>
+        )}
       </div>
 
       <Card>
@@ -183,9 +187,11 @@ export function EntregasView() {
                           {e.colaborador.posto?.nome || 'sem posto'} · {formatDate(e.dataEntrega)}
                         </div>
                       </button>
-                      <Button variant="ghost" size="icon" onClick={() => excluir(e.id)} className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive">
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </Button>
+                      {canWrite && (
+                        <Button variant="ghost" size="icon" onClick={() => excluir(e.id)} className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive">
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </Button>
+                      )}
                     </div>
                     <button
                       onClick={() => setVisualizandoItem(e.item)}
@@ -329,9 +335,11 @@ export function EntregasView() {
                           )}
                         </TableCell>
                         <TableCell className="align-top">
-                          <Button variant="ghost" size="icon" onClick={() => excluir(e.id)} className="h-8 w-8 text-muted-foreground hover:text-destructive">
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </Button>
+                          {canWrite && (
+                            <Button variant="ghost" size="icon" onClick={() => excluir(e.id)} className="h-8 w-8 text-muted-foreground hover:text-destructive">
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </Button>
+                          )}
                         </TableCell>
                       </TableRow>
                     ))}

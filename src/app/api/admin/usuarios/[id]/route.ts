@@ -25,7 +25,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
 
     const update: any = {}
     if (typeof body.ativo === 'boolean') update.ativo = body.ativo
-    if (body.role === 'admin' || body.role === 'fiscal') update.role = body.role
+    if (['admin', 'tecnico', 'leitura'].includes(body.role)) update.role = body.role
 
     const usuario = await db.usuario.update({
       where: { id },

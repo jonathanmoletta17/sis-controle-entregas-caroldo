@@ -21,6 +21,7 @@ import { CategoriaBadge } from '@/components/app/shared/badges'
 import { formatDate, todayISO } from '@/components/app/shared/format'
 import { useToast } from '@/hooks/use-toast'
 import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
+import { useCanWrite } from '@/hooks/use-can-write'
 
 interface ColaboradorListItem {
   id: string
@@ -63,6 +64,7 @@ interface ChecklistData {
 
 export function ChecklistsView() {
   const { openColaborador } = useApp()
+  const canWrite = useCanWrite()
   const { toast } = useToast()
   const [colaboradores, setColaboradores] = useState<ColaboradorListItem[]>([])
   const [selectedId, setSelectedId] = useState<string>('')
@@ -304,7 +306,7 @@ export function ChecklistsView() {
                           </div>
                         )}
                       </div>
-                      {checklist.colaborador.ativo && (
+                      {checklist.colaborador.ativo && canWrite && (
                         <Button
                           size="sm"
                           variant={item.entregue ? 'outline' : 'default'}

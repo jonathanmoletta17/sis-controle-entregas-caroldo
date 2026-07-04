@@ -10,8 +10,12 @@ import { Label } from '@/components/ui/label'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select'
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
+} from '@/components/ui/dialog'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { ArrowLeft, ScrollText } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface AuditLogItem {
   id: string
@@ -20,6 +24,9 @@ interface AuditLogItem {
   tabela: string
   registroId: string
   timestamp: string
+  ip: string | null
+  valoresAntigos: Record<string, unknown> | null
+  valoresNovos: Record<string, unknown> | null
   usuario: { id: string; nome: string; email: string } | null
 }
 
@@ -36,6 +43,15 @@ const ACAO_COLORS: Record<string, string> = {
 
 const TABELAS = ['Colaborador', 'Item', 'Entrega', 'MudancaPosto', 'Desligamento']
 
+// Campos ruidosos que não ajudam a entender "o que mudou"
+const CAMPOS_OCULTOS = new Set(['updatedAt', 'createdAt'])
+
+function formatValor(v: unknown): string {
+  if (v === null || v === undefined || v === '') return '—'
+  if (typeof v === 'object') return JSON.stringify(v)
+  return String(v)
+}
+
 export default function AuditLogPage() {
   const [logs, setLogs] = useState<AuditLogItem[]>([])
   const [usuarios, setUsuarios] = useState<UsuarioOption[]>([])
@@ -45,6 +61,7 @@ export default function AuditLogPage() {
   const [filtroTabela, setFiltroTabela] = useState('')
   const [filtroDataInicio, setFiltroDataInicio] = useState('')
   const [filtroDataFim, setFiltroDataFim] = useState('')
+  const [detalhe, setDetalhe] = useState<AuditLogItem | null>(null)
 
   useEffect(() => {
     fetch('/api/admin/usuarios')
@@ -89,7 +106,7 @@ export default function AuditLogPage() {
             Audit Log
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
-            Histórico de quem criou, editou ou excluiu cada registro
+            Histórico de quem criou, editou ou excluiu cada registro — clique numa linha para ver o detalhe
           </p>
         </div>
 
@@ -159,7 +176,7 @@ export default function AuditLogPage() {
                 </TableHeader>
                 <TableBody>
                   {logs.map(log => (
-                    <TableRow key={log.id}>
+                    <TableRow key={log.id} className="cursor-pointer hover:bg-accent/50" onClick={() => setDetalhe(log)}>
                       <TableCell className="text-sm tabular-nums whitespace-nowrap">
                         {new Date(log.timestamp).toLocaleString('pt-BR')}
                       </TableCell>
@@ -186,6 +203,71 @@ export default function AuditLogPage() {
           </CardContent>
         </Card>
       </div>
+
+      <AuditDetalheDialog log={detalhe} onClose={() => setDetalhe(null)} />
     </div>
+  )
+}
+
+function AuditDetalheDialog({ log, onClose }: { log: AuditLogItem | null; onClose: () => void }) {
+  if (!log) return null
+
+  const antigos = log.valoresAntigos || {}
+  const novos = log.valoresNovos || {}
+  const todasChaves = Array.from(new Set([...Object.keys(antigos), ...Object.keys(novos)]))
+    .filter(k => !CAMPOS_OCULTOS.has(k))
+
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Badge variant="outline" className={ACAO_COLORS[log.acao] || ''}>{log.acao}</Badge>
+            {log.tabela}
+          </DialogTitle>
+          <DialogDescription>
+            {new Date(log.timestamp).toLocaleString('pt-BR')}
+            {log.usuario && <> · por <b>{log.usuario.nome}</b></>}
+            {log.ip && <> · IP {log.ip}</>}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="text-xs text-muted-foreground font-mono">ID do registro: {log.registroId}</div>
+
+        {todasChaves.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-6 text-center">Sem detalhes de campos para este registro.</p>
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-32">Campo</TableHead>
+                {log.acao !== 'CREATE' && <TableHead>Antes</TableHead>}
+                {log.acao !== 'DELETE' && <TableHead>Depois</TableHead>}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {todasChaves.map(campo => {
+                const valorAntigo = antigos[campo]
+                const valorNovo = novos[campo]
+                const mudou = log.acao === 'UPDATE' && JSON.stringify(valorAntigo) !== JSON.stringify(valorNovo)
+                return (
+                  <TableRow key={campo} className={cn(mudou && 'bg-amber-50')}>
+                    <TableCell className="text-xs font-medium align-top">{campo}</TableCell>
+                    {log.acao !== 'CREATE' && (
+                      <TableCell className="text-xs align-top break-all">{formatValor(valorAntigo)}</TableCell>
+                    )}
+                    {log.acao !== 'DELETE' && (
+                      <TableCell className={cn('text-xs align-top break-all', mudou && 'font-medium')}>
+                        {formatValor(valorNovo)}
+                      </TableCell>
+                    )}
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        )}
+      </DialogContent>
+    </Dialog>
   )
 }

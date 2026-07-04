@@ -17,7 +17,7 @@ model Usuario {
   email     String   @unique
   senhaHash String
   nome      String
-  role      String   @default("fiscal") // "admin" | "fiscal"
+  role      String   @default("tecnico") // "admin" | "tecnico" | "leitura"
   ativo     Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

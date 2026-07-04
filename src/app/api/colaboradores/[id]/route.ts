@@ -45,6 +45,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
   try {
     const { id } = await ctx.params
     const body = await req.json()
+    const antes = await db.colaborador.findUnique({ where: { id }, include: { posto: true, empresa: true, contrato: true } })
 
     const update: any = {}
     if (body.nomeCompleto !== undefined) {
@@ -57,7 +58,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
     if (body.empresaId !== undefined) update.empresaId = body.empresaId
     if (body.postoId !== undefined) {
       // Mudança de posto — registrar na tabela MudancaPosto
-      const atual = await db.colaborador.findUnique({ where: { id } })
+      const atual = antes
       if (atual && atual.postoId !== body.postoId) {
         // criar registro de mudança
         const mudanca = await db.mudancaPosto.create({
@@ -86,7 +87,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
       include: { posto: true, empresa: true, contrato: true },
     })
 
-    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Colaborador', registroId: atualizado.id, valoresNovos: atualizado })
+    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Colaborador', registroId: atualizado.id, valoresAntigos: antes, valoresNovos: atualizado })
 
     return NextResponse.json(atualizado)
   } catch (err: any) {
@@ -131,7 +132,7 @@ export async function DELETE(req: NextRequest, ctx: { params: Promise<{ id: stri
       }),
     ])
 
-    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Colaborador', registroId: atualizado.id, valoresNovos: atualizado })
+    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Colaborador', registroId: atualizado.id, valoresAntigos: colab, valoresNovos: atualizado })
     await logAudit({ userId, ip, acao: 'CREATE', tabela: 'Desligamento', registroId: desligamento.id, valoresNovos: desligamento })
 
     return NextResponse.json({
