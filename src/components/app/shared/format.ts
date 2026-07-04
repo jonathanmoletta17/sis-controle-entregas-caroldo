@@ -6,11 +6,15 @@ export function formatCPF(cpf: string): string {
   return digits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
 }
 
+// Datas de calendário (admissão, entrega, mudança de posto, etc.) são criadas a
+// partir de um <input type="date"> como "2026-07-04", virando meia-noite UTC no
+// banco. Formatar sem fixar o fuso em UTC faz o navegador "puxar" um dia pra trás
+// em fusos negativos (Brasil = UTC-3) — por isso sempre lemos em UTC aqui.
 export function formatDate(date?: Date | string | null): string {
   if (!date) return '—'
   const d = typeof date === 'string' ? new Date(date) : date
   if (isNaN(d.getTime())) return '—'
-  return d.toLocaleDateString('pt-BR')
+  return d.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
 }
 
 export function formatDateTime(date?: Date | string | null): string {

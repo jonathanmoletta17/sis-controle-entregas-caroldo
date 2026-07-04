@@ -434,8 +434,8 @@ export function ColaboradorDetalheView() {
                       <TableHead className="w-[38%]">Item</TableHead>
                       <TableHead className="w-[5%] text-center">Qtd</TableHead>
                       <TableHead className="w-[15%]">Observação</TableHead>
-                      <TableHead className="w-[12%]">Foto</TableHead>
-                      <TableHead className="w-[8%]">Anexo</TableHead>
+                      <TableHead className="w-[12%]" title="Foto do item registrada pelo técnico no momento do recebimento, antes de repassar ao terceirizado">Foto</TableHead>
+                      <TableHead className="w-[8%]" title="Documento anexado pelo terceirizado (ex.: ASO, carteira de vacinação) — só para itens da categoria Documento">Anexo</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -866,11 +866,11 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
               <SelectTrigger><SelectValue placeholder="Selecione o item entregue..." /></SelectTrigger>
               <SelectContent className="max-h-80">
                 {itensFiltrados.map(i => (
-                  <SelectItem key={i.id} value={i.id}>
-                    <span className="text-xs px-1.5 py-0.5 rounded mr-1.5 bg-muted">
+                  <SelectItem key={i.id} value={i.id} className="max-w-full">
+                    <span className="text-xs px-1.5 py-0.5 rounded bg-muted shrink-0">
                       {i.categoria.nome}
                     </span>
-                    {i.descricao.length > 60 ? i.descricao.slice(0, 57) + '...' : i.descricao}
+                    <span className="truncate">{i.descricao}</span>
                   </SelectItem>
                 ))}
               </SelectContent>

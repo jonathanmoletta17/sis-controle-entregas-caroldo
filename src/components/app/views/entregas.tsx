@@ -259,8 +259,8 @@ export function EntregasView() {
                       <TableHead className="w-[22%]">Item</TableHead>
                       <TableHead className="w-[4%] text-center">Qtd</TableHead>
                       <TableHead className="w-[12%]">Observação</TableHead>
-                      <TableHead className="w-[10%]">Foto</TableHead>
-                      <TableHead className="w-[7%]">Anexo</TableHead>
+                      <TableHead className="w-[10%]" title="Foto do item registrada pelo técnico no momento do recebimento, antes de repassar ao terceirizado">Foto</TableHead>
+                      <TableHead className="w-[7%]" title="Documento anexado pelo terceirizado (ex.: ASO, carteira de vacinação) — só para itens da categoria Documento">Anexo</TableHead>
                       <TableHead className="w-[3%]"></TableHead>
                     </TableRow>
                   </TableHeader>
@@ -484,8 +484,8 @@ function NovaEntregaForm({ colaboradorIdInicial, onClose, onSaved }: { colaborad
               <SelectTrigger><SelectValue placeholder="Selecione..." /></SelectTrigger>
               <SelectContent className="max-h-72">
                 {colaboradores.map(c => (
-                  <SelectItem key={c.id} value={c.id}>
-                    {c.nomeCompleto} — {c.posto?.nome || 'sem posto'}
+                  <SelectItem key={c.id} value={c.id} className="max-w-full">
+                    <span className="truncate">{c.nomeCompleto} — {c.posto?.nome || 'sem posto'}</span>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -497,9 +497,9 @@ function NovaEntregaForm({ colaboradorIdInicial, onClose, onSaved }: { colaborad
               <SelectTrigger><SelectValue placeholder={form.colaboradorId ? 'Selecione o item...' : 'Selecione um terceirizado primeiro'} /></SelectTrigger>
               <SelectContent className="max-h-80">
                 {itens.map(i => (
-                  <SelectItem key={i.id} value={i.id}>
-                    <span className="text-xs px-1.5 py-0.5 rounded mr-1.5 bg-muted">{i.categoria.nome}</span>
-                    {i.descricao.length > 60 ? i.descricao.slice(0, 57) + '...' : i.descricao}
+                  <SelectItem key={i.id} value={i.id} className="max-w-full">
+                    <span className="text-xs px-1.5 py-0.5 rounded bg-muted shrink-0">{i.categoria.nome}</span>
+                    <span className="truncate">{i.descricao}</span>
                   </SelectItem>
                 ))}
               </SelectContent>

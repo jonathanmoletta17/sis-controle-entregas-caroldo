@@ -54,7 +54,7 @@ function formatDate(date?: string | null): string {
   if (!date) return '—'
   const d = new Date(date)
   if (isNaN(d.getTime())) return '—'
-  return d.toLocaleDateString('pt-BR')
+  return d.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
 }
 
 export default function RelatorioPage({ params }: { params: Promise<{ colaboradorId: string }> }) {

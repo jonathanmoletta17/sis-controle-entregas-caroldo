@@ -173,7 +173,7 @@ export function PendenciasView() {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="min-w-[240px]">Item</TableHead>
+                        <TableHead className="min-w-[200px] sticky left-0 bg-card z-10">Item</TableHead>
                         {matriz.colaboradores.map(c => (
                           <TableHead key={c.id} className="w-16 text-center" title={c.nomeCompleto}>
                             {c.nomeCompleto.split(' ')[0]}
@@ -184,7 +184,7 @@ export function PendenciasView() {
                     <TableBody>
                       {itens.map(item => (
                         <TableRow key={item.itemId}>
-                          <TableCell>
+                          <TableCell className="sticky left-0 bg-card z-10">
                             <button
                               onClick={() => setVisualizandoItem({
                                 id: item.itemId,

@@ -121,7 +121,7 @@ export function ItemVisualizacaoModal({ item, open, onOpenChange }: Props) {
                 </div>
                 {item.ultimaEntrega && (
                   <div className="text-xs text-muted-foreground">
-                    Última: {new Date(item.ultimaEntrega).toLocaleDateString('pt-BR')}
+                    Última: {new Date(item.ultimaEntrega).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
                   </div>
                 )}
               </div>

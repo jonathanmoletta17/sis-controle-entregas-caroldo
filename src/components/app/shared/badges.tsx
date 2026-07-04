@@ -20,8 +20,8 @@ export function StatusBadge({ ativo, dataDesligamento, motivoDesligamento, class
   }
   const data = dataDesligamento
     ? typeof dataDesligamento === 'string'
-      ? new Date(dataDesligamento).toLocaleDateString('pt-BR')
-      : dataDesligamento.toLocaleDateString('pt-BR')
+      ? new Date(dataDesligamento).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+      : dataDesligamento.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
     : null
   return (
     <Badge

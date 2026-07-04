@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/ui/password-input'
 import { Label } from '@/components/ui/label'
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
@@ -60,15 +60,15 @@ export function TrocarSenhaDialog({ open, onClose }: { open: boolean; onClose: (
         <div className="space-y-3 py-2">
           <div className="space-y-1.5">
             <Label>Senha atual</Label>
-            <Input type="password" value={senhaAtual} onChange={e => setSenhaAtual(e.target.value)} autoFocus />
+            <PasswordInput value={senhaAtual} onChange={e => setSenhaAtual(e.target.value)} autoFocus />
           </div>
           <div className="space-y-1.5">
             <Label>Nova senha</Label>
-            <Input type="password" value={senhaNova} onChange={e => setSenhaNova(e.target.value)} />
+            <PasswordInput value={senhaNova} onChange={e => setSenhaNova(e.target.value)} />
           </div>
           <div className="space-y-1.5">
             <Label>Confirmar nova senha</Label>
-            <Input type="password" value={confirmacao} onChange={e => setConfirmacao(e.target.value)} />
+            <PasswordInput value={confirmacao} onChange={e => setConfirmacao(e.target.value)} />
           </div>
         </div>
         <DialogFooter>
