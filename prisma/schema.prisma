@@ -10,20 +10,73 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ============ AUTENTICAÇÃO ============
+
+model Usuario {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  senhaHash String
+  nome      String
+  role      String   @default("fiscal") // "admin" | "fiscal"
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessoesLogin SessaoLogin[]
+  auditLogs    AuditLog[]
+
+  colaboradoresCriados     Colaborador[]  @relation("ColaboradorCriadoPor")
+  colaboradoresAtualizados Colaborador[]  @relation("ColaboradorAtualizadoPor")
+  itensCriados             Item[]         @relation("ItemCriadoPor")
+  itensAtualizados         Item[]         @relation("ItemAtualizadoPor")
+  entregasCriadas          Entrega[]      @relation("EntregaCriadoPor")
+  entregasAtualizadas      Entrega[]      @relation("EntregaAtualizadoPor")
+  mudancasPostoCriadas     MudancaPosto[] @relation("MudancaPostoCriadoPor")
+  desligamentosCriados     Desligamento[] @relation("DesligamentoCriadoPor")
+}
+
+model SessaoLogin {
+  id        String    @id @default(cuid())
+  usuarioId String
+  loginEm   DateTime  @default(now())
+  logoutEm  DateTime?
+  ip        String?
+  userAgent String?
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+}
+
+model AuditLog {
+  id             String   @id @default(cuid())
+  usuarioId      String?
+  acao           String // "CREATE" | "UPDATE" | "DELETE"
+  tabela         String
+  registroId     String
+  valoresAntigos Json?
+  valoresNovos   Json?
+  timestamp      DateTime @default(now())
+  ip             String?
+
+  usuario Usuario? @relation(fields: [usuarioId], references: [id])
+
+  @@index([usuarioId, timestamp])
+  @@index([tabela, registroId])
+}
+
 // ============ DOMÍNIO CONTRATUAL ============
 
 model Contrato {
-  id            String   @id @default(cuid())
-  numero        String   @unique // ex.: "003/2025", "003/2026"
-  objeto        String   // "Manutenção Predial"
+  id             String   @id @default(cuid())
+  numero         String   @unique // ex.: "003/2025", "003/2026"
+  objeto         String // "Manutenção Predial"
   dataAssinatura DateTime
   vigenciaInicio DateTime
   vigenciaFim    DateTime
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   colaboradores Colaborador[]
-  empresas     EmpresaContrato[]
+  empresas      EmpresaContrato[]
 }
 
 model Empresa {
@@ -34,16 +87,16 @@ model Empresa {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  contratos      EmpresaContrato[]
-  colaboradores  Colaborador[]
-  assinaturas    Assinatura[]
+  contratos     EmpresaContrato[]
+  colaboradores Colaborador[]
+  assinaturas   Assinatura[]
 }
 
 model EmpresaContrato {
-  id         String   @id @default(cuid())
+  id         String @id @default(cuid())
   empresaId  String
   contratoId String
-  papel      String   // papel da empresa neste contrato específico
+  papel      String // papel da empresa neste contrato específico
 
   empresa  Empresa  @relation(fields: [empresaId], references: [id])
   contrato Contrato @relation(fields: [contratoId], references: [id])
@@ -56,60 +109,68 @@ model EmpresaContrato {
 model Posto {
   id           String   @id @default(cuid())
   nome         String   @unique // ex.: "Marceneiro", "Pedreiro", "Eletricista", "Supervisor"
-  corCapacete  String?  // cor padrão do capacete para este posto
-  categoriaEPI String?  // categoria para agrupar (não usado como chave)
+  corCapacete  String? // cor padrão do capacete para este posto
+  categoriaEPI String? // categoria para agrupar (não usado como chave)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  colaboradores         Colaborador[]
-  itensPosto            ItemPosto[]
-  mudancasComoAnterior  MudancaPosto[] @relation("MudancaPostoAnterior")
-  mudancasComoNovo      MudancaPosto[] @relation("MudancaPostoNovo")
+  colaboradores        Colaborador[]
+  itensPosto           ItemPosto[]
+  mudancasComoAnterior MudancaPosto[] @relation("MudancaPostoAnterior")
+  mudancasComoNovo     MudancaPosto[] @relation("MudancaPostoNovo")
 }
 
 // ============ COLABORADORES ============
 
 model Colaborador {
-  id              String    @id @default(cuid())
-  cpf             String    @unique // chave única (apenas dígitos)
-  nomeCompleto    String    // normalizado para evitar duplicação
-  empresaId       String    // empresa responsável (CAROLDO, JIREH)
-  contratoId      String    // contrato vigente
-  postoId         String    // posto atual
-  dataAdmissao    DateTime
-  dataDesligamento DateTime? // quando null = ativo
+  id                 String    @id @default(cuid())
+  cpf                String    @unique // chave única (apenas dígitos)
+  nomeCompleto       String // normalizado para evitar duplicação
+  empresaId          String // empresa responsável (CAROLDO, JIREH)
+  contratoId         String // contrato vigente
+  postoId            String // posto atual
+  dataAdmissao       DateTime
+  dataDesligamento   DateTime? // quando null = ativo
   motivoDesligamento String?
-  observacoes     String?
-  ativo           Boolean   @default(true)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  observacoes        String?
+  ativo              Boolean   @default(true)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
-  empresa   Empresa  @relation(fields: [empresaId], references: [id])
-  contrato  Contrato @relation(fields: [contratoId], references: [id])
-  posto     Posto    @relation(fields: [postoId], references: [id])
+  empresa  Empresa  @relation(fields: [empresaId], references: [id])
+  contrato Contrato @relation(fields: [contratoId], references: [id])
+  posto    Posto    @relation(fields: [postoId], references: [id])
 
-  entregas        Entrega[]
-  assinaturas     Assinatura[]
-  mudancasPosto   MudancaPosto[] @relation("ColaboradorMudancas")
+  entregas                 Entrega[]
+  assinaturas              Assinatura[]
+  mudancasPosto            MudancaPosto[] @relation("ColaboradorMudancas")
   mudancasPostoRegistradas MudancaPosto[] @relation("MudancaRegistradaPor")
-  desligamentos   Desligamento[]
+  desligamentos            Desligamento[]
+
+  criadoPorId     String?
+  atualizadoPorId String?
+  criadoPor       Usuario? @relation("ColaboradorCriadoPor", fields: [criadoPorId], references: [id])
+  atualizadoPor   Usuario? @relation("ColaboradorAtualizadoPor", fields: [atualizadoPorId], references: [id])
 }
 
 // Histórico de mudanças de posto (preservar mesmo após desligamento)
 model MudancaPosto {
-  id            String   @id @default(cuid())
-  colaboradorId String
+  id              String   @id @default(cuid())
+  colaboradorId   String
   postoAnteriorId String
-  postoNovoId   String
-  dataMudanca   DateTime
-  motivo        String?
-  registradoPorId String?  // colaborador que registrou? ou sistema
-  createdAt     DateTime @default(now())
+  postoNovoId     String
+  dataMudanca     DateTime
+  motivo          String?
+  registradoPorId String? // colaborador que registrou? ou sistema
+  createdAt       DateTime @default(now())
 
-  colaborador        Colaborador @relation("ColaboradorMudancas", fields: [colaboradorId], references: [id])
-  postoAnterior      Posto       @relation("MudancaPostoAnterior", fields: [postoAnteriorId], references: [id])
-  postoNovo          Posto       @relation("MudancaPostoNovo", fields: [postoNovoId], references: [id])
-  registradoPor      Colaborador? @relation("MudancaRegistradaPor", fields: [registradoPorId], references: [id])
+  colaborador   Colaborador  @relation("ColaboradorMudancas", fields: [colaboradorId], references: [id])
+  postoAnterior Posto        @relation("MudancaPostoAnterior", fields: [postoAnteriorId], references: [id])
+  postoNovo     Posto        @relation("MudancaPostoNovo", fields: [postoNovoId], references: [id])
+  registradoPor Colaborador? @relation("MudancaRegistradaPor", fields: [registradoPorId], references: [id])
+
+  criadoPorId String?
+  criadoPor   Usuario? @relation("MudancaPostoCriadoPor", fields: [criadoPorId], references: [id])
 }
 
 // Histórico permanente de desligamentos (preservado mesmo após reativação)
@@ -122,45 +183,53 @@ model Desligamento {
   createdAt        DateTime  @default(now())
 
   colaborador Colaborador @relation(fields: [colaboradorId], references: [id])
+
+  criadoPorId String?
+  criadoPor   Usuario? @relation("DesligamentoCriadoPor", fields: [criadoPorId], references: [id])
 }
 
 // ============ ITENS E CHECKLISTS ============
 
 model Categoria {
-  id          String   @id @default(cuid())
-  nome        String   @unique // "Materiais", "EPI", "Uniforme", "Documento"
-  descricao   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  nome      String   @unique // "Materiais", "EPI", "Uniforme", "Documento"
+  descricao String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   itens Item[]
 }
 
 model Item {
-  id                  String   @id @default(cuid())
-  categoriaId         String
-  descricao           String   // descrição detalhada do item
-  unidade             String   @default("1")
-  imagemUrl           String?  // imagem ilustrativa do item (catálogo)
-  imagemNome          String?  // nome original do arquivo de imagem
-  ativo               Boolean  @default(true)
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  id          String   @id @default(cuid())
+  categoriaId String
+  descricao   String // descrição detalhada do item
+  unidade     String   @default("1")
+  imagemUrl   String? // imagem ilustrativa do item (catálogo)
+  imagemNome  String? // nome original do arquivo de imagem
+  ativo       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   categoria Categoria @relation(fields: [categoriaId], references: [id])
 
-  postos    ItemPosto[]
-  entregas  Entrega[]
+  postos   ItemPosto[]
+  entregas Entrega[]
+
+  criadoPorId     String?
+  atualizadoPorId String?
+  criadoPor       Usuario? @relation("ItemCriadoPor", fields: [criadoPorId], references: [id])
+  atualizadoPor   Usuario? @relation("ItemAtualizadoPor", fields: [atualizadoPorId], references: [id])
 }
 
 // Relação N:N entre Item e Posto (quais itens cada posto deve receber)
 model ItemPosto {
-  id           String   @id @default(cuid())
-  itemId       String
-  postoId      String
-  quantidadeEsperada Int @default(1)
-  obrigatorio  Boolean  @default(true)
-  createdAt    DateTime @default(now())
+  id                 String   @id @default(cuid())
+  itemId             String
+  postoId            String
+  quantidadeEsperada Int      @default(1)
+  obrigatorio        Boolean  @default(true)
+  createdAt          DateTime @default(now())
 
   item  Item  @relation(fields: [itemId], references: [id])
   posto Posto @relation(fields: [postoId], references: [id])
@@ -177,31 +246,36 @@ model Entrega {
   dataEntrega   DateTime
   quantidade    Int      @default(1)
   observacao    String?
-  fotoUrl       String?  // futuro: foto do item entregue
-  anexoUrl      String?  // documento anexado (PDF, imagem, etc) — usado principalmente para categoria Documento
-  anexoNome     String?  // nome original do arquivo anexado
+  fotoUrl       String? // futuro: foto do item entregue
+  anexoUrl      String? // documento anexado (PDF, imagem, etc) — usado principalmente para categoria Documento
+  anexoNome     String? // nome original do arquivo anexado
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  colaborador Colaborador @relation(fields: [colaboradorId], references: [id])
-  item        Item        @relation(fields: [itemId], references: [id])
+  colaborador Colaborador  @relation(fields: [colaboradorId], references: [id])
+  item        Item         @relation(fields: [itemId], references: [id])
   assinaturas Assinatura[]
+
+  criadoPorId     String?
+  atualizadoPorId String?
+  criadoPor       Usuario? @relation("EntregaCriadoPor", fields: [criadoPorId], references: [id])
+  atualizadoPor   Usuario? @relation("EntregaAtualizadoPor", fields: [atualizadoPorId], references: [id])
 }
 
 // ============ ASSINATURAS ============
 
 model Assinatura {
-  id            String   @id @default(cuid())
-  entregaId     String?
-  colaboradorId String  // pode assinar um lote (sem entrega específica)
-  tipo          String  // "fiscalizacao_tecnica" | "representante_empresa"
-  empresaId     String?
-  usuarioNome   String  // nome de quem assinou
-  dataHora      DateTime @default(now())
-  ip            String?
+  id                String   @id @default(cuid())
+  entregaId         String?
+  colaboradorId     String // pode assinar um lote (sem entrega específica)
+  tipo              String // "fiscalizacao_tecnica" | "representante_empresa"
+  empresaId         String?
+  usuarioNome       String // nome de quem assinou
+  dataHora          DateTime @default(now())
+  ip                String?
   hashAutenticidade String? // futuro: hash de autenticidade
 
-  entrega     Entrega?  @relation(fields: [entregaId], references: [id])
+  entrega     Entrega?    @relation(fields: [entregaId], references: [id])
   colaborador Colaborador @relation(fields: [colaboradorId], references: [id])
-  empresa     Empresa?  @relation(fields: [empresaId], references: [id])
+  empresa     Empresa?    @relation(fields: [empresaId], references: [id])
 }

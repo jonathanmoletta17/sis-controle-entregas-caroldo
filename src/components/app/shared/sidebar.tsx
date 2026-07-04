@@ -3,6 +3,7 @@
 import { useApp, View } from '../app-context'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { useSession, signOut } from 'next-auth/react'
 import {
   LayoutDashboard,
   Users,
@@ -11,6 +12,7 @@ import {
   Truck,
   HardHat,
   AlertCircle,
+  LogOut,
 } from 'lucide-react'
 
 interface NavItem {
@@ -66,12 +68,38 @@ export function Sidebar() {
         })}
       </nav>
 
+      <div className="p-3 border-t border-border">
+        <UsuarioLogado />
+      </div>
+
       <div className="p-4 border-t border-border text-xs text-muted-foreground">
         <p className="font-medium mb-1">Contrato 003/2026</p>
         <p>Manutenção Predial</p>
         <p className="mt-2">Estado do RS · Secretaria da Casa Civil</p>
       </div>
     </aside>
+  )
+}
+
+function UsuarioLogado() {
+  const { data: session } = useSession()
+  if (!session?.user) return null
+  return (
+    <div className="flex items-center justify-between gap-2">
+      <div className="min-w-0">
+        <div className="text-sm font-medium truncate">{session.user.name}</div>
+        <div className="text-xs text-muted-foreground truncate">{session.user.email}</div>
+      </div>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive"
+        title="Sair"
+        onClick={() => signOut({ callbackUrl: '/login' })}
+      >
+        <LogOut className="h-4 w-4" />
+      </Button>
+    </div>
   )
 }
 
@@ -84,6 +112,15 @@ export function MobileNav() {
           <HardHat className="h-4 w-4" />
         </div>
         <span className="text-sm font-semibold flex-1">Controle de Entregas</span>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 text-muted-foreground hover:text-destructive"
+          title="Sair"
+          onClick={() => signOut({ callbackUrl: '/login' })}
+        >
+          <LogOut className="h-4 w-4" />
+        </Button>
       </div>
       <div className="flex overflow-x-auto gap-1 px-2 pb-2">
         {NAV.map((item) => {

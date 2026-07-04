@@ -9,6 +9,8 @@
  */
 import fs from 'fs'
 import path from 'path'
+import crypto from 'crypto'
+import bcrypt from 'bcryptjs'
 import { db } from '../src/lib/db'
 import {
   POSTOS,
@@ -16,6 +18,32 @@ import {
   ITENS_POR_POSTO,
   COLABORADORES_INICIAIS,
 } from './seed-data'
+
+const ADMIN_EMAIL = 'jonathanmoletta17@gmail.com'
+const ADMIN_NOME = 'Jonathan Moletta'
+
+// Cria o usuário admin inicial (idempotente). Gera senha temporária aleatória
+// apenas na primeira execução — imprime uma única vez no console.
+async function seedUsuarioAdmin() {
+  const existente = await db.usuario.findUnique({ where: { email: ADMIN_EMAIL } })
+  if (existente) {
+    console.log('✓ Usuário admin já existe, pulando')
+    return
+  }
+  const senhaTemporaria = crypto.randomBytes(9).toString('base64url')
+  const senhaHash = await bcrypt.hash(senhaTemporaria, 10)
+  await db.usuario.create({
+    data: {
+      email: ADMIN_EMAIL,
+      nome: ADMIN_NOME,
+      senhaHash,
+      role: 'admin',
+      ativo: true,
+    },
+  })
+  console.log(`✓ Usuário admin criado: ${ADMIN_EMAIL}`)
+  console.log(`  SENHA TEMPORÁRIA (anote agora, não será mostrada de novo): ${senhaTemporaria}`)
+}
 
 interface ImagemMap { [descricao: string]: string }
 
@@ -226,6 +254,9 @@ async function main() {
 
   // 7. Vincular imagens aos itens (idempotente — pula itens que já têm imagemUrl)
   await popularImagensDosItens()
+
+  // 8. Usuário admin inicial
+  await seedUsuarioAdmin()
 
   console.log('\n✅ Seed concluído com sucesso!')
 }
