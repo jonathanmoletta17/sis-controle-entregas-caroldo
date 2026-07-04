@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import path from 'path'
 import { saveUpload } from '@/lib/storage'
+import { withAuditContext } from '@/lib/with-audit'
+import { logAudit } from '@/lib/audit'
 
 async function saveImage(file: File): Promise<{ url?: string; nome?: string; error?: string }> {
   if (file.size > 5 * 1024 * 1024) {
@@ -18,6 +20,7 @@ async function saveImage(file: File): Promise<{ url?: string; nome?: string; err
 
 // PUT /api/itens/[id] — editar item (multipart com imagem OU JSON)
 export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
+  return withAuditContext(req, async ({ userId, ip }) => {
   try {
     const { id } = await ctx.params
     const contentType = req.headers.get('content-type') || ''
@@ -76,6 +79,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
       update.imagemNome = null
     }
 
+    update.atualizadoPorId = userId
     await db.item.update({ where: { id }, data: update })
 
     if (postos !== undefined) {
@@ -97,21 +101,26 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
       where: { id },
       include: { categoria: true, postos: { include: { posto: true } } },
     })
+    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Item', registroId: id, valoresNovos: final })
     return NextResponse.json(final)
   } catch (err: any) {
     console.error('[PUT /api/itens/[id]] error:', err)
     return NextResponse.json({ error: err.message || 'Erro ao atualizar item' }, { status: 500 })
   }
+  })
 }
 
 // DELETE — desativar item
-export async function DELETE(_req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
+export async function DELETE(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
+  return withAuditContext(req, async ({ userId, ip }) => {
   try {
     const { id } = await ctx.params
-    await db.item.update({ where: { id }, data: { ativo: false } })
+    const item = await db.item.update({ where: { id }, data: { ativo: false, atualizadoPorId: userId } })
+    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Item', registroId: item.id, valoresNovos: item })
     return NextResponse.json({ message: 'Item desativado' })
   } catch (err: any) {
     console.error('[DELETE /api/itens/[id]] error:', err)
     return NextResponse.json({ error: err.message || 'Erro ao desativar item' }, { status: 500 })
   }
+  })
 }

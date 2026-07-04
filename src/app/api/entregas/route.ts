@@ -2,10 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import path from 'path'
 import { saveUpload } from '@/lib/storage'
+import { withAuditContext } from '@/lib/with-audit'
+import { logAudit } from '@/lib/audit'
 
 // POST /api/entregas — registrar nova entrega com anexo (multipart/form-data)
 // Ou application/json (sem anexo)
 export async function POST(req: NextRequest) {
+  return withAuditContext(req, async ({ userId, ip }) => {
   try {
     const contentType = req.headers.get('content-type') || ''
 
@@ -95,6 +98,7 @@ export async function POST(req: NextRequest) {
         anexoUrl,
         anexoNome,
         fotoUrl,
+        criadoPorId: userId,
       },
       include: {
         colaborador: { select: { id: true, nomeCompleto: true, cpf: true, posto: true } },
@@ -102,11 +106,14 @@ export async function POST(req: NextRequest) {
       },
     })
 
+    await logAudit({ userId, ip, acao: 'CREATE', tabela: 'Entrega', registroId: entrega.id, valoresNovos: entrega })
+
     return NextResponse.json(entrega, { status: 201 })
   } catch (err: any) {
     console.error('[POST /api/entregas] error:', err)
     return NextResponse.json({ error: err.message || 'Erro ao registrar entrega' }, { status: 500 })
   }
+  })
 }
 
 // GET /api/entregas?colaboradorId=...&itemId=...&postoId=...

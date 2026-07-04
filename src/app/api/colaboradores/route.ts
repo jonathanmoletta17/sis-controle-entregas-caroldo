@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
+import { withAuditContext } from '@/lib/with-audit'
+import { logAudit } from '@/lib/audit'
 
 // GET /api/colaboradores?incluirDesligados=true
 export async function GET(req: NextRequest) {
@@ -34,6 +36,7 @@ export async function GET(req: NextRequest) {
 
 // POST /api/colaboradores — criar novo
 export async function POST(req: NextRequest) {
+  return withAuditContext(req, async ({ userId, ip }) => {
   try {
     const body = await req.json()
 
@@ -74,13 +77,17 @@ export async function POST(req: NextRequest) {
         dataAdmissao: body.dataAdmissao ? new Date(body.dataAdmissao) : new Date(),
         observacoes: body.observacoes || null,
         ativo: true,
+        criadoPorId: userId,
       },
       include: { posto: true, empresa: true, contrato: true },
     })
+
+    await logAudit({ userId, ip, acao: 'CREATE', tabela: 'Colaborador', registroId: novo.id, valoresNovos: novo })
 
     return NextResponse.json(novo, { status: 201 })
   } catch (err: any) {
     console.error('[POST /api/colaboradores] error:', err)
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
+  })
 }

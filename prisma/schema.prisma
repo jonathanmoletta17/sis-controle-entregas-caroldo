@@ -33,6 +33,7 @@ model Usuario {
   entregasAtualizadas      Entrega[]      @relation("EntregaAtualizadoPor")
   mudancasPostoCriadas     MudancaPosto[] @relation("MudancaPostoCriadoPor")
   desligamentosCriados     Desligamento[] @relation("DesligamentoCriadoPor")
+  desligamentosAtualizados Desligamento[] @relation("DesligamentoAtualizadoPor")
 }
 
 model SessaoLogin {
@@ -184,8 +185,10 @@ model Desligamento {
 
   colaborador Colaborador @relation(fields: [colaboradorId], references: [id])
 
-  criadoPorId String?
-  criadoPor   Usuario? @relation("DesligamentoCriadoPor", fields: [criadoPorId], references: [id])
+  criadoPorId     String?
+  atualizadoPorId String?
+  criadoPor       Usuario? @relation("DesligamentoCriadoPor", fields: [criadoPorId], references: [id])
+  atualizadoPor   Usuario? @relation("DesligamentoAtualizadoPor", fields: [atualizadoPorId], references: [id])
 }
 
 // ============ ITENS E CHECKLISTS ============

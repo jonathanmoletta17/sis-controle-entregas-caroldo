@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useApp, View } from '../app-context'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -13,6 +14,7 @@ import {
   HardHat,
   AlertCircle,
   LogOut,
+  ScrollText,
 } from 'lucide-react'
 
 interface NavItem {
@@ -66,6 +68,7 @@ export function Sidebar() {
             </Button>
           )
         })}
+        <AdminLinks />
       </nav>
 
       <div className="p-3 border-t border-border">
@@ -78,6 +81,22 @@ export function Sidebar() {
         <p className="mt-2">Estado do RS · Secretaria da Casa Civil</p>
       </div>
     </aside>
+  )
+}
+
+function AdminLinks() {
+  const { data: session } = useSession()
+  if ((session?.user as { role?: string } | undefined)?.role !== 'admin') return null
+  return (
+    <div className="pt-2 mt-2 border-t border-border">
+      <p className="px-3 pb-1 text-xs font-medium text-muted-foreground">Administração</p>
+      <Link href="/admin/audit-log">
+        <Button variant="ghost" className="w-full justify-start gap-3 h-10 text-sm">
+          <ScrollText className="h-4 w-4" />
+          Audit log
+        </Button>
+      </Link>
+    </div>
   )
 }
 

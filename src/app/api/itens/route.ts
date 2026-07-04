@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import path from 'path'
 import { saveUpload } from '@/lib/storage'
+import { withAuditContext } from '@/lib/with-audit'
+import { logAudit } from '@/lib/audit'
 
 // GET /api/itens?categoriaId=...&postoId=...
 export async function GET(req: NextRequest) {
@@ -43,6 +45,7 @@ export async function GET(req: NextRequest) {
 
 // POST /api/itens — criar novo item (multipart/form-data com imagem OU JSON sem imagem)
 export async function POST(req: NextRequest) {
+  return withAuditContext(req, async ({ userId, ip }) => {
   try {
     const contentType = req.headers.get('content-type') || ''
     let descricao: string
@@ -93,6 +96,7 @@ export async function POST(req: NextRequest) {
         ativo,
         imagemUrl,
         imagemNome,
+        criadoPorId: userId,
       },
       include: { categoria: true },
     })
@@ -113,11 +117,13 @@ export async function POST(req: NextRequest) {
       where: { id: item.id },
       include: { categoria: true, postos: { include: { posto: true } } },
     })
+    await logAudit({ userId, ip, acao: 'CREATE', tabela: 'Item', registroId: item.id, valoresNovos: final })
     return NextResponse.json(final, { status: 201 })
   } catch (err: any) {
     console.error('[POST /api/itens] error:', err)
     return NextResponse.json({ error: err.message || 'Erro ao criar item' }, { status: 500 })
   }
+  })
 }
 
 // Helper: salvar imagem do item
