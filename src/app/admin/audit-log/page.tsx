@@ -1,10 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { ArrowLeft, ScrollText } from 'lucide-react'
 
@@ -18,19 +23,45 @@ interface AuditLogItem {
   usuario: { id: string; nome: string; email: string } | null
 }
 
+interface UsuarioOption {
+  id: string
+  nome: string
+}
+
 const ACAO_COLORS: Record<string, string> = {
   CREATE: 'bg-emerald-100 text-emerald-800',
   UPDATE: 'bg-amber-100 text-amber-800',
   DELETE: 'bg-rose-100 text-rose-800',
 }
 
+const TABELAS = ['Colaborador', 'Item', 'Entrega', 'MudancaPosto', 'Desligamento']
+
 export default function AuditLogPage() {
   const [logs, setLogs] = useState<AuditLogItem[]>([])
+  const [usuarios, setUsuarios] = useState<UsuarioOption[]>([])
   const [loading, setLoading] = useState(true)
   const [erro, setErro] = useState('')
+  const [filtroUsuario, setFiltroUsuario] = useState('')
+  const [filtroTabela, setFiltroTabela] = useState('')
+  const [filtroDataInicio, setFiltroDataInicio] = useState('')
+  const [filtroDataFim, setFiltroDataFim] = useState('')
 
   useEffect(() => {
-    fetch('/api/admin/audit-log')
+    fetch('/api/admin/usuarios')
+      .then(r => r.json())
+      .then(d => setUsuarios(Array.isArray(d) ? d : []))
+      .catch(() => {})
+  }, [])
+
+  const carregar = useCallback(() => {
+    setLoading(true)
+    const params = new URLSearchParams()
+    if (filtroUsuario) params.set('usuarioId', filtroUsuario)
+    if (filtroTabela) params.set('tabela', filtroTabela)
+    if (filtroDataInicio) params.set('dataInicio', filtroDataInicio)
+    if (filtroDataFim) params.set('dataFim', filtroDataFim)
+
+    fetch(`/api/admin/audit-log?${params}`)
       .then(async r => {
         if (!r.ok) {
           const d = await r.json().catch(() => ({}))
@@ -41,7 +72,9 @@ export default function AuditLogPage() {
       .then(d => setLogs(Array.isArray(d) ? d : []))
       .catch(e => setErro(e.message))
       .finally(() => setLoading(false))
-  }, [])
+  }, [filtroUsuario, filtroTabela, filtroDataInicio, filtroDataFim])
+
+  useEffect(() => { carregar() }, [carregar])
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
@@ -61,9 +94,48 @@ export default function AuditLogPage() {
         </div>
 
         <Card>
+          <CardContent className="p-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="space-y-1.5">
+                <Label className="text-xs">Usuário</Label>
+                <Select value={filtroUsuario || '_todos'} onValueChange={v => setFiltroUsuario(v === '_todos' ? '' : v)}>
+                  <SelectTrigger><SelectValue placeholder="Todos" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="_todos">Todos</SelectItem>
+                    {usuarios.map(u => (
+                      <SelectItem key={u.id} value={u.id}>{u.nome}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">Tabela</Label>
+                <Select value={filtroTabela || '_todas'} onValueChange={v => setFiltroTabela(v === '_todas' ? '' : v)}>
+                  <SelectTrigger><SelectValue placeholder="Todas" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="_todas">Todas</SelectItem>
+                    {TABELAS.map(t => (
+                      <SelectItem key={t} value={t}>{t}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">De</Label>
+                <Input type="date" value={filtroDataInicio} onChange={e => setFiltroDataInicio(e.target.value)} />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">Até</Label>
+                <Input type="date" value={filtroDataFim} onChange={e => setFiltroDataFim(e.target.value)} />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
           <CardHeader>
-            <CardTitle className="text-sm">Últimos registros</CardTitle>
-            <CardDescription>Mostrando até 100 entradas mais recentes</CardDescription>
+            <CardTitle className="text-sm">Registros</CardTitle>
+            <CardDescription>Mostrando até 100 entradas mais recentes que combinam com o filtro</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
             {loading ? (
@@ -73,7 +145,7 @@ export default function AuditLogPage() {
             ) : erro ? (
               <div className="p-12 text-center text-sm text-rose-600">{erro}</div>
             ) : logs.length === 0 ? (
-              <div className="p-12 text-center text-sm text-muted-foreground">Nenhum registro de auditoria ainda.</div>
+              <div className="p-12 text-center text-sm text-muted-foreground">Nenhum registro de auditoria encontrado.</div>
             ) : (
               <Table>
                 <TableHeader>

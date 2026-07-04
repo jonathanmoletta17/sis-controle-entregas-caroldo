@@ -19,6 +19,8 @@ export interface ItemVisualizacao {
   // extras opcionais (entregas, etc.)
   entregue?: boolean
   ultimaEntrega?: string | null
+  criadoPor?: { nome: string } | null
+  atualizadoPor?: { nome: string } | null
 }
 
 interface Props {
@@ -87,6 +89,14 @@ export function ItemVisualizacaoModal({ item, open, onOpenChange }: Props) {
                 </Badge>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Rastreabilidade */}
+        {(item.criadoPor || item.atualizadoPor) && (
+          <div className="text-xs text-muted-foreground border-t pt-2 space-y-0.5">
+            {item.criadoPor && <p>Criado por: <b className="text-foreground">{item.criadoPor.nome}</b></p>}
+            {item.atualizadoPor && <p>Última edição: <b className="text-foreground">{item.atualizadoPor.nome}</b></p>}
           </div>
         )}
 

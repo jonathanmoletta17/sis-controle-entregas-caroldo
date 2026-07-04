@@ -38,6 +38,8 @@ interface ColaboradorDetalhe {
   posto: Posto | null
   empresa: { id: string; nome: string } | null
   contrato: { id: string; numero: string; objeto: string } | null
+  criadoPor?: { nome: string } | null
+  atualizadoPor?: { nome: string } | null
   entregas: Array<{
     id: string
     dataEntrega: string
@@ -210,6 +212,14 @@ export function ColaboradorDetalheView() {
           </CardContent>
         </Card>
       </div>
+
+      {(colab.criadoPor || colab.atualizadoPor) && (
+        <p className="text-xs text-muted-foreground">
+          {colab.criadoPor && <>Cadastrado por <b className="text-foreground">{colab.criadoPor.nome}</b></>}
+          {colab.criadoPor && colab.atualizadoPor && ' · '}
+          {colab.atualizadoPor && <>Última edição por <b className="text-foreground">{colab.atualizadoPor.nome}</b></>}
+        </p>
+      )}
 
       {/* Observações */}
       {colab.observacoes && (

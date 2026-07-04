@@ -26,6 +26,8 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string
         },
         desligamentos: { orderBy: { dataDesligamento: 'desc' } },
         assinaturas: { orderBy: { dataHora: 'desc' }, include: { empresa: true } },
+        criadoPor: { select: { nome: true } },
+        atualizadoPor: { select: { nome: true } },
         _count: { select: { entregas: true, mudancasPosto: true } },
       },
     })

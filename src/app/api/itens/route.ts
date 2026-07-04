@@ -36,6 +36,8 @@ export async function GET(req: NextRequest) {
     include: {
       categoria: true,
       postos: { include: { posto: true } },
+      criadoPor: { select: { nome: true } },
+      atualizadoPor: { select: { nome: true } },
       _count: { select: { entregas: true } },
     },
     orderBy: { descricao: 'asc' },

@@ -90,6 +90,12 @@ function AdminLinks() {
   return (
     <div className="pt-2 mt-2 border-t border-border">
       <p className="px-3 pb-1 text-xs font-medium text-muted-foreground">Administração</p>
+      <Link href="/admin/usuarios">
+        <Button variant="ghost" className="w-full justify-start gap-3 h-10 text-sm">
+          <Users className="h-4 w-4" />
+          Usuários
+        </Button>
+      </Link>
       <Link href="/admin/audit-log">
         <Button variant="ghost" className="w-full justify-start gap-3 h-10 text-sm">
           <ScrollText className="h-4 w-4" />

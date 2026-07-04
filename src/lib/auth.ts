@@ -12,7 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         email: { label: 'E-mail', type: 'email' },
         senha: { label: 'Senha', type: 'password' },
       },
-      authorize: async (credentials) => {
+      authorize: async (credentials, request) => {
         const email = String(credentials?.email || '').trim().toLowerCase()
         const senha = String(credentials?.senha || '')
         if (!email || !senha) return null
@@ -22,6 +22,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const senhaValida = await bcrypt.compare(senha, usuario.senhaHash)
         if (!senhaValida) return null
+
+        const ip = request?.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+        const userAgent = request?.headers.get('user-agent') || undefined
+        await db.sessaoLogin.create({
+          data: { usuarioId: usuario.id, ip, userAgent },
+        })
 
         return {
           id: usuario.id,
@@ -46,6 +52,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ;(session.user as any).role = token.role
       }
       return session
+    },
+  },
+  events: {
+    async signOut(message) {
+      const token = 'token' in message ? message.token : null
+      const userId = (token as { id?: string } | null)?.id
+      if (!userId) return
+      const aberta = await db.sessaoLogin.findFirst({
+        where: { usuarioId: userId, logoutEm: null },
+        orderBy: { loginEm: 'desc' },
+      })
+      if (aberta) {
+        await db.sessaoLogin.update({ where: { id: aberta.id }, data: { logoutEm: new Date() } })
+      }
     },
   },
 })
