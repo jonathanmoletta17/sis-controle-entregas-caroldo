@@ -117,7 +117,12 @@ export async function POST(req: NextRequest) {
 
     const final = await db.item.findUnique({
       where: { id: item.id },
-      include: { categoria: true, postos: { include: { posto: true } } },
+      include: {
+        categoria: true,
+        postos: { include: { posto: true } },
+        criadoPor: { select: { nome: true } },
+        atualizadoPor: { select: { nome: true } },
+      },
     })
     await logAudit({ userId, ip, acao: 'CREATE', tabela: 'Item', registroId: item.id, valoresNovos: final })
     return NextResponse.json(final, { status: 201 })
