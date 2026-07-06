@@ -117,7 +117,7 @@ export default function UsuariosPage() {
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-6xl mx-auto space-y-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-3">
@@ -157,7 +157,7 @@ export default function UsuariosPage() {
                     <TableHead>E-mail</TableHead>
                     <TableHead className="w-44">Papel</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead className="w-56"></TableHead>
+                    <TableHead className="w-72"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
