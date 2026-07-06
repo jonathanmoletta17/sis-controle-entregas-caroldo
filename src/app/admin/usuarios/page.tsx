@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
-import { ArrowLeft, Users, UserPlus, Copy, Check, KeyRound } from 'lucide-react'
+import { ArrowLeft, Users, UserPlus, Copy, Check, KeyRound, Pencil, Trash2 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { ROLE_LABELS } from '@/lib/permissions'
 
@@ -34,6 +34,7 @@ export default function UsuariosPage() {
   const [loading, setLoading] = useState(true)
   const [erro, setErro] = useState('')
   const [showForm, setShowForm] = useState(false)
+  const [editando, setEditando] = useState<Usuario | null>(null)
   const [senhaGerada, setSenhaGerada] = useState<{ email: string; senha: string } | null>(null)
 
   const carregar = () => {
@@ -86,6 +87,19 @@ export default function UsuariosPage() {
       carregar()
     } catch (e: any) {
       toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+    }
+  }
+
+  const excluir = async (u: Usuario) => {
+    if (!confirm(`Excluir o usuário ${u.nome} (${u.email}) definitivamente? Isso não pode ser desfeito.`)) return
+    try {
+      const r = await fetch(`/api/admin/usuarios/${u.id}`, { method: 'DELETE' })
+      const d = await r.json().catch(() => ({}))
+      if (!r.ok) throw new Error(d.error || 'Erro ao excluir usuário')
+      toast({ title: 'Usuário excluído' })
+      carregar()
+    } catch (e: any) {
+      toast({ title: 'Não foi possível excluir', description: e.message, variant: 'destructive' })
     }
   }
 
@@ -170,12 +184,18 @@ export default function UsuariosPage() {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
+                          <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setEditando(u)} title="Editar nome/e-mail">
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
                           <Button variant="outline" size="sm" onClick={() => resetarSenha(u)} title="Gerar nova senha temporária">
                             <KeyRound className="h-3.5 w-3.5 mr-1" />
                             Senha
                           </Button>
                           <Button variant="outline" size="sm" onClick={() => toggleAtivo(u)}>
                             {u.ativo ? 'Desativar' : 'Reativar'}
+                          </Button>
+                          <Button variant="outline" size="icon" className="h-8 w-8 text-rose-600 hover:text-rose-700" onClick={() => excluir(u)} title="Excluir usuário">
+                            <Trash2 className="h-3.5 w-3.5" />
                           </Button>
                         </div>
                       </TableCell>
@@ -202,6 +222,17 @@ export default function UsuariosPage() {
           onCreated={(email, senha) => {
             setShowForm(false)
             setSenhaGerada({ email, senha })
+            carregar()
+          }}
+        />
+      )}
+
+      {editando && (
+        <EditarUsuarioForm
+          usuario={editando}
+          onClose={() => setEditando(null)}
+          onSaved={() => {
+            setEditando(null)
             carregar()
           }}
         />
@@ -275,6 +306,63 @@ function NovoUsuarioForm({ onClose, onCreated }: {
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancelar</Button>
           <Button onClick={submit} disabled={saving}>{saving ? 'Criando...' : 'Criar usuário'}</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function EditarUsuarioForm({ usuario, onClose, onSaved }: {
+  usuario: Usuario
+  onClose: () => void
+  onSaved: () => void
+}) {
+  const { toast } = useToast()
+  const [nome, setNome] = useState(usuario.nome)
+  const [email, setEmail] = useState(usuario.email)
+  const [saving, setSaving] = useState(false)
+
+  const submit = async () => {
+    setSaving(true)
+    try {
+      const r = await fetch(`/api/admin/usuarios/${usuario.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email }),
+      })
+      const d = await r.json()
+      if (!r.ok) throw new Error(d.error || 'Erro ao salvar')
+      toast({ title: 'Usuário atualizado' })
+      onSaved()
+    } catch (e: any) {
+      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle>Editar usuário</DialogTitle>
+          <DialogDescription>
+            Corrija o nome ou o e-mail de login. Papel e senha se ajustam nos botões da tabela.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-3 py-2">
+          <div className="space-y-1.5">
+            <Label>Nome completo</Label>
+            <Input value={nome} onChange={e => setNome(e.target.value)} autoFocus />
+          </div>
+          <div className="space-y-1.5">
+            <Label>E-mail (identificador de login)</Label>
+            <Input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>Cancelar</Button>
+          <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Salvar'}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
