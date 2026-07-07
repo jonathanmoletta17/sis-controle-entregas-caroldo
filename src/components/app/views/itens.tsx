@@ -323,6 +323,14 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
     setPostosSelecionados(prev => prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id])
   }
 
+  const selecionarImagem = (f: File) => {
+    if (f.size > 5 * 1024 * 1024) {
+      toast({ title: 'Imagem muito grande', description: 'Máximo 5MB.', variant: 'destructive' })
+      return
+    }
+    setImagem(f)
+  }
+
   const submit = async () => {
     if (!form.descricao.trim() || form.descricao.length < 3) {
       toast({ title: 'Descrição obrigatória (mín 3 caracteres)', variant: 'destructive' })
@@ -442,7 +450,7 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
                   input.accept = '.jpg,.jpeg,.png,.webp,.gif'
                   input.onchange = (e) => {
                     const f = (e.target as HTMLInputElement).files?.[0]
-                    if (f) setImagem(f)
+                    if (f) selecionarImagem(f)
                   }
                   input.click()
                 }}>
@@ -460,7 +468,7 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
                   accept=".jpg,.jpeg,.png,.webp,.gif"
                   onChange={e => {
                     const f = e.target.files?.[0]
-                    if (f) setImagem(f)
+                    if (f) selecionarImagem(f)
                   }}
                 />
               </label>

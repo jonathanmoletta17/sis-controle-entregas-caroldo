@@ -776,6 +776,22 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
   const [foto, setFoto] = useState<File | null>(null)
   const [saving, setSaving] = useState(false)
 
+  const selecionarFoto = (f: File) => {
+    if (f.size > 5 * 1024 * 1024) {
+      toast({ title: 'Foto muito grande', description: 'Máximo 5MB.', variant: 'destructive' })
+      return
+    }
+    setFoto(f)
+  }
+
+  const selecionarAnexo = (f: File) => {
+    if (f.size > 10 * 1024 * 1024) {
+      toast({ title: 'Anexo muito grande', description: 'Máximo 10MB.', variant: 'destructive' })
+      return
+    }
+    setAnexo(f)
+  }
+
   useEffect(() => {
     // Carregar itens do posto atual do colaborador
     fetch(`/api/itens?postoId=${colab.posto?.id || ''}`)
@@ -910,7 +926,7 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
                   capture="environment"
                   onChange={e => {
                     const f = e.target.files?.[0]
-                    if (f) setFoto(f)
+                    if (f) selecionarFoto(f)
                   }}
                 />
               </label>
@@ -945,7 +961,7 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
                     accept=".pdf,.jpg,.jpeg,.png,.gif,.webp,.doc,.docx"
                     onChange={e => {
                       const f = e.target.files?.[0]
-                      if (f) setAnexo(f)
+                      if (f) selecionarAnexo(f)
                     }}
                   />
                 </label>
