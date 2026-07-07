@@ -2,6 +2,24 @@ import { put } from '@vercel/blob'
 import fs from 'fs/promises'
 import path from 'path'
 import crypto from 'crypto'
+import { NextRequest, NextResponse } from 'next/server'
+
+// Rejeita requisições grandes demais ANTES de req.formData() ler o corpo inteiro
+// para memória. Sem essa checagem via Content-Length, um upload muito grande é
+// integralmente bufferizado (multipart + arrayBuffer) antes de qualquer validação
+// de tamanho por arquivo — o que pode estourar a memória do processo em um servidor
+// com poucos recursos, mesmo que o arquivo depois seja rejeitado pelo limite por campo.
+export function rejeitarSeGrandeDemais(req: NextRequest, maxBytes: number): NextResponse | null {
+  const contentLength = Number(req.headers.get('content-length') || '0')
+  if (contentLength > maxBytes) {
+    const maxMb = (maxBytes / (1024 * 1024)).toFixed(0)
+    return NextResponse.json(
+      { error: `Requisição muito grande. Máximo permitido: ${maxMb}MB.` },
+      { status: 413 }
+    )
+  }
+  return null
+}
 
 // Salva um arquivo enviado pelo usuário.
 // Na Vercel (process.env.VERCEL sempre definido pela plataforma) usa Vercel Blob —

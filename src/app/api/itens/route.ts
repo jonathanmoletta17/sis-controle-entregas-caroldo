@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import path from 'path'
-import { saveUpload } from '@/lib/storage'
+import { saveUpload, rejeitarSeGrandeDemais } from '@/lib/storage'
 import { withAuditContext } from '@/lib/with-audit'
 import { logAudit } from '@/lib/audit'
+
+const MAX_REQUEST_BYTES = 8 * 1024 * 1024 // 5MB de imagem + folga para overhead do multipart
 
 // GET /api/itens?categoriaId=...&postoId=...
 export async function GET(req: NextRequest) {
@@ -50,6 +52,10 @@ export async function POST(req: NextRequest) {
   return withAuditContext(req, async ({ userId, ip }) => {
   try {
     const contentType = req.headers.get('content-type') || ''
+    if (contentType.includes('multipart/form-data')) {
+      const rejeitado = rejeitarSeGrandeDemais(req, MAX_REQUEST_BYTES)
+      if (rejeitado) return rejeitado
+    }
     let descricao: string
     let unidade: string = '1'
     let categoriaId: string

@@ -80,6 +80,22 @@ export function ChecklistsView() {
   const [anexo, setAnexo] = useState<File | null>(null)
   const [foto, setFoto] = useState<File | null>(null)
   const [savingEntrega, setSavingEntrega] = useState(false)
+
+  const selecionarFoto = (f: File) => {
+    if (f.size > 5 * 1024 * 1024) {
+      toast({ title: 'Foto muito grande', description: 'Máximo 5MB.', variant: 'destructive' })
+      return
+    }
+    setFoto(f)
+  }
+
+  const selecionarAnexo = (f: File) => {
+    if (f.size > 10 * 1024 * 1024) {
+      toast({ title: 'Anexo muito grande', description: 'Máximo 10MB.', variant: 'destructive' })
+      return
+    }
+    setAnexo(f)
+  }
   const [visualizandoItem, setVisualizandoItem] = useState<ChecklistItem | null>(null)
 
   useEffect(() => {
@@ -404,7 +420,7 @@ export function ChecklistsView() {
                       capture="environment"
                       onChange={e => {
                         const f = e.target.files?.[0]
-                        if (f) setFoto(f)
+                        if (f) selecionarFoto(f)
                       }}
                     />
                   </label>
@@ -443,7 +459,7 @@ export function ChecklistsView() {
                         accept=".pdf,.jpg,.jpeg,.png,.gif,.webp,.doc,.docx"
                         onChange={e => {
                           const f = e.target.files?.[0]
-                          if (f) setAnexo(f)
+                          if (f) selecionarAnexo(f)
                         }}
                       />
                     </label>

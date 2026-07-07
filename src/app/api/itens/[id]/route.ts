@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import path from 'path'
-import { saveUpload } from '@/lib/storage'
+import { saveUpload, rejeitarSeGrandeDemais } from '@/lib/storage'
 import { withAuditContext } from '@/lib/with-audit'
 import { logAudit } from '@/lib/audit'
+
+const MAX_REQUEST_BYTES = 8 * 1024 * 1024 // 5MB de imagem + folga para overhead do multipart
 
 async function saveImage(file: File): Promise<{ url?: string; nome?: string; error?: string }> {
   if (file.size > 5 * 1024 * 1024) {
@@ -25,6 +27,10 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
     const { id } = await ctx.params
     const antes = await db.item.findUnique({ where: { id }, include: { categoria: true, postos: { include: { posto: true } } } })
     const contentType = req.headers.get('content-type') || ''
+    if (contentType.includes('multipart/form-data')) {
+      const rejeitado = rejeitarSeGrandeDemais(req, MAX_REQUEST_BYTES)
+      if (rejeitado) return rejeitado
+    }
 
     let descricao: string | undefined
     let unidade: string | undefined
