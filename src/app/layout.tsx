@@ -15,12 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Controle de Entregas — CAROLDO · Contrato 003/2026",
-  description: "Sistema de cadastro de terceirizados, checklists e registro de entregas para o Contrato de Manutenção Predial 003/2026 do Estado do RS.",
-  keywords: ["CAROLDO", "Manutenção Predial", "Contrato 003/2026", "EPI", "Terceirizados", "Estado do RS"],
-  authors: [{ name: "Z.ai" }],
+  title: "SIGMAT — Controle de Entregas · Contrato 003/2026",
+  description: "Sistema de Gestão de Materiais: cadastro de terceirizados, checklists e registro de entregas para o Contrato de Manutenção Predial 003/2026 do Estado do RS.",
+  keywords: ["SIGMAT", "CAROLDO", "Manutenção Predial", "Contrato 003/2026", "EPI", "Terceirizados", "Estado do RS", "Casa Civil"],
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: "/favicon.svg",
   },
 };
 

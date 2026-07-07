@@ -317,7 +317,7 @@ export default function RelatorioPage({ params }: { params: Promise<{ colaborado
             * As assinaturas acima serão requeridas após a entrega de todos os itens listados, garantindo e formalizando a entrega e regularização dos materiais, EPIs, uniformes e documentos ao terceirizado identificado neste relatório.
           </p>
           <p className="mt-1">
-            Relatório gerado pelo Sistema de Controle de Entregas — CAROLDO · Contrato {c.contrato?.numero} · {new Date(geradoEm).toLocaleString('pt-BR')}.
+            Relatório gerado pelo SIGMAT (Sistema de Gestão de Materiais) · Contrato {c.contrato?.numero} · {new Date(geradoEm).toLocaleString('pt-BR')}.
           </p>
         </div>
       </div>
