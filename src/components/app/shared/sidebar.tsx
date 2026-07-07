@@ -46,8 +46,8 @@ export function Sidebar() {
             <HardHat className="h-5 w-5" />
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="text-sm font-semibold">Controle de Entregas</span>
-            <span className="text-xs text-muted-foreground">CAROLDO · 003/2026</span>
+            <span className="text-sm font-semibold">SIGMAT</span>
+            <span className="text-xs text-muted-foreground">Controle de Entregas · 003/2026</span>
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@ export function MobileNav() {
         <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
           <HardHat className="h-4 w-4" />
         </div>
-        <span className="text-sm font-semibold flex-1">Controle de Entregas</span>
+        <span className="text-sm font-semibold flex-1">SIGMAT</span>
         <Button
           variant="ghost"
           size="icon"

@@ -47,8 +47,8 @@ export default function LoginPage() {
           <div className="flex h-12 w-12 items-center justify-center rounded-md bg-primary text-primary-foreground mx-auto">
             <HardHat className="h-6 w-6" />
           </div>
-          <CardTitle>Controle de Entregas</CardTitle>
-          <CardDescription>CAROLDO · Contrato 003/2026</CardDescription>
+          <CardTitle>SIGMAT</CardTitle>
+          <CardDescription>Controle de Entregas · Contrato 003/2026</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={submit} className="space-y-4">
