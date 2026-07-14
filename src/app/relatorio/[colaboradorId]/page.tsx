@@ -133,9 +133,9 @@ export default function RelatorioPage({ params }: { params: Promise<{ colaborado
         <div className="border-b-2 border-black pb-4 mb-6">
           <div className="flex flex-col items-center text-center">
             <img
-              src="/brasao-rs.jpg"
-              alt="Brasão do Estado do Rio Grande do Sul"
-              className="w-[70px] h-[90px] object-contain mb-3"
+              src="/governo-rs-horizontal.svg"
+              alt="Governo do Estado do Rio Grande do Sul"
+              className="w-[280px] h-auto object-contain mb-4"
             />
             <div className="text-[11pt]">Subchefia Administrativa da Secretaria da Casa Civil</div>
             <div className="text-[11pt]">Departamento de Gestão de Serviços do Complexo do Palácio Piratini</div>
