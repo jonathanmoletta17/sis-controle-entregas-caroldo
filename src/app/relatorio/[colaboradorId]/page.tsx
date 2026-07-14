@@ -44,6 +44,8 @@ interface RelatorioData {
   geradoEm: string
 }
 
+const NUMERO_CONTRATO_ATUAL = '004/2026'
+
 function formatCPF(cpf: string): string {
   const d = (cpf || '').replace(/\D/g, '')
   if (d.length !== 11) return cpf
@@ -138,8 +140,7 @@ export default function RelatorioPage({ params }: { params: Promise<{ colaborado
             <div className="text-[11pt]">Subchefia Administrativa da Secretaria da Casa Civil</div>
             <div className="text-[11pt]">Departamento de Gestão de Serviços do Complexo do Palácio Piratini</div>
             <div className="text-[11pt]">Divisão de Manutenção Predial</div>
-            <div className="text-[11pt] mt-2">CONTRATO DE MANUTENÇÃO PREDIAL {c.contrato?.numero || '—'}</div>
-            <div className="text-[13pt] font-bold mt-3 underline">RELATÓRIO DE ENTREGAS DE MATERIAIS, EPI, UNIFORMES E DOCUMENTOS</div>
+            <div className="text-[11pt] mt-2">CONTRATO DE MANUTENÇÃO PREDIAL {NUMERO_CONTRATO_ATUAL}</div>
           </div>
         </div>
 
@@ -309,7 +310,7 @@ export default function RelatorioPage({ params }: { params: Promise<{ colaborado
             * As assinaturas acima serão requeridas após a entrega de todos os itens listados, garantindo e formalizando a entrega e regularização dos materiais, EPIs, uniformes e documentos ao terceirizado identificado neste relatório.
           </p>
           <p className="mt-1">
-            Relatório gerado pelo SIGMAT (Sistema de Gestão de Materiais) · Contrato {c.contrato?.numero} · {new Date(geradoEm).toLocaleString('pt-BR')}.
+            Relatório gerado pelo SIGMAT (Sistema de Gestão de Materiais) · Contrato {NUMERO_CONTRATO_ATUAL} · {new Date(geradoEm).toLocaleString('pt-BR')}.
           </p>
         </div>
       </div>
