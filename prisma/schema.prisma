@@ -1,5 +1,5 @@
 // Prisma schema — Controle de Entregas CAROLDO
-// Contrato de Manutenção Predial 003/2026 — Estado do RS / Secretaria da Casa Civil
+// Contrato de Manutenção Predial 004/2026 — Estado do RS / Secretaria da Casa Civil
 
 generator client {
   provider = "prisma-client-js"
@@ -68,7 +68,7 @@ model AuditLog {
 
 model Contrato {
   id             String   @id @default(cuid())
-  numero         String   @unique // ex.: "003/2025", "003/2026"
+  numero         String   @unique // ex.: "003/2026", "004/2026"
   objeto         String // "Manutenção Predial"
   dataAssinatura DateTime
   vigenciaInicio DateTime

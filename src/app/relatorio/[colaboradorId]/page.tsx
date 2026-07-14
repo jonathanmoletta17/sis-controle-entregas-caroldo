@@ -129,25 +129,17 @@ export default function RelatorioPage({ params }: { params: Promise<{ colaborado
       <div className="relatorio-page max-w-[210mm] mx-auto bg-white shadow-lg print:shadow-none my-6 print:my-0 p-12 print:p-10">
         {/* Cabeçalho institucional */}
         <div className="border-b-2 border-black pb-4 mb-6">
-          <div className="flex items-center gap-5">
-            {/* Brasão do RS */}
-            <div className="shrink-0">
-              <img
-                src="/brasao-rs.jpg"
-                alt="Brasão do Estado do Rio Grande do Sul"
-                className="w-[70px] h-[90px] object-contain"
-              />
-            </div>
-            {/* Texto institucional */}
-            <div className="text-center flex-1">
-              <div className="text-[11pt] font-bold tracking-wide">ESTADO DO RIO GRANDE DO SUL</div>
-              <div className="text-[11pt]">SECRETARIA DA CASA CIVIL</div>
-              <div className="text-[11pt]">UNIDADE DE MANUTENÇÃO</div>
-              <div className="text-[11pt] mt-1">CONTRATO DE MANUTENÇÃO PREDIAL {c.contrato?.numero || '—'}</div>
-              <div className="text-[13pt] font-bold mt-3 underline">RELATÓRIO DE ENTREGAS DE MATERIAIS, EPI, UNIFORMES E DOCUMENTOS</div>
-            </div>
-            {/* Espaço simétrico ao brasão para centralizar o texto */}
-            <div className="shrink-0 w-[70px]" />
+          <div className="flex flex-col items-center text-center">
+            <img
+              src="/brasao-rs.jpg"
+              alt="Brasão do Estado do Rio Grande do Sul"
+              className="w-[70px] h-[90px] object-contain mb-3"
+            />
+            <div className="text-[11pt]">Subchefia Administrativa da Secretaria da Casa Civil</div>
+            <div className="text-[11pt]">Departamento de Gestão de Serviços do Complexo do Palácio Piratini</div>
+            <div className="text-[11pt]">Divisão de Manutenção Predial</div>
+            <div className="text-[11pt] mt-2">CONTRATO DE MANUTENÇÃO PREDIAL {c.contrato?.numero || '—'}</div>
+            <div className="text-[13pt] font-bold mt-3 underline">RELATÓRIO DE ENTREGAS DE MATERIAIS, EPI, UNIFORMES E DOCUMENTOS</div>
           </div>
         </div>
 

@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Já existe um colaborador com este CPF.' }, { status: 409 })
     }
 
-    // Buscar contrato ativo (003/2026)
+    // Buscar contrato ativo (004/2026)
     const contrato = await db.contrato.findFirst({ orderBy: { dataAssinatura: 'desc' } })
     if (!contrato) {
       return NextResponse.json({ error: 'Nenhum contrato cadastrado. Rode o seed.' }, { status: 500 })

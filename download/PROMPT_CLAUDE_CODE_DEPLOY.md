@@ -16,7 +16,7 @@ Você está assumindo o setup e deploy de uma aplicação Next.js 16 já constru
 
 # CONTEXTO DO PROJETO
 
-Aplicação web para controle de entregas de materiais, EPIs, uniformes e documentos a terceirizados no Contrato de Manutenção Predial 003/2026 do Estado do Rio Grande do Sul (Secretaria da Casa Civil) com a empresa CAROLDO.
+Aplicação web para controle de entregas de materiais, EPIs, uniformes e documentos a terceirizados no Contrato de Manutenção Predial 004/2026 do Estado do Rio Grande do Sul (Secretaria da Casa Civil) com a empresa CAROLDO.
 
 Stack:
 - Next.js 16 (App Router) + TypeScript 5 + React 19
@@ -56,7 +56,7 @@ Funcionalidades já implementadas e funcionais:
 4. Rode `bun run db:push` para criar o schema no banco local.
 
 5. Rode `bunx tsx prisma/seed.ts` para popular o banco com:
-   - Contrato 003/2026
+   - Contrato 004/2026
    - Empresas CAROLDO + JIREH
    - 9 postos com cor de capacete
    - 4 categorias
@@ -196,7 +196,7 @@ Atualmente as imagens são salvas em `/public/uploads/` (sistema de arquivos loc
    - Para itens de Materiais/EPI/Uniforme, campo de anexo NÃO aparece
 
    **Relatório:**
-   - Cabeçalho com brasão do RS + texto institucional + Contrato 003/2026
+   - Cabeçalho com brasão do RS + texto institucional + Contrato 004/2026
    - Dados do terceirizado (nome, CPF, posto, empresa, admissão)
    - Tabelas por categoria com thumbnails
    - Campos de assinatura: Fiscalização Técnica + Representante CAROLDO

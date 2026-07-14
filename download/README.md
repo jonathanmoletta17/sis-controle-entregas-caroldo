@@ -1,6 +1,6 @@
-# Controle de Entregas — CAROLDO · Contrato 003/2026
+# Controle de Entregas — CAROLDO · Contrato 004/2026
 
-Sistema web para controle de entregas de materiais, EPIs, uniformes e documentos a terceirizados no Contrato de Manutenção Predial 003/2026 do Estado do Rio Grande do Sul (Secretaria da Casa Civil) com a empresa CAROLDO.
+Sistema web para controle de entregas de materiais, EPIs, uniformes e documentos a terceirizados no Contrato de Manutenção Predial 004/2026 do Estado do Rio Grande do Sul (Secretaria da Casa Civil) com a empresa CAROLDO.
 
 ## Stack
 
@@ -57,6 +57,9 @@ bun run db:push
 # Popular banco (contrato, postos, itens, colaboradores)
 bunx tsx prisma/seed.ts
 
+# Em uma base existente, renumerar 003/2026 para 004/2026
+bun run db:update-contract-004
+
 # Rodar em desenvolvimento
 bun run dev
 ```
@@ -70,7 +73,7 @@ Veja `PROMPT_CLAUDE_CODE_DEPLOY.md` para instruções completas de deploy na Ver
 ## Modelo de dados
 
 10 entidades:
-- **Contrato** (003/2026)
+- **Contrato** (004/2026)
 - **Empresa** (CAROLDO, JIREH)
 - **EmpresaContrato** (N:N)
 - **Posto** (9 postos com cor de capacete)

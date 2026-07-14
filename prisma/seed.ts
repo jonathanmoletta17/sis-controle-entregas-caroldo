@@ -1,6 +1,6 @@
 /**
  * Seed script — popula o banco com:
- * 1. Contrato 003/2026 (CAROLDO é a nova empresa contratada)
+ * 1. Contrato 004/2026 (CAROLDO é a nova empresa contratada)
  * 2. Empresas CAROLDO e JIREH (JIREH mantida como subcontratada histórica)
  * 3. 9 postos (com cor de capacete)
  * 4. 4 categorias (Materiais, EPI, Uniforme, Documento)
@@ -101,10 +101,10 @@ async function main() {
 
   // 1. Contrato
   const contrato = await db.contrato.upsert({
-    where: { numero: '003/2026' },
+    where: { numero: '004/2026' },
     update: {},
     create: {
-      numero: '003/2026',
+      numero: '004/2026',
       objeto: 'Manutenção Predial',
       dataAssinatura: new Date('2026-01-01'),
       vigenciaInicio: new Date('2026-01-01'),

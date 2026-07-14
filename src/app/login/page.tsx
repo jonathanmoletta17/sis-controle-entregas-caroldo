@@ -48,7 +48,7 @@ export default function LoginPage() {
             <HardHat className="h-6 w-6" />
           </div>
           <CardTitle>SIGMAT</CardTitle>
-          <CardDescription>Controle de Entregas · Contrato 003/2026</CardDescription>
+          <CardDescription>Controle de Entregas · Contrato 004/2026</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={submit} className="space-y-4">

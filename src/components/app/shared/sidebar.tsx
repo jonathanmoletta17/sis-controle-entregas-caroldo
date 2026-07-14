@@ -47,7 +47,7 @@ export function Sidebar() {
           </div>
           <div className="flex flex-col leading-tight">
             <span className="text-sm font-semibold">SIGMAT</span>
-            <span className="text-xs text-muted-foreground">Controle de Entregas · 003/2026</span>
+            <span className="text-xs text-muted-foreground">Controle de Entregas · 004/2026</span>
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@ export function Sidebar() {
       </div>
 
       <div className="p-4 border-t border-border text-xs text-muted-foreground">
-        <p className="font-medium mb-1">Contrato 003/2026</p>
+        <p className="font-medium mb-1">Contrato 004/2026</p>
         <p>Manutenção Predial</p>
         <p className="mt-2">Estado do RS · Secretaria da Casa Civil</p>
       </div>

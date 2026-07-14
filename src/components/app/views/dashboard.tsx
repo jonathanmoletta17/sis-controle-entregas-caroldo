@@ -93,7 +93,7 @@ export function DashboardView() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground text-sm mt-1">
-          Visão geral do contrato 003/2026 — Manutenção Predial
+          Visão geral do contrato 004/2026 — Manutenção Predial
         </p>
       </div>
 

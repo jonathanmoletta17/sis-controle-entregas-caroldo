@@ -11,7 +11,8 @@
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:reset": "prisma migrate reset"
+    "db:reset": "prisma migrate reset",
+    "db:update-contract-004": "bun scripts/update_contract_004.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
