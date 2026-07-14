@@ -15,11 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SIGMAT — Controle de Entregas · Contrato 004/2026",
-  description: "Sistema de Gestão de Materiais: cadastro de terceirizados, checklists e registro de entregas para o Contrato de Manutenção Predial 004/2026 do Estado do RS.",
-  keywords: ["SIGMAT", "CAROLDO", "Manutenção Predial", "Contrato 004/2026", "EPI", "Terceirizados", "Estado do RS", "Casa Civil"],
+  title: "FISCCON — Fiscalização de Contratos Continuados · Contrato 004/2026",
+  description: "FISCCON: fiscalização de contratos continuados, cadastro de terceirizados, checklists e registro de entregas para o Contrato de Manutenção Predial 004/2026 do Estado do RS.",
+  keywords: ["FISCCON", "Fiscalização de Contratos Continuados", "CAROLDO", "Manutenção Predial", "Contrato 004/2026", "EPI", "Terceirizados", "Estado do RS", "Casa Civil"],
   icons: {
-    icon: "/favicon.svg",
+    icon: "/brasao-rs.jpg",
   },
 };
 

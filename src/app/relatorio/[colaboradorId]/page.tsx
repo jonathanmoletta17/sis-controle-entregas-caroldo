@@ -310,7 +310,7 @@ export default function RelatorioPage({ params }: { params: Promise<{ colaborado
             * As assinaturas acima serão requeridas após a entrega de todos os itens listados, garantindo e formalizando a entrega e regularização dos materiais, EPIs, uniformes e documentos ao terceirizado identificado neste relatório.
           </p>
           <p className="mt-1">
-            Relatório gerado pelo SIGMAT (Sistema de Gestão de Materiais) · Contrato {NUMERO_CONTRATO_ATUAL} · {new Date(geradoEm).toLocaleString('pt-BR')}.
+            Relatório gerado pelo FISCCON (Fiscalização de Contratos Continuados) · Contrato {NUMERO_CONTRATO_ATUAL} · {new Date(geradoEm).toLocaleString('pt-BR')}.
           </p>
         </div>
       </div>

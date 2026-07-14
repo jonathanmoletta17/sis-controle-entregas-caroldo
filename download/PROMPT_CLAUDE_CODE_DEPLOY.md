@@ -1,4 +1,4 @@
-# Prompt para Claude Code — Setup e Deploy do Projeto "Controle de Entregas CAROLDO"
+# Prompt para Claude Code — Setup e Deploy do Projeto "FISCCON"
 
 ## Como usar este prompt
 
@@ -12,11 +12,11 @@
 ## PROMPT PARA O CLAUDE CODE (copie tudo abaixo)
 
 ```
-Você está assumindo o setup e deploy de uma aplicação Next.js 16 já construída chamada "Controle de Entregas CAROLDO". O projeto está completo e funcional localmente, mas precisa ser configurado, migrado de SQLite para PostgreSQL, e deployado para que possa ser compartilhado com usuários finais para validação.
+Você está assumindo o setup e deploy de uma aplicação Next.js 16 já construída chamada "FISCCON — Fiscalização de Contratos Continuados". O projeto está completo e funcional localmente, mas precisa ser configurado, migrado de SQLite para PostgreSQL, e deployado para que possa ser compartilhado com usuários finais para validação.
 
 # CONTEXTO DO PROJETO
 
-Aplicação web para controle de entregas de materiais, EPIs, uniformes e documentos a terceirizados no Contrato de Manutenção Predial 004/2026 do Estado do Rio Grande do Sul (Secretaria da Casa Civil) com a empresa CAROLDO.
+Aplicação web de fiscalização de contratos continuados, com controle de entregas de materiais, EPIs, uniformes e documentos a terceirizados no Contrato de Manutenção Predial 004/2026 do Estado do Rio Grande do Sul (Secretaria da Casa Civil) com a empresa CAROLDO.
 
 Stack:
 - Next.js 16 (App Router) + TypeScript 5 + React 19
@@ -129,7 +129,7 @@ Atualmente as imagens são salvas em `/public/uploads/` (sistema de arquivos loc
    ```bash
    git init
    git add -A
-   git commit -m "Controle de Entregas CAROLDO - MVP pronto para deploy"
+   git commit -m "FISCCON - MVP pronto para deploy"
    git branch -M main
    git remote add origin https://github.com/SEU_USUARIO/SEU_REPO.git
    git push -u origin main

@@ -1,6 +1,6 @@
-# Controle de Entregas — CAROLDO · Contrato 004/2026
+# FISCCON — Fiscalização de Contratos Continuados · Contrato 004/2026
 
-Sistema web para controle de entregas de materiais, EPIs, uniformes e documentos a terceirizados no Contrato de Manutenção Predial 004/2026 do Estado do Rio Grande do Sul (Secretaria da Casa Civil) com a empresa CAROLDO.
+Sistema web de fiscalização de contratos continuados, com controle de entregas de materiais, EPIs, uniformes e documentos a terceirizados no Contrato de Manutenção Predial 004/2026 do Estado do Rio Grande do Sul (Secretaria da Casa Civil) com a empresa CAROLDO.
 
 ## Stack
 

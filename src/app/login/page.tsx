@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/ui/password-input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { HardHat } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -44,11 +43,13 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center space-y-2">
-          <div className="flex h-12 w-12 items-center justify-center rounded-md bg-primary text-primary-foreground mx-auto">
-            <HardHat className="h-6 w-6" />
-          </div>
-          <CardTitle>SIGMAT</CardTitle>
-          <CardDescription>Controle de Entregas · Contrato 004/2026</CardDescription>
+          <img
+            src="/brasao-rs.jpg"
+            alt="Brasão do Estado do Rio Grande do Sul"
+            className="h-16 w-16 object-contain mx-auto"
+          />
+          <CardTitle>FISCCON</CardTitle>
+          <CardDescription>Fiscalização de Contratos Continuados · Contrato 004/2026</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={submit} className="space-y-4">

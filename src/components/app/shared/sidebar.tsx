@@ -13,7 +13,6 @@ import {
   Package,
   ClipboardList,
   Truck,
-  HardHat,
   AlertCircle,
   LogOut,
   ScrollText,
@@ -42,12 +41,14 @@ export function Sidebar() {
     <aside className="hidden md:flex flex-col w-60 bg-card border-r border-border h-screen sticky top-0">
       <div className="p-5 border-b border-border">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <HardHat className="h-5 w-5" />
-          </div>
+          <img
+            src="/brasao-rs.jpg"
+            alt="Brasão do Estado do Rio Grande do Sul"
+            className="h-11 w-11 object-contain shrink-0"
+          />
           <div className="flex flex-col leading-tight">
-            <span className="text-sm font-semibold">SIGMAT</span>
-            <span className="text-xs text-muted-foreground">Controle de Entregas · 004/2026</span>
+            <span className="text-sm font-semibold">FISCCON</span>
+            <span className="text-xs text-muted-foreground">Fiscalização de Contratos Continuados</span>
           </div>
         </div>
       </div>
@@ -150,10 +151,12 @@ export function MobileNav() {
   return (
     <div className="md:hidden sticky top-0 z-30 bg-card border-b border-border">
       <div className="flex items-center gap-2 px-4 py-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
-          <HardHat className="h-4 w-4" />
-        </div>
-        <span className="text-sm font-semibold flex-1">SIGMAT</span>
+        <img
+          src="/brasao-rs.jpg"
+          alt="Brasão do Estado do Rio Grande do Sul"
+          className="h-9 w-9 object-contain shrink-0"
+        />
+        <span className="text-sm font-semibold flex-1">FISCCON</span>
         <Button
           variant="ghost"
           size="icon"

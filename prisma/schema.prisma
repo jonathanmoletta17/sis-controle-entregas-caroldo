@@ -1,4 +1,4 @@
-// Prisma schema — Controle de Entregas CAROLDO
+// Prisma schema — FISCCON · Fiscalização de Contratos Continuados
 // Contrato de Manutenção Predial 004/2026 — Estado do RS / Secretaria da Casa Civil
 
 generator client {
