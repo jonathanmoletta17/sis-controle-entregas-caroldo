@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "FISCCON — Fiscalização de Contratos Continuados · Contrato 004/2026",
   description: "FISCCON: fiscalização de contratos continuados, cadastro de terceirizados, checklists e registro de entregas para o Contrato de Manutenção Predial 004/2026 do Estado do RS.",
-  keywords: ["FISCCON", "Fiscalização de Contratos Continuados", "CAROLDO", "Manutenção Predial", "Contrato 004/2026", "EPI", "Terceirizados", "Estado do RS", "Casa Civil"],
+  keywords: ["FISCCON", "Fiscalização de Contratos Continuados", "ORBIS", "Manutenção Predial", "Contrato 004/2026", "EPI", "Terceirizados", "Estado do RS", "Casa Civil"],
   icons: {
     icon: "/brasao-rs.jpg",
   },

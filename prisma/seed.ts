@@ -1,7 +1,7 @@
 /**
  * Seed script — popula o banco com:
- * 1. Contrato 004/2026 (CAROLDO é a nova empresa contratada)
- * 2. Empresas CAROLDO e JIREH (JIREH mantida como subcontratada histórica)
+ * 1. Contrato 004/2026 (ORBIS é a nova empresa contratada)
+ * 2. Empresas ORBIS e JIREH (JIREH mantida como subcontratada histórica)
  * 3. 9 postos (com cor de capacete)
  * 4. 4 categorias (Materiais, EPI, Uniforme, Documento)
  * 5. Itens por combinação categoria×posto (521 itens no total)
@@ -114,11 +114,11 @@ async function main() {
   console.log(`✓ Contrato criado: ${contrato.numero}`)
 
   // 2. Empresas
-  const caroldo = await db.empresa.upsert({
-    where: { nome: 'CAROLDO' },
+  const orbis = await db.empresa.upsert({
+    where: { nome: 'ORBIS' },
     update: {},
     create: {
-      nome: 'CAROLDO',
+      nome: 'ORBIS',
       cnpj: null,
       papel: 'contratada_principal',
     },
@@ -133,16 +133,16 @@ async function main() {
     },
   })
   await db.empresaContrato.upsert({
-    where: { empresaId_contratoId: { empresaId: caroldo.id, contratoId: contrato.id } },
+    where: { empresaId_contratoId: { empresaId: orbis.id, contratoId: contrato.id } },
     update: {},
-    create: { empresaId: caroldo.id, contratoId: contrato.id, papel: 'contratada_principal' },
+    create: { empresaId: orbis.id, contratoId: contrato.id, papel: 'contratada_principal' },
   })
   await db.empresaContrato.upsert({
     where: { empresaId_contratoId: { empresaId: jireh.id, contratoId: contrato.id } },
     update: {},
     create: { empresaId: jireh.id, contratoId: contrato.id, papel: 'subcontratada' },
   })
-  console.log(`✓ Empresas: CAROLDO + JIREH`)
+  console.log(`✓ Empresas: ORBIS + JIREH`)
 
   // 3. Postos
   const postoMap: Record<string, string> = {}
@@ -240,7 +240,7 @@ async function main() {
       data: {
         cpf: cpfDigits,
         nomeCompleto: c.nomeCompleto,
-        empresaId: caroldo.id,
+        empresaId: orbis.id,
         contratoId: contrato.id,
         postoId,
         dataAdmissao: new Date(c.dataAdmissao),

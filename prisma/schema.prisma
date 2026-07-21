@@ -82,7 +82,7 @@ model Contrato {
 
 model Empresa {
   id        String   @id @default(cuid())
-  nome      String   @unique // ex.: "CAROLDO", "JIREH"
+  nome      String   @unique // ex.: "ORBIS", "JIREH"
   cnpj      String?
   papel     String   @default("contratada_principal") // "contratada_principal" | "subcontratada"
   createdAt DateTime @default(now())
@@ -127,7 +127,7 @@ model Colaborador {
   id                 String    @id @default(cuid())
   cpf                String    @unique // chave única (apenas dígitos)
   nomeCompleto       String // normalizado para evitar duplicação
-  empresaId          String // empresa responsável (CAROLDO, JIREH)
+  empresaId          String // empresa responsável (ORBIS, JIREH)
   contratoId         String // contrato vigente
   postoId            String // posto atual
   dataAdmissao       DateTime

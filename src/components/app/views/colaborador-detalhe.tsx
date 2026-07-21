@@ -562,7 +562,7 @@ function EditarColaboradorForm({ colab, onClose, onSaved }: {
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>Editar terceirizado</DialogTitle>
-          <DialogDescription>CPF e empresa não podem ser alterados (empresa é sempre CAROLDO neste contrato).</DialogDescription>
+          <DialogDescription>CPF e empresa não podem ser alterados (empresa é sempre ORBIS neste contrato).</DialogDescription>
         </DialogHeader>
         <div className="space-y-3 py-2">
           <div className="space-y-1.5">
@@ -576,7 +576,7 @@ function EditarColaboradorForm({ colab, onClose, onSaved }: {
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
               <Label>Empresa</Label>
-              <Input value="CAROLDO" disabled className="bg-muted" />
+              <Input value="ORBIS" disabled className="bg-muted" />
             </div>
             <div className="space-y-1.5">
               <Label>Admissão</Label>
@@ -912,7 +912,7 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
           <div className="space-y-1.5">
             <Label>Foto do item recebido (opcional)</Label>
             <p className="text-xs text-muted-foreground">
-              Registre uma foto do item no momento do recebimento da CAROLDO, antes de repassar ao terceirizado.
+              Registre uma foto do item no momento do recebimento da ORBIS, antes de repassar ao terceirizado.
             </p>
             {!foto ? (
               <label className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-border rounded-md p-4 cursor-pointer hover:bg-accent/50 transition-colors">

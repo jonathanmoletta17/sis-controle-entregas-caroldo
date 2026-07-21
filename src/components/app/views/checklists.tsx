@@ -406,7 +406,7 @@ export function ChecklistsView() {
               <div className="space-y-1.5">
                 <Label>Foto do item recebido (opcional)</Label>
                 <p className="text-xs text-muted-foreground">
-                  Registre uma foto do item no momento do recebimento da CAROLDO, antes de repassar ao terceirizado.
+                  Registre uma foto do item no momento do recebimento da ORBIS, antes de repassar ao terceirizado.
                 </p>
                 {!foto ? (
                   <label className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-border rounded-md p-4 cursor-pointer hover:bg-accent/50 transition-colors">

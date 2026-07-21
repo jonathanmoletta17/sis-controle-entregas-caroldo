@@ -243,15 +243,15 @@ function NovoColaboradorForm({ onClose, onCreated }: { onClose: () => void; onCr
       toast({ title: 'Selecione o posto', variant: 'destructive' })
       return
     }
-    // Empresa é sempre CAROLDO — buscar ID automaticamente se não estiver setado
+    // Empresa é sempre ORBIS — buscar ID automaticamente se não estiver setado
     let empresaId = form.empresaId
     if (!empresaId) {
-      const caroldo = empresas.find(e => e.nome === 'CAROLDO')
-      if (!caroldo) {
-        toast({ title: 'Empresa CAROLDO não encontrada no cadastro', variant: 'destructive' })
+      const orbis = empresas.find(e => e.nome === 'ORBIS')
+      if (!orbis) {
+        toast({ title: 'Empresa ORBIS não encontrada no cadastro', variant: 'destructive' })
         return
       }
-      empresaId = caroldo.id
+      empresaId = orbis.id
     }
     setSaving(true)
     try {
@@ -337,7 +337,7 @@ function NovoColaboradorForm({ onClose, onCreated }: { onClose: () => void; onCr
             </Select>
           </div>
           <p className="text-xs text-muted-foreground">
-            Empresa: <b>CAROLDO</b> (todos os terceirizados deste contrato são vinculados à CAROLDO).
+            Empresa: <b>ORBIS</b> (todos os terceirizados deste contrato são vinculados à ORBIS).
           </p>
 
           <div className="space-y-1.5">
