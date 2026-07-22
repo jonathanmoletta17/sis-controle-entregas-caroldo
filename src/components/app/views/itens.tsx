@@ -110,8 +110,10 @@ export function ItensView() {
         .map(id => i.find((x: Item) => x.categoria.id === id)!.categoria) : []
       setCategorias(cats)
       setPostos(Array.isArray(p) ? p : [])
-      setLoading(false)
-    })
+    }).catch(() => {
+      setItens([])
+      toast({ title: 'Erro ao carregar itens', description: 'Tente novamente.', variant: 'destructive' })
+    }).finally(() => setLoading(false))
   }, [])
 
   const filtrados = itens.filter(i => {
