@@ -80,12 +80,12 @@ export function DashboardView() {
   if (!data) return null
 
   const kpiCards = [
-    { label: 'Total de terceirizados', value: data.kpis.totalColabs, icon: Users, color: 'text-sky-600 bg-sky-50' },
-    { label: 'Ativos', value: data.kpis.ativos, icon: UserCheck, color: 'text-emerald-600 bg-emerald-50' },
-    { label: 'Desligados', value: data.kpis.desligados, icon: UserX, color: 'text-zinc-600 bg-zinc-100' },
-    { label: 'Itens catalogados', value: data.kpis.totalItens, icon: Package, color: 'text-amber-600 bg-amber-50' },
-    { label: 'Entregas registradas', value: data.kpis.totalEntregas, icon: Truck, color: 'text-violet-600 bg-violet-50' },
-    { label: 'Postos', value: data.kpis.totalPostos, icon: AlertCircle, color: 'text-rose-600 bg-rose-50' },
+    { label: 'Total de terceirizados', value: data.kpis.totalColabs, icon: Users, color: 'text-sky-600 bg-sky-50 dark:text-sky-400 dark:bg-sky-950/40' },
+    { label: 'Ativos', value: data.kpis.ativos, icon: UserCheck, color: 'text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950/40' },
+    { label: 'Desligados', value: data.kpis.desligados, icon: UserX, color: 'text-zinc-600 bg-zinc-100 dark:text-zinc-400 dark:bg-zinc-800/60' },
+    { label: 'Itens catalogados', value: data.kpis.totalItens, icon: Package, color: 'text-amber-600 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/40' },
+    { label: 'Entregas registradas', value: data.kpis.totalEntregas, icon: Truck, color: 'text-violet-600 bg-violet-50 dark:text-violet-400 dark:bg-violet-950/40' },
+    { label: 'Postos', value: data.kpis.totalPostos, icon: AlertCircle, color: 'text-rose-600 bg-rose-50 dark:text-rose-400 dark:bg-rose-950/40' },
   ]
 
   return (

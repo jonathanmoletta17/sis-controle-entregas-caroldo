@@ -21,6 +21,7 @@ import { CategoriaBadge } from '@/components/app/shared/badges'
 import { formatDate, todayISO } from '@/components/app/shared/format'
 import { useToast } from '@/hooks/use-toast'
 import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
+import { RegistrarEntregaDialog } from '@/components/app/shared/registrar-entrega-dialog'
 import { useCanWrite } from '@/hooks/use-can-write'
 
 interface ColaboradorListItem {
@@ -81,31 +82,7 @@ export function ChecklistsView() {
   const [checklist, setChecklist] = useState<ChecklistData | null>(null)
   const [loading, setLoading] = useState(true)
   const [loadingChecklist, setLoadingChecklist] = useState(false)
-  const [showEntrega, setShowEntrega] = useState<{ itemId: string; descricao: string; categoriaNome: string } | null>(null)
-  const [entregaForm, setEntregaForm] = useState({
-    dataEntrega: todayISO(),
-    quantidade: 1,
-    observacao: '',
-  })
-  const [anexo, setAnexo] = useState<File | null>(null)
-  const [foto, setFoto] = useState<File | null>(null)
-  const [savingEntrega, setSavingEntrega] = useState(false)
-
-  const selecionarFoto = (f: File) => {
-    if (f.size > 5 * 1024 * 1024) {
-      toast({ title: 'Foto muito grande', description: 'Máximo 5MB.', variant: 'destructive' })
-      return
-    }
-    setFoto(f)
-  }
-
-  const selecionarAnexo = (f: File) => {
-    if (f.size > 10 * 1024 * 1024) {
-      toast({ title: 'Anexo muito grande', description: 'Máximo 10MB.', variant: 'destructive' })
-      return
-    }
-    setAnexo(f)
-  }
+  const [showEntrega, setShowEntrega] = useState<{ itemId: string; descricao: string; categoriaNome: string; quantidadeEsperada: number; entregueQtd: number } | null>(null)
   const [visualizandoItem, setVisualizandoItem] = useState<ChecklistItem | null>(null)
 
   useEffect(() => {
@@ -134,58 +111,14 @@ export function ChecklistsView() {
       .finally(() => setLoadingChecklist(false))
   }, [selectedId])
 
-  const registrarEntrega = async () => {
-    if (!showEntrega || !selectedId) return
-    setSavingEntrega(true)
-    try {
-      let r: Response
-      if (anexo || foto) {
-        const fd = new FormData()
-        fd.append('colaboradorId', selectedId)
-        fd.append('itemId', showEntrega.itemId)
-        fd.append('dataEntrega', entregaForm.dataEntrega)
-        fd.append('quantidade', String(entregaForm.quantidade))
-        if (entregaForm.observacao) fd.append('observacao', entregaForm.observacao)
-        if (anexo) fd.append('anexo', anexo)
-        if (foto) fd.append('foto', foto)
-        r = await fetch('/api/entregas', { method: 'POST', body: fd })
-      } else {
-        r = await fetch('/api/entregas', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            colaboradorId: selectedId,
-            itemId: showEntrega.itemId,
-            ...entregaForm,
-          }),
-        })
-      }
-      if (!r.ok) {
-        let msg = 'Erro ao registrar'
-        try {
-          const d = await r.json()
-          msg = d.error || msg
-        } catch {
-          msg = `${r.status} ${r.statusText || '— erro de servidor'}`
-        }
-        throw new Error(msg)
-      }
-      toast({ title: 'Entrega registrada', description: showEntrega.descricao.slice(0, 60) })
-      setShowEntrega(null)
-      setEntregaForm({ dataEntrega: todayISO(), quantidade: 1, observacao: '' })
-      setAnexo(null)
-      setFoto(null)
-      // recarregar checklist
-      setLoadingChecklist(true)
-      fetch(`/api/checklist?colaboradorId=${selectedId}`)
-        .then(r => r.json())
-        .then(d => setChecklist(d))
-        .finally(() => setLoadingChecklist(false))
-    } catch (e: any) {
-      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
-    } finally {
-      setSavingEntrega(false)
-    }
+  const reloadChecklist = () => {
+    if (!selectedId) return
+    setLoadingChecklist(true)
+    fetch(`/api/checklist?colaboradorId=${selectedId}`)
+      .then(r => r.json())
+      .then(d => setChecklist(d))
+      .catch(() => {})
+      .finally(() => setLoadingChecklist(false))
   }
 
   if (loading) {
@@ -204,7 +137,7 @@ export function ChecklistsView() {
       <Card>
         <CardContent className="p-4">
           <Select value={selectedId} onValueChange={setSelectedId}>
-            <SelectTrigger><SelectValue placeholder="Selecione um terceirizado..." /></SelectTrigger>
+            <SelectTrigger className="w-full"><SelectValue placeholder="Selecione um terceirizado..." /></SelectTrigger>
             <SelectContent className="max-h-80">
               {colaboradores.map(c => (
                 <SelectItem key={c.id} value={c.id}>
@@ -371,15 +304,16 @@ export function ChecklistsView() {
                         <Button
                           size="sm"
                           variant={item.entregue ? 'outline' : 'default'}
-                          onClick={() => {
-                            setShowEntrega({ itemId: item.itemId, descricao: item.descricao, categoriaNome: categoria })
-                            setEntregaForm({ dataEntrega: todayISO(), quantidade: 1, observacao: '' })
-                            setAnexo(null)
-                            setFoto(null)
-                          }}
+                          onClick={() => setShowEntrega({
+                            itemId: item.itemId,
+                            descricao: item.descricao,
+                            categoriaNome: categoria,
+                            quantidadeEsperada: item.quantidadeEsperada,
+                            entregueQtd: item.entregueQtd,
+                          })}
                         >
                           <Truck className="h-3.5 w-3.5 mr-1" />
-                          {item.entregue ? 'Nova entrega' : 'Entregar'}
+                          {item.status === 'completo' ? 'Nova entrega' : item.status === 'parcial' ? 'Registrar mais' : 'Entregar'}
                         </Button>
                       )}
                     </div>
@@ -402,144 +336,25 @@ export function ChecklistsView() {
         </>
       )}
 
-      {/* Modal de registro rápido de entrega */}
-      {showEntrega && (
-        <Dialog open onOpenChange={(o) => !o && setShowEntrega(null)}>
-          <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle className="flex items-center gap-2">
-                <Truck className="h-5 w-5" />
-                Registrar entrega
-              </DialogTitle>
-              <DialogDescription className="line-clamp-2">
-                {showEntrega.descricao}
-              </DialogDescription>
-            </DialogHeader>
-            {showEntrega.categoriaNome === 'Documento' && (
-              <p className="text-xs text-sky-700 bg-sky-50 border border-sky-200 rounded p-2">
-                <Paperclip className="h-3.5 w-3.5 inline mr-1" />
-                Item da categoria <b>Documento</b> — anexar o arquivo é <b>obrigatório</b>.
-              </p>
-            )}
-            <div className="space-y-3 py-2">
-              <div className="space-y-1.5">
-                <Label>Data</Label>
-                <Input
-                  type="date"
-                  value={entregaForm.dataEntrega}
-                  onChange={e => setEntregaForm(f => ({ ...f, dataEntrega: e.target.value }))}
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label>Quantidade</Label>
-                <Input
-                  type="number"
-                  min="1"
-                  value={entregaForm.quantidade}
-                  onChange={e => setEntregaForm(f => ({ ...f, quantidade: parseInt(e.target.value) || 1 }))}
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label>Observação</Label>
-                <Textarea
-                  rows={2}
-                  placeholder="Opcional"
-                  value={entregaForm.observacao}
-                  onChange={e => setEntregaForm(f => ({ ...f, observacao: e.target.value }))}
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label>Foto do item recebido (opcional)</Label>
-                <p className="text-xs text-muted-foreground">
-                  Registre uma foto do item no momento do recebimento da ORBIS, antes de repassar ao terceirizado.
-                </p>
-                {!foto ? (
-                  <label className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-border rounded-md p-4 cursor-pointer hover:bg-accent/50 transition-colors">
-                    <Camera className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-xs text-muted-foreground">Clique para tirar/anexar uma foto</span>
-                    <span className="text-xs text-muted-foreground">JPG, PNG, WEBP — máx 5MB</span>
-                    <input
-                      type="file"
-                      className="hidden"
-                      accept=".jpg,.jpeg,.png,.gif,.webp"
-                      capture="environment"
-                      onChange={e => {
-                        const f = e.target.files?.[0]
-                        if (f) selecionarFoto(f)
-                      }}
-                    />
-                  </label>
-                ) : (
-                  <div className="flex items-center gap-2 border rounded-md p-3 bg-accent/30">
-                    <img src={URL.createObjectURL(foto)} alt="" className="h-10 w-10 object-cover rounded border shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium truncate">{foto.name}</div>
-                      <div className="text-xs text-muted-foreground">{(foto.size / 1024).toFixed(1)} KB</div>
-                    </div>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => setFoto(null)} title="Remover foto">
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                )}
-              </div>
-              {showEntrega.categoriaNome === 'Documento' && (
-                <div className="space-y-1.5">
-                  <Label>Anexo do documento (opcional)</Label>
-                  <p className="text-xs text-sky-700 bg-sky-50 border border-sky-200 rounded p-2">
-                    <Paperclip className="h-3.5 w-3.5 inline mr-1" />
-                    Para itens da categoria <b>Documento</b>, você pode anexar o arquivo digitalizado.
-                  </p>
-                  {!anexo ? (
-                    <label className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-border rounded-md p-4 cursor-pointer hover:bg-accent/50 transition-colors">
-                      <Paperclip className="h-5 w-5 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">
-                        Clique para anexar um arquivo
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        PDF, JPG, PNG, DOC — máx 10MB
-                      </span>
-                      <input
-                        type="file"
-                        className="hidden"
-                        accept=".pdf,.jpg,.jpeg,.png,.gif,.webp,.doc,.docx"
-                        onChange={e => {
-                          const f = e.target.files?.[0]
-                          if (f) selecionarAnexo(f)
-                        }}
-                      />
-                    </label>
-                  ) : (
-                    <div className="flex items-center gap-2 border rounded-md p-3 bg-accent/30">
-                      <Paperclip className="h-4 w-4 text-sky-700 shrink-0" />
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium truncate">{anexo.name}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {(anexo.size / 1024).toFixed(1)} KB
-                        </div>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 shrink-0"
-                        onClick={() => setAnexo(null)}
-                        title="Remover anexo"
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setShowEntrega(null)}>Cancelar</Button>
-              <Button onClick={registrarEntrega} disabled={savingEntrega}>
-                {savingEntrega ? 'Salvando...' : 'Confirmar entrega'}
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      )}
+      {/* Registro de entrega — componente compartilhado (com meta/saldo e pré-preenchimento) */}
+      <RegistrarEntregaDialog
+        open={!!showEntrega}
+        onOpenChange={(o) => { if (!o) setShowEntrega(null) }}
+        colaboradorId={selectedId}
+        colaboradorNome={checklist?.colaborador?.nomeCompleto}
+        travarColaborador
+        itemId={showEntrega?.itemId}
+        itemDescricao={showEntrega?.descricao}
+        itemCategoria={showEntrega?.categoriaNome}
+        travarItem
+        quantidadeEsperada={showEntrega?.quantidadeEsperada}
+        entregueQtd={showEntrega?.entregueQtd}
+        onSaved={() => {
+          toast({ title: 'Entrega registrada', description: showEntrega?.descricao.slice(0, 60) })
+          setShowEntrega(null)
+          reloadChecklist()
+        }}
+      />
 
       <ItemVisualizacaoModal
         item={visualizandoItem as ItemVisualizacao | null}

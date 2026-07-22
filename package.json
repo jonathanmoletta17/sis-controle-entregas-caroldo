@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "postinstall": "prisma generate",
-    "dev": "next dev -p 3000 2>&1 | tee dev.log",
+    "dev": "export PORT=${PORT:-3006} && next dev -p $PORT 2>&1 | tee dev.log",
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
     "start": "NODE_ENV=production bun .next/standalone/server.js 2>&1 | tee server.log",
     "lint": "eslint .",
@@ -12,7 +12,8 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:reset": "prisma migrate reset",
-    "db:update-contract-004": "bun scripts/update_contract_004.ts"
+    "db:update-contract-004": "bun scripts/update_contract_004.ts",
+    "db:normalizar-unidades": "bun scripts/normalizar_unidades.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/ui/password-input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { ThemeToggle } from '@/components/app/shared/theme-toggle'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -40,7 +41,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4 relative">
+      <ThemeToggle className="absolute top-4 right-4" />
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center space-y-2">
           <img

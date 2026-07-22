@@ -8,15 +8,21 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const incluirDesligados = searchParams.get('incluirDesligados') === 'true'
   const buscar = searchParams.get('q') || ''
+  const postoId = searchParams.get('postoId') || ''
 
   const where: any = {}
   if (!incluirDesligados) {
     where.ativo = true
   }
+  if (postoId) {
+    where.postoId = postoId
+  }
   if (buscar) {
+    // busca por nome, CPF ou nome do posto/cargo (ex.: "eletricista"), sem diferenciar maiúsculas
     where.OR = [
-      { nomeCompleto: { contains: buscar } },
+      { nomeCompleto: { contains: buscar, mode: 'insensitive' } },
       { cpf: { contains: buscar } },
+      { posto: { nome: { contains: buscar, mode: 'insensitive' } } },
     ]
   }
 

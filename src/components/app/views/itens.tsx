@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
+  Dialog, DialogContent, DialogBody, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
 } from '@/components/ui/dialog'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -195,7 +195,7 @@ export function ItensView() {
                       <div className="flex items-center gap-2 flex-wrap mb-1">
                         <CategoriaBadge categoria={i.categoria.nome} />
                         {i.ativo ? (
-                          <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Ativo</Badge>
+                          <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300 dark:hover:bg-emerald-950/50">Ativo</Badge>
                         ) : (
                           <Badge variant="secondary">Inativo</Badge>
                         )}
@@ -230,13 +230,13 @@ export function ItensView() {
                 <Table className="table-fixed">
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-[5%]"></TableHead>
-                      <TableHead className="w-[40%]">Descrição</TableHead>
+                      <TableHead className="w-[6%]"></TableHead>
+                      <TableHead className="w-[32%]">Descrição</TableHead>
                       <TableHead className="w-[10%]">Categoria</TableHead>
-                      <TableHead className="w-[24%]">Postos vinculados</TableHead>
-                      <TableHead className="w-[7%] text-center">Entregas</TableHead>
-                      <TableHead className="w-[9%]">Status</TableHead>
-                      <TableHead className="w-[5%]"></TableHead>
+                      <TableHead className="w-[28%]">Postos vinculados</TableHead>
+                      <TableHead className="w-[6%] text-center">Entregas</TableHead>
+                      <TableHead className="w-[10%]">Status</TableHead>
+                      <TableHead className="w-[8%]"></TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -268,15 +268,15 @@ export function ItensView() {
                           </div>
                         </TableCell>
                         <TableCell className="align-top"><CategoriaBadge categoria={i.categoria.nome} /></TableCell>
-                        <TableCell className="align-top">
+                        <TableCell className="align-top whitespace-normal">
                           <div className="flex flex-wrap gap-1">
                             {(i.postos || []).slice(0, 3).map(p => (
-                              <Badge key={p.posto.id} variant="outline" className="text-xs">
+                              <Badge key={p.posto.id} variant="outline" className="text-xs max-w-full whitespace-normal" title={p.posto.nome}>
                                 {p.posto.nome}
                               </Badge>
                             ))}
                             {(i.postos || []).length > 3 && (
-                              <Badge variant="outline" className="text-xs">+{(i.postos || []).length - 3}</Badge>
+                              <Badge variant="outline" className="text-xs whitespace-normal">+{(i.postos || []).length - 3}</Badge>
                             )}
                             {(i.postos || []).length === 0 && <span className="text-xs text-muted-foreground">—</span>}
                           </div>
@@ -284,7 +284,7 @@ export function ItensView() {
                         <TableCell className="text-center tabular-nums align-top">{i._count?.entregas || 0}</TableCell>
                         <TableCell className="align-top">
                           {i.ativo ? (
-                            <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Ativo</Badge>
+                            <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300 dark:hover:bg-emerald-950/50">Ativo</Badge>
                           ) : (
                             <Badge variant="secondary">Inativo</Badge>
                           )}
@@ -292,10 +292,10 @@ export function ItensView() {
                         <TableCell className="align-top" onClick={(e) => e.stopPropagation()}>
                           {canWrite && (
                             <div className="flex items-center gap-0.5">
-                              <Button variant="ghost" size="icon" onClick={() => setEditItem(i)}>
+                              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setEditItem(i)}>
                                 <Pencil className="h-3.5 w-3.5" />
                               </Button>
-                              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => { setBloqueioEntregas(null); setExcluindo(i) }}>
+                              <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive" onClick={() => { setBloqueioEntregas(null); setExcluindo(i) }}>
                                 <Trash2 className="h-3.5 w-3.5" />
                               </Button>
                             </div>
@@ -501,50 +501,55 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
 
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent size="4xl" className="p-0">
         <DialogHeader>
           <DialogTitle>{item ? 'Editar item' : 'Novo item'}</DialogTitle>
           <DialogDescription>
             Item do catálogo. Vincule a um ou mais postos para que apareça no checklist.
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-3 py-2">
-          <div className="space-y-1.5">
+        <DialogBody className="space-y-6">
+          {/* Descrição — largura total */}
+          <div className="space-y-2">
             <Label>Descrição *</Label>
-            <Textarea rows={3} value={form.descricao} onChange={e => setForm(f => ({ ...f, descricao: e.target.value }))} placeholder="Ex.: Plaina elétrica profissional 82mm, 700W, 220v..." />
+            <Textarea rows={2} value={form.descricao} onChange={e => setForm(f => ({ ...f, descricao: e.target.value }))} placeholder="Ex.: Plaina elétrica profissional 82mm, 700W, 220v..." />
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
+
+          {/* Classificação — largura total (não espremer os selects) */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="space-y-2 min-w-0">
               <Label>Categoria *</Label>
               <Select value={form.categoriaId} onValueChange={v => setForm(f => ({ ...f, categoriaId: v }))}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {categorias.map(c => <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-2 min-w-0">
               <Label>Unidade de medida</Label>
               <Select value={form.unidade} onValueChange={v => setForm(f => ({ ...f, unidade: v }))}>
-                <SelectTrigger><SelectValue placeholder="Selecione" /></SelectTrigger>
+                <SelectTrigger className="w-full"><SelectValue placeholder="Selecione" /></SelectTrigger>
                 <SelectContent>
                   {UNIDADES_MEDIDA.map(u => <SelectItem key={u.valor} value={u.valor}>{u.label}</SelectItem>)}
                 </SelectContent>
               </Select>
-              <p className="text-xs text-muted-foreground">Como este item é contado (unidade, par, caixa…).</p>
             </div>
           </div>
 
+          <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-border">
+          {/* Coluna esquerda: imagem + status */}
+          <div className="space-y-4 min-w-0 md:border-r md:border-border md:pr-6">
           {/* Imagem do item */}
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             <Label>Imagem ilustrativa (opcional)</Label>
             {item?.imagemUrl && !imagemAtualRemovida && !imagem ? (
               <div className="space-y-2">
-                <div className="flex items-center gap-3 border rounded-md p-3 bg-accent/30">
-                  <img src={item.imagemUrl} alt="" className="h-16 w-16 object-cover rounded border" />
-                  <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3 border rounded-md p-3 bg-accent/30 min-w-0">
+                  <img src={item.imagemUrl} alt="" className="h-16 w-16 object-cover rounded border shrink-0" />
+                  <div className="flex-1 min-w-0 overflow-hidden">
                     <div className="text-sm font-medium truncate">Imagem atual</div>
-                    <div className="text-xs text-muted-foreground">{item.imagemNome || 'sem nome'}</div>
+                    <div className="text-xs text-muted-foreground truncate" title={item.imagemNome || ''}>{item.imagemNome || 'sem nome'}</div>
                   </div>
                   <Button
                     variant="ghost"
@@ -586,10 +591,10 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
               </label>
             ) : (
               <div className="space-y-2">
-                <div className="flex items-center gap-3 border rounded-md p-3 bg-accent/30">
-                  <img src={URL.createObjectURL(imagem)} alt="" className="h-16 w-16 object-cover rounded border" />
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium truncate">{imagem.name}</div>
+                <div className="flex items-center gap-3 border rounded-md p-3 bg-accent/30 min-w-0">
+                  <img src={URL.createObjectURL(imagem)} alt="" className="h-16 w-16 object-cover rounded border shrink-0" />
+                  <div className="flex-1 min-w-0 overflow-hidden">
+                    <div className="text-sm font-medium truncate" title={imagem.name}>{imagem.name}</div>
                     <div className="text-xs text-muted-foreground">{(imagem.size / 1024).toFixed(1)} KB</div>
                   </div>
                   <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => setImagem(null)} title="Remover imagem">
@@ -603,24 +608,32 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
             )}
           </div>
 
-          <div className="space-y-1.5">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <Checkbox checked={form.ativo} onCheckedChange={(v) => setForm(f => ({ ...f, ativo: !!v }))} />
+            <span className="text-sm">Item ativo (aparece no catálogo e checklists)</span>
+          </label>
+          </div>{/* fim coluna esquerda */}
+
+          {/* Coluna direita: postos vinculados */}
+          <div className="space-y-2 min-w-0">
             <Label>Postos vinculados</Label>
             <p className="text-xs text-muted-foreground">
               Marque o posto e defina quantos deste item ele deve receber (meta) e se é obrigatório.
             </p>
-            <div className="border rounded-md divide-y max-h-64 overflow-y-auto">
+            <div className="border border-border rounded-md divide-y divide-border max-h-[360px] overflow-y-auto overflow-x-hidden">
               {postos.map(p => {
                 const sel = postosSelecionados.find(x => x.postoId === p.id)
                 return (
-                  <div key={p.id} className="p-2.5">
-                    <label className="flex items-center gap-2 cursor-pointer">
+                  <div key={p.id} className="p-3 min-w-0">
+                    <label className="flex items-start gap-2 cursor-pointer min-w-0">
                       <Checkbox
+                        className="mt-0.5 shrink-0"
                         checked={!!sel}
                         onCheckedChange={() => togglePosto(p.id)}
                       />
-                      <span className="text-sm flex-1">{p.nome}</span>
+                      <span className="text-sm flex-1 min-w-0 break-words">{p.nome}</span>
                       {p.corCapacete && (
-                        <span className={`h-2 w-2 rounded-full inline-block ${
+                        <span className={`h-2 w-2 rounded-full inline-block mt-1.5 shrink-0 ${
                           p.corCapacete === 'Amarelo' ? 'bg-yellow-400' :
                           p.corCapacete === 'Azul' ? 'bg-blue-500' :
                           p.corCapacete === 'Laranja' ? 'bg-orange-500' :
@@ -629,7 +642,7 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
                       )}
                     </label>
                     {sel && (
-                      <div className="flex items-center gap-3 mt-2 pl-6">
+                      <div className="flex items-center gap-3 mt-2 pl-6 flex-wrap min-w-0">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs text-muted-foreground">Qtd. esperada</span>
                           <Input
@@ -662,11 +675,8 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
               {postosSelecionados.length} {postosSelecionados.length === 1 ? 'posto selecionado' : 'postos selecionados'}
             </p>
           </div>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <Checkbox checked={form.ativo} onCheckedChange={(v) => setForm(f => ({ ...f, ativo: !!v }))} />
-            <span className="text-sm">Ativo</span>
-          </label>
-        </div>
+          </div>{/* fim grid 2 colunas */}
+        </DialogBody>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancelar</Button>
           <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Salvar'}</Button>

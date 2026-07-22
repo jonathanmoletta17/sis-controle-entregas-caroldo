@@ -211,8 +211,8 @@ export function PendenciasView() {
                                 <span
                                   className={cn(
                                     'inline-flex items-center justify-center min-w-[2.5rem] rounded px-1.5 py-0.5 text-xs font-medium tabular-nums',
-                                    completo ? 'bg-emerald-100 text-emerald-800' :
-                                    parcial ? 'bg-amber-100 text-amber-800' :
+                                    completo ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300' :
+                                    parcial ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300' :
                                     'text-muted-foreground'
                                   )}
                                   title={`${entregue} de ${esperada}`}

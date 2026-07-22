@@ -1,21 +1,13 @@
-// Lista curada de unidades de medida para itens do catálogo.
-// Para acrescentar/ajustar uma unidade, edite este array — nenhuma outra mudança é necessária.
-// (Decisão do usuário: lista fixa, sem campo livre, para manter padronização nos relatórios.)
+// Unidades de medida para itens do catálogo — enxutas para o contexto de
+// controle de ENTREGA (conta-se peça entregue, não medida contínua).
+// Para acrescentar/ajustar, edite este array — nenhuma outra mudança é necessária.
 
 export const UNIDADES_MEDIDA = [
   { valor: 'un', label: 'un — unidade' },
   { valor: 'par', label: 'par' },
-  { valor: 'cj', label: 'cj — conjunto' },
-  { valor: 'jogo', label: 'jogo' },
-  { valor: 'cx', label: 'cx — caixa' },
-  { valor: 'pct', label: 'pct — pacote' },
-  { valor: 'rolo', label: 'rolo' },
-  { valor: 'kg', label: 'kg — quilograma' },
-  { valor: 'g', label: 'g — grama' },
-  { valor: 'L', label: 'L — litro' },
-  { valor: 'mL', label: 'mL — mililitro' },
-  { valor: 'm', label: 'm — metro' },
-  { valor: 'cm', label: 'cm — centímetro' },
+  { valor: 'caixa', label: 'caixa' },
+  { valor: 'metro', label: 'metro' },
+  { valor: 'litro', label: 'litro' },
 ] as const
 
 export const UNIDADES_VALORES = UNIDADES_MEDIDA.map(u => u.valor) as readonly string[]
