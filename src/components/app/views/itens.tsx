@@ -114,8 +114,6 @@ export function ItensView() {
     })
   }, [])
 
-  useEffect(() => { carregar() }, [carregar])
-
   const filtrados = itens.filter(i => {
     if (categoriaFiltro !== 'todas' && i.categoria.nome !== categoriaFiltro) return false
     if (busca.trim() && !i.descricao.toLowerCase().includes(busca.toLowerCase())) return false
@@ -183,6 +181,7 @@ export function ItensView() {
                       <img
                         src={i.imagemUrl}
                         alt=""
+                        loading="lazy"
                         className="h-12 w-12 object-cover rounded border bg-muted shrink-0"
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                       />
@@ -251,6 +250,7 @@ export function ItensView() {
                             <img
                               src={i.imagemUrl}
                               alt=""
+                              loading="lazy"
                               className="h-10 w-10 object-cover rounded border bg-muted"
                               onError={(e) => {
                                 (e.target as HTMLImageElement).style.display = 'none'
