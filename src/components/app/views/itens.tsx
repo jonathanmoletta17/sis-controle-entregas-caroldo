@@ -19,14 +19,21 @@ import {
 } from '@/components/ui/table'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Plus, Search, Package, Pencil, ImagePlus, X, ImageOff } from 'lucide-react'
+import {
+  AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogFooter,
+  AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel,
+} from '@/components/ui/alert-dialog'
+import { Plus, Search, Package, Pencil, ImagePlus, X, ImageOff, Grid3x3, Trash2 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { CategoriaBadge } from '@/components/app/shared/badges'
 import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
 import { useCanWrite } from '@/hooks/use-can-write'
+import { useApp } from '@/components/app/app-context'
+import { UNIDADES_MEDIDA, UNIDADES_VALORES, UNIDADE_PADRAO } from '@/lib/unidades'
 
 interface Categoria { id: string; nome: string; descricao: string | null }
 interface Posto { id: string; nome: string; corCapacete: string | null }
+interface PostoSel { postoId: string; quantidadeEsperada: number; obrigatorio: boolean }
 interface Item {
   id: string
   descricao: string
@@ -36,13 +43,14 @@ interface Item {
   ativo: boolean
   categoriaId: string
   categoria: Categoria
-  postos?: Array<{ posto: Posto }>
+  postos?: Array<{ posto: Posto; quantidadeEsperada: number; obrigatorio: boolean }>
   _count?: { entregas: number }
 }
 
 export function ItensView() {
   const { toast } = useToast()
   const canWrite = useCanWrite()
+  const { setView } = useApp()
   const [itens, setItens] = useState<Item[]>([])
   const [categorias, setCategorias] = useState<Categoria[]>([])
   const [postos, setPostos] = useState<Posto[]>([])
@@ -52,6 +60,36 @@ export function ItensView() {
   const [showForm, setShowForm] = useState(false)
   const [editItem, setEditItem] = useState<Item | null>(null)
   const [visualizando, setVisualizando] = useState<Item | null>(null)
+  const [excluindo, setExcluindo] = useState<Item | null>(null)
+  const [bloqueioEntregas, setBloqueioEntregas] = useState<number | null>(null)
+  const [excluindoBusy, setExcluindoBusy] = useState(false)
+
+  const executarExclusao = async (modo?: 'desativar') => {
+    if (!excluindo) return
+    setExcluindoBusy(true)
+    try {
+      const url = `/api/itens/${excluindo.id}${modo ? `?modo=${modo}` : ''}`
+      const r = await fetch(url, { method: 'DELETE' })
+      if (r.status === 409) {
+        const d = await r.json().catch(() => ({}))
+        setBloqueioEntregas(typeof d.totalEntregas === 'number' ? d.totalEntregas : 0)
+        return
+      }
+      if (!r.ok) {
+        const d = await r.json().catch(() => ({}))
+        throw new Error(d.error || 'Erro ao excluir')
+      }
+      const d = await r.json().catch(() => ({}))
+      toast({ title: d.message || 'Item excluído' })
+      setExcluindo(null)
+      setBloqueioEntregas(null)
+      carregar()
+    } catch (e: any) {
+      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+    } finally {
+      setExcluindoBusy(false)
+    }
+  }
 
   const carregar = useCallback(() => {
     setLoading(true)
@@ -94,9 +132,14 @@ export function ItensView() {
           </p>
         </div>
         {canWrite && (
-          <Button onClick={() => setShowForm(true)}>
-            <Plus className="h-4 w-4 mr-1.5" /> Novo item
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" onClick={() => setView('matriz-metas')}>
+              <Grid3x3 className="h-4 w-4 mr-1.5" /> Configurar metas
+            </Button>
+            <Button onClick={() => setShowForm(true)}>
+              <Plus className="h-4 w-4 mr-1.5" /> Novo item
+            </Button>
+          </div>
         )}
       </div>
 
@@ -169,9 +212,14 @@ export function ItensView() {
                       <div className="text-xs text-muted-foreground mt-1">{i._count?.entregas || 0} entregas</div>
                     </div>
                     {canWrite && (
-                      <Button variant="ghost" size="icon" className="shrink-0" onClick={(e) => { e.stopPropagation(); setEditItem(i) }}>
-                        <Pencil className="h-3.5 w-3.5" />
-                      </Button>
+                      <div className="flex flex-col shrink-0">
+                        <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); setEditItem(i) }}>
+                          <Pencil className="h-3.5 w-3.5" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={(e) => { e.stopPropagation(); setBloqueioEntregas(null); setExcluindo(i) }}>
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
                     )}
                   </div>
                 ))}
@@ -243,9 +291,14 @@ export function ItensView() {
                         </TableCell>
                         <TableCell className="align-top" onClick={(e) => e.stopPropagation()}>
                           {canWrite && (
-                            <Button variant="ghost" size="icon" onClick={() => setEditItem(i)}>
-                              <Pencil className="h-3.5 w-3.5" />
-                            </Button>
+                            <div className="flex items-center gap-0.5">
+                              <Button variant="ghost" size="icon" onClick={() => setEditItem(i)}>
+                                <Pencil className="h-3.5 w-3.5" />
+                              </Button>
+                              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => { setBloqueioEntregas(null); setExcluindo(i) }}>
+                                <Trash2 className="h-3.5 w-3.5" />
+                              </Button>
+                            </div>
                           )}
                         </TableCell>
                       </TableRow>
@@ -294,6 +347,52 @@ export function ItensView() {
         open={!!visualizando}
         onOpenChange={(o) => !o && setVisualizando(null)}
       />
+
+      <AlertDialog open={!!excluindo} onOpenChange={(o) => { if (!o) { setExcluindo(null); setBloqueioEntregas(null) } }}>
+        <AlertDialogContent>
+          {bloqueioEntregas === null ? (
+            <>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Excluir item?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Esta ação remove <b>{excluindo?.descricao}</b> permanentemente do catálogo.
+                  Só é possível excluir itens sem entregas registradas.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={excluindoBusy}>Cancelar</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={(e) => { e.preventDefault(); executarExclusao() }}
+                  disabled={excluindoBusy}
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                >
+                  {excluindoBusy ? 'Excluindo...' : 'Excluir'}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </>
+          ) : (
+            <>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Não é possível excluir</AlertDialogTitle>
+                <AlertDialogDescription>
+                  <b>{excluindo?.descricao}</b> possui {bloqueioEntregas} {bloqueioEntregas === 1 ? 'entrega registrada' : 'entregas registradas'} e
+                  não pode ser excluído para preservar o histórico. Você pode <b>desativá-lo</b> — ele
+                  deixa de aparecer nos checklists, mas o histórico é mantido.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={excluindoBusy}>Cancelar</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={(e) => { e.preventDefault(); executarExclusao('desativar') }}
+                  disabled={excluindoBusy}
+                >
+                  {excluindoBusy ? 'Desativando...' : 'Desativar item'}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </>
+          )}
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }
@@ -308,19 +407,39 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
   const { toast } = useToast()
   const [form, setForm] = useState({
     descricao: item?.descricao || '',
-    unidade: item?.unidade || '1',
+    unidade: item?.unidade && UNIDADES_VALORES.includes(item.unidade) ? item.unidade : UNIDADE_PADRAO,
     categoriaId: item?.categoriaId || categorias[0]?.id || '',
     ativo: item?.ativo !== false,
   })
-  const [postosSelecionados, setPostosSelecionados] = useState<string[]>(
-    item?.postos?.map(p => p.posto.id) || []
+  const [postosSelecionados, setPostosSelecionados] = useState<PostoSel[]>(
+    item?.postos?.map(p => ({
+      postoId: p.posto.id,
+      quantidadeEsperada: p.quantidadeEsperada ?? 1,
+      obrigatorio: p.obrigatorio ?? true,
+    })) || []
   )
   const [imagem, setImagem] = useState<File | null>(null)
   const [imagemAtualRemovida, setImagemAtualRemovida] = useState(false)
   const [saving, setSaving] = useState(false)
 
   const togglePosto = (id: string) => {
-    setPostosSelecionados(prev => prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id])
+    setPostosSelecionados(prev =>
+      prev.some(p => p.postoId === id)
+        ? prev.filter(p => p.postoId !== id)
+        : [...prev, { postoId: id, quantidadeEsperada: 1, obrigatorio: true }]
+    )
+  }
+
+  const setQuantidade = (id: string, valor: number) => {
+    setPostosSelecionados(prev => prev.map(p =>
+      p.postoId === id ? { ...p, quantidadeEsperada: Math.max(1, valor || 1) } : p
+    ))
+  }
+
+  const setObrigatorio = (id: string, obrigatorio: boolean) => {
+    setPostosSelecionados(prev => prev.map(p =>
+      p.postoId === id ? { ...p, obrigatorio } : p
+    ))
   }
 
   const selecionarImagem = (f: File) => {
@@ -405,21 +524,14 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label>Unidade</Label>
-              <Input
-                type="number"
-                min="1"
-                step="1"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                value={form.unidade}
-                onChange={e => {
-                  const v = e.target.value.replace(/\D/g, '')
-                  setForm(f => ({ ...f, unidade: v || '1' }))
-                }}
-                placeholder="1"
-              />
-              <p className="text-xs text-muted-foreground">Apenas números inteiros positivos.</p>
+              <Label>Unidade de medida</Label>
+              <Select value={form.unidade} onValueChange={v => setForm(f => ({ ...f, unidade: v }))}>
+                <SelectTrigger><SelectValue placeholder="Selecione" /></SelectTrigger>
+                <SelectContent>
+                  {UNIDADES_MEDIDA.map(u => <SelectItem key={u.valor} value={u.valor}>{u.label}</SelectItem>)}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">Como este item é contado (unidade, par, caixa…).</p>
             </div>
           </div>
 
@@ -493,26 +605,57 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
 
           <div className="space-y-1.5">
             <Label>Postos vinculados</Label>
-            <div className="border rounded-md p-3 max-h-48 overflow-y-auto space-y-2">
-              {postos.map(p => (
-                <label key={p.id} className="flex items-center gap-2 cursor-pointer hover:bg-accent/50 -mx-1 px-1 py-0.5 rounded">
-                  <Checkbox
-                    checked={postosSelecionados.includes(p.id)}
-                    onCheckedChange={() => togglePosto(p.id)}
-                  />
-                  <span className="text-sm flex-1">{p.nome}</span>
-                  {p.corCapacete && (
-                    <span className={`h-2 w-2 rounded-full inline-block ${
-                      p.corCapacete === 'Amarelo' ? 'bg-yellow-400' :
-                      p.corCapacete === 'Azul' ? 'bg-blue-500' :
-                      p.corCapacete === 'Laranja' ? 'bg-orange-500' :
-                      p.corCapacete === 'Verde' ? 'bg-green-500' : 'bg-gray-400'
-                    }`} />
-                  )}
-                </label>
-              ))}
+            <p className="text-xs text-muted-foreground">
+              Marque o posto e defina quantos deste item ele deve receber (meta) e se é obrigatório.
+            </p>
+            <div className="border rounded-md divide-y max-h-64 overflow-y-auto">
+              {postos.map(p => {
+                const sel = postosSelecionados.find(x => x.postoId === p.id)
+                return (
+                  <div key={p.id} className="p-2.5">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <Checkbox
+                        checked={!!sel}
+                        onCheckedChange={() => togglePosto(p.id)}
+                      />
+                      <span className="text-sm flex-1">{p.nome}</span>
+                      {p.corCapacete && (
+                        <span className={`h-2 w-2 rounded-full inline-block ${
+                          p.corCapacete === 'Amarelo' ? 'bg-yellow-400' :
+                          p.corCapacete === 'Azul' ? 'bg-blue-500' :
+                          p.corCapacete === 'Laranja' ? 'bg-orange-500' :
+                          p.corCapacete === 'Verde' ? 'bg-green-500' : 'bg-gray-400'
+                        }`} />
+                      )}
+                    </label>
+                    {sel && (
+                      <div className="flex items-center gap-3 mt-2 pl-6">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs text-muted-foreground">Qtd. esperada</span>
+                          <Input
+                            type="number"
+                            min="1"
+                            step="1"
+                            inputMode="numeric"
+                            className="h-8 w-16 text-center tabular-nums"
+                            value={sel.quantidadeEsperada}
+                            onChange={e => setQuantidade(p.id, parseInt(e.target.value, 10))}
+                          />
+                        </div>
+                        <label className="flex items-center gap-1.5 cursor-pointer">
+                          <Checkbox
+                            checked={sel.obrigatorio}
+                            onCheckedChange={(v) => setObrigatorio(p.id, !!v)}
+                          />
+                          <span className="text-xs">Obrigatório</span>
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
               {postos.length === 0 && (
-                <p className="text-xs text-muted-foreground">Nenhum posto cadastrado.</p>
+                <p className="text-xs text-muted-foreground p-3">Nenhum posto cadastrado.</p>
               )}
             </div>
             <p className="text-xs text-muted-foreground">

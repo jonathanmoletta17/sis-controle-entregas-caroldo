@@ -120,7 +120,7 @@ export function DashboardView() {
         <CardHeader>
           <CardTitle className="text-lg">Pendências por posto</CardTitle>
           <CardDescription>
-            Comparação entre itens esperados (colaboradores × itens do posto) e itens efetivamente entregues
+            Unidades esperadas (soma das metas de cada colaborador do posto) vs. unidades efetivamente entregues
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -137,7 +137,7 @@ export function DashboardView() {
                   </div>
                   <div className="text-sm tabular-nums">
                     <span className="font-semibold text-emerald-600">{p.totalEntregue}</span>
-                    <span className="text-muted-foreground"> / {p.totalEsperado} entregues</span>
+                    <span className="text-muted-foreground"> / {p.totalEsperado} unidades</span>
                     {p.pendentes > 0 && (
                       <span className="text-rose-600 ml-2">({p.pendentes} pend.)</span>
                     )}

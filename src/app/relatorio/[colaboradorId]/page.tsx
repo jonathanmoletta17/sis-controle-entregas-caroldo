@@ -31,6 +31,11 @@ interface RelatorioData {
     descricao: string
     unidade: string
     imagemUrl: string | null
+    quantidadeEsperada: number
+    entregueQtd: number
+    saldo: number
+    status: 'pendente' | 'parcial' | 'completo'
+    obrigatorio: boolean
     entregue: boolean
     ultimaEntrega: string | null
     totalEntregas: number
@@ -40,6 +45,8 @@ interface RelatorioData {
     totalEntregues: number
     totalPendentes: number
     percentual: number
+    unidadesEsperadas?: number
+    unidadesEntregues?: number
   }
   geradoEm: string
 }
@@ -188,12 +195,12 @@ export default function RelatorioPage({ params }: { params: Promise<{ colaborado
         {/* Estatísticas resumo */}
         <div className="mb-6 flex items-center justify-between border border-gray-300 rounded p-3 text-[10pt]">
           <div>
-            <span className="font-semibold">Resumo do checklist:</span>{' '}
-            <span className="text-emerald-700 font-bold">{s.totalEntregues} entregues</span>
+            <span className="font-semibold">Itens obrigatórios:</span>{' '}
+            <span className="text-emerald-700 font-bold">{s.totalEntregues} completos</span>
             {' · '}
             <span className="text-amber-700 font-bold">{s.totalPendentes} pendentes</span>
             {' · '}
-            <span>de {s.totalItens} itens esperados</span>
+            <span>{s.totalItens} itens no total (inclui opcionais)</span>
           </div>
           <div className="text-[14pt] font-bold">{s.percentual}% concluído</div>
         </div>
@@ -202,23 +209,25 @@ export default function RelatorioPage({ params }: { params: Promise<{ colaborado
         {Object.entries(porCategoria).map(([categoria, itens]) => (
           <div key={categoria} className="mb-5">
             <h3 className="text-[11pt] font-bold mb-1.5 border-b border-gray-300 pb-0.5">
-              {categoria} ({itens.length} {itens.length === 1 ? 'item' : 'itens'} — {itens.filter(i => i.entregue).length} entregues)
+              {categoria} ({itens.length} {itens.length === 1 ? 'item' : 'itens'} — {itens.filter(i => i.status === 'completo').length} completos)
             </h3>
             <table className="w-full text-[9pt] border-collapse">
               <thead>
                 <tr className="border-b border-gray-400 bg-gray-50">
                   <th className="py-1 px-1.5 text-left w-[5%]">Status</th>
-                  <th className="py-1 px-1.5 text-left w-[8%]">Imagem</th>
-                  <th className="py-1 px-1.5 text-left w-[60%]">Descrição do item</th>
-                  <th className="py-1 px-1.5 text-center w-[8%]">Unid.</th>
-                  <th className="py-1 px-1.5 text-left w-[19%]">Última entrega</th>
+                  <th className="py-1 px-1.5 text-left w-[7%]">Imagem</th>
+                  <th className="py-1 px-1.5 text-left w-[45%]">Descrição do item</th>
+                  <th className="py-1 px-1.5 text-center w-[8%]">Esperado</th>
+                  <th className="py-1 px-1.5 text-center w-[8%]">Entregue</th>
+                  <th className="py-1 px-1.5 text-center w-[7%]">Saldo</th>
+                  <th className="py-1 px-1.5 text-left w-[20%]">Última entrega</th>
                 </tr>
               </thead>
               <tbody>
                 {itens.map(item => (
                   <tr key={item.itemId} className="border-b border-gray-200">
                     <td className="py-1 px-1.5 text-center text-[11pt]">
-                      {item.entregue ? '✓' : '○'}
+                      {item.status === 'completo' ? '✓' : item.status === 'parcial' ? '◐' : '○'}
                     </td>
                     <td className="py-1 px-1.5">
                       {item.imagemUrl ? (
@@ -232,10 +241,15 @@ export default function RelatorioPage({ params }: { params: Promise<{ colaborado
                         <div className="h-10 w-10 rounded border bg-gray-100" />
                       )}
                     </td>
-                    <td className="py-1 px-1.5">{item.descricao}</td>
-                    <td className="py-1 px-1.5 text-center">{item.unidade}</td>
                     <td className="py-1 px-1.5">
-                      {item.entregue ? (
+                      {item.descricao}
+                      {!item.obrigatorio && <span className="text-gray-500 text-[8pt]"> (opcional)</span>}
+                    </td>
+                    <td className="py-1 px-1.5 text-center tabular-nums">{item.quantidadeEsperada}</td>
+                    <td className="py-1 px-1.5 text-center tabular-nums">{item.entregueQtd}</td>
+                    <td className="py-1 px-1.5 text-center tabular-nums">{item.saldo > 0 ? item.saldo : '—'}</td>
+                    <td className="py-1 px-1.5">
+                      {item.entregueQtd > 0 ? (
                         <span>
                           {formatDate(item.ultimaEntrega)}
                           {item.totalEntregas > 1 && (

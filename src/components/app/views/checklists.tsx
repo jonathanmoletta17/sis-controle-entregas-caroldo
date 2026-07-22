@@ -15,7 +15,7 @@ import {
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select'
-import { ClipboardList, CheckCircle2, Circle, Truck, ChevronRight, Paperclip, X, FileText, Camera } from 'lucide-react'
+import { ClipboardList, CheckCircle2, Circle, CircleDashed, Truck, ChevronRight, Paperclip, X, FileText, Camera } from 'lucide-react'
 import { useApp } from '@/components/app/app-context'
 import { CategoriaBadge } from '@/components/app/shared/badges'
 import { formatDate, todayISO } from '@/components/app/shared/format'
@@ -38,7 +38,10 @@ interface ChecklistItem {
   unidade: string
   quantidadeEsperada: number
   obrigatorio: boolean
-  entregas: Array<{ id: string; dataEntrega: string; observacao: string | null }>
+  entregas: Array<{ id: string; dataEntrega: string; observacao: string | null; quantidade?: number }>
+  entregueQtd: number
+  saldo: number
+  status: 'pendente' | 'parcial' | 'completo'
   entregue: boolean
   ultimaEntrega: string | null
   imagemUrl?: string | null
@@ -59,6 +62,13 @@ interface ChecklistData {
     totalEntregues: number
     totalPendentes: number
     percentual: number
+    itensCompletos?: number
+    itensParciais?: number
+    itensPendentes?: number
+    itensOpcionais?: number
+    opcionaisCompletos?: number
+    unidadesEsperadas?: number
+    unidadesEntregues?: number
   }
 }
 
@@ -257,17 +267,34 @@ export function ChecklistsView() {
                 </div>
               </div>
               <Progress value={checklist.estatisticas.percentual} className="h-2" />
-              <div className="flex items-center gap-4 text-sm">
+              <div className="flex items-center gap-4 text-sm flex-wrap">
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                  <b>{checklist.estatisticas.totalEntregues}</b> entregues
+                  <b>{checklist.estatisticas.itensCompletos ?? checklist.estatisticas.totalEntregues}</b> completos
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CircleDashed className="h-4 w-4 text-amber-500" />
+                  <b>{checklist.estatisticas.itensParciais ?? 0}</b> parciais
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Circle className="h-4 w-4 text-muted-foreground" />
-                  <b>{checklist.estatisticas.totalPendentes}</b> pendentes
+                  <b>{checklist.estatisticas.itensPendentes ?? checklist.estatisticas.totalPendentes}</b> pendentes
                 </span>
-                <span className="text-muted-foreground">de {checklist.estatisticas.totalItens} itens esperados</span>
+                <span className="text-muted-foreground">obrigatórios</span>
+                {checklist.estatisticas.unidadesEsperadas !== undefined && (
+                  <span className="text-muted-foreground tabular-nums">
+                    · {checklist.estatisticas.unidadesEntregues}/{checklist.estatisticas.unidadesEsperadas} unidades obrigatórias
+                  </span>
+                )}
+                {!!checklist.estatisticas.itensOpcionais && (
+                  <span className="text-muted-foreground">
+                    · {checklist.estatisticas.opcionaisCompletos ?? 0}/{checklist.estatisticas.itensOpcionais} opcionais entregues
+                  </span>
+                )}
               </div>
+              <p className="text-xs text-muted-foreground">
+                O percentual considera apenas itens obrigatórios. Opcionais são rastreados, mas não afetam a nota.
+              </p>
             </CardContent>
           </Card>
 
@@ -290,8 +317,10 @@ export function ChecklistsView() {
                   {itens.map(item => (
                     <div key={item.itemId} className="flex items-start gap-3 p-3 hover:bg-accent/30">
                       <div className="shrink-0 mt-0.5">
-                        {item.entregue ? (
+                        {item.status === 'completo' ? (
                           <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                        ) : item.status === 'parcial' ? (
+                          <CircleDashed className="h-5 w-5 text-amber-500" />
                         ) : (
                           <Circle className="h-5 w-5 text-muted-foreground" />
                         )}
@@ -311,11 +340,27 @@ export function ChecklistsView() {
                           className="text-left hover:underline"
                           title="Clique para ver a imagem do item"
                         >
-                          <div className={`text-sm ${item.entregue ? 'text-muted-foreground line-through' : 'font-medium'}`}>
+                          <div className={`text-sm ${item.status === 'completo' ? 'text-muted-foreground line-through' : 'font-medium'}`}>
                             {item.descricao}
                           </div>
                         </button>
-                        {item.entregue && (
+                        <div className="flex items-center gap-2 mt-1 flex-wrap">
+                          <Badge
+                            variant="outline"
+                            className={`text-xs tabular-nums ${
+                              item.status === 'completo' ? 'border-emerald-300 text-emerald-700' :
+                              item.status === 'parcial' ? 'border-amber-300 text-amber-700' :
+                              'text-muted-foreground'
+                            }`}
+                          >
+                            {item.entregueQtd} de {item.quantidadeEsperada}
+                            {item.saldo > 0 && ` · faltam ${item.saldo}`}
+                          </Badge>
+                          {!item.obrigatorio && (
+                            <Badge variant="secondary" className="text-xs">Opcional</Badge>
+                          )}
+                        </div>
+                        {item.entregueQtd > 0 && (
                           <div className="text-xs text-muted-foreground mt-0.5">
                             Última entrega: {formatDate(item.ultimaEntrega)}
                             {item.entregas.length > 1 && ` · ${item.entregas.length} entregas registradas`}

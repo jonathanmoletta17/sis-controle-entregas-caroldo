@@ -6,6 +6,7 @@ import { DashboardView } from '@/components/app/views/dashboard'
 import { ColaboradoresView } from '@/components/app/views/colaboradores'
 import { ColaboradorDetalheView } from '@/components/app/views/colaborador-detalhe'
 import { ItensView } from '@/components/app/views/itens'
+import { MatrizMetasView } from '@/components/app/views/matriz-metas'
 import { ChecklistsView } from '@/components/app/views/checklists'
 import { EntregasView } from '@/components/app/views/entregas'
 import { PendenciasView } from '@/components/app/views/pendencias'
@@ -20,6 +21,7 @@ function MainContent() {
         {view === 'colaboradores' && <ColaboradoresView />}
         {view === 'colaborador-detalhe' && <ColaboradorDetalheView />}
         {view === 'itens' && <ItensView />}
+        {view === 'matriz-metas' && <MatrizMetasView />}
         {view === 'checklists' && <ChecklistsView />}
         {view === 'entregas' && <EntregasView />}
         {view === 'pendencias' && <PendenciasView />}

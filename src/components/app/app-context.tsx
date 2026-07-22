@@ -7,6 +7,7 @@ export type View =
   | 'colaboradores'
   | 'colaborador-detalhe'
   | 'itens'
+  | 'matriz-metas'
   | 'checklists'
   | 'entregas'
   | 'pendencias'
