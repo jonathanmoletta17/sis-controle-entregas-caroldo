@@ -2,7 +2,42 @@ import { put } from '@vercel/blob'
 import fs from 'fs/promises'
 import path from 'path'
 import crypto from 'crypto'
+import sharp from 'sharp'
 import { NextRequest, NextResponse } from 'next/server'
+
+// Pastas cujo conteúdo é sempre imagem exibida como miniatura/preview (catálogo
+// de itens, foto de confirmação de entrega) — redimensionamos para não guardar
+// nem servir fotos de câmera/celular em resolução original só para mostrar um
+// quadrado de 40-64px na tela. 'anexos' fica de fora porque pode ser PDF/DOC e,
+// quando é imagem (documento escaneado), queremos preservar legibilidade.
+const PASTAS_REDIMENSIONAVEIS = new Set(['itens', 'entregas-fotos'])
+const LADO_MAXIMO_PX = 800
+const QUALIDADE_JPEG_WEBP = 82
+
+async function redimensionarSeImagem(buffer: Buffer, mimeType: string): Promise<Buffer> {
+  if (!mimeType.startsWith('image/')) return buffer
+  try {
+    const imagem = sharp(buffer).rotate() // aplica orientação EXIF antes de medir/redimensionar
+    const metadata = await imagem.metadata()
+    if ((metadata.width ?? 0) <= LADO_MAXIMO_PX && (metadata.height ?? 0) <= LADO_MAXIMO_PX) {
+      return buffer // já é pequena, não reprocessa (evita perda de qualidade à toa)
+    }
+    const redimensionada = imagem.resize({
+      width: LADO_MAXIMO_PX,
+      height: LADO_MAXIMO_PX,
+      fit: 'inside',
+      withoutEnlargement: true,
+    })
+    if (metadata.format === 'png') return await redimensionada.png({ compressionLevel: 8 }).toBuffer()
+    if (metadata.format === 'webp') return await redimensionada.webp({ quality: QUALIDADE_JPEG_WEBP }).toBuffer()
+    if (metadata.format === 'gif') return buffer // evita perder animação; gif de item costuma já ser pequeno
+    return await redimensionada.jpeg({ quality: QUALIDADE_JPEG_WEBP }).toBuffer()
+  } catch {
+    // Se o sharp não conseguir processar (arquivo corrompido, formato exótico),
+    // não bloqueia o upload — segue com o arquivo original.
+    return buffer
+  }
+}
 
 // Rejeita requisições grandes demais ANTES de req.formData() ler o corpo inteiro
 // para memória. Sem essa checagem via Content-Length, um upload muito grande é
@@ -35,7 +70,11 @@ export async function saveUpload(
   const ext = path.extname(file.name).toLowerCase()
   const hash = crypto.randomBytes(8).toString('hex')
   const nomeArquivo = `${Date.now()}-${hash}${ext}`
-  const buffer = Buffer.from(await file.arrayBuffer())
+  let buffer: Buffer = Buffer.from(await file.arrayBuffer())
+
+  if (PASTAS_REDIMENSIONAVEIS.has(pasta)) {
+    buffer = Buffer.from(await redimensionarSeImagem(buffer, file.type || ''))
+  }
 
   const usarBlob = !!process.env.VERCEL || !!process.env.BLOB_READ_WRITE_TOKEN
   if (usarBlob) {
