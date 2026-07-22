@@ -37,46 +37,61 @@ async function matrizPorPosto(postoId: string) {
   const colabIds = colaboradores.map(c => c.id)
   const itemIds = itensPosto.map(ip => ip.itemId)
 
+  // Soma das quantidades entregues por colaborador+item
   const entregas = colabIds.length && itemIds.length
-    ? await db.entrega.findMany({
+    ? await db.entrega.groupBy({
+        by: ['colaboradorId', 'itemId'],
         where: { colaboradorId: { in: colabIds }, itemId: { in: itemIds } },
-        select: { colaboradorId: true, itemId: true },
-        distinct: ['colaboradorId', 'itemId'],
+        _sum: { quantidade: true },
       })
     : []
 
-  const entregueSet = new Set(entregas.map(e => `${e.colaboradorId}__${e.itemId}`))
+  const entregueQtdMap = new Map<string, number>()
+  for (const e of entregas) {
+    entregueQtdMap.set(`${e.colaboradorId}__${e.itemId}`, e._sum.quantidade || 0)
+  }
+  const esperadaPorItem = new Map<string, number>()
+  for (const ip of itensPosto) esperadaPorItem.set(ip.itemId, ip.quantidadeEsperada || 1)
 
   const porCategoria: Record<string, Array<{
     itemId: string
     descricao: string
     imagemUrl: string | null
-    entregasPorColaborador: Record<string, boolean>
+    quantidadeEsperada: number
+    entregasPorColaborador: Record<string, { entregue: number; esperada: number; completo: boolean }>
   }>> = {}
 
   for (const ip of itensPosto) {
     const cat = ip.item.categoria.nome
     if (!porCategoria[cat]) porCategoria[cat] = []
-    const entregasPorColaborador: Record<string, boolean> = {}
+    const esperada = ip.quantidadeEsperada || 1
+    const entregasPorColaborador: Record<string, { entregue: number; esperada: number; completo: boolean }> = {}
     for (const c of colaboradores) {
-      entregasPorColaborador[c.id] = entregueSet.has(`${c.id}__${ip.itemId}`)
+      const entregue = entregueQtdMap.get(`${c.id}__${ip.itemId}`) || 0
+      entregasPorColaborador[c.id] = { entregue, esperada, completo: entregue >= esperada }
     }
     porCategoria[cat].push({
       itemId: ip.itemId,
       descricao: ip.item.descricao,
       imagemUrl: ip.item.imagemUrl,
+      quantidadeEsperada: esperada,
       entregasPorColaborador,
     })
   }
 
-  // Percentual de conclusão por colaborador
+  // Percentual de conclusão por colaborador — ponderado por quantidade, só obrigatórios
+  const obrigatorios = itensPosto.filter(ip => ip.obrigatorio)
+  const totalEsperadoColab = obrigatorios.reduce((s, ip) => s + (ip.quantidadeEsperada || 1), 0)
   const colaboradoresComPercentual = colaboradores.map(c => {
-    const totalItens = itemIds.length
-    const entregues = itemIds.filter(itemId => entregueSet.has(`${c.id}__${itemId}`)).length
+    const entregueColab = obrigatorios.reduce((s, ip) => {
+      const esperada = ip.quantidadeEsperada || 1
+      const entregue = entregueQtdMap.get(`${c.id}__${ip.itemId}`) || 0
+      return s + Math.min(entregue, esperada)
+    }, 0)
     return {
       id: c.id,
       nomeCompleto: c.nomeCompleto,
-      percentual: totalItens > 0 ? Math.round((entregues / totalItens) * 100) : 0,
+      percentual: totalEsperadoColab > 0 ? Math.round((entregueColab / totalEsperadoColab) * 100) : 0,
     }
   })
 
@@ -92,30 +107,38 @@ async function resumoTodosPostos() {
   const postos = await db.posto.findMany({
     include: {
       colaboradores: { where: { ativo: true }, select: { id: true } },
-      itensPosto: { select: { itemId: true } },
+      itensPosto: { select: { itemId: true, quantidadeEsperada: true, obrigatorio: true } },
     },
     orderBy: { nome: 'asc' },
   })
 
-  // Todas as entregas distintas (colaborador ativo, sem duplicar item já entregue mais de uma vez)
+  // Soma das quantidades entregues por colaborador+item (colaboradores ativos)
   const colabAtivosIds = postos.flatMap(p => p.colaboradores.map(c => c.id))
   const entregas = colabAtivosIds.length
-    ? await db.entrega.findMany({
+    ? await db.entrega.groupBy({
+        by: ['colaboradorId', 'itemId'],
         where: { colaboradorId: { in: colabAtivosIds } },
-        select: { colaboradorId: true, itemId: true },
-        distinct: ['colaboradorId', 'itemId'],
+        _sum: { quantidade: true },
       })
     : []
-  const entregueSet = new Set(entregas.map(e => `${e.colaboradorId}__${e.itemId}`))
+  const entregueQtdMap = new Map<string, number>()
+  for (const e of entregas) {
+    entregueQtdMap.set(`${e.colaboradorId}__${e.itemId}`, e._sum.quantidade || 0)
+  }
 
   const resumo = postos.map(p => {
     const colaboradoresAtivos = p.colaboradores.length
     const itensEsperados = p.itensPosto.length
-    const totalPares = colaboradoresAtivos * itensEsperados
-    let paresEntregues = 0
+    // Unidades esperadas = para cada colaborador, a soma das metas obrigatórias do posto
+    const obrigatorios = p.itensPosto.filter(ip => ip.obrigatorio)
+    const esperadoPorColab = obrigatorios.reduce((s, ip) => s + (ip.quantidadeEsperada || 1), 0)
+    const unidadesEsperadas = colaboradoresAtivos * esperadoPorColab
+    let unidadesEntregues = 0
     for (const c of p.colaboradores) {
-      for (const ip of p.itensPosto) {
-        if (entregueSet.has(`${c.id}__${ip.itemId}`)) paresEntregues++
+      for (const ip of obrigatorios) {
+        const esperada = ip.quantidadeEsperada || 1
+        const entregue = entregueQtdMap.get(`${c.id}__${ip.itemId}`) || 0
+        unidadesEntregues += Math.min(entregue, esperada)
       }
     }
     return {
@@ -124,10 +147,10 @@ async function resumoTodosPostos() {
       corCapacete: p.corCapacete,
       colaboradoresAtivos,
       itensEsperados,
-      totalPares,
-      paresEntregues,
-      pendentes: totalPares - paresEntregues,
-      percentual: totalPares > 0 ? Math.round((paresEntregues / totalPares) * 100) : 0,
+      totalPares: unidadesEsperadas,
+      paresEntregues: unidadesEntregues,
+      pendentes: unidadesEsperadas - unidadesEntregues,
+      percentual: unidadesEsperadas > 0 ? Math.round((unidadesEntregues / unidadesEsperadas) * 100) : 0,
     }
   })
 

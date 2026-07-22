@@ -21,43 +21,56 @@ export async function GET(_req: NextRequest) {
       }),
     ])
 
-    // Pendências por posto: para cada posto, contar itens esperados (itemPosto) e verificar
-    // quais colaboradores daquele posto NÃO receberam cada item
+    // Pendências por posto — ponderado por quantidade (meta por posto vs. soma entregue)
     const postos = await db.posto.findMany({
       include: {
         colaboradores: { where: { ativo: true }, select: { id: true } },
-        itensPosto: { include: { item: { select: { id: true, descricao: true } } } },
+        itensPosto: { select: { itemId: true, quantidadeEsperada: true, obrigatorio: true } },
       },
     })
 
-    const pendenciasPorPosto = await Promise.all(
-      postos.map(async (p) => {
-        const colaboradoresAtivos = p.colaboradores.length
-        const itensEsperados = p.itensPosto.length
-        // total esperado = itens × colaboradores ativos
-        const totalEsperado = itensEsperados * colaboradoresAtivos
-
-        // total entregue: contar Entregas onde item pertence a este posto (via ItemPosto)
-        // e colaborador está neste posto
-        // Para simplicidade no MVP, contar entregas para colaboradores deste posto
-        const entregasParaColaboradoresDoPosto = await db.entrega.count({
-          where: { colaborador: { postoId: p.id, ativo: true } },
+    // Soma das quantidades entregues por colaborador+item (colaboradores ativos)
+    const colabAtivosIds = postos.flatMap(p => p.colaboradores.map(c => c.id))
+    const entregasAgrupadas = colabAtivosIds.length
+      ? await db.entrega.groupBy({
+          by: ['colaboradorId', 'itemId'],
+          where: { colaboradorId: { in: colabAtivosIds } },
+          _sum: { quantidade: true },
         })
+      : []
+    const entregueQtdMap = new Map<string, number>()
+    for (const e of entregasAgrupadas) {
+      entregueQtdMap.set(`${e.colaboradorId}__${e.itemId}`, e._sum.quantidade || 0)
+    }
 
-        const pendentes = Math.max(0, totalEsperado - entregasParaColaboradoresDoPosto)
-        return {
-          postoId: p.id,
-          postoNome: p.nome,
-          corCapacete: p.corCapacete,
-          colaboradoresAtivos,
-          itensEsperados,
-          totalEsperado,
-          totalEntregue: entregasParaColaboradoresDoPosto,
-          pendentes,
-          percentual: totalEsperado > 0 ? Math.round((entregasParaColaboradoresDoPosto / totalEsperado) * 100) : 0,
+    const pendenciasPorPosto = postos.map((p) => {
+      const colaboradoresAtivos = p.colaboradores.length
+      const itensEsperados = p.itensPosto.length
+      // Percentual/unidades consideram só itens obrigatórios (opcionais não pesam)
+      const obrigatorios = p.itensPosto.filter(ip => ip.obrigatorio)
+      const esperadoPorColab = obrigatorios.reduce((s, ip) => s + (ip.quantidadeEsperada || 1), 0)
+      const totalEsperado = colaboradoresAtivos * esperadoPorColab
+      let totalEntregue = 0
+      for (const c of p.colaboradores) {
+        for (const ip of obrigatorios) {
+          const esperada = ip.quantidadeEsperada || 1
+          const entregue = entregueQtdMap.get(`${c.id}__${ip.itemId}`) || 0
+          totalEntregue += Math.min(entregue, esperada)
         }
-      })
-    )
+      }
+      const pendentes = Math.max(0, totalEsperado - totalEntregue)
+      return {
+        postoId: p.id,
+        postoNome: p.nome,
+        corCapacete: p.corCapacete,
+        colaboradoresAtivos,
+        itensEsperados,
+        totalEsperado,
+        totalEntregue,
+        pendentes,
+        percentual: totalEsperado > 0 ? Math.round((totalEntregue / totalEsperado) * 100) : 0,
+      }
+    })
 
     return NextResponse.json({
       kpis: {

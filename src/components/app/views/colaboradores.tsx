@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
+  Dialog, DialogContent, DialogBody, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
 } from '@/components/ui/dialog'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -278,7 +278,7 @@ function NovoColaboradorForm({ onClose, onCreated }: { onClose: () => void; onCr
 
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-w-lg">
+      <DialogContent size="md" className="p-0">
         <DialogHeader>
           <DialogTitle>Cadastrar terceirizado</DialogTitle>
           <DialogDescription>
@@ -286,7 +286,7 @@ function NovoColaboradorForm({ onClose, onCreated }: { onClose: () => void; onCr
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 py-2">
+        <DialogBody className="space-y-4 py-2">
           <div className="space-y-1.5">
             <Label htmlFor="nome">Nome completo *</Label>
             <Input
@@ -360,7 +360,7 @@ function NovoColaboradorForm({ onClose, onCreated }: { onClose: () => void; onCr
               rows={2}
             />
           </div>
-        </div>
+        </DialogBody>
 
         <DialogFooter>
           <Button variant="outline" onClick={onClose} disabled={saving}>Cancelar</Button>

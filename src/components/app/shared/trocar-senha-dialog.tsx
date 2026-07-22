@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { PasswordInput } from '@/components/ui/password-input'
 import { Label } from '@/components/ui/label'
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
+  Dialog, DialogContent, DialogBody, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
 } from '@/components/ui/dialog'
 import { useToast } from '@/hooks/use-toast'
 
@@ -52,12 +52,12 @@ export function TrocarSenhaDialog({ open, onClose }: { open: boolean; onClose: (
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && fechar()}>
-      <DialogContent className="max-w-sm">
+      <DialogContent size="sm" className="p-0">
         <DialogHeader>
           <DialogTitle>Trocar senha</DialogTitle>
           <DialogDescription>Informe sua senha atual e a nova senha desejada.</DialogDescription>
         </DialogHeader>
-        <div className="space-y-3 py-2">
+        <DialogBody className="space-y-3">
           <div className="space-y-1.5">
             <Label>Senha atual</Label>
             <PasswordInput value={senhaAtual} onChange={e => setSenhaAtual(e.target.value)} autoFocus />
@@ -70,7 +70,7 @@ export function TrocarSenhaDialog({ open, onClose }: { open: boolean; onClose: (
             <Label>Confirmar nova senha</Label>
             <PasswordInput value={confirmacao} onChange={e => setConfirmacao(e.target.value)} />
           </div>
-        </div>
+        </DialogBody>
         <DialogFooter>
           <Button variant="outline" onClick={fechar}>Cancelar</Button>
           <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Trocar senha'}</Button>

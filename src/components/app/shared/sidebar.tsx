@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { useSession, signOut } from 'next-auth/react'
 import { TrocarSenhaDialog } from './trocar-senha-dialog'
+import { ThemeToggle } from './theme-toggle'
 import {
   LayoutDashboard,
   Users,
@@ -60,10 +61,10 @@ export function Sidebar() {
           return (
             <Button
               key={item.id}
-              variant={isActive ? 'secondary' : 'ghost'}
+              variant="ghost"
               className={cn(
                 'w-full justify-start gap-3 h-10 text-sm',
-                isActive && 'bg-secondary text-secondary-foreground font-medium'
+                isActive && 'bg-primary/10 text-primary font-medium hover:bg-primary/15 hover:text-primary dark:bg-primary/15 dark:hover:bg-primary/20'
               )}
               onClick={() => setView(item.id)}
             >
@@ -121,6 +122,7 @@ function UsuarioLogado() {
         <div className="text-xs text-muted-foreground truncate">{session.user.email}</div>
       </div>
       <div className="flex items-center shrink-0">
+        <ThemeToggle />
         <Button
           variant="ghost"
           size="icon"
@@ -157,6 +159,7 @@ export function MobileNav() {
           className="h-9 w-9 object-contain shrink-0"
         />
         <span className="text-sm font-semibold flex-1">FISCCON</span>
+        <ThemeToggle />
         <Button
           variant="ghost"
           size="icon"
@@ -184,9 +187,12 @@ export function MobileNav() {
           return (
             <Button
               key={item.id}
-              variant={isActive ? 'secondary' : 'ghost'}
+              variant="ghost"
               size="sm"
-              className={cn('gap-2 shrink-0', isActive && 'font-medium')}
+              className={cn(
+                'gap-2 shrink-0',
+                isActive && 'bg-primary/10 text-primary font-medium hover:bg-primary/15 hover:text-primary dark:bg-primary/15 dark:hover:bg-primary/20'
+              )}
               onClick={() => setView(item.id)}
             >
               <Icon className="h-4 w-4" />

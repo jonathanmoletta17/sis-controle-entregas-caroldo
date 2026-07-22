@@ -39,35 +39,60 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ colaborado
       orderBy: { item: { descricao: 'asc' } },
     })
 
-    // Agrupar por categoria
+    // Agrupar por categoria — com quantidade esperada, entregue e saldo
     const porCategoria: Record<string, Array<{
       itemId: string
       descricao: string
       unidade: string
       imagemUrl: string | null
+      quantidadeEsperada: number
+      entregueQtd: number
+      saldo: number
+      status: 'pendente' | 'parcial' | 'completo'
+      obrigatorio: boolean
       entregue: boolean
       ultimaEntrega: string | null
       totalEntregas: number
     }>> = {}
 
+    let unidadesEsperadas = 0
+    let unidadesEntregues = 0
+    let itensCompletos = 0
+    let obrigatoriosTotal = 0
+
     for (const ip of itensPosto) {
       const cat = ip.item.categoria.nome
       if (!porCategoria[cat]) porCategoria[cat] = []
+      const esperada = ip.quantidadeEsperada || 1
+      const entregueQtd = ip.item.entregas.reduce((s, e) => s + (e.quantidade || 0), 0)
+      const status = entregueQtd <= 0 ? 'pendente' : entregueQtd >= esperada ? 'completo' : 'parcial'
+      // Percentual/contadores só com obrigatórios (opcionais aparecem mas não pesam)
+      if (ip.obrigatorio) {
+        obrigatoriosTotal++
+        unidadesEsperadas += esperada
+        unidadesEntregues += Math.min(entregueQtd, esperada)
+        if (status === 'completo') itensCompletos++
+      }
       porCategoria[cat].push({
         itemId: ip.item.id,
         descricao: ip.item.descricao,
         unidade: ip.item.unidade,
         imagemUrl: ip.item.imagemUrl,
-        entregue: ip.item.entregas.length > 0,
+        quantidadeEsperada: esperada,
+        entregueQtd,
+        saldo: Math.max(0, esperada - entregueQtd),
+        status,
+        obrigatorio: ip.obrigatorio,
+        entregue: status === 'completo',
         ultimaEntrega: ip.item.entregas[0]?.dataEntrega.toISOString() || null,
         totalEntregas: ip.item.entregas.length,
       })
     }
 
     const totalItens = itensPosto.length
-    const totalEntregues = itensPosto.filter(ip => ip.item.entregas.length > 0).length
-    const totalPendentes = totalItens - totalEntregues
-    const percentual = totalItens > 0 ? Math.round((totalEntregues / totalItens) * 100) : 0
+    const totalEntregues = itensCompletos
+    const totalPendentes = obrigatoriosTotal - itensCompletos
+    const percentual = unidadesEsperadas > 0 ? Math.round((unidadesEntregues / unidadesEsperadas) * 100) : 0
 
     return NextResponse.json({
       colaborador: {
@@ -96,6 +121,8 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ colaborado
         totalEntregues,
         totalPendentes,
         percentual,
+        unidadesEsperadas,
+        unidadesEntregues,
       },
       geradoEm: new Date().toISOString(),
     })

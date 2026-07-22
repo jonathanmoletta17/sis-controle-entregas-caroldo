@@ -7,7 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from '@/components/ui/table'
-import { AlertCircle, CheckCircle2, Circle, ArrowLeft } from 'lucide-react'
+import { AlertCircle, CheckCircle2, ArrowLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { CategoriaBadge, CorCapaceteBadge } from '@/components/app/shared/badges'
 import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
@@ -28,7 +28,8 @@ interface MatrizItem {
   itemId: string
   descricao: string
   imagemUrl: string | null
-  entregasPorColaborador: Record<string, boolean>
+  quantidadeEsperada: number
+  entregasPorColaborador: Record<string, { entregue: number; esperada: number; completo: boolean }>
 }
 
 interface MatrizData {
@@ -121,7 +122,7 @@ export function PendenciasView() {
                   <span className="font-medium text-foreground">{p.percentual}%</span>
                 </div>
                 {p.pendentes > 0 && (
-                  <div className="text-xs text-rose-600">{p.pendentes} pendências no total</div>
+                  <div className="text-xs text-rose-600">{p.pendentes} {p.pendentes === 1 ? 'unidade pendente' : 'unidades pendentes'}</div>
                 )}
               </button>
             ))}
@@ -199,15 +200,32 @@ export function PendenciasView() {
                               <div className="line-clamp-2 text-sm leading-snug">{item.descricao}</div>
                             </button>
                           </TableCell>
-                          {matriz.colaboradores.map(c => (
-                            <TableCell key={c.id} className="text-center">
-                              {item.entregasPorColaborador[c.id] ? (
-                                <CheckCircle2 className="h-4 w-4 text-emerald-600 mx-auto" />
-                              ) : (
-                                <Circle className="h-4 w-4 text-muted-foreground mx-auto" />
-                              )}
-                            </TableCell>
-                          ))}
+                          {matriz.colaboradores.map(c => {
+                            const cel = item.entregasPorColaborador[c.id]
+                            const entregue = cel?.entregue ?? 0
+                            const esperada = cel?.esperada ?? item.quantidadeEsperada
+                            const completo = cel?.completo ?? false
+                            const parcial = entregue > 0 && !completo
+                            return (
+                              <TableCell key={c.id} className="text-center">
+                                <span
+                                  className={cn(
+                                    'inline-flex items-center justify-center min-w-[2.5rem] rounded px-1.5 py-0.5 text-xs font-medium tabular-nums',
+                                    completo ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300' :
+                                    parcial ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300' :
+                                    'text-muted-foreground'
+                                  )}
+                                  title={`${entregue} de ${esperada}`}
+                                >
+                                  {completo ? (
+                                    <CheckCircle2 className="h-4 w-4" />
+                                  ) : (
+                                    `${entregue}/${esperada}`
+                                  )}
+                                </span>
+                              </TableCell>
+                            )
+                          })}
                         </TableRow>
                       ))}
                     </TableBody>

@@ -4,6 +4,8 @@ import path from 'path'
 import { saveUpload, rejeitarSeGrandeDemais } from '@/lib/storage'
 import { withAuditContext } from '@/lib/with-audit'
 import { logAudit } from '@/lib/audit'
+import { normalizarPostos, type PostoConfig } from '@/lib/item-postos'
+import { normalizarUnidade } from '@/lib/unidades'
 
 const MAX_REQUEST_BYTES = 8 * 1024 * 1024 // 5MB de imagem + folga para overhead do multipart
 
@@ -36,7 +38,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
     let unidade: string | undefined
     let ativo: boolean | undefined
     let categoriaId: string | undefined
-    let postos: string[] | undefined
+    let postos: PostoConfig[] | undefined
     let removerImagem = false
     let imagemUrl: string | null | undefined = undefined
     let imagemNome: string | null | undefined = undefined
@@ -48,7 +50,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
       if (formData.has('ativo')) ativo = formData.get('ativo') === 'true'
       if (formData.has('categoriaId')) categoriaId = String(formData.get('categoriaId'))
       const postosStr = formData.get('postos') as string | null
-      postos = postosStr ? JSON.parse(postosStr) : undefined
+      postos = postosStr ? normalizarPostos(JSON.parse(postosStr)) : undefined
       if (formData.has('removerImagem')) removerImagem = formData.get('removerImagem') === 'true'
 
       const file = formData.get('imagem') as File | null
@@ -64,7 +66,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
       if (body.unidade !== undefined) unidade = String(body.unidade)
       if (body.ativo !== undefined) ativo = !!body.ativo
       if (body.categoriaId !== undefined) categoriaId = body.categoriaId
-      if (Array.isArray(body.postos)) postos = body.postos
+      if (Array.isArray(body.postos)) postos = normalizarPostos(body.postos)
       if (body.removerImagem) removerImagem = true
     }
 
@@ -75,7 +77,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
       }
       update.descricao = descricao
     }
-    if (unidade !== undefined) update.unidade = unidade.replace(/\D/g, '') || '1'
+    if (unidade !== undefined) update.unidade = normalizarUnidade(unidade)
     if (ativo !== undefined) update.ativo = ativo
     if (categoriaId !== undefined) update.categoriaId = categoriaId
     if (imagemUrl !== undefined) {
@@ -92,13 +94,12 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
     if (postos !== undefined) {
       await db.itemPosto.deleteMany({ where: { itemId: id } })
       if (postos.length > 0) {
-        const uniquePostos = Array.from(new Set(postos))
         await db.itemPosto.createMany({
-          data: uniquePostos.map((postoId: string) => ({
+          data: postos.map(p => ({
             itemId: id,
-            postoId,
-            quantidadeEsperada: 1,
-            obrigatorio: true,
+            postoId: p.postoId,
+            quantidadeEsperada: p.quantidadeEsperada,
+            obrigatorio: p.obrigatorio,
           })),
         })
       }
@@ -122,18 +123,54 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
   })
 }
 
-// DELETE — desativar item
+// DELETE /api/itens/[id] — exclui de verdade (com proteção) ou desativa
+//   ?modo=desativar        → soft-delete (marca ativo=false), preserva histórico
+//   (padrão, exclusão real)→ apaga se não houver entregas; se houver, retorna 409
 export async function DELETE(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   return withAuditContext(req, async ({ userId, ip }) => {
   try {
     const { id } = await ctx.params
-    const antes = await db.item.findUnique({ where: { id } })
-    const item = await db.item.update({ where: { id }, data: { ativo: false, atualizadoPorId: userId } })
-    await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Item', registroId: item.id, valoresAntigos: antes, valoresNovos: item })
-    return NextResponse.json({ message: 'Item desativado' })
+    const { searchParams } = new URL(req.url)
+    const modo = searchParams.get('modo')
+
+    const antes = await db.item.findUnique({
+      where: { id },
+      include: { _count: { select: { entregas: true } } },
+    })
+    if (!antes) {
+      return NextResponse.json({ error: 'Item não encontrado' }, { status: 404 })
+    }
+
+    // Desativar explicitamente (fallback quando não pode excluir)
+    if (modo === 'desativar') {
+      const item = await db.item.update({ where: { id }, data: { ativo: false, atualizadoPorId: userId } })
+      await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Item', registroId: item.id, valoresAntigos: antes, valoresNovos: item })
+      return NextResponse.json({ message: 'Item desativado' })
+    }
+
+    // Exclusão real — bloquear se houver entregas registradas
+    const totalEntregas = antes._count.entregas
+    if (totalEntregas > 0) {
+      return NextResponse.json(
+        {
+          error: `Este item possui ${totalEntregas} ${totalEntregas === 1 ? 'entrega registrada' : 'entregas registradas'} e não pode ser excluído. Você pode desativá-lo para preservar o histórico.`,
+          code: 'HAS_ENTREGAS',
+          totalEntregas,
+        },
+        { status: 409 }
+      )
+    }
+
+    // Sem entregas — remover vínculos de posto e apagar o item
+    await db.$transaction([
+      db.itemPosto.deleteMany({ where: { itemId: id } }),
+      db.item.delete({ where: { id } }),
+    ])
+    await logAudit({ userId, ip, acao: 'DELETE', tabela: 'Item', registroId: id, valoresAntigos: antes })
+    return NextResponse.json({ message: 'Item excluído' })
   } catch (err: any) {
     console.error('[DELETE /api/itens/[id]] error:', err)
-    return NextResponse.json({ error: err.message || 'Erro ao desativar item' }, { status: 500 })
+    return NextResponse.json({ error: err.message || 'Erro ao excluir item' }, { status: 500 })
   }
   })
 }

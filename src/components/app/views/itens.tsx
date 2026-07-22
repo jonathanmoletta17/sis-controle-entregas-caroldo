@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
+  Dialog, DialogContent, DialogBody, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
 } from '@/components/ui/dialog'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -19,14 +19,21 @@ import {
 } from '@/components/ui/table'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Plus, Search, Package, Pencil, ImagePlus, X, ImageOff } from 'lucide-react'
+import {
+  AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogFooter,
+  AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel,
+} from '@/components/ui/alert-dialog'
+import { Plus, Search, Package, Pencil, ImagePlus, X, ImageOff, Grid3x3, Trash2 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { CategoriaBadge } from '@/components/app/shared/badges'
 import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
 import { useCanWrite } from '@/hooks/use-can-write'
+import { useApp } from '@/components/app/app-context'
+import { UNIDADES_MEDIDA, UNIDADES_VALORES, UNIDADE_PADRAO } from '@/lib/unidades'
 
 interface Categoria { id: string; nome: string; descricao: string | null }
 interface Posto { id: string; nome: string; corCapacete: string | null }
+interface PostoSel { postoId: string; quantidadeEsperada: number; obrigatorio: boolean }
 interface Item {
   id: string
   descricao: string
@@ -36,13 +43,14 @@ interface Item {
   ativo: boolean
   categoriaId: string
   categoria: Categoria
-  postos?: Array<{ posto: Posto }>
+  postos?: Array<{ posto: Posto; quantidadeEsperada: number; obrigatorio: boolean }>
   _count?: { entregas: number }
 }
 
 export function ItensView() {
   const { toast } = useToast()
   const canWrite = useCanWrite()
+  const { setView } = useApp()
   const [itens, setItens] = useState<Item[]>([])
   const [categorias, setCategorias] = useState<Categoria[]>([])
   const [postos, setPostos] = useState<Posto[]>([])
@@ -52,6 +60,36 @@ export function ItensView() {
   const [showForm, setShowForm] = useState(false)
   const [editItem, setEditItem] = useState<Item | null>(null)
   const [visualizando, setVisualizando] = useState<Item | null>(null)
+  const [excluindo, setExcluindo] = useState<Item | null>(null)
+  const [bloqueioEntregas, setBloqueioEntregas] = useState<number | null>(null)
+  const [excluindoBusy, setExcluindoBusy] = useState(false)
+
+  const executarExclusao = async (modo?: 'desativar') => {
+    if (!excluindo) return
+    setExcluindoBusy(true)
+    try {
+      const url = `/api/itens/${excluindo.id}${modo ? `?modo=${modo}` : ''}`
+      const r = await fetch(url, { method: 'DELETE' })
+      if (r.status === 409) {
+        const d = await r.json().catch(() => ({}))
+        setBloqueioEntregas(typeof d.totalEntregas === 'number' ? d.totalEntregas : 0)
+        return
+      }
+      if (!r.ok) {
+        const d = await r.json().catch(() => ({}))
+        throw new Error(d.error || 'Erro ao excluir')
+      }
+      const d = await r.json().catch(() => ({}))
+      toast({ title: d.message || 'Item excluído' })
+      setExcluindo(null)
+      setBloqueioEntregas(null)
+      carregar()
+    } catch (e: any) {
+      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
+    } finally {
+      setExcluindoBusy(false)
+    }
+  }
 
   const carregar = useCallback(() => {
     setLoading(true)
@@ -94,9 +132,14 @@ export function ItensView() {
           </p>
         </div>
         {canWrite && (
-          <Button onClick={() => setShowForm(true)}>
-            <Plus className="h-4 w-4 mr-1.5" /> Novo item
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" onClick={() => setView('matriz-metas')}>
+              <Grid3x3 className="h-4 w-4 mr-1.5" /> Configurar metas
+            </Button>
+            <Button onClick={() => setShowForm(true)}>
+              <Plus className="h-4 w-4 mr-1.5" /> Novo item
+            </Button>
+          </div>
         )}
       </div>
 
@@ -152,7 +195,7 @@ export function ItensView() {
                       <div className="flex items-center gap-2 flex-wrap mb-1">
                         <CategoriaBadge categoria={i.categoria.nome} />
                         {i.ativo ? (
-                          <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Ativo</Badge>
+                          <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300 dark:hover:bg-emerald-950/50">Ativo</Badge>
                         ) : (
                           <Badge variant="secondary">Inativo</Badge>
                         )}
@@ -169,9 +212,14 @@ export function ItensView() {
                       <div className="text-xs text-muted-foreground mt-1">{i._count?.entregas || 0} entregas</div>
                     </div>
                     {canWrite && (
-                      <Button variant="ghost" size="icon" className="shrink-0" onClick={(e) => { e.stopPropagation(); setEditItem(i) }}>
-                        <Pencil className="h-3.5 w-3.5" />
-                      </Button>
+                      <div className="flex flex-col shrink-0">
+                        <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); setEditItem(i) }}>
+                          <Pencil className="h-3.5 w-3.5" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={(e) => { e.stopPropagation(); setBloqueioEntregas(null); setExcluindo(i) }}>
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
                     )}
                   </div>
                 ))}
@@ -182,13 +230,13 @@ export function ItensView() {
                 <Table className="table-fixed">
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-[5%]"></TableHead>
-                      <TableHead className="w-[40%]">Descrição</TableHead>
+                      <TableHead className="w-[6%]"></TableHead>
+                      <TableHead className="w-[32%]">Descrição</TableHead>
                       <TableHead className="w-[10%]">Categoria</TableHead>
-                      <TableHead className="w-[24%]">Postos vinculados</TableHead>
-                      <TableHead className="w-[7%] text-center">Entregas</TableHead>
-                      <TableHead className="w-[9%]">Status</TableHead>
-                      <TableHead className="w-[5%]"></TableHead>
+                      <TableHead className="w-[28%]">Postos vinculados</TableHead>
+                      <TableHead className="w-[6%] text-center">Entregas</TableHead>
+                      <TableHead className="w-[10%]">Status</TableHead>
+                      <TableHead className="w-[8%]"></TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -220,15 +268,15 @@ export function ItensView() {
                           </div>
                         </TableCell>
                         <TableCell className="align-top"><CategoriaBadge categoria={i.categoria.nome} /></TableCell>
-                        <TableCell className="align-top">
+                        <TableCell className="align-top whitespace-normal">
                           <div className="flex flex-wrap gap-1">
                             {(i.postos || []).slice(0, 3).map(p => (
-                              <Badge key={p.posto.id} variant="outline" className="text-xs">
+                              <Badge key={p.posto.id} variant="outline" className="text-xs max-w-full whitespace-normal" title={p.posto.nome}>
                                 {p.posto.nome}
                               </Badge>
                             ))}
                             {(i.postos || []).length > 3 && (
-                              <Badge variant="outline" className="text-xs">+{(i.postos || []).length - 3}</Badge>
+                              <Badge variant="outline" className="text-xs whitespace-normal">+{(i.postos || []).length - 3}</Badge>
                             )}
                             {(i.postos || []).length === 0 && <span className="text-xs text-muted-foreground">—</span>}
                           </div>
@@ -236,16 +284,21 @@ export function ItensView() {
                         <TableCell className="text-center tabular-nums align-top">{i._count?.entregas || 0}</TableCell>
                         <TableCell className="align-top">
                           {i.ativo ? (
-                            <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">Ativo</Badge>
+                            <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300 dark:hover:bg-emerald-950/50">Ativo</Badge>
                           ) : (
                             <Badge variant="secondary">Inativo</Badge>
                           )}
                         </TableCell>
                         <TableCell className="align-top" onClick={(e) => e.stopPropagation()}>
                           {canWrite && (
-                            <Button variant="ghost" size="icon" onClick={() => setEditItem(i)}>
-                              <Pencil className="h-3.5 w-3.5" />
-                            </Button>
+                            <div className="flex items-center gap-0.5">
+                              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setEditItem(i)}>
+                                <Pencil className="h-3.5 w-3.5" />
+                              </Button>
+                              <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive" onClick={() => { setBloqueioEntregas(null); setExcluindo(i) }}>
+                                <Trash2 className="h-3.5 w-3.5" />
+                              </Button>
+                            </div>
                           )}
                         </TableCell>
                       </TableRow>
@@ -294,6 +347,52 @@ export function ItensView() {
         open={!!visualizando}
         onOpenChange={(o) => !o && setVisualizando(null)}
       />
+
+      <AlertDialog open={!!excluindo} onOpenChange={(o) => { if (!o) { setExcluindo(null); setBloqueioEntregas(null) } }}>
+        <AlertDialogContent>
+          {bloqueioEntregas === null ? (
+            <>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Excluir item?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Esta ação remove <b>{excluindo?.descricao}</b> permanentemente do catálogo.
+                  Só é possível excluir itens sem entregas registradas.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={excluindoBusy}>Cancelar</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={(e) => { e.preventDefault(); executarExclusao() }}
+                  disabled={excluindoBusy}
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                >
+                  {excluindoBusy ? 'Excluindo...' : 'Excluir'}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </>
+          ) : (
+            <>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Não é possível excluir</AlertDialogTitle>
+                <AlertDialogDescription>
+                  <b>{excluindo?.descricao}</b> possui {bloqueioEntregas} {bloqueioEntregas === 1 ? 'entrega registrada' : 'entregas registradas'} e
+                  não pode ser excluído para preservar o histórico. Você pode <b>desativá-lo</b> — ele
+                  deixa de aparecer nos checklists, mas o histórico é mantido.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={excluindoBusy}>Cancelar</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={(e) => { e.preventDefault(); executarExclusao('desativar') }}
+                  disabled={excluindoBusy}
+                >
+                  {excluindoBusy ? 'Desativando...' : 'Desativar item'}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </>
+          )}
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }
@@ -308,19 +407,39 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
   const { toast } = useToast()
   const [form, setForm] = useState({
     descricao: item?.descricao || '',
-    unidade: item?.unidade || '1',
+    unidade: item?.unidade && UNIDADES_VALORES.includes(item.unidade) ? item.unidade : UNIDADE_PADRAO,
     categoriaId: item?.categoriaId || categorias[0]?.id || '',
     ativo: item?.ativo !== false,
   })
-  const [postosSelecionados, setPostosSelecionados] = useState<string[]>(
-    item?.postos?.map(p => p.posto.id) || []
+  const [postosSelecionados, setPostosSelecionados] = useState<PostoSel[]>(
+    item?.postos?.map(p => ({
+      postoId: p.posto.id,
+      quantidadeEsperada: p.quantidadeEsperada ?? 1,
+      obrigatorio: p.obrigatorio ?? true,
+    })) || []
   )
   const [imagem, setImagem] = useState<File | null>(null)
   const [imagemAtualRemovida, setImagemAtualRemovida] = useState(false)
   const [saving, setSaving] = useState(false)
 
   const togglePosto = (id: string) => {
-    setPostosSelecionados(prev => prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id])
+    setPostosSelecionados(prev =>
+      prev.some(p => p.postoId === id)
+        ? prev.filter(p => p.postoId !== id)
+        : [...prev, { postoId: id, quantidadeEsperada: 1, obrigatorio: true }]
+    )
+  }
+
+  const setQuantidade = (id: string, valor: number) => {
+    setPostosSelecionados(prev => prev.map(p =>
+      p.postoId === id ? { ...p, quantidadeEsperada: Math.max(1, valor || 1) } : p
+    ))
+  }
+
+  const setObrigatorio = (id: string, obrigatorio: boolean) => {
+    setPostosSelecionados(prev => prev.map(p =>
+      p.postoId === id ? { ...p, obrigatorio } : p
+    ))
   }
 
   const selecionarImagem = (f: File) => {
@@ -382,57 +501,55 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
 
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent size="4xl" className="p-0">
         <DialogHeader>
           <DialogTitle>{item ? 'Editar item' : 'Novo item'}</DialogTitle>
           <DialogDescription>
             Item do catálogo. Vincule a um ou mais postos para que apareça no checklist.
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-3 py-2">
-          <div className="space-y-1.5">
+        <DialogBody className="space-y-6">
+          {/* Descrição — largura total */}
+          <div className="space-y-2">
             <Label>Descrição *</Label>
-            <Textarea rows={3} value={form.descricao} onChange={e => setForm(f => ({ ...f, descricao: e.target.value }))} placeholder="Ex.: Plaina elétrica profissional 82mm, 700W, 220v..." />
+            <Textarea rows={2} value={form.descricao} onChange={e => setForm(f => ({ ...f, descricao: e.target.value }))} placeholder="Ex.: Plaina elétrica profissional 82mm, 700W, 220v..." />
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
+
+          {/* Classificação — largura total (não espremer os selects) */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="space-y-2 min-w-0">
               <Label>Categoria *</Label>
               <Select value={form.categoriaId} onValueChange={v => setForm(f => ({ ...f, categoriaId: v }))}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {categorias.map(c => <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
-            <div className="space-y-1.5">
-              <Label>Unidade</Label>
-              <Input
-                type="number"
-                min="1"
-                step="1"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                value={form.unidade}
-                onChange={e => {
-                  const v = e.target.value.replace(/\D/g, '')
-                  setForm(f => ({ ...f, unidade: v || '1' }))
-                }}
-                placeholder="1"
-              />
-              <p className="text-xs text-muted-foreground">Apenas números inteiros positivos.</p>
+            <div className="space-y-2 min-w-0">
+              <Label>Unidade de medida</Label>
+              <Select value={form.unidade} onValueChange={v => setForm(f => ({ ...f, unidade: v }))}>
+                <SelectTrigger className="w-full"><SelectValue placeholder="Selecione" /></SelectTrigger>
+                <SelectContent>
+                  {UNIDADES_MEDIDA.map(u => <SelectItem key={u.valor} value={u.valor}>{u.label}</SelectItem>)}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
+          <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-border">
+          {/* Coluna esquerda: imagem + status */}
+          <div className="space-y-4 min-w-0 md:border-r md:border-border md:pr-6">
           {/* Imagem do item */}
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             <Label>Imagem ilustrativa (opcional)</Label>
             {item?.imagemUrl && !imagemAtualRemovida && !imagem ? (
               <div className="space-y-2">
-                <div className="flex items-center gap-3 border rounded-md p-3 bg-accent/30">
-                  <img src={item.imagemUrl} alt="" className="h-16 w-16 object-cover rounded border" />
-                  <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3 border rounded-md p-3 bg-accent/30 min-w-0">
+                  <img src={item.imagemUrl} alt="" className="h-16 w-16 object-cover rounded border shrink-0" />
+                  <div className="flex-1 min-w-0 overflow-hidden">
                     <div className="text-sm font-medium truncate">Imagem atual</div>
-                    <div className="text-xs text-muted-foreground">{item.imagemNome || 'sem nome'}</div>
+                    <div className="text-xs text-muted-foreground truncate" title={item.imagemNome || ''}>{item.imagemNome || 'sem nome'}</div>
                   </div>
                   <Button
                     variant="ghost"
@@ -474,10 +591,10 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
               </label>
             ) : (
               <div className="space-y-2">
-                <div className="flex items-center gap-3 border rounded-md p-3 bg-accent/30">
-                  <img src={URL.createObjectURL(imagem)} alt="" className="h-16 w-16 object-cover rounded border" />
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium truncate">{imagem.name}</div>
+                <div className="flex items-center gap-3 border rounded-md p-3 bg-accent/30 min-w-0">
+                  <img src={URL.createObjectURL(imagem)} alt="" className="h-16 w-16 object-cover rounded border shrink-0" />
+                  <div className="flex-1 min-w-0 overflow-hidden">
+                    <div className="text-sm font-medium truncate" title={imagem.name}>{imagem.name}</div>
                     <div className="text-xs text-muted-foreground">{(imagem.size / 1024).toFixed(1)} KB</div>
                   </div>
                   <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => setImagem(null)} title="Remover imagem">
@@ -491,39 +608,75 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
             )}
           </div>
 
-          <div className="space-y-1.5">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <Checkbox checked={form.ativo} onCheckedChange={(v) => setForm(f => ({ ...f, ativo: !!v }))} />
+            <span className="text-sm">Item ativo (aparece no catálogo e checklists)</span>
+          </label>
+          </div>{/* fim coluna esquerda */}
+
+          {/* Coluna direita: postos vinculados */}
+          <div className="space-y-2 min-w-0">
             <Label>Postos vinculados</Label>
-            <div className="border rounded-md p-3 max-h-48 overflow-y-auto space-y-2">
-              {postos.map(p => (
-                <label key={p.id} className="flex items-center gap-2 cursor-pointer hover:bg-accent/50 -mx-1 px-1 py-0.5 rounded">
-                  <Checkbox
-                    checked={postosSelecionados.includes(p.id)}
-                    onCheckedChange={() => togglePosto(p.id)}
-                  />
-                  <span className="text-sm flex-1">{p.nome}</span>
-                  {p.corCapacete && (
-                    <span className={`h-2 w-2 rounded-full inline-block ${
-                      p.corCapacete === 'Amarelo' ? 'bg-yellow-400' :
-                      p.corCapacete === 'Azul' ? 'bg-blue-500' :
-                      p.corCapacete === 'Laranja' ? 'bg-orange-500' :
-                      p.corCapacete === 'Verde' ? 'bg-green-500' : 'bg-gray-400'
-                    }`} />
-                  )}
-                </label>
-              ))}
+            <p className="text-xs text-muted-foreground">
+              Marque o posto e defina quantos deste item ele deve receber (meta) e se é obrigatório.
+            </p>
+            <div className="border border-border rounded-md divide-y divide-border max-h-[360px] overflow-y-auto overflow-x-hidden">
+              {postos.map(p => {
+                const sel = postosSelecionados.find(x => x.postoId === p.id)
+                return (
+                  <div key={p.id} className="p-3 min-w-0">
+                    <label className="flex items-start gap-2 cursor-pointer min-w-0">
+                      <Checkbox
+                        className="mt-0.5 shrink-0"
+                        checked={!!sel}
+                        onCheckedChange={() => togglePosto(p.id)}
+                      />
+                      <span className="text-sm flex-1 min-w-0 break-words">{p.nome}</span>
+                      {p.corCapacete && (
+                        <span className={`h-2 w-2 rounded-full inline-block mt-1.5 shrink-0 ${
+                          p.corCapacete === 'Amarelo' ? 'bg-yellow-400' :
+                          p.corCapacete === 'Azul' ? 'bg-blue-500' :
+                          p.corCapacete === 'Laranja' ? 'bg-orange-500' :
+                          p.corCapacete === 'Verde' ? 'bg-green-500' : 'bg-gray-400'
+                        }`} />
+                      )}
+                    </label>
+                    {sel && (
+                      <div className="flex items-center gap-3 mt-2 pl-6 flex-wrap min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs text-muted-foreground">Qtd. esperada</span>
+                          <Input
+                            type="number"
+                            min="1"
+                            step="1"
+                            inputMode="numeric"
+                            className="h-8 w-16 text-center tabular-nums"
+                            value={sel.quantidadeEsperada}
+                            onChange={e => setQuantidade(p.id, parseInt(e.target.value, 10))}
+                          />
+                        </div>
+                        <label className="flex items-center gap-1.5 cursor-pointer">
+                          <Checkbox
+                            checked={sel.obrigatorio}
+                            onCheckedChange={(v) => setObrigatorio(p.id, !!v)}
+                          />
+                          <span className="text-xs">Obrigatório</span>
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
               {postos.length === 0 && (
-                <p className="text-xs text-muted-foreground">Nenhum posto cadastrado.</p>
+                <p className="text-xs text-muted-foreground p-3">Nenhum posto cadastrado.</p>
               )}
             </div>
             <p className="text-xs text-muted-foreground">
               {postosSelecionados.length} {postosSelecionados.length === 1 ? 'posto selecionado' : 'postos selecionados'}
             </p>
           </div>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <Checkbox checked={form.ativo} onCheckedChange={(v) => setForm(f => ({ ...f, ativo: !!v }))} />
-            <span className="text-sm">Ativo</span>
-          </label>
-        </div>
+          </div>{/* fim grid 2 colunas */}
+        </DialogBody>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancelar</Button>
           <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Salvar'}</Button>

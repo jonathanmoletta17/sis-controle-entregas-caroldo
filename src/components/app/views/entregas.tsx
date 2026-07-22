@@ -22,6 +22,7 @@ import { useApp } from '@/components/app/app-context'
 import { useToast } from '@/hooks/use-toast'
 import { formatDate, todayISO } from '@/components/app/shared/format'
 import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
+import { RegistrarEntregaDialog } from '@/components/app/shared/registrar-entrega-dialog'
 import { useCanWrite } from '@/hooks/use-can-write'
 
 interface ColaboradorListItem {
@@ -129,7 +130,7 @@ export function EntregasView() {
                 value={filtroPosto || '_todos'}
                 onValueChange={v => { setFiltroPosto(v === '_todos' ? '' : v); setFiltroColab('') }}
               >
-                <SelectTrigger><SelectValue placeholder="Todos os postos" /></SelectTrigger>
+                <SelectTrigger className="w-full"><SelectValue placeholder="Todos os postos" /></SelectTrigger>
                 <SelectContent className="max-h-80">
                   <SelectItem value="_todos">Todos os postos</SelectItem>
                   {postos.map(p => (
@@ -143,7 +144,7 @@ export function EntregasView() {
                 value={filtroColab || '_todos'}
                 onValueChange={v => { setFiltroColab(v === '_todos' ? '' : v); setFiltroPosto('') }}
               >
-                <SelectTrigger><SelectValue placeholder="Todos os terceirizados" /></SelectTrigger>
+                <SelectTrigger className="w-full"><SelectValue placeholder="Todos os terceirizados" /></SelectTrigger>
                 <SelectContent className="max-h-80">
                   <SelectItem value="_todos">Todos os terceirizados</SelectItem>
                   {colaboradores.map(c => (
@@ -208,10 +209,10 @@ export function EntregasView() {
                       )}
                       <div className="min-w-0 flex-1">
                         <span className={`text-xs px-1.5 py-0.5 rounded inline-block mb-1 ${
-                          e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800' :
-                          e.item.categoria.nome === 'EPI' ? 'bg-rose-100 text-rose-800' :
-                          e.item.categoria.nome === 'Uniforme' ? 'bg-violet-100 text-violet-800' :
-                          'bg-sky-100 text-sky-800'
+                          e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300' :
+                          e.item.categoria.nome === 'EPI' ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/50 dark:text-rose-300' :
+                          e.item.categoria.nome === 'Uniforme' ? 'bg-violet-100 text-violet-800 dark:bg-violet-950/50 dark:text-violet-300' :
+                          'bg-sky-100 text-sky-800 dark:bg-sky-950/50 dark:text-sky-300'
                         }`}>
                           {e.item.categoria.nome}
                         </span>
@@ -278,10 +279,10 @@ export function EntregasView() {
                         </TableCell>
                         <TableCell className="align-top">
                           <span className={`text-xs px-2 py-0.5 rounded inline-block ${
-                            e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800' :
-                            e.item.categoria.nome === 'EPI' ? 'bg-rose-100 text-rose-800' :
-                            e.item.categoria.nome === 'Uniforme' ? 'bg-violet-100 text-violet-800' :
-                            'bg-sky-100 text-sky-800'
+                            e.item.categoria.nome === 'Materiais' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300' :
+                            e.item.categoria.nome === 'EPI' ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/50 dark:text-rose-300' :
+                            e.item.categoria.nome === 'Uniforme' ? 'bg-violet-100 text-violet-800 dark:bg-violet-950/50 dark:text-violet-300' :
+                            'bg-sky-100 text-sky-800 dark:bg-sky-950/50 dark:text-sky-300'
                           }`}>
                             {e.item.categoria.nome}
                           </span>
@@ -355,17 +356,16 @@ export function EntregasView() {
         Total: <b>{entregas.length}</b> {entregas.length === 1 ? 'registro' : 'registros'}
       </p>
 
-      {showForm && (
-        <NovaEntregaForm
-          colaboradorIdInicial={filtroColab}
-          onClose={() => setShowForm(false)}
-          onSaved={() => {
-            setShowForm(false)
-            carregar()
-            toast({ title: 'Entrega registrada com sucesso' })
-          }}
-        />
-      )}
+      <RegistrarEntregaDialog
+        open={showForm}
+        onOpenChange={setShowForm}
+        colaboradorId={filtroColab || undefined}
+        onSaved={() => {
+          setShowForm(false)
+          carregar()
+          toast({ title: 'Entrega registrada com sucesso' })
+        }}
+      />
 
       <ItemVisualizacaoModal
         item={visualizandoItem as ItemVisualizacao | null}
@@ -373,249 +373,5 @@ export function EntregasView() {
         onOpenChange={(o) => !o && setVisualizandoItem(null)}
       />
     </div>
-  )
-}
-
-function NovaEntregaForm({ colaboradorIdInicial, onClose, onSaved }: { colaboradorIdInicial?: string; onClose: () => void; onSaved: () => void }) {
-  const { toast } = useToast()
-  const [colaboradores, setColaboradores] = useState<ColaboradorListItem[]>([])
-  const [itens, setItens] = useState<ItemOption[]>([])
-  const [form, setForm] = useState({
-    colaboradorId: colaboradorIdInicial || '',
-    itemId: '',
-    dataEntrega: todayISO(),
-    quantidade: 1,
-    observacao: '',
-  })
-  const [anexo, setAnexo] = useState<File | null>(null)
-  const [foto, setFoto] = useState<File | null>(null)
-  const [saving, setSaving] = useState(false)
-
-  const selecionarFoto = (f: File) => {
-    if (f.size > 5 * 1024 * 1024) {
-      toast({ title: 'Foto muito grande', description: 'Máximo 5MB.', variant: 'destructive' })
-      return
-    }
-    setFoto(f)
-  }
-
-  const selecionarAnexo = (f: File) => {
-    if (f.size > 10 * 1024 * 1024) {
-      toast({ title: 'Anexo muito grande', description: 'Máximo 10MB.', variant: 'destructive' })
-      return
-    }
-    setAnexo(f)
-  }
-
-  useEffect(() => {
-    fetch('/api/colaboradores?incluirDesligados=false')
-      .then(r => r.json())
-      .then(d => setColaboradores(Array.isArray(d) ? d : []))
-  }, [])
-
-  // Quando colaborador muda, carrega itens do posto dele
-  useEffect(() => {
-    if (!form.colaboradorId) {
-      setItens([])
-      return
-    }
-    const colab = colaboradores.find(c => c.id === form.colaboradorId)
-    if (!colab?.posto?.id) {
-      setItens([])
-      return
-    }
-    fetch(`/api/itens?postoId=${colab.posto.id}`)
-      .then(r => r.json())
-      .then(d => setItens(Array.isArray(d) ? d : []))
-  }, [form.colaboradorId, colaboradores])
-
-  // Item selecionado (para detectar categoria Documento)
-  const itemSelecionado = itens.find(i => i.id === form.itemId)
-  const isDocumento = itemSelecionado?.categoria.nome === 'Documento'
-
-  const submit = async () => {
-    if (!form.colaboradorId) {
-      toast({ title: 'Selecione o terceirizado', variant: 'destructive' })
-      return
-    }
-    if (!form.itemId) {
-      toast({ title: 'Selecione o item', variant: 'destructive' })
-      return
-    }
-    setSaving(true)
-    try {
-      // Se tem anexo, usa multipart/form-data; senão, JSON
-      let r: Response
-      if (anexo || foto) {
-        const fd = new FormData()
-        fd.append('colaboradorId', form.colaboradorId)
-        fd.append('itemId', form.itemId)
-        fd.append('dataEntrega', form.dataEntrega)
-        fd.append('quantidade', String(form.quantidade))
-        if (form.observacao) fd.append('observacao', form.observacao)
-        if (anexo) fd.append('anexo', anexo)
-        if (foto) fd.append('foto', foto)
-        r = await fetch('/api/entregas', { method: 'POST', body: fd })
-      } else {
-        r = await fetch('/api/entregas', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
-        })
-      }
-      if (!r.ok) {
-        let msg = 'Erro ao registrar'
-        try {
-          const d = await r.json()
-          msg = d.error || msg
-        } catch {
-          msg = `${r.status} ${r.statusText || '— erro de servidor'}`
-        }
-        throw new Error(msg)
-      }
-      onSaved()
-    } catch (e: any) {
-      toast({ title: 'Erro', description: e.message, variant: 'destructive' })
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  return (
-    <Dialog open onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Truck className="h-5 w-5" />
-            Registrar entrega
-          </DialogTitle>
-          <DialogDescription>
-            A lista de itens disponíveis é filtrada pelo posto do terceirizado selecionado. Para documentos, é obrigatório anexar o arquivo.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="space-y-3 py-2">
-          <div className="space-y-1.5">
-            <Label>Terceirizado *</Label>
-            <Select value={form.colaboradorId} onValueChange={v => setForm(f => ({ ...f, colaboradorId: v, itemId: '' }))}>
-              <SelectTrigger><SelectValue placeholder="Selecione..." /></SelectTrigger>
-              <SelectContent className="max-h-72">
-                {colaboradores.map(c => (
-                  <SelectItem key={c.id} value={c.id} className="max-w-full">
-                    <span className="truncate">{c.nomeCompleto} — {c.posto?.nome || 'sem posto'}</span>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-1.5">
-            <Label>Item *</Label>
-            <Select value={form.itemId} onValueChange={v => setForm(f => ({ ...f, itemId: v }))} disabled={!form.colaboradorId}>
-              <SelectTrigger><SelectValue placeholder={form.colaboradorId ? 'Selecione o item...' : 'Selecione um terceirizado primeiro'} /></SelectTrigger>
-              <SelectContent className="max-h-80">
-                {itens.map(i => (
-                  <SelectItem key={i.id} value={i.id} className="max-w-full">
-                    <span className="text-xs px-1.5 py-0.5 rounded bg-muted shrink-0">{i.categoria.nome}</span>
-                    <span className="truncate">{i.descricao}</span>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {form.colaboradorId && itens.length === 0 && (
-              <p className="text-xs text-amber-600 mt-1">
-                Nenhum item vinculado ao posto deste terceirizado. Vincule itens ao posto na aba <b>Itens</b>.
-              </p>
-            )}
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <Label>Data *</Label>
-              <Input type="date" value={form.dataEntrega} onChange={e => setForm(f => ({ ...f, dataEntrega: e.target.value }))} />
-            </div>
-            <div className="space-y-1.5">
-              <Label>Quantidade</Label>
-              <Input type="number" min="1" value={form.quantidade} onChange={e => setForm(f => ({ ...f, quantidade: parseInt(e.target.value) || 1 }))} />
-            </div>
-          </div>
-          <div className="space-y-1.5">
-            <Label>Observação</Label>
-            <Textarea rows={2} placeholder="Opcional" value={form.observacao} onChange={e => setForm(f => ({ ...f, observacao: e.target.value }))} />
-          </div>
-          <div className="space-y-1.5">
-            <Label>Foto do item recebido (opcional)</Label>
-            <p className="text-xs text-muted-foreground">
-              Registre uma foto do item no momento do recebimento da ORBIS, antes de repassar ao terceirizado.
-            </p>
-            {!foto ? (
-              <label className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-border rounded-md p-4 cursor-pointer hover:bg-accent/50 transition-colors">
-                <Camera className="h-5 w-5 text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">Clique para tirar/anexar uma foto</span>
-                <span className="text-xs text-muted-foreground">JPG, PNG, WEBP — máx 5MB</span>
-                <input
-                  type="file"
-                  className="hidden"
-                  accept=".jpg,.jpeg,.png,.gif,.webp"
-                  capture="environment"
-                  onChange={e => {
-                    const f = e.target.files?.[0]
-                    if (f) selecionarFoto(f)
-                  }}
-                />
-              </label>
-            ) : (
-              <div className="flex items-center gap-2 border rounded-md p-3 bg-accent/30">
-                <img src={URL.createObjectURL(foto)} alt="" className="h-10 w-10 object-cover rounded border shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium truncate">{foto.name}</div>
-                  <div className="text-xs text-muted-foreground">{(foto.size / 1024).toFixed(1)} KB</div>
-                </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => setFoto(null)} title="Remover foto">
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-            )}
-          </div>
-          {isDocumento && (
-            <div className="space-y-1.5">
-              <Label>Anexo do documento (opcional)</Label>
-              <p className="text-xs text-sky-700 bg-sky-50 border border-sky-200 rounded p-2">
-                <Paperclip className="h-3.5 w-3.5 inline mr-1" />
-                Para itens da categoria <b>Documento</b>, você pode anexar o arquivo digitalizado (PDF, imagem, etc).
-              </p>
-              {!anexo ? (
-                <label className="flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-border rounded-md p-4 cursor-pointer hover:bg-accent/50 transition-colors">
-                  <Paperclip className="h-5 w-5 text-muted-foreground" />
-                  <span className="text-xs text-muted-foreground">Clique para anexar um arquivo</span>
-                  <span className="text-xs text-muted-foreground">PDF, JPG, PNG, DOC — máx 10MB</span>
-                  <input
-                    type="file"
-                    className="hidden"
-                    accept=".pdf,.jpg,.jpeg,.png,.gif,.webp,.doc,.docx"
-                    onChange={e => {
-                      const f = e.target.files?.[0]
-                      if (f) selecionarAnexo(f)
-                    }}
-                  />
-                </label>
-              ) : (
-                <div className="flex items-center gap-2 border rounded-md p-3 bg-accent/30">
-                  <Paperclip className="h-4 w-4 text-sky-700 shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium truncate">{anexo.name}</div>
-                    <div className="text-xs text-muted-foreground">{(anexo.size / 1024).toFixed(1)} KB</div>
-                  </div>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => setAnexo(null)} title="Remover anexo">
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>Cancelar</Button>
-          <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Registrar'}</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
   )
 }

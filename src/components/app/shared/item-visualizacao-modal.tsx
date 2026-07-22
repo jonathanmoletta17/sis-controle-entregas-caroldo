@@ -1,6 +1,7 @@
 'use client'
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogBody, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { CategoriaBadge } from '@/components/app/shared/badges'
 import { Package, ImageOff } from 'lucide-react'
@@ -39,7 +40,7 @@ export function ItemVisualizacaoModal({ item, open, onOpenChange }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent size="2xl" className="p-0">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-base">
             <CategoriaBadge categoria={categoriaNome} />
@@ -47,7 +48,7 @@ export function ItemVisualizacaoModal({ item, open, onOpenChange }: Props) {
           </DialogTitle>
           <DialogDescription className="sr-only">Detalhes do item</DialogDescription>
         </DialogHeader>
-
+        <DialogBody className="space-y-5">
         {/* Imagem do item */}
         <div className="flex justify-center items-center bg-muted/40 rounded-md p-4 min-h-[200px]">
           {item.imagemUrl ? (
@@ -128,6 +129,12 @@ export function ItemVisualizacaoModal({ item, open, onOpenChange }: Props) {
             )}
           </div>
         )}
+        </DialogBody>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="outline">Fechar</Button>
+          </DialogClose>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )

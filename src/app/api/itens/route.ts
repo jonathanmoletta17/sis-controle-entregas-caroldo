@@ -4,6 +4,8 @@ import path from 'path'
 import { saveUpload, rejeitarSeGrandeDemais } from '@/lib/storage'
 import { withAuditContext } from '@/lib/with-audit'
 import { logAudit } from '@/lib/audit'
+import { normalizarPostos, type PostoConfig } from '@/lib/item-postos'
+import { normalizarUnidade } from '@/lib/unidades'
 
 const MAX_REQUEST_BYTES = 8 * 1024 * 1024 // 5MB de imagem + folga para overhead do multipart
 
@@ -57,21 +59,21 @@ export async function POST(req: NextRequest) {
       if (rejeitado) return rejeitado
     }
     let descricao: string
-    let unidade: string = '1'
+    let unidade: string = ''
     let categoriaId: string
     let ativo: boolean = true
-    let postos: string[] = []
+    let postos: PostoConfig[] = []
     let imagemUrl: string | null = null
     let imagemNome: string | null = null
 
     if (contentType.includes('multipart/form-data')) {
       const formData = await req.formData()
       descricao = String(formData.get('descricao') || '')
-      unidade = String(formData.get('unidade') || '1')
+      unidade = String(formData.get('unidade') || '')
       categoriaId = String(formData.get('categoriaId') || '')
       ativo = formData.get('ativo') !== 'false'
       const postosStr = formData.get('postos') as string | null
-      postos = postosStr ? JSON.parse(postosStr) : []
+      postos = postosStr ? normalizarPostos(JSON.parse(postosStr)) : []
 
       const file = formData.get('imagem') as File | null
       if (file && file.size > 0) {
@@ -83,10 +85,10 @@ export async function POST(req: NextRequest) {
     } else {
       const body = await req.json()
       descricao = body.descricao
-      unidade = body.unidade || '1'
+      unidade = body.unidade || ''
       categoriaId = body.categoriaId
       ativo = body.ativo !== false
-      postos = Array.isArray(body.postos) ? body.postos : []
+      postos = normalizarPostos(body.postos)
     }
 
     if (!descricao || String(descricao).trim().length < 3) {
@@ -99,7 +101,7 @@ export async function POST(req: NextRequest) {
     const item = await db.item.create({
       data: {
         descricao: String(descricao).trim(),
-        unidade: String(unidade).replace(/\D/g, '') || '1',
+        unidade: normalizarUnidade(unidade),
         categoriaId,
         ativo,
         imagemUrl,
@@ -110,13 +112,12 @@ export async function POST(req: NextRequest) {
     })
 
     if (postos.length > 0) {
-      const uniquePostos = Array.from(new Set(postos as string[]))
       await db.itemPosto.createMany({
-        data: uniquePostos.map((postoId: string) => ({
+        data: postos.map(p => ({
           itemId: item.id,
-          postoId,
-          quantidadeEsperada: 1,
-          obrigatorio: true,
+          postoId: p.postoId,
+          quantidadeEsperada: p.quantidadeEsperada,
+          obrigatorio: p.obrigatorio,
         })),
       })
     }

@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
+  Dialog, DialogContent, DialogBody, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
 } from '@/components/ui/dialog'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -564,7 +564,7 @@ function EditarColaboradorForm({ colab, onClose, onSaved }: {
           <DialogTitle>Editar terceirizado</DialogTitle>
           <DialogDescription>CPF e empresa não podem ser alterados (empresa é sempre ORBIS neste contrato).</DialogDescription>
         </DialogHeader>
-        <div className="space-y-3 py-2">
+        <DialogBody className="space-y-3 py-2">
           <div className="space-y-1.5">
             <Label>CPF</Label>
             <Input value={formatCPF(colab.cpf)} disabled className="font-mono bg-muted" />
@@ -587,7 +587,7 @@ function EditarColaboradorForm({ colab, onClose, onSaved }: {
             <Label>Observações</Label>
             <Textarea rows={3} value={form.observacoes} onChange={e => setForm(f => ({ ...f, observacoes: e.target.value }))} />
           </div>
-        </div>
+        </DialogBody>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancelar</Button>
           <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Salvar'}</Button>
@@ -632,7 +632,7 @@ function DesligarColaboradorForm({ colab, onClose, onDone }: {
             O terceirizado será marcado como desligado, mas <b>todo o histórico de entregas e mudanças de posto será preservado</b>. Esta ação pode ser revertida depois.
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-3 py-2">
+        <DialogBody className="space-y-3 py-2">
           <div className="text-sm">
             <b>{colab.nomeCompleto}</b> ({formatCPF(colab.cpf)})
           </div>
@@ -645,7 +645,7 @@ function DesligarColaboradorForm({ colab, onClose, onDone }: {
               onChange={e => setMotivo(e.target.value)}
             />
           </div>
-        </div>
+        </DialogBody>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancelar</Button>
           <Button variant="destructive" onClick={submit} disabled={saving}>
@@ -711,7 +711,7 @@ function MudancaPostoForm({ colab, onClose, onDone }: {
             O posto anterior será registrado no histórico do colaborador.
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-3 py-2">
+        <DialogBody className="space-y-3 py-2">
           <div className="text-sm">
             <b>{colab.nomeCompleto}</b>
             <div className="text-muted-foreground mt-1">
@@ -750,7 +750,7 @@ function MudancaPostoForm({ colab, onClose, onDone }: {
               onChange={e => setMotivo(e.target.value)}
             />
           </div>
-        </div>
+        </DialogBody>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancelar</Button>
           <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Registrar mudança'}</Button>
@@ -852,7 +852,7 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
 
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
+      <DialogContent size="xl" className="p-0">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Truck className="h-5 w-5" />
@@ -862,7 +862,7 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
             Para <b>{colab.nomeCompleto}</b> ({colab.posto?.nome})
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-3 py-2">
+        <DialogBody className="space-y-3 py-2">
           <div className="space-y-1.5">
             <Label>Categoria</Label>
             <Select value={categoriaFiltro || '_todas'} onValueChange={v => setCategoriaFiltro(v === '_todas' ? '' : v)}>
@@ -979,7 +979,7 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
               )}
             </div>
           )}
-        </div>
+        </DialogBody>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancelar</Button>
           <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Registrar entrega'}</Button>
