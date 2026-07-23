@@ -2,7 +2,11 @@
 
 Sistema de controle de entregas de EPI/materiais a terceirizados (Estado do RS, Casa Civil). Next.js 16 (App Router) + React 19 + Prisma/PostgreSQL + NextAuth. Cada terceirizado tem um posto de trabalho; cada item tem uma meta de quantidade esperada por posto (configurada na "matriz de metas"); entregas são registradas por quantidade e o sistema acompanha saldo/percentual de conformidade.
 
-## Comandos
+## Gerenciador de pacotes: é Bun, não npm/yarn
+
+**O projeto usa Bun** — só existe `bun.lock` no repo (sem `package-lock.json`/`yarn.lock`), e é isso que a Vercel usa pra instalar dependências no build de produção. `npm`/`npx` funcionam pra rodar comandos pontuais (lint, tsc, next build) em qualquer ambiente que não tenha `bun` instalado, mas **instalar/atualizar dependência com `npm install` não é equivalente** — não sincroniza o `bun.lock`, que é o que a produção realmente usa.
+
+**Isso já causou um incidente real**: o Dependabot abriu um PR bumpando a versão do `sharp` — só editou `package.json`, porque o updater dele não entende `bun.lock`. Ficou um descompasso silencioso (manifesto pedia uma versão, lockfile resolvia outra) que só quebrou em produção, de um jeito que não aparecia rodando localmente com `npm`/`node_modules` já instalado por fora do Bun. **Depois de qualquer PR do Dependabot que mexa em dependência, rodar `bun install` e conferir se `bun.lock` mudou** — se mudou, é sinal de que estava dessincronizado.
 
 ```
 npm run dev             # porta padrão 3006 — NUNCA 3000/3001 (ver "Portas locais" abaixo)
@@ -13,7 +17,7 @@ npm run db:generate | db:push | db:migrate
 npm run db:normalizar-unidades   # bun scripts/normalizar_unidades.ts — idempotente
 ```
 
-Runtime dos scripts (`bun scripts/...`) assume `bun`; se não tiver `bun` instalado no ambiente, os mesmos scripts rodam com `npx tsx scripts/arquivo.ts`.
+Runtime dos scripts (`bun scripts/...`) assume `bun`; se não tiver `bun` instalado no ambiente, os mesmos scripts rodam com `npx tsx scripts/arquivo.ts` — mas isso é só pra *rodar* o script, não substitui `bun install` pra manter o lockfile em dia.
 
 ## Banco de dados
 
@@ -46,4 +50,5 @@ Este ambiente de desenvolvimento roda vários outros projetos via Docker nas por
 - **Tema**: padrão é `light` (`src/components/providers/theme-provider.tsx`). A rota `/relatorio/*` sempre força `light` via `forcedTheme`, independente da escolha do usuário — é documento para impressão/PDF, precisa de contraste garantido.
 - Sem alteração de schema Prisma na feature de metas por posto — usa campos que já existiam (`ItemPosto.quantidadeEsperada/obrigatorio`, `Entrega.quantidade`).
 - **Renomear algo que já tem dado gravado (ex.: nome de empresa) não basta trocar o texto no código/seed.** O `upsert` do `prisma/seed.ts` casa pelo campo único (`nome`) — se a linha antiga nunca existiu com o nome novo, o upsert só *cria* uma linha nova, nunca migra a antiga. Quando a empresa contratada virou de "CAROLDO" para "ORBIS" (commit `5162ae2`), só o código/UI foi atualizado; a linha `Empresa` já gravada no banco de produção continuou com `nome = "CAROLDO"`, e qualquer tela que lê `empresa.nome` direto do banco (relatório do terceirizado, cabeçalho e assinaturas) mostrava o nome antigo. Corrigido com `scripts/renomear_empresa_caroldo_orbis.ts` (idempotente, também funciona se por algum motivo já existirem as duas linhas). **Regra geral: renomear uma entidade sempre exige um script de migração de dado além da mudança de código, se a entidade já pode ter linhas gravadas.**
-- **Tela de Itens (e catálogo com imagem em geral) é sensível a performance por dois motivos que já causaram lentidão real**: (1) evite efeitos duplicados buscando o mesmo endpoint no mount — já existiu um bug em `itens.tsx` com dois `useEffect` chamando `GET /api/itens` ao mesmo tempo; (2) toda imagem de item (`src/lib/storage.ts`, pastas `itens` e `entregas-fotos`) é redimensionada para no máximo 800px no upload via `sharp` antes de salvar/enviar ao Blob — não reintroduzir upload de imagem sem passar por `saveUpload`. Listas de itens com `<img>` devem usar `loading="lazy"`.
+- **Tela de Itens (e catálogo com imagem em geral) é sensível a performance por dois motivos que já causaram lentidão real**: (1) evite efeitos duplicados buscando o mesmo endpoint no mount — já existiu um bug em `itens.tsx` com dois `useEffect` chamando `GET /api/itens` ao mesmo tempo, e outro em que o efeito sem `.catch()` prendia a tela em loading infinito se qualquer fetch falhasse; (2) toda imagem de item (`src/lib/storage.ts`, pastas `itens` e `entregas-fotos`) é redimensionada para no máximo 800px no upload via `sharp` antes de salvar/enviar ao Blob — não reintroduzir upload de imagem sem passar por `saveUpload`. Listas de itens com `<img>` devem usar `loading="lazy"`.
+- **Qualquer dependência com binário nativo (native addon, ex.: `sharp`/libvips) precisa de DUAS coisas em `next.config.ts`, não só uma**: `serverExternalPackages: ["nome-do-pacote"]` (impede o bundler de tentar empacotar o pacote — ele carrega direto do `node_modules` em runtime) **e**, como este projeto usa `output: "standalone"`, também `outputFileTracingIncludes` apontando o glob dos arquivos binários (`.so`/`.node`) que o rastreamento de arquivos do standalone não detecta sozinho (o binário é carregado via `dlopen`/caminho montado em runtime, não um `require()` estático). Faltar qualquer um dos dois quebra em produção com `ERR_DLOPEN_FAILED`, mesmo que `next dev` e um `next build` "normal" (sem checar o conteúdo de `.next/standalone`) pareçam estar OK. **Antes de declarar uma dependência nativa como funcionando, validar rodando `node` de dentro de `.next/standalone` com o `require()` real — não só `next dev`.**
