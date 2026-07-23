@@ -26,6 +26,8 @@ export async function POST(req: NextRequest) {
     let anexoUrl: string | null = null
     let anexoNome: string | null = null
     let fotoUrl: string | null = null
+    let anexo: File | null = null
+    let foto: File | null = null
 
     if (contentType.includes('multipart/form-data')) {
       const formData = await req.formData()
@@ -35,26 +37,22 @@ export async function POST(req: NextRequest) {
       quantidade = parseInt(String(formData.get('quantidade') || '1'), 10) || 1
       observacao = (formData.get('observacao') as string) || null
 
-      const file = formData.get('anexo') as File | null
-      if (file && file.size > 0) {
+      anexo = formData.get('anexo') as File | null
+      if (anexo && anexo.size > 0) {
         // Validar tamanho (máx 10MB)
-        if (file.size > 10 * 1024 * 1024) {
+        if (anexo.size > 10 * 1024 * 1024) {
           return NextResponse.json({ error: 'Arquivo muito grande. Máximo 10MB.' }, { status: 400 })
         }
 
         // Validar extensão
-        const ext = path.extname(file.name).toLowerCase()
+        const ext = path.extname(anexo.name).toLowerCase()
         const extsPermitidas = ['.pdf', '.jpg', '.jpeg', '.png', '.gif', '.webp', '.doc', '.docx']
         if (!extsPermitidas.includes(ext)) {
           return NextResponse.json({ error: `Extensão ${ext} não permitida. Aceitas: ${extsPermitidas.join(', ')}` }, { status: 400 })
         }
-
-        const { url, nome } = await saveUpload(file, 'anexos')
-        anexoUrl = url
-        anexoNome = nome
       }
 
-      const foto = formData.get('foto') as File | null
+      foto = formData.get('foto') as File | null
       if (foto && foto.size > 0) {
         if (foto.size > 5 * 1024 * 1024) {
           return NextResponse.json({ error: 'Foto muito grande. Máximo 5MB.' }, { status: 400 })
@@ -64,8 +62,6 @@ export async function POST(req: NextRequest) {
         if (!extsPermitidas.includes(ext)) {
           return NextResponse.json({ error: `Extensão ${ext} não permitida para foto. Aceitas: ${extsPermitidas.join(', ')}` }, { status: 400 })
         }
-        const { url } = await saveUpload(foto, 'entregas-fotos')
-        fotoUrl = url
       }
     } else {
       // JSON sem anexo
@@ -88,10 +84,40 @@ export async function POST(req: NextRequest) {
     }
 
     // Verificar se colaborador está ativo
-    const colab = await db.colaborador.findUnique({ where: { id: colaboradorId } })
+    const colab = await db.colaborador.findUnique({
+      where: { id: colaboradorId },
+      select: { ativo: true, postoId: true, posto: { select: { nome: true } } },
+    })
     if (!colab) return NextResponse.json({ error: 'Colaborador não encontrado' }, { status: 404 })
     if (!colab.ativo) {
       return NextResponse.json({ error: 'Não é possível registrar entrega para colaborador desligado. Reative o cadastro antes.' }, { status: 400 })
+    }
+
+    // A filtragem da interface não é uma garantia de integridade: confirme no servidor
+    // que o item ainda está ativo e vinculado ao posto atual do colaborador.
+    const vinculo = await db.itemPosto.findUnique({
+      where: { itemId_postoId: { itemId, postoId: colab.postoId } },
+      select: { item: { select: { ativo: true } } },
+    })
+    if (!vinculo) {
+      return NextResponse.json(
+        { error: `O item selecionado não está vinculado ao posto ${colab.posto.nome}.` },
+        { status: 400 }
+      )
+    }
+    if (!vinculo.item.ativo) {
+      return NextResponse.json({ error: 'Não é possível registrar entrega de um item inativo.' }, { status: 400 })
+    }
+
+    // Só grave arquivos depois de validar toda a regra de negócio, evitando uploads órfãos.
+    if (anexo && anexo.size > 0) {
+      const { url, nome } = await saveUpload(anexo, 'anexos')
+      anexoUrl = url
+      anexoNome = nome
+    }
+    if (foto && foto.size > 0) {
+      const { url } = await saveUpload(foto, 'entregas-fotos')
+      fotoUrl = url
     }
 
     const entrega = await db.entrega.create({
