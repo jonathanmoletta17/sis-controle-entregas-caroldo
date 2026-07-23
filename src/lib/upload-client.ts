@@ -1,6 +1,6 @@
 'use client'
 
-import { uploadPresigned } from '@vercel/blob/client'
+import { upload } from '@vercel/blob/client'
 import {
   contentTypeFor,
   extensionOf,
@@ -8,6 +8,7 @@ import {
   type UploadPurpose,
   type UploadReference,
   validateFileMetadata,
+  validateFileType,
 } from '@/lib/uploads'
 
 interface UploadContext {
@@ -27,8 +28,13 @@ async function getUploadContext(): Promise<UploadContext> {
 }
 
 async function resizeImage(file: File, purpose: UploadPurpose): Promise<File> {
-  if (purpose === 'delivery-attachment' || file.type === 'image/gif') return file
-  if (!file.type.startsWith('image/')) return file
+  if (purpose === 'delivery-attachment') return file
+  // Câmeras/pickers móveis frequentemente entregam File.type vazio; inferimos o
+  // tipo pela extensão para não pular o resize de uma foto grande só porque o MIME
+  // veio em branco (era um bug: fotos cheias subiam sem redução).
+  const effectiveType = file.type || contentTypeFor(file)
+  if (effectiveType === 'image/gif') return file
+  if (!effectiveType.startsWith('image/')) return file
 
   try {
     const bitmap = await createImageBitmap(file)
@@ -50,7 +56,7 @@ async function resizeImage(file: File, purpose: UploadPurpose): Promise<File> {
     context.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
     bitmap.close()
 
-    const targetType = file.type === 'image/png' ? 'image/png' : file.type === 'image/webp' ? 'image/webp' : 'image/jpeg'
+    const targetType = effectiveType === 'image/png' ? 'image/png' : effectiveType === 'image/webp' ? 'image/webp' : 'image/jpeg'
     const blob = await new Promise<Blob | null>(resolve =>
       canvas.toBlob(resolve, targetType, targetType === 'image/png' ? undefined : 0.82),
     )
@@ -76,7 +82,9 @@ export async function uploadUserFile(
   purpose: UploadPurpose,
   onProgress?: (percentage: number) => void,
 ): Promise<UploadReference> {
-  validateFileMetadata(originalFile, purpose)
+  // Valida formato e o teto bruto no arquivo original; o limite final de tamanho é
+  // aplicado só depois do resize (uma foto de celular de 8MB vira <200KB e passa).
+  validateFileType(originalFile, purpose)
   const processed = normalizedFile(await resizeImage(originalFile, purpose))
   validateFileMetadata(processed, purpose)
 
@@ -85,7 +93,7 @@ export async function uploadUserFile(
   const pathname = `${config.folder}/${context.userId}/${crypto.randomUUID()}${extensionOf(processed.name)}`
 
   if (context.directUpload) {
-    const blob = await uploadPresigned(pathname, processed, {
+    const blob = await upload(pathname, processed, {
       access: 'public',
       handleUploadUrl: '/api/uploads',
       clientPayload: JSON.stringify({ purpose }),

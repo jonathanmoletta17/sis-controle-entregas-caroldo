@@ -32,7 +32,7 @@ import { useApp } from '@/components/app/app-context'
 import { UNIDADES_MEDIDA, UNIDADES_VALORES, UNIDADE_PADRAO } from '@/lib/unidades'
 import { cleanupUserUploads, uploadUserFile } from '@/lib/upload-client'
 import { useObjectUrl } from '@/hooks/use-object-url'
-import { validateFileMetadata, type UploadReference } from '@/lib/uploads'
+import { validateFileType, type UploadReference } from '@/lib/uploads'
 
 interface Categoria { id: string; nome: string; descricao: string | null }
 interface Posto { id: string; nome: string; corCapacete: string | null }
@@ -450,7 +450,7 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
 
   const selecionarImagem = (f: File) => {
     try {
-      validateFileMetadata(f, 'item-image')
+      validateFileType(f, 'item-image')
       setImagem(f)
     } catch (error) {
       toast({ title: 'Imagem inválida', description: error instanceof Error ? error.message : 'Selecione outro arquivo.', variant: 'destructive' })

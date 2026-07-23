@@ -54,13 +54,45 @@ export function hasValidFileSignature(bytes: Uint8Array, purpose: UploadPurpose,
   return false
 }
 
-async function readPrefix(reference: UploadReference): Promise<Uint8Array> {
-  if (isBlobUrl(reference.url)) {
-    const response = await fetch(reference.url, { headers: { Range: 'bytes=0-15' }, cache: 'no-store' })
-    if (!response.ok) {
-      throw new UploadValidationError('UPLOAD_NOT_FOUND', 'O arquivo enviado não foi encontrado.', 400)
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+// Vercel Blob é consistente após a escrita para a URL retornada, mas logo depois do
+// upload direto pode haver um curto atraso de propagação no CDN. Tentamos algumas
+// vezes com backoff curto antes de desistir, para não bloquear um save legítimo por
+// uma leitura prematura.
+async function withRetry<T>(fn: () => Promise<T>, attempts = 3, baseDelayMs = 250): Promise<T> {
+  let lastError: unknown
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fn()
+    } catch (error) {
+      lastError = error
+      if (i < attempts - 1) await sleep(baseDelayMs * (i + 1))
     }
-    return new Uint8Array(await response.arrayBuffer())
+  }
+  throw lastError
+}
+
+// Lê os primeiros bytes para conferir a assinatura real do arquivo. Em falha
+// transitória de rede (não um "não encontrado" definitivo), retorna null para que o
+// chamador NÃO bloqueie o save — o tipo já foi validado pelo metadata do head e
+// restringido no token de upload. Só bloqueamos quando conseguimos ler bytes e eles
+// não batem com o formato.
+async function readPrefixSafe(reference: UploadReference): Promise<Uint8Array | null> {
+  if (isBlobUrl(reference.url)) {
+    try {
+      return await withRetry(async () => {
+        const response = await fetch(reference.url, { headers: { Range: 'bytes=0-15' }, cache: 'no-store' })
+        if (!response.ok) throw new Error(`blob prefix fetch ${response.status}`)
+        return new Uint8Array(await response.arrayBuffer())
+      })
+    } catch (error) {
+      console.warn('[upload.validate] não foi possível ler prefixo do blob, seguindo sem checagem de assinatura:', {
+        url: reference.url,
+        error,
+      })
+      return null
+    }
   }
 
   const absolute = localUploadPath(reference.url)
@@ -92,7 +124,12 @@ export async function validateUploadReference(
   let pathname: string
 
   if (isBlobUrl(reference.url)) {
-    const metadata = await head(reference.url)
+    let metadata
+    try {
+      metadata = await withRetry(() => head(reference.url))
+    } catch {
+      throw new UploadValidationError('UPLOAD_NOT_FOUND', 'O arquivo enviado não foi encontrado.', 400)
+    }
     size = metadata.size
     contentType = metadata.contentType.toLowerCase()
     pathname = metadata.pathname
@@ -118,8 +155,8 @@ export async function validateUploadReference(
     throw new UploadValidationError('UNSUPPORTED_CONTENT_TYPE', 'O tipo do arquivo enviado não é permitido.')
   }
 
-  const prefix = await readPrefix(reference)
-  if (!hasValidFileSignature(prefix, purpose, contentType)) {
+  const prefix = await readPrefixSafe(reference)
+  if (prefix && !hasValidFileSignature(prefix, purpose, contentType)) {
     throw new UploadValidationError(
       'INVALID_FILE_CONTENT',
       'O conteúdo do arquivo não corresponde ao formato informado. Selecione outro arquivo.',

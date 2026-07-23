@@ -7,25 +7,38 @@ export interface UploadReference {
 
 export const UPLOAD_CONFIG: Record<UploadPurpose, {
   folder: 'itens' | 'entregas-fotos' | 'anexos'
+  /** Tamanho máximo do arquivo que efetivamente é enviado ao Blob (pós-resize, para imagens). */
   maxBytes: number
+  /**
+   * Tamanho máximo do arquivo ORIGINAL selecionado pelo usuário, antes do
+   * redimensionamento no cliente. Imagens de câmera de celular passam de 5MB com
+   * facilidade; como elas são reduzidas para 800px antes do upload, não faz sentido
+   * rejeitar na seleção — só protegemos contra arquivos absurdos que estourariam a
+   * memória ao decodificar. Para anexos (que não são redimensionados) o teto bruto
+   * é o próprio maxBytes.
+   */
+  rawMaxBytes: number
   allowedExtensions: string[]
   allowedContentTypes: string[]
 }> = {
   'item-image': {
     folder: 'itens',
     maxBytes: 5 * 1024 * 1024,
+    rawMaxBytes: 40 * 1024 * 1024,
     allowedExtensions: ['.jpg', '.jpeg', '.png', '.webp', '.gif'],
     allowedContentTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
   },
   'delivery-photo': {
     folder: 'entregas-fotos',
     maxBytes: 5 * 1024 * 1024,
+    rawMaxBytes: 40 * 1024 * 1024,
     allowedExtensions: ['.jpg', '.jpeg', '.png', '.webp', '.gif'],
     allowedContentTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
   },
   'delivery-attachment': {
     folder: 'anexos',
     maxBytes: 10 * 1024 * 1024,
+    rawMaxBytes: 10 * 1024 * 1024,
     allowedExtensions: ['.pdf', '.jpg', '.jpeg', '.png', '.webp', '.gif', '.doc', '.docx'],
     allowedContentTypes: [
       'application/pdf',
@@ -75,8 +88,8 @@ export function contentTypeFor(file: Pick<File, 'name' | 'type'>): string {
   return byExtension[extension] || 'application/octet-stream'
 }
 
-export function validateFileMetadata(
-  file: Pick<File, 'name' | 'size' | 'type'>,
+function assertTypeAllowed(
+  file: Pick<File, 'name' | 'type'>,
   purpose: UploadPurpose,
 ): void {
   const config = UPLOAD_CONFIG[purpose]
@@ -95,11 +108,40 @@ export function validateFileMetadata(
       'O tipo real informado pelo arquivo não corresponde a um formato permitido.',
     )
   }
+}
+
+// Validação de SELEÇÃO / pré-upload: confere formato e um teto BRUTO generoso, mas
+// NÃO aplica o limite final de tamanho — imagens grandes de câmera são reduzidas para
+// 800px no cliente antes do envio (ver upload-client). Aplicar o limite de 5MB aqui
+// rejeitaria fotos de celular que ficariam pequenas depois do resize.
+export function validateFileType(
+  file: Pick<File, 'name' | 'size' | 'type'>,
+  purpose: UploadPurpose,
+): void {
+  const config = UPLOAD_CONFIG[purpose]
+  assertTypeAllowed(file, purpose)
+  if (file.size <= 0) {
+    throw new UploadValidationError('EMPTY_FILE', 'O arquivo selecionado está vazio.')
+  }
+  if (file.size > config.rawMaxBytes) {
+    const maxMb = Math.round(config.rawMaxBytes / (1024 * 1024))
+    throw new UploadValidationError('FILE_TOO_LARGE', `Arquivo muito grande. Máximo ${maxMb}MB.`)
+  }
+}
+
+// Validação FINAL: aplicada ao arquivo que realmente vai ao Blob (já redimensionado, no
+// caso de imagens) e no servidor. Aqui o limite é o maxBytes efetivo.
+export function validateFileMetadata(
+  file: Pick<File, 'name' | 'size' | 'type'>,
+  purpose: UploadPurpose,
+): void {
+  const config = UPLOAD_CONFIG[purpose]
+  assertTypeAllowed(file, purpose)
   if (file.size <= 0) {
     throw new UploadValidationError('EMPTY_FILE', 'O arquivo selecionado está vazio.')
   }
   if (file.size > config.maxBytes) {
-    const maxMb = config.maxBytes / (1024 * 1024)
+    const maxMb = Math.round(config.maxBytes / (1024 * 1024))
     throw new UploadValidationError('FILE_TOO_LARGE', `Arquivo muito grande. Máximo ${maxMb}MB.`)
   }
 }

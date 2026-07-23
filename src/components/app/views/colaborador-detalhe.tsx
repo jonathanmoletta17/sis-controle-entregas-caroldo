@@ -27,7 +27,7 @@ import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared
 import { useCanWrite } from '@/hooks/use-can-write'
 import { cleanupUserUploads, uploadUserFile } from '@/lib/upload-client'
 import { useObjectUrl } from '@/hooks/use-object-url'
-import { validateFileMetadata, type UploadReference } from '@/lib/uploads'
+import { validateFileType, type UploadReference } from '@/lib/uploads'
 
 interface Posto { id: string; nome: string; corCapacete: string | null }
 interface ColaboradorDetalhe {
@@ -784,7 +784,7 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
 
   const selecionarFoto = (f: File) => {
     try {
-      validateFileMetadata(f, 'delivery-photo')
+      validateFileType(f, 'delivery-photo')
       setFoto(f)
     } catch (error) {
       toast({ title: 'Foto inválida', description: error instanceof Error ? error.message : 'Selecione outro arquivo.', variant: 'destructive' })
@@ -793,7 +793,7 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
 
   const selecionarAnexo = (f: File) => {
     try {
-      validateFileMetadata(f, 'delivery-attachment')
+      validateFileType(f, 'delivery-attachment')
       setAnexo(f)
     } catch (error) {
       toast({ title: 'Anexo inválido', description: error instanceof Error ? error.message : 'Selecione outro arquivo.', variant: 'destructive' })

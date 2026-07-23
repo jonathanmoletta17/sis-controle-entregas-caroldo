@@ -1,5 +1,4 @@
-import { issueSignedToken } from '@vercel/blob'
-import { handleUploadPresigned, type HandleUploadPresignedBody } from '@vercel/blob/client'
+import { handleUpload, type HandleUploadBody } from '@vercel/blob/client'
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { canWrite } from '@/lib/permissions'
@@ -61,11 +60,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(result, { status: 201 })
     }
 
-    const body = await req.json() as HandleUploadPresignedBody
-    const result = await handleUploadPresigned({
+    const body = await req.json() as HandleUploadBody
+    const result = await handleUpload({
       request: req,
       body,
-      getSignedToken: async (pathname, clientPayload) => {
+      onBeforeGenerateToken: async (pathname, clientPayload) => {
         const payload = JSON.parse(clientPayload || '{}') as { purpose?: string }
         const purpose = parsePurpose(payload.purpose)
         const config = UPLOAD_CONFIG[purpose]
@@ -73,23 +72,12 @@ export async function POST(req: NextRequest) {
         if (!pathname.startsWith(expectedPrefix) || pathname.includes('..')) {
           throw new UploadValidationError('INVALID_UPLOAD_PATH', 'Destino de upload inválido.', 403)
         }
-        const validUntil = Date.now() + 10 * 60 * 1000
         return {
-          token: await issueSignedToken({
-            pathname,
-            operations: ['put'],
-            allowedContentTypes: config.allowedContentTypes,
-            maximumSizeInBytes: config.maxBytes,
-            validUntil,
-          }),
-          urlOptions: {
-            allowedContentTypes: config.allowedContentTypes,
-            maximumSizeInBytes: config.maxBytes,
-            addRandomSuffix: false,
-            allowOverwrite: false,
-            validUntil,
-            tokenPayload: JSON.stringify({ purpose, userId: actor.userId }),
-          },
+          allowedContentTypes: config.allowedContentTypes,
+          maximumSizeInBytes: config.maxBytes,
+          addRandomSuffix: false,
+          allowOverwrite: false,
+          tokenPayload: JSON.stringify({ purpose, userId: actor.userId }),
         }
       },
     })

@@ -5,6 +5,7 @@ import {
   extensionOf,
   UploadValidationError,
   validateFileMetadata,
+  validateFileType,
 } from '@/lib/uploads'
 
 function metadata(name, size, type) {
@@ -41,6 +42,39 @@ describe('contrato de uploads', () => {
 
   it('não confia apenas na extensão quando o MIME diverge', () => {
     expect(() => validateFileMetadata(metadata('foto.jpg', 100, 'application/pdf'), 'item-image')).toThrow()
+  })
+})
+
+describe('validação de seleção (validateFileType)', () => {
+  it('aceita foto de celular grande na seleção — o resize reduz antes do upload', () => {
+    // 12MB: reprovado pelo limite final de 5MB, mas a seleção deve passar porque
+    // a imagem é redimencionada para 800px no cliente antes de ir ao Blob.
+    expect(() => validateFileType(metadata('foto.jpg', 12 * 1024 * 1024, 'image/jpeg'), 'delivery-photo')).not.toThrow()
+    expect(() => validateFileMetadata(metadata('foto.jpg', 12 * 1024 * 1024, 'image/jpeg'), 'delivery-photo')).toThrow()
+  })
+
+  it('infere o tipo pela extensão quando o MIME vem vazio (câmera/mobile)', () => {
+    expect(() => validateFileType(metadata('foto.JPG', 3 * 1024 * 1024, ''), 'delivery-photo')).not.toThrow()
+  })
+
+  it('ainda barra imagem absurda acima do teto bruto', () => {
+    try {
+      validateFileType(metadata('foto.jpg', 41 * 1024 * 1024, 'image/jpeg'), 'delivery-photo')
+      throw new Error('deveria rejeitar')
+    } catch (error) {
+      expect(error).toBeInstanceOf(UploadValidationError)
+      expect(error.code).toBe('FILE_TOO_LARGE')
+    }
+  })
+
+  it('barra formato não permitido e arquivo vazio na seleção', () => {
+    expect(() => validateFileType(metadata('virus.exe', 100, 'application/octet-stream'), 'item-image')).toThrow()
+    expect(() => validateFileType(metadata('foto.jpg', 0, 'image/jpeg'), 'delivery-photo')).toThrow()
+  })
+
+  it('para anexos (sem resize) o teto bruto é o mesmo limite final de 10MB', () => {
+    expect(() => validateFileType(metadata('aso.pdf', 10 * 1024 * 1024, 'application/pdf'), 'delivery-attachment')).not.toThrow()
+    expect(() => validateFileType(metadata('aso.pdf', 10 * 1024 * 1024 + 1, 'application/pdf'), 'delivery-attachment')).toThrow()
   })
 })
 
