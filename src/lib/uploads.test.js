@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { hasValidFileSignature } from '@/lib/upload-server'
+import { hasValidFileSignature, validateUploadReference } from '@/lib/upload-server'
 import {
   contentTypeFor,
   extensionOf,
@@ -57,5 +57,15 @@ describe('assinatura real dos arquivos', () => {
     expect(hasValidFileSignature(Uint8Array.from([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1]), 'delivery-attachment', 'application/msword')).toBeTrue()
     expect(hasValidFileSignature(Uint8Array.from([0x50, 0x4b, 0x03, 0x04]), 'delivery-attachment', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')).toBeTrue()
     expect(hasValidFileSignature(new TextEncoder().encode('not-a-jpeg'), 'item-image', 'image/jpeg')).toBeFalse()
+  })
+})
+
+describe('referências locais', () => {
+  it('rejeita travessia de diretório antes de acessar o disco', async () => {
+    await expect(validateUploadReference(
+      { url: '/uploads/itens/user-1/../segredo.jpg', nome: 'foto.jpg' },
+      'item-image',
+      'user-1',
+    )).rejects.toMatchObject({ code: 'INVALID_UPLOAD_URL' })
   })
 })
