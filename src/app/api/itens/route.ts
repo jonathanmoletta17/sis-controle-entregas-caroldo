@@ -1,13 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
-import path from 'path'
 import { saveUpload, rejeitarSeGrandeDemais } from '@/lib/storage'
 import { withAuditContext } from '@/lib/with-audit'
 import { logAudit } from '@/lib/audit'
 import { normalizarPostos, type PostoConfig } from '@/lib/item-postos'
 import { normalizarUnidade } from '@/lib/unidades'
+import { cleanupUploads, validateUploadReference } from '@/lib/upload-server'
+import {
+  UploadValidationError,
+  type UploadReference,
+  uploadErrorResponse,
+  validateFileMetadata,
+} from '@/lib/uploads'
 
-const MAX_REQUEST_BYTES = 8 * 1024 * 1024 // 5MB de imagem + folga para overhead do multipart
+const MAX_LEGACY_REQUEST_BYTES = 4 * 1024 * 1024
 
 // GET /api/itens?categoriaId=...&postoId=...
 export async function GET(req: NextRequest) {
@@ -52,10 +58,13 @@ export async function GET(req: NextRequest) {
 // POST /api/itens — criar novo item (multipart/form-data com imagem OU JSON sem imagem)
 export async function POST(req: NextRequest) {
   return withAuditContext(req, async ({ userId, ip }) => {
+  const requestId = crypto.randomUUID()
+  let imagem: UploadReference | null = null
   try {
+    if (!userId) return NextResponse.json({ error: 'Usuário não identificado.', code: 'USER_REQUIRED', requestId }, { status: 403 })
     const contentType = req.headers.get('content-type') || ''
     if (contentType.includes('multipart/form-data')) {
-      const rejeitado = rejeitarSeGrandeDemais(req, MAX_REQUEST_BYTES)
+      const rejeitado = rejeitarSeGrandeDemais(req, MAX_LEGACY_REQUEST_BYTES)
       if (rejeitado) return rejeitado
     }
     let descricao: string
@@ -77,10 +86,11 @@ export async function POST(req: NextRequest) {
 
       const file = formData.get('imagem') as File | null
       if (file && file.size > 0) {
-        const result = await saveImage(file)
+        const result = await saveImage(file, userId)
         if (result.error) return NextResponse.json({ error: result.error }, { status: 400 })
-        imagemUrl = result.url
-        imagemNome = result.nome
+        imagemUrl = result.url!
+        imagemNome = result.nome!
+        imagem = { url: result.url!, nome: result.nome! }
       }
     } else {
       const body = await req.json()
@@ -89,67 +99,82 @@ export async function POST(req: NextRequest) {
       categoriaId = body.categoriaId
       ativo = body.ativo !== false
       postos = normalizarPostos(body.postos)
+      imagem = body.imagem || null
     }
 
     if (!descricao || String(descricao).trim().length < 3) {
+      await cleanupUploads([imagem])
+      imagem = null
       return NextResponse.json({ error: 'Descrição é obrigatória (mínimo 3 caracteres)' }, { status: 400 })
     }
     if (!categoriaId) {
+      await cleanupUploads([imagem])
+      imagem = null
       return NextResponse.json({ error: 'Categoria é obrigatória' }, { status: 400 })
     }
-
-    const item = await db.item.create({
-      data: {
-        descricao: String(descricao).trim(),
-        unidade: normalizarUnidade(unidade),
-        categoriaId,
-        ativo,
-        imagemUrl,
-        imagemNome,
-        criadoPorId: userId,
-      },
-      include: { categoria: true },
-    })
-
-    if (postos.length > 0) {
-      await db.itemPosto.createMany({
-        data: postos.map(p => ({
-          itemId: item.id,
-          postoId: p.postoId,
-          quantidadeEsperada: p.quantidadeEsperada,
-          obrigatorio: p.obrigatorio,
-        })),
-      })
+    if (imagem) {
+      await validateUploadReference(imagem, 'item-image', userId)
+      imagemUrl = imagem.url
+      imagemNome = imagem.nome
     }
 
-    const final = await db.item.findUnique({
-      where: { id: item.id },
-      include: {
-        categoria: true,
-        postos: { include: { posto: true } },
-        criadoPor: { select: { nome: true } },
-        atualizadoPor: { select: { nome: true } },
-      },
+    const final = await db.$transaction(async tx => {
+      const item = await tx.item.create({
+        data: {
+          descricao: String(descricao).trim(),
+          unidade: normalizarUnidade(unidade),
+          categoriaId,
+          ativo,
+          imagemUrl,
+          imagemNome,
+          criadoPorId: userId,
+        },
+      })
+      if (postos.length > 0) {
+        await tx.itemPosto.createMany({
+          data: postos.map(p => ({
+            itemId: item.id,
+            postoId: p.postoId,
+            quantidadeEsperada: p.quantidadeEsperada,
+            obrigatorio: p.obrigatorio,
+          })),
+        })
+      }
+      return tx.item.findUnique({
+        where: { id: item.id },
+        include: {
+          categoria: true,
+          postos: { include: { posto: true } },
+          criadoPor: { select: { nome: true } },
+          atualizadoPor: { select: { nome: true } },
+        },
+      })
     })
-    await logAudit({ userId, ip, acao: 'CREATE', tabela: 'Item', registroId: item.id, valoresNovos: final })
+    if (!final) throw new Error('Item não encontrado após criação.')
+    await logAudit({ userId, ip, acao: 'CREATE', tabela: 'Item', registroId: final.id, valoresNovos: final })
     return NextResponse.json(final, { status: 201 })
   } catch (err: any) {
-    console.error('[POST /api/itens] error:', err)
-    return NextResponse.json({ error: err.message || 'Erro ao criar item' }, { status: 500 })
+    await cleanupUploads([imagem])
+    console.error('[POST /api/itens] error:', { requestId, code: err?.code, error: err })
+    if (err instanceof UploadValidationError) {
+      const response = uploadErrorResponse(err, requestId)
+      return NextResponse.json(response.body, { status: response.status })
+    }
+    return NextResponse.json(
+      { error: 'Erro ao criar item. Tente novamente.', code: 'ITEM_CREATE_FAILED', requestId },
+      { status: 500 },
+    )
   }
   })
 }
 
 // Helper: salvar imagem do item
-async function saveImage(file: File): Promise<{ url?: string; nome?: string; error?: string }> {
-  if (file.size > 5 * 1024 * 1024) {
-    return { error: 'Imagem muito grande. Máximo 5MB.' }
+async function saveImage(file: File, userId: string): Promise<{ url?: string; nome?: string; error?: string }> {
+  try {
+    validateFileMetadata(file, 'item-image')
+  } catch (error) {
+    return { error: error instanceof Error ? error.message : 'Imagem inválida.' }
   }
-  const ext = path.extname(file.name).toLowerCase()
-  const extsPermitidas = ['.jpg', '.jpeg', '.png', '.webp', '.gif']
-  if (!extsPermitidas.includes(ext)) {
-    return { error: `Extensão ${ext} não permitida para imagem. Aceitas: ${extsPermitidas.join(', ')}` }
-  }
-  const { url, nome } = await saveUpload(file, 'itens')
+  const { url, nome } = await saveUpload(file, 'itens', userId)
   return { url, nome }
 }

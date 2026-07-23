@@ -83,7 +83,7 @@ export function ChecklistsView() {
   const [loading, setLoading] = useState(true)
   const [loadingChecklist, setLoadingChecklist] = useState(false)
   const [showEntrega, setShowEntrega] = useState<{ itemId: string; descricao: string; categoriaNome: string; quantidadeEsperada: number; entregueQtd: number } | null>(null)
-  const [visualizandoItem, setVisualizandoItem] = useState<ChecklistItem | null>(null)
+  const [visualizandoItem, setVisualizandoItem] = useState<ItemVisualizacao | null>(null)
 
   useEffect(() => {
     fetch('/api/colaboradores?incluirDesligados=false')
@@ -357,7 +357,7 @@ export function ChecklistsView() {
       />
 
       <ItemVisualizacaoModal
-        item={visualizandoItem as ItemVisualizacao | null}
+        item={visualizandoItem}
         open={!!visualizandoItem}
         onOpenChange={(o) => !o && setVisualizandoItem(null)}
       />

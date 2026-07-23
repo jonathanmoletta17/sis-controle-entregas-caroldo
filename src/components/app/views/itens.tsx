@@ -30,6 +30,9 @@ import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared
 import { useCanWrite } from '@/hooks/use-can-write'
 import { useApp } from '@/components/app/app-context'
 import { UNIDADES_MEDIDA, UNIDADES_VALORES, UNIDADE_PADRAO } from '@/lib/unidades'
+import { cleanupUserUploads, uploadUserFile } from '@/lib/upload-client'
+import { useObjectUrl } from '@/hooks/use-object-url'
+import { validateFileMetadata, type UploadReference } from '@/lib/uploads'
 
 interface Categoria { id: string; nome: string; descricao: string | null }
 interface Posto { id: string; nome: string; corCapacete: string | null }
@@ -421,6 +424,7 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
     })) || []
   )
   const [imagem, setImagem] = useState<File | null>(null)
+  const imagemPreviewUrl = useObjectUrl(imagem)
   const [imagemAtualRemovida, setImagemAtualRemovida] = useState(false)
   const [saving, setSaving] = useState(false)
 
@@ -445,11 +449,12 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
   }
 
   const selecionarImagem = (f: File) => {
-    if (f.size > 5 * 1024 * 1024) {
-      toast({ title: 'Imagem muito grande', description: 'Máximo 5MB.', variant: 'destructive' })
-      return
+    try {
+      validateFileMetadata(f, 'item-image')
+      setImagem(f)
+    } catch (error) {
+      toast({ title: 'Imagem inválida', description: error instanceof Error ? error.message : 'Selecione outro arquivo.', variant: 'destructive' })
     }
-    setImagem(f)
   }
 
   const submit = async () => {
@@ -462,32 +467,27 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
       return
     }
     setSaving(true)
+    let imagemEnviada: UploadReference | null = null
     try {
       const url = item ? `/api/itens/${item.id}` : '/api/itens'
       const method = item ? 'PUT' : 'POST'
-      let r: Response
-      if (imagem || imagemAtualRemovida) {
-        const fd = new FormData()
-        fd.append('descricao', form.descricao)
-        fd.append('unidade', form.unidade)
-        fd.append('categoriaId', form.categoriaId)
-        fd.append('ativo', String(form.ativo))
-        fd.append('postos', JSON.stringify(postosSelecionados))
-        if (imagem) fd.append('imagem', imagem)
-        if (imagemAtualRemovida) fd.append('removerImagem', 'true')
-        r = await fetch(url, { method, body: fd })
-      } else {
-        r = await fetch(url, {
-          method,
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...form, postos: postosSelecionados }),
-        })
-      }
+      if (imagem) imagemEnviada = await uploadUserFile(imagem, 'item-image')
+      const r = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          postos: postosSelecionados,
+          imagem: imagemEnviada,
+          removerImagem: imagemAtualRemovida,
+        }),
+      })
       if (!r.ok) {
         let msg = 'Erro ao salvar'
         try {
           const d = await r.json()
           msg = d.error || msg
+          if (d.requestId) msg += ` (protocolo ${d.requestId})`
         } catch {
           msg = `${r.status} ${r.statusText || '— erro de servidor'}`
         }
@@ -495,6 +495,9 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
       }
       onSaved()
     } catch (e: any) {
+      if (imagemEnviada) {
+        await cleanupUserUploads([{ reference: imagemEnviada, purpose: 'item-image' }])
+      }
       toast({ title: 'Erro', description: e.message, variant: 'destructive' })
     } finally {
       setSaving(false)
@@ -594,7 +597,7 @@ function ItemForm({ categorias, postos, item, onClose, onSaved }: {
             ) : (
               <div className="space-y-2">
                 <div className="flex items-center gap-3 border rounded-md p-3 bg-accent/30 min-w-0">
-                  <img src={URL.createObjectURL(imagem)} alt="" className="h-16 w-16 object-cover rounded border shrink-0" />
+                  {imagemPreviewUrl && <img src={imagemPreviewUrl} alt="" className="h-16 w-16 object-cover rounded border shrink-0" />}
                   <div className="flex-1 min-w-0 overflow-hidden">
                     <div className="text-sm font-medium truncate" title={imagem.name}>{imagem.name}</div>
                     <div className="text-xs text-muted-foreground">{(imagem.size / 1024).toFixed(1)} KB</div>
