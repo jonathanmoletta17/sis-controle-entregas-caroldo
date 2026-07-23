@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -25,6 +25,9 @@ import { StatusBadge, CorCapaceteBadge } from '@/components/app/shared/badges'
 import { formatCPF, formatDate, formatDateTime, todayISO } from '@/components/app/shared/format'
 import { ItemVisualizacaoModal, ItemVisualizacao } from '@/components/app/shared/item-visualizacao-modal'
 import { useCanWrite } from '@/hooks/use-can-write'
+import { cleanupUserUploads, uploadUserFile } from '@/lib/upload-client'
+import { useObjectUrl } from '@/hooks/use-object-url'
+import { validateFileMetadata, type UploadReference } from '@/lib/uploads'
 
 interface Posto { id: string; nome: string; corCapacete: string | null }
 interface ColaboradorDetalhe {
@@ -774,22 +777,27 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
   })
   const [anexo, setAnexo] = useState<File | null>(null)
   const [foto, setFoto] = useState<File | null>(null)
+  const fotoPreviewUrl = useObjectUrl(foto)
   const [saving, setSaving] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null)
+  const idempotencyKey = useRef(crypto.randomUUID())
 
   const selecionarFoto = (f: File) => {
-    if (f.size > 5 * 1024 * 1024) {
-      toast({ title: 'Foto muito grande', description: 'Máximo 5MB.', variant: 'destructive' })
-      return
+    try {
+      validateFileMetadata(f, 'delivery-photo')
+      setFoto(f)
+    } catch (error) {
+      toast({ title: 'Foto inválida', description: error instanceof Error ? error.message : 'Selecione outro arquivo.', variant: 'destructive' })
     }
-    setFoto(f)
   }
 
   const selecionarAnexo = (f: File) => {
-    if (f.size > 10 * 1024 * 1024) {
-      toast({ title: 'Anexo muito grande', description: 'Máximo 10MB.', variant: 'destructive' })
-      return
+    try {
+      validateFileMetadata(f, 'delivery-attachment')
+      setAnexo(f)
+    } catch (error) {
+      toast({ title: 'Anexo inválido', description: error instanceof Error ? error.message : 'Selecione outro arquivo.', variant: 'destructive' })
     }
-    setAnexo(f)
   }
 
   useEffect(() => {
@@ -812,30 +820,37 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
       return
     }
     setSaving(true)
+    const enviados: Array<{ reference: UploadReference; purpose: 'delivery-photo' | 'delivery-attachment' }> = []
     try {
-      let r: Response
-      if (anexo || foto) {
-        const fd = new FormData()
-        fd.append('colaboradorId', colab.id)
-        fd.append('itemId', form.itemId)
-        fd.append('dataEntrega', form.dataEntrega)
-        fd.append('quantidade', String(form.quantidade))
-        if (form.observacao) fd.append('observacao', form.observacao)
-        if (anexo) fd.append('anexo', anexo)
-        if (foto) fd.append('foto', foto)
-        r = await fetch('/api/entregas', { method: 'POST', body: fd })
-      } else {
-        r = await fetch('/api/entregas', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...form, colaboradorId: colab.id }),
-        })
+      let fotoEnviada: UploadReference | null = null
+      let anexoEnviado: UploadReference | null = null
+      if (foto) {
+        setUploadProgress(0)
+        fotoEnviada = await uploadUserFile(foto, 'delivery-photo', setUploadProgress)
+        enviados.push({ reference: fotoEnviada, purpose: 'delivery-photo' })
       }
+      if (anexo) {
+        setUploadProgress(0)
+        anexoEnviado = await uploadUserFile(anexo, 'delivery-attachment', setUploadProgress)
+        enviados.push({ reference: anexoEnviado, purpose: 'delivery-attachment' })
+      }
+      const r = await fetch('/api/entregas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          colaboradorId: colab.id,
+          foto: fotoEnviada,
+          anexo: anexoEnviado,
+          idempotencyKey: idempotencyKey.current,
+        }),
+      })
       if (!r.ok) {
         let msg = 'Erro ao registrar'
         try {
           const d = await r.json()
           msg = d.error || msg
+          if (d.requestId) msg += ` (protocolo ${d.requestId})`
         } catch {
           msg = `${r.status} ${r.statusText || '— erro de servidor'}`
         }
@@ -844,9 +859,11 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
       toast({ title: 'Entrega registrada' })
       onDone()
     } catch (e: any) {
+      await cleanupUserUploads(enviados)
       toast({ title: 'Erro', description: e.message, variant: 'destructive' })
     } finally {
       setSaving(false)
+      setUploadProgress(null)
     }
   }
 
@@ -932,7 +949,7 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
               </label>
             ) : (
               <div className="flex items-center gap-2 border rounded-md p-3 bg-accent/30">
-                <img src={URL.createObjectURL(foto)} alt="" className="h-10 w-10 object-cover rounded border shrink-0" />
+                {fotoPreviewUrl && <img src={fotoPreviewUrl} alt="" className="h-10 w-10 object-cover rounded border shrink-0" />}
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium truncate">{foto.name}</div>
                   <div className="text-xs text-muted-foreground">{(foto.size / 1024).toFixed(1)} KB</div>
@@ -982,7 +999,9 @@ function NovaEntregaForm({ colab, onClose, onDone }: {
         </DialogBody>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancelar</Button>
-          <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Registrar entrega'}</Button>
+          <Button onClick={submit} disabled={saving}>
+            {saving ? (uploadProgress === null ? 'Salvando...' : `Enviando... ${uploadProgress}%`) : 'Registrar entrega'}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

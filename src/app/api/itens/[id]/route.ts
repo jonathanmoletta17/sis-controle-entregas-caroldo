@@ -1,36 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
-import path from 'path'
 import { saveUpload, rejeitarSeGrandeDemais } from '@/lib/storage'
 import { withAuditContext } from '@/lib/with-audit'
 import { logAudit } from '@/lib/audit'
 import { normalizarPostos, type PostoConfig } from '@/lib/item-postos'
 import { normalizarUnidade } from '@/lib/unidades'
+import { cleanupUploads, deleteUpload, validateUploadReference } from '@/lib/upload-server'
+import {
+  UploadValidationError,
+  type UploadReference,
+  uploadErrorResponse,
+  validateFileMetadata,
+} from '@/lib/uploads'
 
-const MAX_REQUEST_BYTES = 8 * 1024 * 1024 // 5MB de imagem + folga para overhead do multipart
+const MAX_LEGACY_REQUEST_BYTES = 4 * 1024 * 1024
 
-async function saveImage(file: File): Promise<{ url?: string; nome?: string; error?: string }> {
-  if (file.size > 5 * 1024 * 1024) {
-    return { error: 'Imagem muito grande. Máximo 5MB.' }
+async function saveImage(file: File, userId: string): Promise<{ url?: string; nome?: string; error?: string }> {
+  try {
+    validateFileMetadata(file, 'item-image')
+  } catch (error) {
+    return { error: error instanceof Error ? error.message : 'Imagem inválida.' }
   }
-  const ext = path.extname(file.name).toLowerCase()
-  const extsPermitidas = ['.jpg', '.jpeg', '.png', '.webp', '.gif']
-  if (!extsPermitidas.includes(ext)) {
-    return { error: `Extensão ${ext} não permitida. Aceitas: ${extsPermitidas.join(', ')}` }
-  }
-  const { url, nome } = await saveUpload(file, 'itens')
+  const { url, nome } = await saveUpload(file, 'itens', userId)
   return { url, nome }
 }
 
 // PUT /api/itens/[id] — editar item (multipart com imagem OU JSON)
 export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   return withAuditContext(req, async ({ userId, ip }) => {
+  const requestId = crypto.randomUUID()
+  let novaImagem: UploadReference | null = null
   try {
+    if (!userId) return NextResponse.json({ error: 'Usuário não identificado.', code: 'USER_REQUIRED', requestId }, { status: 403 })
     const { id } = await ctx.params
     const antes = await db.item.findUnique({ where: { id }, include: { categoria: true, postos: { include: { posto: true } } } })
+    if (!antes) return NextResponse.json({ error: 'Item não encontrado.', code: 'ITEM_NOT_FOUND', requestId }, { status: 404 })
     const contentType = req.headers.get('content-type') || ''
     if (contentType.includes('multipart/form-data')) {
-      const rejeitado = rejeitarSeGrandeDemais(req, MAX_REQUEST_BYTES)
+      const rejeitado = rejeitarSeGrandeDemais(req, MAX_LEGACY_REQUEST_BYTES)
       if (rejeitado) return rejeitado
     }
 
@@ -55,10 +62,11 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
 
       const file = formData.get('imagem') as File | null
       if (file && file.size > 0) {
-        const result = await saveImage(file)
+        const result = await saveImage(file, userId)
         if (result.error) return NextResponse.json({ error: result.error }, { status: 400 })
         imagemUrl = result.url
         imagemNome = result.nome
+        novaImagem = { url: result.url!, nome: result.nome! }
       }
     } else {
       const body = await req.json()
@@ -68,11 +76,14 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
       if (body.categoriaId !== undefined) categoriaId = body.categoriaId
       if (Array.isArray(body.postos)) postos = normalizarPostos(body.postos)
       if (body.removerImagem) removerImagem = true
+      novaImagem = body.imagem || null
     }
 
     const update: any = {}
     if (descricao !== undefined) {
       if (descricao.length < 3) {
+        await cleanupUploads([novaImagem])
+        novaImagem = null
         return NextResponse.json({ error: 'Descrição deve ter ao menos 3 caracteres' }, { status: 400 })
       }
       update.descricao = descricao
@@ -80,6 +91,11 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
     if (unidade !== undefined) update.unidade = normalizarUnidade(unidade)
     if (ativo !== undefined) update.ativo = ativo
     if (categoriaId !== undefined) update.categoriaId = categoriaId
+    if (novaImagem) {
+      await validateUploadReference(novaImagem, 'item-image', userId)
+      imagemUrl = novaImagem.url
+      imagemNome = novaImagem.nome
+    }
     if (imagemUrl !== undefined) {
       update.imagemUrl = imagemUrl
       update.imagemNome = imagemNome
@@ -89,36 +105,47 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
     }
 
     update.atualizadoPorId = userId
-    await db.item.update({ where: { id }, data: update })
-
-    if (postos !== undefined) {
-      await db.itemPosto.deleteMany({ where: { itemId: id } })
-      if (postos.length > 0) {
-        await db.itemPosto.createMany({
-          data: postos.map(p => ({
-            itemId: id,
-            postoId: p.postoId,
-            quantidadeEsperada: p.quantidadeEsperada,
-            obrigatorio: p.obrigatorio,
-          })),
-        })
+    const final = await db.$transaction(async tx => {
+      await tx.item.update({ where: { id }, data: update })
+      if (postos !== undefined) {
+        await tx.itemPosto.deleteMany({ where: { itemId: id } })
+        if (postos.length > 0) {
+          await tx.itemPosto.createMany({
+            data: postos.map(p => ({
+              itemId: id,
+              postoId: p.postoId,
+              quantidadeEsperada: p.quantidadeEsperada,
+              obrigatorio: p.obrigatorio,
+            })),
+          })
+        }
       }
-    }
-
-    const final = await db.item.findUnique({
-      where: { id },
-      include: {
-        categoria: true,
-        postos: { include: { posto: true } },
-        criadoPor: { select: { nome: true } },
-        atualizadoPor: { select: { nome: true } },
-      },
+      return tx.item.findUnique({
+        where: { id },
+        include: {
+          categoria: true,
+          postos: { include: { posto: true } },
+          criadoPor: { select: { nome: true } },
+          atualizadoPor: { select: { nome: true } },
+        },
+      })
     })
     await logAudit({ userId, ip, acao: 'UPDATE', tabela: 'Item', registroId: id, valoresAntigos: antes, valoresNovos: final })
+    if ((novaImagem || removerImagem) && antes.imagemUrl && antes.imagemUrl !== novaImagem?.url) {
+      await deleteUpload(antes.imagemUrl)
+    }
     return NextResponse.json(final)
   } catch (err: any) {
-    console.error('[PUT /api/itens/[id]] error:', err)
-    return NextResponse.json({ error: err.message || 'Erro ao atualizar item' }, { status: 500 })
+    await cleanupUploads([novaImagem])
+    console.error('[PUT /api/itens/[id]] error:', { requestId, code: err?.code, error: err })
+    if (err instanceof UploadValidationError) {
+      const response = uploadErrorResponse(err, requestId)
+      return NextResponse.json(response.body, { status: response.status })
+    }
+    return NextResponse.json(
+      { error: 'Erro ao atualizar item. Tente novamente.', code: 'ITEM_UPDATE_FAILED', requestId },
+      { status: 500 },
+    )
   }
   })
 }
@@ -167,6 +194,7 @@ export async function DELETE(req: NextRequest, ctx: { params: Promise<{ id: stri
       db.item.delete({ where: { id } }),
     ])
     await logAudit({ userId, ip, acao: 'DELETE', tabela: 'Item', registroId: id, valoresAntigos: antes })
+    await deleteUpload(antes.imagemUrl)
     return NextResponse.json({ message: 'Item excluído' })
   } catch (err: any) {
     console.error('[DELETE /api/itens/[id]] error:', err)

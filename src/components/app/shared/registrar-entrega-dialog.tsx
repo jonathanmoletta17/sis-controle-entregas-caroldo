@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -14,6 +14,9 @@ import {
 import { Truck, X, Camera, Paperclip } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { todayISO } from '@/components/app/shared/format'
+import { cleanupUserUploads, uploadUserFile } from '@/lib/upload-client'
+import { useObjectUrl } from '@/hooks/use-object-url'
+import { validateFileMetadata, type UploadReference } from '@/lib/uploads'
 
 interface ColaboradorOpt {
   id: string
@@ -66,9 +69,12 @@ export function RegistrarEntregaDialog(props: RegistrarEntregaDialogProps) {
   const [qtdEditada, setQtdEditada] = useState(false)
   const [observacao, setObservacao] = useState('')
   const [foto, setFoto] = useState<File | null>(null)
+  const fotoPreviewUrl = useObjectUrl(foto)
   const [anexo, setAnexo] = useState<File | null>(null)
   const [meta, setMeta] = useState<MetaInfo | null>(null)
   const [saving, setSaving] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null)
+  const idempotencyKey = useRef('')
 
   // Reset ao abrir
   useEffect(() => {
@@ -81,6 +87,8 @@ export function RegistrarEntregaDialog(props: RegistrarEntregaDialogProps) {
     setObservacao('')
     setFoto(null)
     setAnexo(null)
+    setUploadProgress(null)
+    idempotencyKey.current = crypto.randomUUID()
     setMeta(
       props.quantidadeEsperada !== undefined
         ? {
@@ -147,47 +155,70 @@ export function RegistrarEntregaDialog(props: RegistrarEntregaDialogProps) {
   const isDocumento = categoriaItem === 'Documento'
 
   const selecionarFoto = (f: File) => {
-    if (f.size > 5 * 1024 * 1024) { toast({ title: 'Foto muito grande', description: 'Máximo 5MB.', variant: 'destructive' }); return }
-    setFoto(f)
+    try {
+      validateFileMetadata(f, 'delivery-photo')
+      setFoto(f)
+    } catch (error) {
+      toast({ title: 'Foto inválida', description: error instanceof Error ? error.message : 'Selecione outro arquivo.', variant: 'destructive' })
+    }
   }
   const selecionarAnexo = (f: File) => {
-    if (f.size > 10 * 1024 * 1024) { toast({ title: 'Anexo muito grande', description: 'Máximo 10MB.', variant: 'destructive' }); return }
-    setAnexo(f)
+    try {
+      validateFileMetadata(f, 'delivery-attachment')
+      setAnexo(f)
+    } catch (error) {
+      toast({ title: 'Anexo inválido', description: error instanceof Error ? error.message : 'Selecione outro arquivo.', variant: 'destructive' })
+    }
   }
 
   const submit = async () => {
     if (!colaboradorId) { toast({ title: 'Selecione o terceirizado', variant: 'destructive' }); return }
     if (!itemId) { toast({ title: 'Selecione o item', variant: 'destructive' }); return }
     setSaving(true)
+    const enviados: Array<{ reference: UploadReference; purpose: 'delivery-photo' | 'delivery-attachment' }> = []
     try {
-      let r: Response
-      if (anexo || foto) {
-        const fd = new FormData()
-        fd.append('colaboradorId', colaboradorId)
-        fd.append('itemId', itemId)
-        fd.append('dataEntrega', dataEntrega)
-        fd.append('quantidade', String(quantidade))
-        if (observacao) fd.append('observacao', observacao)
-        if (anexo) fd.append('anexo', anexo)
-        if (foto) fd.append('foto', foto)
-        r = await fetch('/api/entregas', { method: 'POST', body: fd })
-      } else {
-        r = await fetch('/api/entregas', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ colaboradorId, itemId, dataEntrega, quantidade, observacao }),
-        })
+      let fotoEnviada: UploadReference | null = null
+      let anexoEnviado: UploadReference | null = null
+      if (foto) {
+        setUploadProgress(0)
+        fotoEnviada = await uploadUserFile(foto, 'delivery-photo', setUploadProgress)
+        enviados.push({ reference: fotoEnviada, purpose: 'delivery-photo' })
       }
+      if (anexo) {
+        setUploadProgress(0)
+        anexoEnviado = await uploadUserFile(anexo, 'delivery-attachment', setUploadProgress)
+        enviados.push({ reference: anexoEnviado, purpose: 'delivery-attachment' })
+      }
+      const r = await fetch('/api/entregas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          colaboradorId,
+          itemId,
+          dataEntrega,
+          quantidade,
+          observacao,
+          foto: fotoEnviada,
+          anexo: anexoEnviado,
+          idempotencyKey: idempotencyKey.current || crypto.randomUUID(),
+        }),
+      })
       if (!r.ok) {
         let msg = 'Erro ao registrar'
-        try { const d = await r.json(); msg = d.error || msg } catch { msg = `${r.status} ${r.statusText || '— erro de servidor'}` }
+        try {
+          const d = await r.json()
+          msg = d.error || msg
+          if (d.requestId) msg += ` (protocolo ${d.requestId})`
+        } catch { msg = `${r.status} ${r.statusText || '— erro de servidor'}` }
         throw new Error(msg)
       }
       onSaved()
     } catch (e: any) {
+      await cleanupUserUploads(enviados)
       toast({ title: 'Erro', description: e.message, variant: 'destructive' })
     } finally {
       setSaving(false)
+      setUploadProgress(null)
     }
   }
 
@@ -315,7 +346,7 @@ export function RegistrarEntregaDialog(props: RegistrarEntregaDialogProps) {
                 </label>
               ) : (
                 <div className="flex items-center gap-2 border rounded-md p-3 bg-accent/30 min-w-0">
-                  <img src={URL.createObjectURL(foto)} alt="" className="h-10 w-10 object-cover rounded border shrink-0" />
+                  {fotoPreviewUrl && <img src={fotoPreviewUrl} alt="" className="h-10 w-10 object-cover rounded border shrink-0" />}
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-medium truncate">{foto.name}</div>
                     <div className="text-xs text-muted-foreground">{(foto.size / 1024).toFixed(1)} KB</div>
@@ -362,7 +393,9 @@ export function RegistrarEntregaDialog(props: RegistrarEntregaDialogProps) {
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={saving}>Cancelar</Button>
-          <Button onClick={submit} disabled={saving}>{saving ? 'Salvando...' : 'Registrar'}</Button>
+          <Button onClick={submit} disabled={saving}>
+            {saving ? (uploadProgress === null ? 'Salvando...' : `Enviando... ${uploadProgress}%`) : 'Registrar'}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
